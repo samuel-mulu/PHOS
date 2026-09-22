@@ -3,6 +3,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
+# Prisma 7 reads prisma.config.ts during generate; build has no .env (real URL is set at runtime).
+ENV DATABASE_URL="postgresql://build:build@127.0.0.1:5432/build?schema=public"
 RUN npx prisma generate && npm run build
 
 FROM node:24-alpine AS production
