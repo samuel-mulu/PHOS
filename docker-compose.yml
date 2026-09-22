@@ -1,0 +1,28 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: phos
+      POSTGRES_USER: phos
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-phos_dev_password}
+    volumes:
+      - phos_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U phos -d phos"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+  api:
+    build: .
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://phos:${POSTGRES_PASSWORD:-phos_dev_password}@postgres:5432/phos?schema=public
+    ports: ["4000:4000"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: ["sh", "-c", "npx prisma migrate deploy && node dist/main.js"]
+    restart: unless-stopped
+volumes:
+  phos_postgres_data:

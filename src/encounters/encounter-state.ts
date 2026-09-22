@@ -1,0 +1,26 @@
+import { EncounterStatus } from "../generated/prisma/client";
+export const ENCOUNTER_TRANSITIONS: Record<EncounterStatus, EncounterStatus[]> =
+  {
+    REGISTERED: ["WAITING_TRIAGE", "WAITING_DOCTOR", "CANCELLED"],
+    WAITING_TRIAGE: ["IN_TRIAGE", "CANCELLED"],
+    IN_TRIAGE: ["WAITING_DOCTOR", "CANCELLED"],
+    WAITING_DOCTOR: ["IN_CONSULTATION", "CANCELLED"],
+    IN_CONSULTATION: [
+      "WAITING_LAB",
+      "WAITING_PHARMACY",
+      "WAITING_PAYMENT",
+      "COMPLETED",
+      "CANCELLED",
+    ],
+    WAITING_LAB: ["WAITING_REVIEW", "CANCELLED"],
+    WAITING_REVIEW: [
+      "IN_CONSULTATION",
+      "WAITING_PHARMACY",
+      "WAITING_PAYMENT",
+      "COMPLETED",
+    ],
+    WAITING_PHARMACY: ["WAITING_PAYMENT", "COMPLETED"],
+    WAITING_PAYMENT: ["COMPLETED"],
+    COMPLETED: [],
+    CANCELLED: [],
+  };

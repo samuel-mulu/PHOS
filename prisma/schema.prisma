@@ -1,0 +1,784 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  CEO
+  ADMIN
+  DOCTOR
+  NURSE
+  LAB_TECH
+  LAB_SUPERVISOR
+  PHARMACIST
+  STOREKEEPER
+  RECEPTIONIST
+  CASHIER
+  REPORTING_OFFICER
+  IT_ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum Sex {
+  MALE
+  FEMALE
+  OTHER
+  UNKNOWN
+}
+
+enum EncounterType {
+  WALK_IN
+  APPOINTMENT
+  FOLLOW_UP
+  EMERGENCY
+}
+
+enum EncounterPriority {
+  ROUTINE
+  URGENT
+  EMERGENCY
+}
+
+enum EncounterStatus {
+  REGISTERED
+  WAITING_TRIAGE
+  IN_TRIAGE
+  WAITING_DOCTOR
+  IN_CONSULTATION
+  WAITING_LAB
+  WAITING_REVIEW
+  WAITING_PHARMACY
+  WAITING_PAYMENT
+  COMPLETED
+  CANCELLED
+}
+
+enum QueueStation {
+  TRIAGE
+  DOCTOR
+  LAB
+  PHARMACY
+  CASHIER
+}
+
+enum QueueStatus {
+  WAITING
+  CALLED
+  IN_SERVICE
+  COMPLETED
+  CANCELLED
+}
+
+enum ConsultationStatus {
+  DRAFT
+  FINALIZED
+  CORRECTED
+}
+
+enum DiagnosisType {
+  PROVISIONAL
+  CONFIRMED
+  DIFFERENTIAL
+}
+
+enum LabOrderStatus {
+  ORDERED
+  PROCESSING
+  RESULT_ENTERED
+  VERIFIED
+  CANCELLED
+}
+
+enum LabResultFlag {
+  NORMAL
+  LOW
+  HIGH
+  CRITICAL
+  ABNORMAL
+}
+
+enum PrescriptionStatus {
+  ACTIVE
+  PARTIAL
+  DISPENSED
+  CANCELLED
+}
+
+enum InventoryMovementType {
+  RECEIVE
+  DISPENSE
+  ADJUST_IN
+  ADJUST_OUT
+  EXPIRED
+  RETURN
+}
+
+enum InvoiceStatus {
+  DRAFT
+  ISSUED
+  PARTIALLY_PAID
+  PAID
+  VOID
+}
+
+enum InvoiceItemType {
+  CONSULTATION
+  LAB
+  MEDICINE
+  PROCEDURE
+  OTHER
+}
+
+enum PaymentMethod {
+  CASH
+  TELEBIRR
+  BANK_TRANSFER
+  INSURANCE
+  OTHER
+}
+
+enum PaymentStatus {
+  COMPLETED
+  PARTIALLY_REFUNDED
+  REFUNDED
+  VOID
+}
+
+enum RefundStatus {
+  COMPLETED
+  VOID
+}
+
+enum CashSessionStatus {
+  OPEN
+  CLOSED
+}
+
+enum NotificationType {
+  LAB_ORDER_CREATED
+  LAB_RESULT_VERIFIED
+  PRESCRIPTION_CREATED
+  LOW_STOCK
+  EXPIRING_STOCK
+  PAYMENT_COMPLETED
+  REFUND_COMPLETED
+  SYSTEM
+}
+
+model User {
+  id                 String              @id @default(uuid()) @db.Uuid
+  email              String              @unique
+  phone              String?             @unique
+  passwordHash       String              @map("password_hash")
+  firstName          String              @map("first_name")
+  lastName           String              @map("last_name")
+  role               Role
+  status             UserStatus          @default(ACTIVE)
+  departmentId       String?             @map("department_id") @db.Uuid
+  department         Department?         @relation(fields: [departmentId], references: [id])
+  refreshSessions    RefreshSession[]
+  createdPatients    Patient[]           @relation("PatientCreator")
+  createdEncounters  Encounter[]         @relation("EncounterCreator")
+  assignedQueues     QueueEntry[]        @relation("QueueAssignee")
+  recordedTriages    Triage[]            @relation("TriageRecorder")
+  consultations      Consultation[]      @relation("ConsultationDoctor")
+  diagnoses          Diagnosis[]         @relation("DiagnosisCreator")
+  auditLogs          AuditLog[]
+  orderedLabOrders   LabOrder[]          @relation("LabOrderDoctor")
+  enteredLabResults  LabResult[]         @relation("LabResultEnteredBy")
+  verifiedLabResults LabResult[]         @relation("LabResultVerifiedBy")
+  prescriptions      Prescription[]      @relation("PrescriptionDoctor")
+  dispensings        Dispensing[]        @relation("DispensingPharmacist")
+  inventoryMovements InventoryMovement[] @relation("InventoryMovementUser")
+  issuedInvoices     Invoice[]           @relation("InvoiceIssuer")
+  recordedPayments   Payment[]           @relation("PaymentRecorder")
+  issuedRefunds      Refund[]            @relation("RefundIssuer")
+  cashSessions       CashSession[]
+  notifications      Notification[]      @relation("NotificationRecipient")
+  createdAt          DateTime            @default(now()) @map("created_at")
+  updatedAt          DateTime            @updatedAt @map("updated_at")
+  deletedAt          DateTime?           @map("deleted_at")
+
+  @@index([role, status])
+  @@map("users")
+}
+
+model RefreshSession {
+  id        String    @id @default(uuid()) @db.Uuid
+  userId    String    @map("user_id") @db.Uuid
+  tokenHash String    @unique @map("token_hash")
+  expiresAt DateTime  @map("expires_at")
+  revokedAt DateTime? @map("revoked_at")
+  userAgent String?   @map("user_agent")
+  ipAddress String?   @map("ip_address")
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  @@index([userId, expiresAt])
+  @@map("refresh_sessions")
+}
+
+model Facility {
+  id          String       @id @default(uuid()) @db.Uuid
+  code        String       @unique
+  name        String
+  phone       String?
+  address     String?
+  active      Boolean      @default(true)
+  departments Department[]
+  encounters  Encounter[]
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+  deletedAt   DateTime?    @map("deleted_at")
+
+  @@map("facilities")
+}
+
+model Department {
+  id         String      @id @default(uuid()) @db.Uuid
+  facilityId String      @map("facility_id") @db.Uuid
+  code       String
+  name       String
+  active     Boolean     @default(true)
+  facility   Facility    @relation(fields: [facilityId], references: [id])
+  services   Service[]
+  users      User[]
+  encounters Encounter[]
+  createdAt  DateTime    @default(now()) @map("created_at")
+  updatedAt  DateTime    @updatedAt @map("updated_at")
+  deletedAt  DateTime?   @map("deleted_at")
+
+  @@unique([facilityId, code])
+  @@index([facilityId, active])
+  @@map("departments")
+}
+
+model Service {
+  id              String      @id @default(uuid()) @db.Uuid
+  departmentId    String      @map("department_id") @db.Uuid
+  code            String
+  name            String
+  priceCents      Int         @map("price_cents")
+  durationMinutes Int?        @map("duration_minutes")
+  active          Boolean     @default(true)
+  department      Department  @relation(fields: [departmentId], references: [id])
+  encounters      Encounter[]
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
+  deletedAt       DateTime?   @map("deleted_at")
+
+  @@unique([departmentId, code])
+  @@index([departmentId, active])
+  @@map("services")
+}
+
+model Patient {
+  id                    String         @id @default(uuid()) @db.Uuid
+  patientNumber         String         @unique @map("patient_number")
+  firstName             String         @map("first_name")
+  middleName            String?        @map("middle_name")
+  lastName              String         @map("last_name")
+  sex                   Sex
+  dateOfBirth           DateTime?      @map("date_of_birth") @db.Date
+  phone                 String?
+  email                 String?
+  address               String?
+  governmentId          String?        @unique @map("government_id")
+  emergencyContactName  String?        @map("emergency_contact_name")
+  emergencyContactPhone String?        @map("emergency_contact_phone")
+  allergies             String?
+  createdById           String         @map("created_by_id") @db.Uuid
+  createdBy             User           @relation("PatientCreator", fields: [createdById], references: [id])
+  encounters            Encounter[]
+  labOrders             LabOrder[]
+  prescriptions         Prescription[]
+  invoices              Invoice[]
+  payments              Payment[]
+  createdAt             DateTime       @default(now()) @map("created_at")
+  updatedAt             DateTime       @updatedAt @map("updated_at")
+  deletedAt             DateTime?      @map("deleted_at")
+
+  @@index([lastName, firstName])
+  @@index([phone])
+  @@map("patients")
+}
+
+model Encounter {
+  id              String            @id @default(uuid()) @db.Uuid
+  encounterNumber String            @unique @map("encounter_number")
+  patientId       String            @map("patient_id") @db.Uuid
+  facilityId      String            @map("facility_id") @db.Uuid
+  departmentId    String            @map("department_id") @db.Uuid
+  serviceId       String            @map("service_id") @db.Uuid
+  type            EncounterType     @default(WALK_IN)
+  status          EncounterStatus   @default(REGISTERED)
+  priority        EncounterPriority @default(ROUTINE)
+  reason          String?
+  startedAt       DateTime          @default(now()) @map("started_at")
+  closedAt        DateTime?         @map("closed_at")
+  createdById     String            @map("created_by_id") @db.Uuid
+  patient         Patient           @relation(fields: [patientId], references: [id])
+  facility        Facility          @relation(fields: [facilityId], references: [id])
+  department      Department        @relation(fields: [departmentId], references: [id])
+  service         Service           @relation(fields: [serviceId], references: [id])
+  createdBy       User              @relation("EncounterCreator", fields: [createdById], references: [id])
+  queueEntries    QueueEntry[]
+  triage          Triage?
+  consultation    Consultation?
+  labOrders       LabOrder[]
+  prescriptions   Prescription[]
+  invoice         Invoice?
+  createdAt       DateTime          @default(now()) @map("created_at")
+  updatedAt       DateTime          @updatedAt @map("updated_at")
+  deletedAt       DateTime?         @map("deleted_at")
+
+  @@index([patientId, startedAt])
+  @@index([status, departmentId])
+  @@map("encounters")
+}
+
+model QueueEntry {
+  id               String            @id @default(uuid()) @db.Uuid
+  encounterId      String            @map("encounter_id") @db.Uuid
+  station          QueueStation
+  status           QueueStatus       @default(WAITING)
+  priority         EncounterPriority @default(ROUTINE)
+  assignedToId     String?           @map("assigned_to_id") @db.Uuid
+  enteredAt        DateTime          @default(now()) @map("entered_at")
+  calledAt         DateTime?         @map("called_at")
+  serviceStartedAt DateTime?         @map("service_started_at")
+  completedAt      DateTime?         @map("completed_at")
+  encounter        Encounter         @relation(fields: [encounterId], references: [id])
+  assignedTo       User?             @relation("QueueAssignee", fields: [assignedToId], references: [id])
+  createdAt        DateTime          @default(now()) @map("created_at")
+  updatedAt        DateTime          @updatedAt @map("updated_at")
+
+  @@index([station, status, priority, enteredAt])
+  @@index([encounterId])
+  @@map("queue_entries")
+}
+
+model Triage {
+  id              String    @id @default(uuid()) @db.Uuid
+  encounterId     String    @unique @map("encounter_id") @db.Uuid
+  temperature     Decimal?  @db.Decimal(4, 1)
+  systolic        Int?
+  diastolic       Int?
+  heartRate       Int?      @map("heart_rate")
+  respiratoryRate Int?      @map("respiratory_rate")
+  spo2            Int?
+  weightKg        Decimal?  @map("weight_kg") @db.Decimal(5, 2)
+  heightCm        Decimal?  @map("height_cm") @db.Decimal(5, 2)
+  painScore       Int?      @map("pain_score")
+  notes           String?
+  recordedById    String    @map("recorded_by_id") @db.Uuid
+  recordedAt      DateTime  @default(now()) @map("recorded_at")
+  encounter       Encounter @relation(fields: [encounterId], references: [id])
+  recordedBy      User      @relation("TriageRecorder", fields: [recordedById], references: [id])
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  deletedAt       DateTime? @map("deleted_at")
+
+  @@map("triages")
+}
+
+model Consultation {
+  id                    String             @id @default(uuid()) @db.Uuid
+  encounterId           String             @unique @map("encounter_id") @db.Uuid
+  doctorId              String             @map("doctor_id") @db.Uuid
+  chiefComplaint        String?            @map("chief_complaint")
+  historyPresentIllness String?            @map("history_present_illness")
+  physicalExam          String?            @map("physical_exam")
+  assessment            String?
+  plan                  String?
+  notes                 String?
+  status                ConsultationStatus @default(DRAFT)
+  finalizedAt           DateTime?          @map("finalized_at")
+  correctionReason      String?            @map("correction_reason")
+  encounter             Encounter          @relation(fields: [encounterId], references: [id])
+  doctor                User               @relation("ConsultationDoctor", fields: [doctorId], references: [id])
+  diagnoses             Diagnosis[]
+  labOrders             LabOrder[]
+  prescriptions         Prescription[]
+  createdAt             DateTime           @default(now()) @map("created_at")
+  updatedAt             DateTime           @updatedAt @map("updated_at")
+  deletedAt             DateTime?          @map("deleted_at")
+
+  @@index([doctorId, status])
+  @@map("consultations")
+}
+
+model Diagnosis {
+  id             String        @id @default(uuid()) @db.Uuid
+  consultationId String        @map("consultation_id") @db.Uuid
+  code           String?
+  label          String
+  notes          String?
+  type           DiagnosisType @default(PROVISIONAL)
+  isPrimary      Boolean       @default(false) @map("is_primary")
+  createdById    String        @map("created_by_id") @db.Uuid
+  consultation   Consultation  @relation(fields: [consultationId], references: [id])
+  createdBy      User          @relation("DiagnosisCreator", fields: [createdById], references: [id])
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+  deletedAt      DateTime?     @map("deleted_at")
+
+  @@index([consultationId])
+  @@map("diagnoses")
+}
+
+model AuditLog {
+  id         String   @id @default(uuid()) @db.Uuid
+  actorId    String?  @map("actor_id") @db.Uuid
+  action     String
+  entityType String   @map("entity_type")
+  entityId   String?  @map("entity_id")
+  oldValues  Json?    @map("old_values")
+  newValues  Json?    @map("new_values")
+  metadata   Json?
+  ipAddress  String?  @map("ip_address")
+  actor      User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@index([entityType, entityId, createdAt])
+  @@index([actorId, createdAt])
+  @@map("audit_logs")
+}
+
+model LabTest {
+  id             String         @id @default(uuid()) @db.Uuid
+  code           String         @unique
+  name           String
+  unit           String?
+  referenceRange String?        @map("reference_range")
+  priceCents     Int            @default(0) @map("price_cents")
+  active         Boolean        @default(true)
+  orderItems     LabOrderItem[]
+  createdAt      DateTime       @default(now()) @map("created_at")
+  updatedAt      DateTime       @updatedAt @map("updated_at")
+  deletedAt      DateTime?      @map("deleted_at")
+
+  @@index([active, name])
+  @@map("lab_tests")
+}
+
+model LabOrder {
+  id             String            @id @default(uuid()) @db.Uuid
+  orderNumber    String            @unique @map("order_number")
+  consultationId String            @map("consultation_id") @db.Uuid
+  encounterId    String            @map("encounter_id") @db.Uuid
+  patientId      String            @map("patient_id") @db.Uuid
+  doctorId       String            @map("doctor_id") @db.Uuid
+  status         LabOrderStatus    @default(ORDERED)
+  priority       EncounterPriority @default(ROUTINE)
+  clinicalNotes  String?           @map("clinical_notes")
+  consultation   Consultation      @relation(fields: [consultationId], references: [id])
+  encounter      Encounter         @relation(fields: [encounterId], references: [id])
+  patient        Patient           @relation(fields: [patientId], references: [id])
+  doctor         User              @relation("LabOrderDoctor", fields: [doctorId], references: [id])
+  items          LabOrderItem[]
+  createdAt      DateTime          @default(now()) @map("created_at")
+  updatedAt      DateTime          @updatedAt @map("updated_at")
+  cancelledAt    DateTime?         @map("cancelled_at")
+
+  @@index([status, priority, createdAt])
+  @@index([encounterId])
+  @@map("lab_orders")
+}
+
+model LabOrderItem {
+  id         String     @id @default(uuid()) @db.Uuid
+  labOrderId String     @map("lab_order_id") @db.Uuid
+  labTestId  String     @map("lab_test_id") @db.Uuid
+  priceCents Int        @map("price_cents")
+  labOrder   LabOrder   @relation(fields: [labOrderId], references: [id])
+  labTest    LabTest    @relation(fields: [labTestId], references: [id])
+  result     LabResult?
+
+  @@unique([labOrderId, labTestId])
+  @@map("lab_order_items")
+}
+
+model LabResult {
+  id             String        @id @default(uuid()) @db.Uuid
+  labOrderItemId String        @unique @map("lab_order_item_id") @db.Uuid
+  value          String
+  unit           String?
+  referenceRange String?       @map("reference_range")
+  flag           LabResultFlag @default(NORMAL)
+  notes          String?
+  enteredById    String        @map("entered_by_id") @db.Uuid
+  verifiedById   String?       @map("verified_by_id") @db.Uuid
+  enteredAt      DateTime      @default(now()) @map("entered_at")
+  verifiedAt     DateTime?     @map("verified_at")
+  item           LabOrderItem  @relation(fields: [labOrderItemId], references: [id])
+  enteredBy      User          @relation("LabResultEnteredBy", fields: [enteredById], references: [id])
+  verifiedBy     User?         @relation("LabResultVerifiedBy", fields: [verifiedById], references: [id])
+
+  @@map("lab_results")
+}
+
+model Prescription {
+  id                 String             @id @default(uuid()) @db.Uuid
+  prescriptionNumber String             @unique @map("prescription_number")
+  consultationId     String             @map("consultation_id") @db.Uuid
+  encounterId        String             @map("encounter_id") @db.Uuid
+  patientId          String             @map("patient_id") @db.Uuid
+  doctorId           String             @map("doctor_id") @db.Uuid
+  status             PrescriptionStatus @default(ACTIVE)
+  notes              String?
+  consultation       Consultation       @relation(fields: [consultationId], references: [id])
+  encounter          Encounter          @relation(fields: [encounterId], references: [id])
+  patient            Patient            @relation(fields: [patientId], references: [id])
+  doctor             User               @relation("PrescriptionDoctor", fields: [doctorId], references: [id])
+  items              PrescriptionItem[]
+  dispensings        Dispensing[]
+  createdAt          DateTime           @default(now()) @map("created_at")
+  updatedAt          DateTime           @updatedAt @map("updated_at")
+  cancelledAt        DateTime?          @map("cancelled_at")
+
+  @@index([status, createdAt])
+  @@index([encounterId])
+  @@map("prescriptions")
+}
+
+model PrescriptionItem {
+  id                String           @id @default(uuid()) @db.Uuid
+  prescriptionId    String           @map("prescription_id") @db.Uuid
+  medicineId        String           @map("medicine_id") @db.Uuid
+  dose              String
+  route             String
+  frequency         String
+  duration          String
+  quantity          Int
+  dispensedQuantity Int              @default(0) @map("dispensed_quantity")
+  instructions      String?
+  prescription      Prescription     @relation(fields: [prescriptionId], references: [id])
+  medicine          Medicine         @relation(fields: [medicineId], references: [id])
+  dispensingItems   DispensingItem[]
+
+  @@index([prescriptionId])
+  @@map("prescription_items")
+}
+
+model Medicine {
+  id                String              @id @default(uuid()) @db.Uuid
+  code              String              @unique
+  name              String
+  genericName       String?             @map("generic_name")
+  strength          String?
+  form              String?
+  sellingPriceCents Int                 @map("selling_price_cents")
+  reorderLevel      Int                 @default(0) @map("reorder_level")
+  active            Boolean             @default(true)
+  prescriptionItems PrescriptionItem[]
+  batches           InventoryBatch[]
+  movements         InventoryMovement[]
+  createdAt         DateTime            @default(now()) @map("created_at")
+  updatedAt         DateTime            @updatedAt @map("updated_at")
+  deletedAt         DateTime?           @map("deleted_at")
+
+  @@index([active, name])
+  @@map("medicines")
+}
+
+model Supplier {
+  id        String           @id @default(uuid()) @db.Uuid
+  name      String           @unique
+  phone     String?
+  address   String?
+  active    Boolean          @default(true)
+  batches   InventoryBatch[]
+  createdAt DateTime         @default(now()) @map("created_at")
+  updatedAt DateTime         @updatedAt @map("updated_at")
+
+  @@map("suppliers")
+}
+
+model InventoryBatch {
+  id                String              @id @default(uuid()) @db.Uuid
+  medicineId        String              @map("medicine_id") @db.Uuid
+  supplierId        String?             @map("supplier_id") @db.Uuid
+  batchNumber       String              @map("batch_number")
+  expiryDate        DateTime            @map("expiry_date") @db.Date
+  quantityReceived  Int                 @map("quantity_received")
+  quantityRemaining Int                 @map("quantity_remaining")
+  unitCostCents     Int                 @map("unit_cost_cents")
+  medicine          Medicine            @relation(fields: [medicineId], references: [id])
+  supplier          Supplier?           @relation(fields: [supplierId], references: [id])
+  movements         InventoryMovement[]
+  dispensingItems   DispensingItem[]
+  createdAt         DateTime            @default(now()) @map("created_at")
+
+  @@unique([medicineId, batchNumber])
+  @@index([medicineId, expiryDate, quantityRemaining])
+  @@map("inventory_batches")
+}
+
+model InventoryMovement {
+  id            String                @id @default(uuid()) @db.Uuid
+  medicineId    String                @map("medicine_id") @db.Uuid
+  batchId       String?               @map("batch_id") @db.Uuid
+  type          InventoryMovementType
+  quantity      Int
+  reason        String?
+  referenceType String?               @map("reference_type")
+  referenceId   String?               @map("reference_id")
+  performedById String                @map("performed_by_id") @db.Uuid
+  medicine      Medicine              @relation(fields: [medicineId], references: [id])
+  batch         InventoryBatch?       @relation(fields: [batchId], references: [id])
+  performedBy   User                  @relation("InventoryMovementUser", fields: [performedById], references: [id])
+  createdAt     DateTime              @default(now()) @map("created_at")
+
+  @@index([medicineId, createdAt])
+  @@map("inventory_movements")
+}
+
+model Dispensing {
+  id             String           @id @default(uuid()) @db.Uuid
+  prescriptionId String           @map("prescription_id") @db.Uuid
+  pharmacistId   String           @map("pharmacist_id") @db.Uuid
+  prescription   Prescription     @relation(fields: [prescriptionId], references: [id])
+  pharmacist     User             @relation("DispensingPharmacist", fields: [pharmacistId], references: [id])
+  items          DispensingItem[]
+  createdAt      DateTime         @default(now()) @map("created_at")
+
+  @@index([prescriptionId])
+  @@map("dispensings")
+}
+
+model DispensingItem {
+  id                 String           @id @default(uuid()) @db.Uuid
+  dispensingId       String           @map("dispensing_id") @db.Uuid
+  prescriptionItemId String           @map("prescription_item_id") @db.Uuid
+  batchId            String           @map("batch_id") @db.Uuid
+  quantity           Int
+  dispensing         Dispensing       @relation(fields: [dispensingId], references: [id])
+  prescriptionItem   PrescriptionItem @relation(fields: [prescriptionItemId], references: [id])
+  batch              InventoryBatch   @relation(fields: [batchId], references: [id])
+
+  @@map("dispensing_items")
+}
+
+model Invoice {
+  id            String        @id @default(uuid()) @db.Uuid
+  invoiceNumber String        @unique @map("invoice_number")
+  encounterId   String        @unique @map("encounter_id") @db.Uuid
+  patientId     String        @map("patient_id") @db.Uuid
+  status        InvoiceStatus @default(DRAFT)
+  subtotalCents Int           @map("subtotal_cents")
+  discountCents Int           @default(0) @map("discount_cents")
+  totalCents    Int           @map("total_cents")
+  paidCents     Int           @default(0) @map("paid_cents")
+  issuedById    String        @map("issued_by_id") @db.Uuid
+  issuedAt      DateTime?     @map("issued_at")
+  encounter     Encounter     @relation(fields: [encounterId], references: [id])
+  patient       Patient       @relation(fields: [patientId], references: [id])
+  issuedBy      User          @relation("InvoiceIssuer", fields: [issuedById], references: [id])
+  items         InvoiceItem[]
+  payments      Payment[]
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+
+  @@index([status, createdAt])
+  @@map("invoices")
+}
+
+model InvoiceItem {
+  id             String          @id @default(uuid()) @db.Uuid
+  invoiceId      String          @map("invoice_id") @db.Uuid
+  type           InvoiceItemType
+  description    String
+  sourceId       String?         @map("source_id")
+  quantity       Int             @default(1)
+  unitPriceCents Int             @map("unit_price_cents")
+  totalCents     Int             @map("total_cents")
+  invoice        Invoice         @relation(fields: [invoiceId], references: [id])
+
+  @@index([invoiceId])
+  @@map("invoice_items")
+}
+
+model Payment {
+  id              String        @id @default(uuid()) @db.Uuid
+  paymentNumber   String        @unique @map("payment_number")
+  invoiceId       String        @map("invoice_id") @db.Uuid
+  patientId       String        @map("patient_id") @db.Uuid
+  amountCents     Int           @map("amount_cents")
+  refundedCents   Int           @default(0) @map("refunded_cents")
+  method          PaymentMethod
+  status          PaymentStatus @default(COMPLETED)
+  referenceNumber String?       @map("reference_number")
+  idempotencyKey  String        @unique @map("idempotency_key")
+  recordedById    String        @map("recorded_by_id") @db.Uuid
+  cashSessionId   String?       @map("cash_session_id") @db.Uuid
+  invoice         Invoice       @relation(fields: [invoiceId], references: [id])
+  patient         Patient       @relation(fields: [patientId], references: [id])
+  recordedBy      User          @relation("PaymentRecorder", fields: [recordedById], references: [id])
+  cashSession     CashSession?  @relation(fields: [cashSessionId], references: [id])
+  refunds         Refund[]
+  createdAt       DateTime      @default(now()) @map("created_at")
+
+  @@index([invoiceId, status])
+  @@index([cashSessionId])
+  @@map("payments")
+}
+
+model Refund {
+  id           String       @id @default(uuid()) @db.Uuid
+  refundNumber String       @unique @map("refund_number")
+  paymentId    String       @map("payment_id") @db.Uuid
+  amountCents  Int          @map("amount_cents")
+  reason       String
+  idempotencyKey String @unique @map("idempotency_key")
+  status       RefundStatus @default(COMPLETED)
+  issuedById   String       @map("issued_by_id") @db.Uuid
+  payment      Payment      @relation(fields: [paymentId], references: [id])
+  issuedBy     User         @relation("RefundIssuer", fields: [issuedById], references: [id])
+  createdAt    DateTime     @default(now()) @map("created_at")
+
+  @@index([paymentId])
+  @@map("refunds")
+}
+
+model CashSession {
+  id                String            @id @default(uuid()) @db.Uuid
+  cashierId         String            @map("cashier_id") @db.Uuid
+  status            CashSessionStatus @default(OPEN)
+  openingFloatCents Int               @default(0) @map("opening_float_cents")
+  expectedCashCents Int?              @map("expected_cash_cents")
+  actualCashCents   Int?              @map("actual_cash_cents")
+  differenceCents   Int?              @map("difference_cents")
+  openedAt          DateTime          @default(now()) @map("opened_at")
+  closedAt          DateTime?         @map("closed_at")
+  notes             String?
+  cashier           User              @relation(fields: [cashierId], references: [id])
+  payments          Payment[]
+
+  @@index([cashierId, status])
+  @@map("cash_sessions")
+}
+
+model Notification {
+  id          String           @id @default(uuid()) @db.Uuid
+  recipientId String           @map("recipient_id") @db.Uuid
+  type        NotificationType
+  title       String
+  message     String
+  entityType  String?          @map("entity_type")
+  entityId    String?          @map("entity_id")
+  readAt      DateTime?        @map("read_at")
+  recipient   User             @relation("NotificationRecipient", fields: [recipientId], references: [id], onDelete: Cascade)
+  createdAt   DateTime         @default(now()) @map("created_at")
+
+  @@index([recipientId, readAt, createdAt])
+  @@map("notifications")
+}
