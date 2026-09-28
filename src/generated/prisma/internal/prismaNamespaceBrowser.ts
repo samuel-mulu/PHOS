@@ -58,6 +58,7 @@ export const ModelName = {
   Service: 'Service',
   Patient: 'Patient',
   Encounter: 'Encounter',
+  Appointment: 'Appointment',
   QueueEntry: 'QueueEntry',
   Triage: 'Triage',
   Consultation: 'Consultation',
@@ -222,6 +223,23 @@ export const EncounterScalarFieldEnum = {
 export type EncounterScalarFieldEnum = (typeof EncounterScalarFieldEnum)[keyof typeof EncounterScalarFieldEnum]
 
 
+export const AppointmentScalarFieldEnum = {
+  id: 'id',
+  patientId: 'patientId',
+  scheduledAt: 'scheduledAt',
+  status: 'status',
+  departmentId: 'departmentId',
+  serviceId: 'serviceId',
+  notes: 'notes',
+  encounterId: 'encounterId',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[keyof typeof AppointmentScalarFieldEnum]
+
+
 export const QueueEntryScalarFieldEnum = {
   id: 'id',
   encounterId: 'encounterId',
@@ -252,6 +270,7 @@ export const TriageScalarFieldEnum = {
   weightKg: 'weightKg',
   heightCm: 'heightCm',
   painScore: 'painScore',
+  bloodGlucoseMgDl: 'bloodGlucoseMgDl',
   notes: 'notes',
   recordedById: 'recordedById',
   recordedAt: 'recordedAt',

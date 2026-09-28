@@ -5,6 +5,8 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { AuditService } from "../audit/audit.service";
+import { DESK_NOTIFY_ROLES } from "../common/constants/desk-roles";
+import { NotificationsService } from "../notifications/notifications.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { calculateInvoiceTotals } from "../common/domain/finance";
 import { CreateInvoiceDto } from "./dto/billing.dto";
@@ -13,6 +15,7 @@ export class BillingService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly audit: AuditService,
+    private readonly notifications: NotificationsService,
   ) {}
   async create(encounterId: string, dto: CreateInvoiceDto, actorId: string) {
     const encounter = await this.prisma.encounter.findFirst({
@@ -126,19 +129,70 @@ export class BillingService {
     return item;
   }
   async issue(id: string, actorId: string) {
-    const result = await this.prisma.invoice.updateMany({
-      where: { id, status: "DRAFT" },
-      data: { status: "ISSUED", issuedAt: new Date() },
+    return this.prisma.$transaction(async (tx) => {
+      const invoice = await tx.invoice.findUnique({
+        where: { id },
+        include: { encounter: true },
+      });
+      if (!invoice || invoice.status !== "DRAFT")
+        throw new ConflictException("Only a draft invoice can be issued");
+      await tx.invoice.update({
+        where: { id },
+        data: { status: "ISSUED", issuedAt: new Date() },
+      });
+      const encounter = invoice.encounter;
+      const openCashier = await tx.queueEntry.findFirst({
+        where: {
+          encounterId: encounter.id,
+          station: "CASHIER",
+          status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
+        },
+      });
+      if (!openCashier) {
+        await tx.queueEntry.create({
+          data: {
+            encounterId: encounter.id,
+            station: "CASHIER",
+            priority: encounter.priority,
+          },
+        });
+      }
+      if (encounter.status !== "WAITING_PAYMENT") {
+        await tx.encounter.update({
+          where: { id: encounter.id },
+          data: { status: "WAITING_PAYMENT" },
+        });
+      }
+      await this.notifications.createForRoles(
+        DESK_NOTIFY_ROLES,
+        {
+          type: "SYSTEM",
+          title: "Invoice ready for payment",
+          message: `${invoice.invoiceNumber} — collect payment at cashier`,
+          entityType: "Invoice",
+          entityId: id,
+        },
+        tx,
+      );
+      await this.audit.create(
+        {
+          actorId,
+          action: "invoice.issued",
+          entityType: "Invoice",
+          entityId: id,
+        },
+        tx,
+      );
+      return tx.invoice.findUniqueOrThrow({
+        where: { id },
+        include: {
+          patient: true,
+          encounter: true,
+          items: true,
+          payments: { include: { refunds: true } },
+        },
+      });
     });
-    if (!result.count)
-      throw new ConflictException("Only a draft invoice can be issued");
-    await this.audit.create({
-      actorId,
-      action: "invoice.issued",
-      entityType: "Invoice",
-      entityId: id,
-    });
-    return this.find(id);
   }
   async voidInvoice(id: string, actorId: string) {
     const result = await this.prisma.invoice.updateMany({

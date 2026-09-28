@@ -3,6 +3,7 @@ import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { CurrentUser } from "../common/decorators/current-user.decorator";
 import { Roles } from "../common/decorators/roles.decorator";
 import { AuthUser } from "../common/types/auth-user";
+import { DESK_PAY_ROLES } from "../common/constants/desk-roles";
 import { Role } from "../generated/prisma/client";
 import { CreatePaymentDto, CreateRefundDto } from "./dto/payment.dto";
 import { PaymentsService } from "./payments.service";
@@ -11,7 +12,7 @@ import { PaymentsService } from "./payments.service";
 @Controller("payments")
 export class PaymentsController {
   constructor(private readonly service: PaymentsService) {}
-  @Roles(Role.CASHIER, Role.ADMIN) @Post() create(
+  @Roles(...DESK_PAY_ROLES) @Post() create(
     @Body() dto: CreatePaymentDto,
     @CurrentUser() user: AuthUser,
   ) {
@@ -20,7 +21,7 @@ export class PaymentsController {
   @Get(":id") find(@Param("id") id: string) {
     return this.service.find(id);
   }
-  @Roles(Role.CASHIER, Role.ADMIN) @Post(":id/refunds") refund(
+  @Roles(...DESK_PAY_ROLES) @Post(":id/refunds") refund(
     @Param("id") id: string,
     @Body() dto: CreateRefundDto,
     @CurrentUser() user: AuthUser,

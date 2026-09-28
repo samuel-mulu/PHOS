@@ -3,6 +3,7 @@ import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { CurrentUser } from "../common/decorators/current-user.decorator";
 import { Roles } from "../common/decorators/roles.decorator";
 import { AuthUser } from "../common/types/auth-user";
+import { DESK_PAY_ROLES } from "../common/constants/desk-roles";
 import { Role } from "../generated/prisma/client";
 import { CashSessionsService } from "./cash-sessions.service";
 import {
@@ -11,7 +12,7 @@ import {
 } from "./dto/cash-session.dto";
 @ApiTags("Cash Sessions")
 @ApiBearerAuth()
-@Roles(Role.CASHIER, Role.ADMIN)
+@Roles(...DESK_PAY_ROLES)
 @Controller("cash-sessions")
 export class CashSessionsController {
   constructor(private readonly service: CashSessionsService) {}

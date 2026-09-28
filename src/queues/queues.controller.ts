@@ -25,7 +25,7 @@ export class QueuesController {
   ) {
     return this.service.list(station, assignedToId);
   }
-  @Roles(Role.CEO, Role.ADMIN, Role.RECEPTIONIST, Role.NURSE, Role.DOCTOR)
+  @Roles(Role.CEO, Role.ADMIN, Role.RECEPTIONIST, Role.FRONT_DESK, Role.NURSE, Role.DOCTOR)
   @Post("queue-entries")
   create(@Body() dto: CreateQueueEntryDto, @CurrentUser() user: AuthUser) {
     return this.service.create(dto, user.id);
@@ -39,6 +39,7 @@ export class QueuesController {
     Role.LAB_TECH,
     Role.PHARMACIST,
     Role.CASHIER,
+    Role.FRONT_DESK,
   )
   @Patch("queue-entries/:id")
   update(

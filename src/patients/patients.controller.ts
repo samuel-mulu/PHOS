@@ -11,6 +11,7 @@ import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { CurrentUser } from "../common/decorators/current-user.decorator";
 import { Roles } from "../common/decorators/roles.decorator";
 import { AuthUser } from "../common/types/auth-user";
+import { DESK_REGISTER_ROLES } from "../common/constants/desk-roles";
 import { Role } from "../generated/prisma/client";
 import {
   CreatePatientDto,
@@ -33,12 +34,45 @@ export class PatientsController {
     Role.LAB_SUPERVISOR,
     Role.PHARMACIST,
     Role.CASHIER,
+    Role.FRONT_DESK,
   )
   @Get()
   list(@Query() query: PatientQueryDto) {
     return this.service.list(query);
   }
-  @Roles(Role.CEO, Role.ADMIN, Role.RECEPTIONIST) @Post() create(
+  @Roles(
+    Role.CEO,
+    Role.ADMIN,
+    Role.RECEPTIONIST,
+    Role.DOCTOR,
+    Role.NURSE,
+    Role.LAB_TECH,
+    Role.LAB_SUPERVISOR,
+    Role.PHARMACIST,
+    Role.CASHIER,
+    Role.FRONT_DESK,
+  )
+  @Get("lookup")
+  lookup(@Query("patientNumber") patientNumber: string) {
+    return this.service.findByPatientNumber(patientNumber.trim());
+  }
+  @Roles(
+    Role.CEO,
+    Role.ADMIN,
+    Role.RECEPTIONIST,
+    Role.DOCTOR,
+    Role.NURSE,
+    Role.LAB_TECH,
+    Role.LAB_SUPERVISOR,
+    Role.PHARMACIST,
+    Role.CASHIER,
+    Role.FRONT_DESK,
+  )
+  @Get(":id/chart")
+  chart(@Param("id") id: string) {
+    return this.service.getChart(id);
+  }
+  @Roles(...DESK_REGISTER_ROLES) @Post() create(
     @Body() dto: CreatePatientDto,
     @CurrentUser() user: AuthUser,
   ) {
@@ -47,7 +81,7 @@ export class PatientsController {
   @Get(":id") find(@Param("id") id: string) {
     return this.service.findOne(id);
   }
-  @Roles(Role.CEO, Role.ADMIN, Role.RECEPTIONIST) @Patch(":id") update(
+  @Roles(...DESK_REGISTER_ROLES) @Patch(":id") update(
     @Param("id") id: string,
     @Body() dto: UpdatePatientDto,
     @CurrentUser() user: AuthUser,

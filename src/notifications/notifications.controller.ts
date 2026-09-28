@@ -8,11 +8,17 @@ import { NotificationsService } from "./notifications.service";
 @Controller("notifications")
 export class NotificationsController {
   constructor(private readonly service: NotificationsService) {}
+  @Get("summary")
+  summary(@CurrentUser() user: AuthUser) {
+    return this.service.unreadSummary(user.id);
+  }
+
   @Get() list(
     @CurrentUser() user: AuthUser,
     @Query("unreadOnly") unread?: string,
+    @Query("priority") priority?: "CRITICAL" | "HIGH" | "NORMAL",
   ) {
-    return this.service.list(user.id, unread === "true");
+    return this.service.list(user.id, unread === "true", priority);
   }
   @Patch(":id/read") read(
     @Param("id") id: string,

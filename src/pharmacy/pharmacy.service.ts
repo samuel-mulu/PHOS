@@ -4,6 +4,7 @@ import {
   Injectable,
 } from "@nestjs/common";
 import { AuditService } from "../audit/audit.service";
+import { NotificationsService } from "../notifications/notifications.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { DispensePrescriptionDto } from "./dto/pharmacy.dto";
 @Injectable()
@@ -11,6 +12,7 @@ export class PharmacyService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly audit: AuditService,
+    private readonly notifications: NotificationsService,
   ) {}
   async dispense(
     prescriptionId: string,
@@ -20,7 +22,10 @@ export class PharmacyService {
     return this.prisma.$transaction(async (tx) => {
       const prescription = await tx.prescription.findUnique({
         where: { id: prescriptionId },
-        include: { items: true },
+        include: {
+          items: true,
+          consultation: { select: { doctorId: true } },
+        },
       });
       if (!prescription || !["ACTIVE", "PARTIAL"].includes(prescription.status))
         throw new ConflictException(
@@ -115,6 +120,20 @@ export class PharmacyService {
           where: { id: prescription.encounterId },
           data: { status: "WAITING_PAYMENT" },
         });
+        const doctorId = prescription.consultation?.doctorId;
+        if (doctorId) {
+          await this.notifications.createForUser(
+            {
+              recipientId: doctorId,
+              type: "PRESCRIPTION_CREATED",
+              title: "Prescription dispensed",
+              message: `${prescription.prescriptionNumber} fully dispensed`,
+              entityType: "Prescription",
+              entityId: prescriptionId,
+            },
+            tx,
+          );
+        }
       }
       await this.audit.create(
         {

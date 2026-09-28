@@ -143,6 +143,27 @@ export class LaboratoryService {
     }
     return order;
   }
+  async receive(id: string, actorId: string) {
+    return this.prisma.$transaction(async (tx) => {
+      const order = await tx.labOrder.findUnique({ where: { id } });
+      if (!order || order.status !== "ORDERED")
+        throw new ConflictException("Only ordered tests can be marked received");
+      const updated = await tx.labOrder.update({
+        where: { id },
+        data: { status: "RECEIVED" },
+      });
+      await this.audit.create(
+        {
+          actorId,
+          action: "lab.order_received",
+          entityType: "LabOrder",
+          entityId: id,
+        },
+        tx,
+      );
+      return updated;
+    });
+  }
   async enterResults(id: string, dto: EnterLabResultsDto, actorId: string) {
     return this.prisma.$transaction(async (tx) => {
       const order = await tx.labOrder.findUnique({
@@ -151,9 +172,11 @@ export class LaboratoryService {
       });
       if (
         !order ||
-        !["ORDERED", "PROCESSING", "RESULT_ENTERED"].includes(order.status)
+        !["RECEIVED", "PROCESSING", "RESULT_ENTERED"].includes(order.status)
       )
-        throw new ConflictException("Lab order cannot accept results");
+        throw new ConflictException(
+          "Sample must be received at lab before entering results",
+        );
       const allowed = new Set(order.items.map((item) => item.id));
       if (dto.results.some((result) => !allowed.has(result.labOrderItemId)))
         throw new BadRequestException(

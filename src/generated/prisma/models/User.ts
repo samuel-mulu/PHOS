@@ -258,6 +258,7 @@ export type UserWhereInput = {
   issuedRefunds?: Prisma.RefundListRelationFilter
   cashSessions?: Prisma.CashSessionListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
+  createdAppointments?: Prisma.AppointmentListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -293,6 +294,7 @@ export type UserOrderByWithRelationInput = {
   issuedRefunds?: Prisma.RefundOrderByRelationAggregateInput
   cashSessions?: Prisma.CashSessionOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
+  createdAppointments?: Prisma.AppointmentOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -331,6 +333,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   issuedRefunds?: Prisma.RefundListRelationFilter
   cashSessions?: Prisma.CashSessionListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
+  createdAppointments?: Prisma.AppointmentListRelationFilter
 }, "id" | "email" | "phone">
 
 export type UserOrderByWithAggregationInput = {
@@ -401,6 +404,7 @@ export type UserCreateInput = {
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -435,6 +439,7 @@ export type UserUncheckedCreateInput = {
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUpdateInput = {
@@ -469,6 +474,7 @@ export type UserUpdateInput = {
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -503,6 +509,7 @@ export type UserUncheckedUpdateInput = {
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -720,6 +727,20 @@ export type UserUpdateOneRequiredWithoutCreatedEncountersNestedInput = {
   upsert?: Prisma.UserUpsertWithoutCreatedEncountersInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedEncountersInput, Prisma.UserUpdateWithoutCreatedEncountersInput>, Prisma.UserUncheckedUpdateWithoutCreatedEncountersInput>
+}
+
+export type UserCreateNestedOneWithoutCreatedAppointmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedAppointmentsInput, Prisma.UserUncheckedCreateWithoutCreatedAppointmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedAppointmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCreatedAppointmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedAppointmentsInput, Prisma.UserUncheckedCreateWithoutCreatedAppointmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedAppointmentsInput
+  upsert?: Prisma.UserUpsertWithoutCreatedAppointmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedAppointmentsInput, Prisma.UserUpdateWithoutCreatedAppointmentsInput>, Prisma.UserUncheckedUpdateWithoutCreatedAppointmentsInput>
 }
 
 export type UserCreateNestedOneWithoutAssignedQueuesInput = {
@@ -983,6 +1004,7 @@ export type UserCreateWithoutRefreshSessionsInput = {
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutRefreshSessionsInput = {
@@ -1016,6 +1038,7 @@ export type UserUncheckedCreateWithoutRefreshSessionsInput = {
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutRefreshSessionsInput = {
@@ -1065,6 +1088,7 @@ export type UserUpdateWithoutRefreshSessionsInput = {
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshSessionsInput = {
@@ -1098,6 +1122,7 @@ export type UserUncheckedUpdateWithoutRefreshSessionsInput = {
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutDepartmentInput = {
@@ -1131,6 +1156,7 @@ export type UserCreateWithoutDepartmentInput = {
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutDepartmentInput = {
@@ -1164,6 +1190,7 @@ export type UserUncheckedCreateWithoutDepartmentInput = {
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutDepartmentInput = {
@@ -1241,6 +1268,7 @@ export type UserCreateWithoutCreatedPatientsInput = {
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedPatientsInput = {
@@ -1274,6 +1302,7 @@ export type UserUncheckedCreateWithoutCreatedPatientsInput = {
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedPatientsInput = {
@@ -1323,6 +1352,7 @@ export type UserUpdateWithoutCreatedPatientsInput = {
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedPatientsInput = {
@@ -1356,6 +1386,7 @@ export type UserUncheckedUpdateWithoutCreatedPatientsInput = {
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutCreatedEncountersInput = {
@@ -1389,6 +1420,7 @@ export type UserCreateWithoutCreatedEncountersInput = {
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedEncountersInput = {
@@ -1422,6 +1454,7 @@ export type UserUncheckedCreateWithoutCreatedEncountersInput = {
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedEncountersInput = {
@@ -1471,6 +1504,7 @@ export type UserUpdateWithoutCreatedEncountersInput = {
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedEncountersInput = {
@@ -1488,6 +1522,159 @@ export type UserUncheckedUpdateWithoutCreatedEncountersInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshSessions?: Prisma.RefreshSessionUncheckedUpdateManyWithoutUserNestedInput
   createdPatients?: Prisma.PatientUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedQueues?: Prisma.QueueEntryUncheckedUpdateManyWithoutAssignedToNestedInput
+  recordedTriages?: Prisma.TriageUncheckedUpdateManyWithoutRecordedByNestedInput
+  consultations?: Prisma.ConsultationUncheckedUpdateManyWithoutDoctorNestedInput
+  diagnoses?: Prisma.DiagnosisUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  orderedLabOrders?: Prisma.LabOrderUncheckedUpdateManyWithoutDoctorNestedInput
+  enteredLabResults?: Prisma.LabResultUncheckedUpdateManyWithoutEnteredByNestedInput
+  verifiedLabResults?: Prisma.LabResultUncheckedUpdateManyWithoutVerifiedByNestedInput
+  prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutDoctorNestedInput
+  dispensings?: Prisma.DispensingUncheckedUpdateManyWithoutPharmacistNestedInput
+  inventoryMovements?: Prisma.InventoryMovementUncheckedUpdateManyWithoutPerformedByNestedInput
+  issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
+  recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
+  issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
+  cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedAppointmentsInput = {
+  id?: string
+  email: string
+  phone?: string | null
+  passwordHash: string
+  firstName: string
+  lastName: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  department?: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  refreshSessions?: Prisma.RefreshSessionCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientCreateNestedManyWithoutCreatedByInput
+  createdEncounters?: Prisma.EncounterCreateNestedManyWithoutCreatedByInput
+  assignedQueues?: Prisma.QueueEntryCreateNestedManyWithoutAssignedToInput
+  recordedTriages?: Prisma.TriageCreateNestedManyWithoutRecordedByInput
+  consultations?: Prisma.ConsultationCreateNestedManyWithoutDoctorInput
+  diagnoses?: Prisma.DiagnosisCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  orderedLabOrders?: Prisma.LabOrderCreateNestedManyWithoutDoctorInput
+  enteredLabResults?: Prisma.LabResultCreateNestedManyWithoutEnteredByInput
+  verifiedLabResults?: Prisma.LabResultCreateNestedManyWithoutVerifiedByInput
+  prescriptions?: Prisma.PrescriptionCreateNestedManyWithoutDoctorInput
+  dispensings?: Prisma.DispensingCreateNestedManyWithoutPharmacistInput
+  inventoryMovements?: Prisma.InventoryMovementCreateNestedManyWithoutPerformedByInput
+  issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
+  recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
+  issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
+  cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+}
+
+export type UserUncheckedCreateWithoutCreatedAppointmentsInput = {
+  id?: string
+  email: string
+  phone?: string | null
+  passwordHash: string
+  firstName: string
+  lastName: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  departmentId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshSessions?: Prisma.RefreshSessionUncheckedCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientUncheckedCreateNestedManyWithoutCreatedByInput
+  createdEncounters?: Prisma.EncounterUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedQueues?: Prisma.QueueEntryUncheckedCreateNestedManyWithoutAssignedToInput
+  recordedTriages?: Prisma.TriageUncheckedCreateNestedManyWithoutRecordedByInput
+  consultations?: Prisma.ConsultationUncheckedCreateNestedManyWithoutDoctorInput
+  diagnoses?: Prisma.DiagnosisUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  orderedLabOrders?: Prisma.LabOrderUncheckedCreateNestedManyWithoutDoctorInput
+  enteredLabResults?: Prisma.LabResultUncheckedCreateNestedManyWithoutEnteredByInput
+  verifiedLabResults?: Prisma.LabResultUncheckedCreateNestedManyWithoutVerifiedByInput
+  prescriptions?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutDoctorInput
+  dispensings?: Prisma.DispensingUncheckedCreateNestedManyWithoutPharmacistInput
+  inventoryMovements?: Prisma.InventoryMovementUncheckedCreateNestedManyWithoutPerformedByInput
+  issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
+  recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
+  issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
+  cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+}
+
+export type UserCreateOrConnectWithoutCreatedAppointmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedAppointmentsInput, Prisma.UserUncheckedCreateWithoutCreatedAppointmentsInput>
+}
+
+export type UserUpsertWithoutCreatedAppointmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedAppointmentsInput, Prisma.UserUncheckedUpdateWithoutCreatedAppointmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedAppointmentsInput, Prisma.UserUncheckedCreateWithoutCreatedAppointmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedAppointmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedAppointmentsInput, Prisma.UserUncheckedUpdateWithoutCreatedAppointmentsInput>
+}
+
+export type UserUpdateWithoutCreatedAppointmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  department?: Prisma.DepartmentUpdateOneWithoutUsersNestedInput
+  refreshSessions?: Prisma.RefreshSessionUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUpdateManyWithoutCreatedByNestedInput
+  createdEncounters?: Prisma.EncounterUpdateManyWithoutCreatedByNestedInput
+  assignedQueues?: Prisma.QueueEntryUpdateManyWithoutAssignedToNestedInput
+  recordedTriages?: Prisma.TriageUpdateManyWithoutRecordedByNestedInput
+  consultations?: Prisma.ConsultationUpdateManyWithoutDoctorNestedInput
+  diagnoses?: Prisma.DiagnosisUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  orderedLabOrders?: Prisma.LabOrderUpdateManyWithoutDoctorNestedInput
+  enteredLabResults?: Prisma.LabResultUpdateManyWithoutEnteredByNestedInput
+  verifiedLabResults?: Prisma.LabResultUpdateManyWithoutVerifiedByNestedInput
+  prescriptions?: Prisma.PrescriptionUpdateManyWithoutDoctorNestedInput
+  dispensings?: Prisma.DispensingUpdateManyWithoutPharmacistNestedInput
+  inventoryMovements?: Prisma.InventoryMovementUpdateManyWithoutPerformedByNestedInput
+  issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
+  recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
+  issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
+  cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedAppointmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshSessions?: Prisma.RefreshSessionUncheckedUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdEncounters?: Prisma.EncounterUncheckedUpdateManyWithoutCreatedByNestedInput
   assignedQueues?: Prisma.QueueEntryUncheckedUpdateManyWithoutAssignedToNestedInput
   recordedTriages?: Prisma.TriageUncheckedUpdateManyWithoutRecordedByNestedInput
   consultations?: Prisma.ConsultationUncheckedUpdateManyWithoutDoctorNestedInput
@@ -1537,6 +1724,7 @@ export type UserCreateWithoutAssignedQueuesInput = {
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutAssignedQueuesInput = {
@@ -1570,6 +1758,7 @@ export type UserUncheckedCreateWithoutAssignedQueuesInput = {
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutAssignedQueuesInput = {
@@ -1619,6 +1808,7 @@ export type UserUpdateWithoutAssignedQueuesInput = {
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedQueuesInput = {
@@ -1652,6 +1842,7 @@ export type UserUncheckedUpdateWithoutAssignedQueuesInput = {
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutRecordedTriagesInput = {
@@ -1685,6 +1876,7 @@ export type UserCreateWithoutRecordedTriagesInput = {
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutRecordedTriagesInput = {
@@ -1718,6 +1910,7 @@ export type UserUncheckedCreateWithoutRecordedTriagesInput = {
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutRecordedTriagesInput = {
@@ -1767,6 +1960,7 @@ export type UserUpdateWithoutRecordedTriagesInput = {
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecordedTriagesInput = {
@@ -1800,6 +1994,7 @@ export type UserUncheckedUpdateWithoutRecordedTriagesInput = {
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutConsultationsInput = {
@@ -1833,6 +2028,7 @@ export type UserCreateWithoutConsultationsInput = {
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutConsultationsInput = {
@@ -1866,6 +2062,7 @@ export type UserUncheckedCreateWithoutConsultationsInput = {
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutConsultationsInput = {
@@ -1915,6 +2112,7 @@ export type UserUpdateWithoutConsultationsInput = {
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConsultationsInput = {
@@ -1948,6 +2146,7 @@ export type UserUncheckedUpdateWithoutConsultationsInput = {
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutDiagnosesInput = {
@@ -1981,6 +2180,7 @@ export type UserCreateWithoutDiagnosesInput = {
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutDiagnosesInput = {
@@ -2014,6 +2214,7 @@ export type UserUncheckedCreateWithoutDiagnosesInput = {
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutDiagnosesInput = {
@@ -2063,6 +2264,7 @@ export type UserUpdateWithoutDiagnosesInput = {
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDiagnosesInput = {
@@ -2096,6 +2298,7 @@ export type UserUncheckedUpdateWithoutDiagnosesInput = {
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -2129,6 +2332,7 @@ export type UserCreateWithoutAuditLogsInput = {
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -2162,6 +2366,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -2211,6 +2416,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -2244,6 +2450,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutOrderedLabOrdersInput = {
@@ -2277,6 +2484,7 @@ export type UserCreateWithoutOrderedLabOrdersInput = {
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutOrderedLabOrdersInput = {
@@ -2310,6 +2518,7 @@ export type UserUncheckedCreateWithoutOrderedLabOrdersInput = {
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutOrderedLabOrdersInput = {
@@ -2359,6 +2568,7 @@ export type UserUpdateWithoutOrderedLabOrdersInput = {
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrderedLabOrdersInput = {
@@ -2392,6 +2602,7 @@ export type UserUncheckedUpdateWithoutOrderedLabOrdersInput = {
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutEnteredLabResultsInput = {
@@ -2425,6 +2636,7 @@ export type UserCreateWithoutEnteredLabResultsInput = {
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutEnteredLabResultsInput = {
@@ -2458,6 +2670,7 @@ export type UserUncheckedCreateWithoutEnteredLabResultsInput = {
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutEnteredLabResultsInput = {
@@ -2496,6 +2709,7 @@ export type UserCreateWithoutVerifiedLabResultsInput = {
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutVerifiedLabResultsInput = {
@@ -2529,6 +2743,7 @@ export type UserUncheckedCreateWithoutVerifiedLabResultsInput = {
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutVerifiedLabResultsInput = {
@@ -2578,6 +2793,7 @@ export type UserUpdateWithoutEnteredLabResultsInput = {
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEnteredLabResultsInput = {
@@ -2611,6 +2827,7 @@ export type UserUncheckedUpdateWithoutEnteredLabResultsInput = {
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUpsertWithoutVerifiedLabResultsInput = {
@@ -2655,6 +2872,7 @@ export type UserUpdateWithoutVerifiedLabResultsInput = {
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVerifiedLabResultsInput = {
@@ -2688,6 +2906,7 @@ export type UserUncheckedUpdateWithoutVerifiedLabResultsInput = {
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutPrescriptionsInput = {
@@ -2721,6 +2940,7 @@ export type UserCreateWithoutPrescriptionsInput = {
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutPrescriptionsInput = {
@@ -2754,6 +2974,7 @@ export type UserUncheckedCreateWithoutPrescriptionsInput = {
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutPrescriptionsInput = {
@@ -2803,6 +3024,7 @@ export type UserUpdateWithoutPrescriptionsInput = {
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPrescriptionsInput = {
@@ -2836,6 +3058,7 @@ export type UserUncheckedUpdateWithoutPrescriptionsInput = {
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutInventoryMovementsInput = {
@@ -2869,6 +3092,7 @@ export type UserCreateWithoutInventoryMovementsInput = {
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutInventoryMovementsInput = {
@@ -2902,6 +3126,7 @@ export type UserUncheckedCreateWithoutInventoryMovementsInput = {
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutInventoryMovementsInput = {
@@ -2951,6 +3176,7 @@ export type UserUpdateWithoutInventoryMovementsInput = {
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInventoryMovementsInput = {
@@ -2984,6 +3210,7 @@ export type UserUncheckedUpdateWithoutInventoryMovementsInput = {
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutDispensingsInput = {
@@ -3017,6 +3244,7 @@ export type UserCreateWithoutDispensingsInput = {
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutDispensingsInput = {
@@ -3050,6 +3278,7 @@ export type UserUncheckedCreateWithoutDispensingsInput = {
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutDispensingsInput = {
@@ -3099,6 +3328,7 @@ export type UserUpdateWithoutDispensingsInput = {
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDispensingsInput = {
@@ -3132,6 +3362,7 @@ export type UserUncheckedUpdateWithoutDispensingsInput = {
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutIssuedInvoicesInput = {
@@ -3165,6 +3396,7 @@ export type UserCreateWithoutIssuedInvoicesInput = {
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutIssuedInvoicesInput = {
@@ -3198,6 +3430,7 @@ export type UserUncheckedCreateWithoutIssuedInvoicesInput = {
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutIssuedInvoicesInput = {
@@ -3247,6 +3480,7 @@ export type UserUpdateWithoutIssuedInvoicesInput = {
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIssuedInvoicesInput = {
@@ -3280,6 +3514,7 @@ export type UserUncheckedUpdateWithoutIssuedInvoicesInput = {
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutRecordedPaymentsInput = {
@@ -3313,6 +3548,7 @@ export type UserCreateWithoutRecordedPaymentsInput = {
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutRecordedPaymentsInput = {
@@ -3346,6 +3582,7 @@ export type UserUncheckedCreateWithoutRecordedPaymentsInput = {
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutRecordedPaymentsInput = {
@@ -3395,6 +3632,7 @@ export type UserUpdateWithoutRecordedPaymentsInput = {
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecordedPaymentsInput = {
@@ -3428,6 +3666,7 @@ export type UserUncheckedUpdateWithoutRecordedPaymentsInput = {
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutIssuedRefundsInput = {
@@ -3461,6 +3700,7 @@ export type UserCreateWithoutIssuedRefundsInput = {
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutIssuedRefundsInput = {
@@ -3494,6 +3734,7 @@ export type UserUncheckedCreateWithoutIssuedRefundsInput = {
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutIssuedRefundsInput = {
@@ -3543,6 +3784,7 @@ export type UserUpdateWithoutIssuedRefundsInput = {
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIssuedRefundsInput = {
@@ -3576,6 +3818,7 @@ export type UserUncheckedUpdateWithoutIssuedRefundsInput = {
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutCashSessionsInput = {
@@ -3609,6 +3852,7 @@ export type UserCreateWithoutCashSessionsInput = {
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutCashSessionsInput = {
@@ -3642,6 +3886,7 @@ export type UserUncheckedCreateWithoutCashSessionsInput = {
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutCashSessionsInput = {
@@ -3691,6 +3936,7 @@ export type UserUpdateWithoutCashSessionsInput = {
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCashSessionsInput = {
@@ -3724,6 +3970,7 @@ export type UserUncheckedUpdateWithoutCashSessionsInput = {
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -3757,6 +4004,7 @@ export type UserCreateWithoutNotificationsInput = {
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -3790,6 +4038,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -3839,6 +4088,7 @@ export type UserUpdateWithoutNotificationsInput = {
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -3872,6 +4122,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateManyDepartmentInput = {
@@ -3919,6 +4170,7 @@ export type UserUpdateWithoutDepartmentInput = {
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDepartmentInput = {
@@ -3952,6 +4204,7 @@ export type UserUncheckedUpdateWithoutDepartmentInput = {
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutDepartmentInput = {
@@ -3993,6 +4246,7 @@ export type UserCountOutputType = {
   issuedRefunds: number
   cashSessions: number
   notifications: number
+  createdAppointments: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4015,6 +4269,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   issuedRefunds?: boolean | UserCountOutputTypeCountIssuedRefundsArgs
   cashSessions?: boolean | UserCountOutputTypeCountCashSessionsArgs
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+  createdAppointments?: boolean | UserCountOutputTypeCountCreatedAppointmentsArgs
 }
 
 /**
@@ -4160,6 +4415,13 @@ export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Ty
   where?: Prisma.NotificationWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedAppointmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AppointmentWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -4194,6 +4456,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   issuedRefunds?: boolean | Prisma.User$issuedRefundsArgs<ExtArgs>
   cashSessions?: boolean | Prisma.User$cashSessionsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  createdAppointments?: boolean | Prisma.User$createdAppointmentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -4266,6 +4529,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   issuedRefunds?: boolean | Prisma.User$issuedRefundsArgs<ExtArgs>
   cashSessions?: boolean | Prisma.User$cashSessionsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  createdAppointments?: boolean | Prisma.User$createdAppointmentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4298,6 +4562,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     issuedRefunds: Prisma.$RefundPayload<ExtArgs>[]
     cashSessions: Prisma.$CashSessionPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
+    createdAppointments: Prisma.$AppointmentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4726,6 +4991,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   issuedRefunds<T extends Prisma.User$issuedRefundsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$issuedRefundsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefundPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   cashSessions<T extends Prisma.User$cashSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$cashSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CashSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdAppointments<T extends Prisma.User$createdAppointmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdAppointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5640,6 +5906,30 @@ export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
+}
+
+/**
+ * User.createdAppointments
+ */
+export type User$createdAppointmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Appointment
+   */
+  select?: Prisma.AppointmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Appointment
+   */
+  omit?: Prisma.AppointmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AppointmentInclude<ExtArgs> | null
+  where?: Prisma.AppointmentWhereInput
+  orderBy?: Prisma.AppointmentOrderByWithRelationInput | Prisma.AppointmentOrderByWithRelationInput[]
+  cursor?: Prisma.AppointmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AppointmentScalarFieldEnum | Prisma.AppointmentScalarFieldEnum[]
 }
 
 /**

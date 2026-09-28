@@ -80,6 +80,23 @@ async function main() {
       departmentId: opd.id,
     },
   });
-  console.log(`Seeded PHOS. Admin: ${email}`);
+  const deskEmail = (
+    process.env.SEED_DESK_EMAIL ?? "desk@phos.local"
+  ).toLowerCase();
+  const deskPassword = process.env.SEED_DESK_PASSWORD ?? password;
+  await prisma.user.upsert({
+    where: { email: deskEmail },
+    update: { role: "FRONT_DESK", status: "ACTIVE" },
+    create: {
+      email: deskEmail,
+      passwordHash: await argon2.hash(deskPassword),
+      firstName: "Front",
+      lastName: "Desk",
+      role: "FRONT_DESK",
+      status: "ACTIVE",
+      departmentId: opd.id,
+    },
+  });
+  console.log(`Seeded PHOS. Admin: ${email} · Front desk: ${deskEmail}`);
 }
 void main().finally(() => prisma.$disconnect());

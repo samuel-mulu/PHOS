@@ -32,5 +32,6 @@ export class RecordTriageDto {
   @Max(260)
   heightCm?: number;
   @IsOptional() @IsInt() @Min(0) @Max(10) painScore?: number;
+  @IsOptional() @IsInt() @Min(20) @Max(600) bloodGlucoseMgDl?: number;
   @IsOptional() @IsString() notes?: string;
 }

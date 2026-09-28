@@ -5,7 +5,9 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { AuditService } from "../audit/audit.service";
+import { DESK_NOTIFY_ROLES } from "../common/constants/desk-roles";
 import { EncounterStatus, Prisma } from "../generated/prisma/client";
+import { NotificationsService } from "../notifications/notifications.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { CreateEncounterDto } from "./dto/encounter.dto";
 import { ENCOUNTER_TRANSITIONS } from "./encounter-state";
@@ -14,6 +16,7 @@ export class EncountersService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly audit: AuditService,
+    private readonly notifications: NotificationsService,
   ) {}
   async create(dto: CreateEncounterDto, actorId: string) {
     const config = await this.prisma.service.findFirst({
@@ -95,6 +98,7 @@ export class EncountersService {
         consultation: {
           include: { diagnoses: { where: { deletedAt: null } } },
         },
+        invoice: { select: { id: true, invoiceNumber: true, status: true } },
       },
     });
     if (!item) throw new NotFoundException("Encounter not found");
@@ -139,5 +143,40 @@ export class EncountersService {
       tx,
     );
     return updated;
+  }
+  async requestBilling(encounterId: string, doctorId: string) {
+    const encounter = await this.prisma.encounter.findFirst({
+      where: { id: encounterId, deletedAt: null },
+      include: {
+        patient: true,
+        consultation: true,
+        invoice: true,
+      },
+    });
+    if (!encounter) throw new NotFoundException("Encounter not found");
+    if (encounter.consultation?.doctorId !== doctorId)
+      throw new ConflictException(
+        "Only the consulting doctor can request billing for this visit",
+      );
+    const label = encounter.patient
+      ? `${encounter.patient.firstName} ${encounter.patient.lastName}`
+      : encounter.encounterNumber;
+    const invoiceHint = encounter.invoice
+      ? ` Invoice ${encounter.invoice.invoiceNumber} (${encounter.invoice.status}).`
+      : " Create invoice if needed.";
+    await this.notifications.createForRoles(DESK_NOTIFY_ROLES, {
+      type: "SYSTEM",
+      title: "Payment requested",
+      message: `Doctor requested billing for ${label} (${encounter.encounterNumber}).${invoiceHint}`,
+      entityType: "Encounter",
+      entityId: encounterId,
+    });
+    await this.audit.create({
+      actorId: doctorId,
+      action: "encounter.billing_requested",
+      entityType: "Encounter",
+      entityId: encounterId,
+    });
+    return { success: true, encounterId };
   }
 }

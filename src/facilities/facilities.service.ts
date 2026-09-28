@@ -8,6 +8,7 @@ import {
   CreateDepartmentDto,
   CreateFacilityDto,
   CreateServiceDto,
+  UpdateServiceDto,
 } from "./dto/facility.dto";
 @Injectable()
 export class FacilitiesService {
@@ -65,6 +66,14 @@ export class FacilitiesService {
     const result = await this.prisma.service.updateMany({
       where: { id, deletedAt: null },
       data: { active },
+    });
+    if (!result.count) throw new NotFoundException("Service not found");
+    return this.prisma.service.findUnique({ where: { id } });
+  }
+  async updateService(id: string, dto: UpdateServiceDto) {
+    const result = await this.prisma.service.updateMany({
+      where: { id, deletedAt: null },
+      data: dto,
     });
     if (!result.count) throw new NotFoundException("Service not found");
     return this.prisma.service.findUnique({ where: { id } });

@@ -4,6 +4,7 @@ import { CurrentUser } from "../common/decorators/current-user.decorator";
 import { Roles } from "../common/decorators/roles.decorator";
 import { AuthUser } from "../common/types/auth-user";
 import { Role } from "../generated/prisma/client";
+import { DESK_BILLING_CREATE_ROLES, DESK_PAY_ROLES } from "../common/constants/desk-roles";
 import { BillingService } from "./billing.service";
 import { CreateInvoiceDto } from "./dto/billing.dto";
 @ApiTags("Billing")
@@ -11,7 +12,7 @@ import { CreateInvoiceDto } from "./dto/billing.dto";
 @Controller()
 export class BillingController {
   constructor(private readonly service: BillingService) {}
-  @Roles(Role.CASHIER, Role.RECEPTIONIST, Role.ADMIN)
+  @Roles(...DESK_BILLING_CREATE_ROLES)
   @Post("encounters/:encounterId/invoice")
   create(
     @Param("encounterId") id: string,
@@ -23,7 +24,7 @@ export class BillingController {
   @Get("invoices/:id") find(@Param("id") id: string) {
     return this.service.find(id);
   }
-  @Roles(Role.CASHIER, Role.ADMIN) @Post("invoices/:id/issue") issue(
+  @Roles(...DESK_PAY_ROLES) @Post("invoices/:id/issue") issue(
     @Param("id") id: string,
     @CurrentUser() user: AuthUser,
   ) {

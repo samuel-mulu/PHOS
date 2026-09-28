@@ -1,6 +1,10 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { NotificationType, Prisma, Role } from "../generated/prisma/client";
 import { PrismaService } from "../prisma/prisma.service";
+import {
+  alertPriorityForNotification,
+  type AlertPriority,
+} from "./notification-priority";
 @Injectable()
 export class NotificationsService {
   constructor(private readonly prisma: PrismaService) {}
@@ -34,12 +38,42 @@ export class NotificationsService {
       data: users.map((user) => ({ ...input, recipientId: user.id })),
     });
   }
-  list(recipientId: string, unreadOnly = false) {
-    return this.prisma.notification.findMany({
+  private enrich<T extends { type: NotificationType; title: string }>(row: T) {
+    return {
+      ...row,
+      priority: alertPriorityForNotification(row.type, row.title),
+    };
+  }
+
+  async list(
+    recipientId: string,
+    unreadOnly = false,
+    priority?: AlertPriority,
+  ) {
+    const rows = await this.prisma.notification.findMany({
       where: { recipientId, readAt: unreadOnly ? null : undefined },
       orderBy: { createdAt: "desc" },
       take: 100,
     });
+    const enriched = rows.map((row) => this.enrich(row));
+    if (!priority) return enriched;
+    return enriched.filter((row) => row.priority === priority);
+  }
+
+  async unreadSummary(recipientId: string) {
+    const rows = await this.prisma.notification.findMany({
+      where: { recipientId, readAt: null },
+      select: { type: true, title: true },
+    });
+    const summary: Record<AlertPriority, number> = {
+      CRITICAL: 0,
+      HIGH: 0,
+      NORMAL: 0,
+    };
+    for (const row of rows) {
+      summary[alertPriorityForNotification(row.type, row.title)] += 1;
+    }
+    return { total: rows.length, byPriority: summary };
   }
   async markRead(id: string, recipientId: string) {
     const result = await this.prisma.notification.updateMany({

@@ -404,6 +404,7 @@ export const ModelName = {
   Service: 'Service',
   Patient: 'Patient',
   Encounter: 'Encounter',
+  Appointment: 'Appointment',
   QueueEntry: 'QueueEntry',
   Triage: 'Triage',
   Consultation: 'Consultation',
@@ -442,7 +443,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshSession" | "facility" | "department" | "service" | "patient" | "encounter" | "queueEntry" | "triage" | "consultation" | "diagnosis" | "auditLog" | "labTest" | "labOrder" | "labOrderItem" | "labResult" | "prescription" | "prescriptionItem" | "medicine" | "supplier" | "inventoryBatch" | "inventoryMovement" | "dispensing" | "dispensingItem" | "invoice" | "invoiceItem" | "payment" | "refund" | "cashSession" | "notification"
+    modelProps: "user" | "refreshSession" | "facility" | "department" | "service" | "patient" | "encounter" | "appointment" | "queueEntry" | "triage" | "consultation" | "diagnosis" | "auditLog" | "labTest" | "labOrder" | "labOrderItem" | "labResult" | "prescription" | "prescriptionItem" | "medicine" | "supplier" | "inventoryBatch" | "inventoryMovement" | "dispensing" | "dispensingItem" | "invoice" | "invoiceItem" | "payment" | "refund" | "cashSession" | "notification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -961,6 +962,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.EncounterCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.EncounterCountAggregateOutputType> | number
+        }
+      }
+    }
+    Appointment: {
+      payload: Prisma.$AppointmentPayload<ExtArgs>
+      fields: Prisma.AppointmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AppointmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AppointmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentPayload>
+        }
+        findFirst: {
+          args: Prisma.AppointmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AppointmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentPayload>
+        }
+        findMany: {
+          args: Prisma.AppointmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentPayload>[]
+        }
+        create: {
+          args: Prisma.AppointmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentPayload>
+        }
+        createMany: {
+          args: Prisma.AppointmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AppointmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentPayload>[]
+        }
+        delete: {
+          args: Prisma.AppointmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentPayload>
+        }
+        update: {
+          args: Prisma.AppointmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.AppointmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AppointmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AppointmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.AppointmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AppointmentPayload>
+        }
+        aggregate: {
+          args: Prisma.AppointmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAppointment>
+        }
+        groupBy: {
+          args: Prisma.AppointmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AppointmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AppointmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AppointmentCountAggregateOutputType> | number
         }
       }
     }
@@ -2828,6 +2903,23 @@ export const EncounterScalarFieldEnum = {
 export type EncounterScalarFieldEnum = (typeof EncounterScalarFieldEnum)[keyof typeof EncounterScalarFieldEnum]
 
 
+export const AppointmentScalarFieldEnum = {
+  id: 'id',
+  patientId: 'patientId',
+  scheduledAt: 'scheduledAt',
+  status: 'status',
+  departmentId: 'departmentId',
+  serviceId: 'serviceId',
+  notes: 'notes',
+  encounterId: 'encounterId',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[keyof typeof AppointmentScalarFieldEnum]
+
+
 export const QueueEntryScalarFieldEnum = {
   id: 'id',
   encounterId: 'encounterId',
@@ -2858,6 +2950,7 @@ export const TriageScalarFieldEnum = {
   weightKg: 'weightKg',
   heightCm: 'heightCm',
   painScore: 'painScore',
+  bloodGlucoseMgDl: 'bloodGlucoseMgDl',
   notes: 'notes',
   recordedById: 'recordedById',
   recordedAt: 'recordedAt',
@@ -3378,6 +3471,20 @@ export type ListEnumEncounterPriorityFieldRefInput<$PrismaModel> = FieldRefInput
 
 
 /**
+ * Reference to a field of type 'AppointmentStatus'
+ */
+export type EnumAppointmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'AppointmentStatus[]'
+ */
+export type ListEnumAppointmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'QueueStation'
  */
 export type EnumQueueStationFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueueStation'>
@@ -3786,6 +3893,7 @@ export type GlobalOmitConfig = {
   service?: Prisma.ServiceOmit
   patient?: Prisma.PatientOmit
   encounter?: Prisma.EncounterOmit
+  appointment?: Prisma.AppointmentOmit
   queueEntry?: Prisma.QueueEntryOmit
   triage?: Prisma.TriageOmit
   consultation?: Prisma.ConsultationOmit

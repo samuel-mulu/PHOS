@@ -18,6 +18,7 @@ enum Role {
   STOREKEEPER
   RECEPTIONIST
   CASHIER
+  FRONT_DESK
   REPORTING_OFFICER
   IT_ADMIN
 }
@@ -92,10 +93,19 @@ enum DiagnosisType {
 
 enum LabOrderStatus {
   ORDERED
+  RECEIVED
   PROCESSING
   RESULT_ENTERED
   VERIFIED
   CANCELLED
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  CHECKED_IN
+  COMPLETED
+  CANCELLED
+  NO_SHOW
 }
 
 enum LabResultFlag {
@@ -140,6 +150,7 @@ enum InvoiceItemType {
 
 enum PaymentMethod {
   CASH
+  CARD
   TELEBIRR
   BANK_TRANSFER
   INSURANCE
@@ -204,6 +215,7 @@ model User {
   issuedRefunds      Refund[]            @relation("RefundIssuer")
   cashSessions       CashSession[]
   notifications      Notification[]      @relation("NotificationRecipient")
+  createdAppointments Appointment[]      @relation("AppointmentCreator")
   createdAt          DateTime            @default(now()) @map("created_at")
   updatedAt          DateTime            @updatedAt @map("updated_at")
   deletedAt          DateTime?           @map("deleted_at")
@@ -252,10 +264,11 @@ model Department {
   facility   Facility    @relation(fields: [facilityId], references: [id])
   services   Service[]
   users      User[]
-  encounters Encounter[]
-  createdAt  DateTime    @default(now()) @map("created_at")
-  updatedAt  DateTime    @updatedAt @map("updated_at")
-  deletedAt  DateTime?   @map("deleted_at")
+  encounters   Encounter[]
+  appointments Appointment[]
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+  deletedAt    DateTime?     @map("deleted_at")
 
   @@unique([facilityId, code])
   @@index([facilityId, active])
@@ -270,11 +283,12 @@ model Service {
   priceCents      Int         @map("price_cents")
   durationMinutes Int?        @map("duration_minutes")
   active          Boolean     @default(true)
-  department      Department  @relation(fields: [departmentId], references: [id])
+  department      Department    @relation(fields: [departmentId], references: [id])
   encounters      Encounter[]
-  createdAt       DateTime    @default(now()) @map("created_at")
-  updatedAt       DateTime    @updatedAt @map("updated_at")
-  deletedAt       DateTime?   @map("deleted_at")
+  appointments    Appointment[]
+  createdAt       DateTime      @default(now()) @map("created_at")
+  updatedAt       DateTime      @updatedAt @map("updated_at")
+  deletedAt       DateTime?     @map("deleted_at")
 
   @@unique([departmentId, code])
   @@index([departmentId, active])
@@ -303,6 +317,7 @@ model Patient {
   prescriptions         Prescription[]
   invoices              Invoice[]
   payments              Payment[]
+  appointments          Appointment[]
   createdAt             DateTime       @default(now()) @map("created_at")
   updatedAt             DateTime       @updatedAt @map("updated_at")
   deletedAt             DateTime?      @map("deleted_at")
@@ -337,6 +352,7 @@ model Encounter {
   labOrders       LabOrder[]
   prescriptions   Prescription[]
   invoice         Invoice?
+  appointment     Appointment?
   createdAt       DateTime          @default(now()) @map("created_at")
   updatedAt       DateTime          @updatedAt @map("updated_at")
   deletedAt       DateTime?         @map("deleted_at")
@@ -344,6 +360,29 @@ model Encounter {
   @@index([patientId, startedAt])
   @@index([status, departmentId])
   @@map("encounters")
+}
+
+model Appointment {
+  id           String            @id @default(uuid()) @db.Uuid
+  patientId    String            @map("patient_id") @db.Uuid
+  scheduledAt  DateTime          @map("scheduled_at")
+  status       AppointmentStatus @default(SCHEDULED)
+  departmentId String?           @map("department_id") @db.Uuid
+  serviceId    String?           @map("service_id") @db.Uuid
+  notes        String?
+  encounterId  String?           @unique @map("encounter_id") @db.Uuid
+  createdById  String            @map("created_by_id") @db.Uuid
+  patient      Patient           @relation(fields: [patientId], references: [id])
+  department   Department?       @relation(fields: [departmentId], references: [id])
+  service      Service?          @relation(fields: [serviceId], references: [id])
+  encounter    Encounter?        @relation(fields: [encounterId], references: [id])
+  createdBy    User              @relation("AppointmentCreator", fields: [createdById], references: [id])
+  createdAt    DateTime          @default(now()) @map("created_at")
+  updatedAt    DateTime          @updatedAt @map("updated_at")
+
+  @@index([scheduledAt, status])
+  @@index([patientId])
+  @@map("appointments")
 }
 
 model QueueEntry {
@@ -379,6 +418,7 @@ model Triage {
   weightKg        Decimal?  @map("weight_kg") @db.Decimal(5, 2)
   heightCm        Decimal?  @map("height_cm") @db.Decimal(5, 2)
   painScore       Int?      @map("pain_score")
+  bloodGlucoseMgDl Int?     @map("blood_glucose_mg_dl")
   notes           String?
   recordedById    String    @map("recorded_by_id") @db.Uuid
   recordedAt      DateTime  @default(now()) @map("recorded_at")

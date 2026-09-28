@@ -37,6 +37,11 @@ export class LaboratoryController {
     return this.service.findOrder(id, user.role);
   }
   @Roles(Role.LAB_TECH, Role.LAB_SUPERVISOR)
+  @Post("lab/orders/:id/receive")
+  receive(@Param("id") id: string, @CurrentUser() user: AuthUser) {
+    return this.service.receive(id, user.id);
+  }
+  @Roles(Role.LAB_TECH, Role.LAB_SUPERVISOR)
   @Post("lab/orders/:id/results")
   enter(
     @Param("id") id: string,

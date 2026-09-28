@@ -75,6 +75,11 @@ export type Patient = Prisma.PatientModel
  */
 export type Encounter = Prisma.EncounterModel
 /**
+ * Model Appointment
+ * 
+ */
+export type Appointment = Prisma.AppointmentModel
+/**
  * Model QueueEntry
  * 
  */

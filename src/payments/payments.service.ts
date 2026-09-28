@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { AuditService } from "../audit/audit.service";
+import { DESK_NOTIFY_ROLES } from "../common/constants/desk-roles";
 import { NotificationsService } from "../notifications/notifications.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { CreatePaymentDto, CreateRefundDto } from "./dto/payment.dto";
@@ -33,6 +34,9 @@ export class PaymentsService {
       }
       const invoice = await tx.invoice.findUnique({
         where: { id: dto.invoiceId },
+        include: {
+          encounter: { include: { consultation: { select: { doctorId: true } } } },
+        },
       });
       if (!invoice || !["ISSUED", "PARTIALLY_PAID"].includes(invoice.status))
         throw new ConflictException("Invoice is not payable");
@@ -87,6 +91,34 @@ export class PaymentsService {
         },
         tx,
       );
+      const doctorId = invoice.encounter.consultation?.doctorId;
+      const fullyPaid = paidCents === invoice.totalCents;
+      if (fullyPaid && doctorId) {
+        await this.notifications.createForUser(
+          {
+            recipientId: doctorId,
+            type: "PAYMENT_COMPLETED",
+            title: "Payment received",
+            message: `${payment.paymentNumber} — visit can be closed for billing`,
+            entityType: "Encounter",
+            entityId: invoice.encounterId,
+          },
+          tx,
+        );
+      }
+      if (fullyPaid) {
+        await this.notifications.createForRoles(
+          DESK_NOTIFY_ROLES,
+          {
+            type: "PAYMENT_COMPLETED",
+            title: "Visit paid in full",
+            message: `${payment.paymentNumber} for encounter billing`,
+            entityType: "Payment",
+            entityId: payment.id,
+          },
+          tx,
+        );
+      }
       await this.audit.create(
         {
           actorId,

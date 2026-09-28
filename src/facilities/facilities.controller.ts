@@ -15,6 +15,7 @@ import {
   CreateFacilityDto,
   CreateServiceDto,
   UpdateCatalogStatusDto,
+  UpdateServiceDto,
 } from "./dto/facility.dto";
 import { FacilitiesService } from "./facilities.service";
 @ApiTags("Facilities")
@@ -59,5 +60,10 @@ export class FacilitiesController {
     @Body() dto: UpdateCatalogStatusDto,
   ) {
     return this.service.updateServiceStatus(id, dto.active);
+  }
+  @Roles(Role.CEO, Role.ADMIN)
+  @Patch("services/:id")
+  patchService(@Param("id") id: string, @Body() dto: UpdateServiceDto) {
+    return this.service.updateService(id, dto);
   }
 }

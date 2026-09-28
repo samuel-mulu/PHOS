@@ -281,6 +281,7 @@ export type EncounterWhereInput = {
   labOrders?: Prisma.LabOrderListRelationFilter
   prescriptions?: Prisma.PrescriptionListRelationFilter
   invoice?: Prisma.XOR<Prisma.InvoiceNullableScalarRelationFilter, Prisma.InvoiceWhereInput> | null
+  appointment?: Prisma.XOR<Prisma.AppointmentNullableScalarRelationFilter, Prisma.AppointmentWhereInput> | null
 }
 
 export type EncounterOrderByWithRelationInput = {
@@ -311,6 +312,7 @@ export type EncounterOrderByWithRelationInput = {
   labOrders?: Prisma.LabOrderOrderByRelationAggregateInput
   prescriptions?: Prisma.PrescriptionOrderByRelationAggregateInput
   invoice?: Prisma.InvoiceOrderByWithRelationInput
+  appointment?: Prisma.AppointmentOrderByWithRelationInput
 }
 
 export type EncounterWhereUniqueInput = Prisma.AtLeast<{
@@ -344,6 +346,7 @@ export type EncounterWhereUniqueInput = Prisma.AtLeast<{
   labOrders?: Prisma.LabOrderListRelationFilter
   prescriptions?: Prisma.PrescriptionListRelationFilter
   invoice?: Prisma.XOR<Prisma.InvoiceNullableScalarRelationFilter, Prisma.InvoiceWhereInput> | null
+  appointment?: Prisma.XOR<Prisma.AppointmentNullableScalarRelationFilter, Prisma.AppointmentWhereInput> | null
 }, "id" | "encounterNumber">
 
 export type EncounterOrderByWithAggregationInput = {
@@ -413,6 +416,7 @@ export type EncounterCreateInput = {
   labOrders?: Prisma.LabOrderCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterUncheckedCreateInput = {
@@ -438,6 +442,7 @@ export type EncounterUncheckedCreateInput = {
   labOrders?: Prisma.LabOrderUncheckedCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterUpdateInput = {
@@ -463,6 +468,7 @@ export type EncounterUpdateInput = {
   labOrders?: Prisma.LabOrderUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterUncheckedUpdateInput = {
@@ -488,6 +494,7 @@ export type EncounterUncheckedUpdateInput = {
   labOrders?: Prisma.LabOrderUncheckedUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterCreateManyInput = {
@@ -607,6 +614,11 @@ export type EncounterMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+}
+
+export type EncounterNullableScalarRelationFilter = {
+  is?: Prisma.EncounterWhereInput | null
+  isNot?: Prisma.EncounterWhereInput | null
 }
 
 export type EncounterScalarRelationFilter = {
@@ -836,6 +848,22 @@ export type EnumEncounterPriorityFieldUpdateOperationsInput = {
   set?: $Enums.EncounterPriority
 }
 
+export type EncounterCreateNestedOneWithoutAppointmentInput = {
+  create?: Prisma.XOR<Prisma.EncounterCreateWithoutAppointmentInput, Prisma.EncounterUncheckedCreateWithoutAppointmentInput>
+  connectOrCreate?: Prisma.EncounterCreateOrConnectWithoutAppointmentInput
+  connect?: Prisma.EncounterWhereUniqueInput
+}
+
+export type EncounterUpdateOneWithoutAppointmentNestedInput = {
+  create?: Prisma.XOR<Prisma.EncounterCreateWithoutAppointmentInput, Prisma.EncounterUncheckedCreateWithoutAppointmentInput>
+  connectOrCreate?: Prisma.EncounterCreateOrConnectWithoutAppointmentInput
+  upsert?: Prisma.EncounterUpsertWithoutAppointmentInput
+  disconnect?: Prisma.EncounterWhereInput | boolean
+  delete?: Prisma.EncounterWhereInput | boolean
+  connect?: Prisma.EncounterWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EncounterUpdateToOneWithWhereWithoutAppointmentInput, Prisma.EncounterUpdateWithoutAppointmentInput>, Prisma.EncounterUncheckedUpdateWithoutAppointmentInput>
+}
+
 export type EncounterCreateNestedOneWithoutQueueEntriesInput = {
   create?: Prisma.XOR<Prisma.EncounterCreateWithoutQueueEntriesInput, Prisma.EncounterUncheckedCreateWithoutQueueEntriesInput>
   connectOrCreate?: Prisma.EncounterCreateOrConnectWithoutQueueEntriesInput
@@ -942,6 +970,7 @@ export type EncounterCreateWithoutCreatedByInput = {
   labOrders?: Prisma.LabOrderCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterUncheckedCreateWithoutCreatedByInput = {
@@ -966,6 +995,7 @@ export type EncounterUncheckedCreateWithoutCreatedByInput = {
   labOrders?: Prisma.LabOrderUncheckedCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterCreateOrConnectWithoutCreatedByInput = {
@@ -1038,6 +1068,7 @@ export type EncounterCreateWithoutFacilityInput = {
   labOrders?: Prisma.LabOrderCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterUncheckedCreateWithoutFacilityInput = {
@@ -1062,6 +1093,7 @@ export type EncounterUncheckedCreateWithoutFacilityInput = {
   labOrders?: Prisma.LabOrderUncheckedCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterCreateOrConnectWithoutFacilityInput = {
@@ -1112,6 +1144,7 @@ export type EncounterCreateWithoutDepartmentInput = {
   labOrders?: Prisma.LabOrderCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterUncheckedCreateWithoutDepartmentInput = {
@@ -1136,6 +1169,7 @@ export type EncounterUncheckedCreateWithoutDepartmentInput = {
   labOrders?: Prisma.LabOrderUncheckedCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterCreateOrConnectWithoutDepartmentInput = {
@@ -1186,6 +1220,7 @@ export type EncounterCreateWithoutServiceInput = {
   labOrders?: Prisma.LabOrderCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterUncheckedCreateWithoutServiceInput = {
@@ -1210,6 +1245,7 @@ export type EncounterUncheckedCreateWithoutServiceInput = {
   labOrders?: Prisma.LabOrderUncheckedCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterCreateOrConnectWithoutServiceInput = {
@@ -1260,6 +1296,7 @@ export type EncounterCreateWithoutPatientInput = {
   labOrders?: Prisma.LabOrderCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterUncheckedCreateWithoutPatientInput = {
@@ -1284,6 +1321,7 @@ export type EncounterUncheckedCreateWithoutPatientInput = {
   labOrders?: Prisma.LabOrderUncheckedCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterCreateOrConnectWithoutPatientInput = {
@@ -1312,6 +1350,122 @@ export type EncounterUpdateManyWithWhereWithoutPatientInput = {
   data: Prisma.XOR<Prisma.EncounterUpdateManyMutationInput, Prisma.EncounterUncheckedUpdateManyWithoutPatientInput>
 }
 
+export type EncounterCreateWithoutAppointmentInput = {
+  id?: string
+  encounterNumber: string
+  type?: $Enums.EncounterType
+  status?: $Enums.EncounterStatus
+  priority?: $Enums.EncounterPriority
+  reason?: string | null
+  startedAt?: Date | string
+  closedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  patient: Prisma.PatientCreateNestedOneWithoutEncountersInput
+  facility: Prisma.FacilityCreateNestedOneWithoutEncountersInput
+  department: Prisma.DepartmentCreateNestedOneWithoutEncountersInput
+  service: Prisma.ServiceCreateNestedOneWithoutEncountersInput
+  createdBy: Prisma.UserCreateNestedOneWithoutCreatedEncountersInput
+  queueEntries?: Prisma.QueueEntryCreateNestedManyWithoutEncounterInput
+  triage?: Prisma.TriageCreateNestedOneWithoutEncounterInput
+  consultation?: Prisma.ConsultationCreateNestedOneWithoutEncounterInput
+  labOrders?: Prisma.LabOrderCreateNestedManyWithoutEncounterInput
+  prescriptions?: Prisma.PrescriptionCreateNestedManyWithoutEncounterInput
+  invoice?: Prisma.InvoiceCreateNestedOneWithoutEncounterInput
+}
+
+export type EncounterUncheckedCreateWithoutAppointmentInput = {
+  id?: string
+  encounterNumber: string
+  patientId: string
+  facilityId: string
+  departmentId: string
+  serviceId: string
+  type?: $Enums.EncounterType
+  status?: $Enums.EncounterStatus
+  priority?: $Enums.EncounterPriority
+  reason?: string | null
+  startedAt?: Date | string
+  closedAt?: Date | string | null
+  createdById: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  queueEntries?: Prisma.QueueEntryUncheckedCreateNestedManyWithoutEncounterInput
+  triage?: Prisma.TriageUncheckedCreateNestedOneWithoutEncounterInput
+  consultation?: Prisma.ConsultationUncheckedCreateNestedOneWithoutEncounterInput
+  labOrders?: Prisma.LabOrderUncheckedCreateNestedManyWithoutEncounterInput
+  prescriptions?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutEncounterInput
+  invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutEncounterInput
+}
+
+export type EncounterCreateOrConnectWithoutAppointmentInput = {
+  where: Prisma.EncounterWhereUniqueInput
+  create: Prisma.XOR<Prisma.EncounterCreateWithoutAppointmentInput, Prisma.EncounterUncheckedCreateWithoutAppointmentInput>
+}
+
+export type EncounterUpsertWithoutAppointmentInput = {
+  update: Prisma.XOR<Prisma.EncounterUpdateWithoutAppointmentInput, Prisma.EncounterUncheckedUpdateWithoutAppointmentInput>
+  create: Prisma.XOR<Prisma.EncounterCreateWithoutAppointmentInput, Prisma.EncounterUncheckedCreateWithoutAppointmentInput>
+  where?: Prisma.EncounterWhereInput
+}
+
+export type EncounterUpdateToOneWithWhereWithoutAppointmentInput = {
+  where?: Prisma.EncounterWhereInput
+  data: Prisma.XOR<Prisma.EncounterUpdateWithoutAppointmentInput, Prisma.EncounterUncheckedUpdateWithoutAppointmentInput>
+}
+
+export type EncounterUpdateWithoutAppointmentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
+  status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
+  priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  patient?: Prisma.PatientUpdateOneRequiredWithoutEncountersNestedInput
+  facility?: Prisma.FacilityUpdateOneRequiredWithoutEncountersNestedInput
+  department?: Prisma.DepartmentUpdateOneRequiredWithoutEncountersNestedInput
+  service?: Prisma.ServiceUpdateOneRequiredWithoutEncountersNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEncountersNestedInput
+  queueEntries?: Prisma.QueueEntryUpdateManyWithoutEncounterNestedInput
+  triage?: Prisma.TriageUpdateOneWithoutEncounterNestedInput
+  consultation?: Prisma.ConsultationUpdateOneWithoutEncounterNestedInput
+  labOrders?: Prisma.LabOrderUpdateManyWithoutEncounterNestedInput
+  prescriptions?: Prisma.PrescriptionUpdateManyWithoutEncounterNestedInput
+  invoice?: Prisma.InvoiceUpdateOneWithoutEncounterNestedInput
+}
+
+export type EncounterUncheckedUpdateWithoutAppointmentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  patientId?: Prisma.StringFieldUpdateOperationsInput | string
+  facilityId?: Prisma.StringFieldUpdateOperationsInput | string
+  departmentId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
+  status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
+  priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  queueEntries?: Prisma.QueueEntryUncheckedUpdateManyWithoutEncounterNestedInput
+  triage?: Prisma.TriageUncheckedUpdateOneWithoutEncounterNestedInput
+  consultation?: Prisma.ConsultationUncheckedUpdateOneWithoutEncounterNestedInput
+  labOrders?: Prisma.LabOrderUncheckedUpdateManyWithoutEncounterNestedInput
+  prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutEncounterNestedInput
+  invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutEncounterNestedInput
+}
+
 export type EncounterCreateWithoutQueueEntriesInput = {
   id?: string
   encounterNumber: string
@@ -1334,6 +1488,7 @@ export type EncounterCreateWithoutQueueEntriesInput = {
   labOrders?: Prisma.LabOrderCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterUncheckedCreateWithoutQueueEntriesInput = {
@@ -1358,6 +1513,7 @@ export type EncounterUncheckedCreateWithoutQueueEntriesInput = {
   labOrders?: Prisma.LabOrderUncheckedCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterCreateOrConnectWithoutQueueEntriesInput = {
@@ -1398,6 +1554,7 @@ export type EncounterUpdateWithoutQueueEntriesInput = {
   labOrders?: Prisma.LabOrderUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterUncheckedUpdateWithoutQueueEntriesInput = {
@@ -1422,6 +1579,7 @@ export type EncounterUncheckedUpdateWithoutQueueEntriesInput = {
   labOrders?: Prisma.LabOrderUncheckedUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterCreateWithoutTriageInput = {
@@ -1446,6 +1604,7 @@ export type EncounterCreateWithoutTriageInput = {
   labOrders?: Prisma.LabOrderCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterUncheckedCreateWithoutTriageInput = {
@@ -1470,6 +1629,7 @@ export type EncounterUncheckedCreateWithoutTriageInput = {
   labOrders?: Prisma.LabOrderUncheckedCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterCreateOrConnectWithoutTriageInput = {
@@ -1510,6 +1670,7 @@ export type EncounterUpdateWithoutTriageInput = {
   labOrders?: Prisma.LabOrderUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterUncheckedUpdateWithoutTriageInput = {
@@ -1534,6 +1695,7 @@ export type EncounterUncheckedUpdateWithoutTriageInput = {
   labOrders?: Prisma.LabOrderUncheckedUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterCreateWithoutConsultationInput = {
@@ -1558,6 +1720,7 @@ export type EncounterCreateWithoutConsultationInput = {
   labOrders?: Prisma.LabOrderCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterUncheckedCreateWithoutConsultationInput = {
@@ -1582,6 +1745,7 @@ export type EncounterUncheckedCreateWithoutConsultationInput = {
   labOrders?: Prisma.LabOrderUncheckedCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterCreateOrConnectWithoutConsultationInput = {
@@ -1622,6 +1786,7 @@ export type EncounterUpdateWithoutConsultationInput = {
   labOrders?: Prisma.LabOrderUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterUncheckedUpdateWithoutConsultationInput = {
@@ -1646,6 +1811,7 @@ export type EncounterUncheckedUpdateWithoutConsultationInput = {
   labOrders?: Prisma.LabOrderUncheckedUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterCreateWithoutLabOrdersInput = {
@@ -1670,6 +1836,7 @@ export type EncounterCreateWithoutLabOrdersInput = {
   consultation?: Prisma.ConsultationCreateNestedOneWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterUncheckedCreateWithoutLabOrdersInput = {
@@ -1694,6 +1861,7 @@ export type EncounterUncheckedCreateWithoutLabOrdersInput = {
   consultation?: Prisma.ConsultationUncheckedCreateNestedOneWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterCreateOrConnectWithoutLabOrdersInput = {
@@ -1734,6 +1902,7 @@ export type EncounterUpdateWithoutLabOrdersInput = {
   consultation?: Prisma.ConsultationUpdateOneWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterUncheckedUpdateWithoutLabOrdersInput = {
@@ -1758,6 +1927,7 @@ export type EncounterUncheckedUpdateWithoutLabOrdersInput = {
   consultation?: Prisma.ConsultationUncheckedUpdateOneWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterCreateWithoutPrescriptionsInput = {
@@ -1782,6 +1952,7 @@ export type EncounterCreateWithoutPrescriptionsInput = {
   consultation?: Prisma.ConsultationCreateNestedOneWithoutEncounterInput
   labOrders?: Prisma.LabOrderCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterUncheckedCreateWithoutPrescriptionsInput = {
@@ -1806,6 +1977,7 @@ export type EncounterUncheckedCreateWithoutPrescriptionsInput = {
   consultation?: Prisma.ConsultationUncheckedCreateNestedOneWithoutEncounterInput
   labOrders?: Prisma.LabOrderUncheckedCreateNestedManyWithoutEncounterInput
   invoice?: Prisma.InvoiceUncheckedCreateNestedOneWithoutEncounterInput
+  appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterCreateOrConnectWithoutPrescriptionsInput = {
@@ -1846,6 +2018,7 @@ export type EncounterUpdateWithoutPrescriptionsInput = {
   consultation?: Prisma.ConsultationUpdateOneWithoutEncounterNestedInput
   labOrders?: Prisma.LabOrderUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterUncheckedUpdateWithoutPrescriptionsInput = {
@@ -1870,6 +2043,7 @@ export type EncounterUncheckedUpdateWithoutPrescriptionsInput = {
   consultation?: Prisma.ConsultationUncheckedUpdateOneWithoutEncounterNestedInput
   labOrders?: Prisma.LabOrderUncheckedUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterCreateWithoutInvoiceInput = {
@@ -1894,6 +2068,7 @@ export type EncounterCreateWithoutInvoiceInput = {
   consultation?: Prisma.ConsultationCreateNestedOneWithoutEncounterInput
   labOrders?: Prisma.LabOrderCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionCreateNestedManyWithoutEncounterInput
+  appointment?: Prisma.AppointmentCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterUncheckedCreateWithoutInvoiceInput = {
@@ -1918,6 +2093,7 @@ export type EncounterUncheckedCreateWithoutInvoiceInput = {
   consultation?: Prisma.ConsultationUncheckedCreateNestedOneWithoutEncounterInput
   labOrders?: Prisma.LabOrderUncheckedCreateNestedManyWithoutEncounterInput
   prescriptions?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutEncounterInput
+  appointment?: Prisma.AppointmentUncheckedCreateNestedOneWithoutEncounterInput
 }
 
 export type EncounterCreateOrConnectWithoutInvoiceInput = {
@@ -1958,6 +2134,7 @@ export type EncounterUpdateWithoutInvoiceInput = {
   consultation?: Prisma.ConsultationUpdateOneWithoutEncounterNestedInput
   labOrders?: Prisma.LabOrderUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUpdateManyWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterUncheckedUpdateWithoutInvoiceInput = {
@@ -1982,6 +2159,7 @@ export type EncounterUncheckedUpdateWithoutInvoiceInput = {
   consultation?: Prisma.ConsultationUncheckedUpdateOneWithoutEncounterNestedInput
   labOrders?: Prisma.LabOrderUncheckedUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterCreateManyCreatedByInput = {
@@ -2024,6 +2202,7 @@ export type EncounterUpdateWithoutCreatedByInput = {
   labOrders?: Prisma.LabOrderUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterUncheckedUpdateWithoutCreatedByInput = {
@@ -2048,6 +2227,7 @@ export type EncounterUncheckedUpdateWithoutCreatedByInput = {
   labOrders?: Prisma.LabOrderUncheckedUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterUncheckedUpdateManyWithoutCreatedByInput = {
@@ -2108,6 +2288,7 @@ export type EncounterUpdateWithoutFacilityInput = {
   labOrders?: Prisma.LabOrderUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterUncheckedUpdateWithoutFacilityInput = {
@@ -2132,6 +2313,7 @@ export type EncounterUncheckedUpdateWithoutFacilityInput = {
   labOrders?: Prisma.LabOrderUncheckedUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterUncheckedUpdateManyWithoutFacilityInput = {
@@ -2192,6 +2374,7 @@ export type EncounterUpdateWithoutDepartmentInput = {
   labOrders?: Prisma.LabOrderUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterUncheckedUpdateWithoutDepartmentInput = {
@@ -2216,6 +2399,7 @@ export type EncounterUncheckedUpdateWithoutDepartmentInput = {
   labOrders?: Prisma.LabOrderUncheckedUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterUncheckedUpdateManyWithoutDepartmentInput = {
@@ -2276,6 +2460,7 @@ export type EncounterUpdateWithoutServiceInput = {
   labOrders?: Prisma.LabOrderUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterUncheckedUpdateWithoutServiceInput = {
@@ -2300,6 +2485,7 @@ export type EncounterUncheckedUpdateWithoutServiceInput = {
   labOrders?: Prisma.LabOrderUncheckedUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterUncheckedUpdateManyWithoutServiceInput = {
@@ -2360,6 +2546,7 @@ export type EncounterUpdateWithoutPatientInput = {
   labOrders?: Prisma.LabOrderUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterUncheckedUpdateWithoutPatientInput = {
@@ -2384,6 +2571,7 @@ export type EncounterUncheckedUpdateWithoutPatientInput = {
   labOrders?: Prisma.LabOrderUncheckedUpdateManyWithoutEncounterNestedInput
   prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutEncounterNestedInput
   invoice?: Prisma.InvoiceUncheckedUpdateOneWithoutEncounterNestedInput
+  appointment?: Prisma.AppointmentUncheckedUpdateOneWithoutEncounterNestedInput
 }
 
 export type EncounterUncheckedUpdateManyWithoutPatientInput = {
@@ -2481,6 +2669,7 @@ export type EncounterSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   labOrders?: boolean | Prisma.Encounter$labOrdersArgs<ExtArgs>
   prescriptions?: boolean | Prisma.Encounter$prescriptionsArgs<ExtArgs>
   invoice?: boolean | Prisma.Encounter$invoiceArgs<ExtArgs>
+  appointment?: boolean | Prisma.Encounter$appointmentArgs<ExtArgs>
   _count?: boolean | Prisma.EncounterCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["encounter"]>
 
@@ -2564,6 +2753,7 @@ export type EncounterInclude<ExtArgs extends runtime.Types.Extensions.InternalAr
   labOrders?: boolean | Prisma.Encounter$labOrdersArgs<ExtArgs>
   prescriptions?: boolean | Prisma.Encounter$prescriptionsArgs<ExtArgs>
   invoice?: boolean | Prisma.Encounter$invoiceArgs<ExtArgs>
+  appointment?: boolean | Prisma.Encounter$appointmentArgs<ExtArgs>
   _count?: boolean | Prisma.EncounterCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EncounterIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2595,6 +2785,7 @@ export type $EncounterPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     labOrders: Prisma.$LabOrderPayload<ExtArgs>[]
     prescriptions: Prisma.$PrescriptionPayload<ExtArgs>[]
     invoice: Prisma.$InvoicePayload<ExtArgs> | null
+    appointment: Prisma.$AppointmentPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3018,6 +3209,7 @@ export interface Prisma__EncounterClient<T, Null = never, ExtArgs extends runtim
   labOrders<T extends Prisma.Encounter$labOrdersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Encounter$labOrdersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LabOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   prescriptions<T extends Prisma.Encounter$prescriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Encounter$prescriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PrescriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   invoice<T extends Prisma.Encounter$invoiceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Encounter$invoiceArgs<ExtArgs>>): Prisma.Prisma__InvoiceClient<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  appointment<T extends Prisma.Encounter$appointmentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Encounter$appointmentArgs<ExtArgs>>): Prisma.Prisma__AppointmentClient<runtime.Types.Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3590,6 +3782,25 @@ export type Encounter$invoiceArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   include?: Prisma.InvoiceInclude<ExtArgs> | null
   where?: Prisma.InvoiceWhereInput
+}
+
+/**
+ * Encounter.appointment
+ */
+export type Encounter$appointmentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Appointment
+   */
+  select?: Prisma.AppointmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Appointment
+   */
+  omit?: Prisma.AppointmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AppointmentInclude<ExtArgs> | null
+  where?: Prisma.AppointmentWhereInput
 }
 
 /**

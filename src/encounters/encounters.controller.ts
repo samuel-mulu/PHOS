@@ -11,6 +11,7 @@ import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { CurrentUser } from "../common/decorators/current-user.decorator";
 import { Roles } from "../common/decorators/roles.decorator";
 import { AuthUser } from "../common/types/auth-user";
+import { DESK_REGISTER_ROLES } from "../common/constants/desk-roles";
 import { EncounterStatus, Role } from "../generated/prisma/client";
 import {
   CreateEncounterDto,
@@ -22,7 +23,7 @@ import { EncountersService } from "./encounters.service";
 @Controller("encounters")
 export class EncountersController {
   constructor(private readonly service: EncountersService) {}
-  @Roles(Role.CEO, Role.ADMIN, Role.RECEPTIONIST) @Post() create(
+  @Roles(...DESK_REGISTER_ROLES) @Post() create(
     @Body() dto: CreateEncounterDto,
     @CurrentUser() user: AuthUser,
   ) {
@@ -37,7 +38,7 @@ export class EncountersController {
   @Get(":id") find(@Param("id") id: string) {
     return this.service.findOne(id);
   }
-  @Roles(Role.CEO, Role.ADMIN, Role.RECEPTIONIST, Role.NURSE, Role.DOCTOR)
+  @Roles(Role.CEO, Role.ADMIN, Role.RECEPTIONIST, Role.FRONT_DESK, Role.NURSE, Role.DOCTOR)
   @Patch(":id/status")
   transition(
     @Param("id") id: string,
@@ -45,5 +46,10 @@ export class EncountersController {
     @CurrentUser() user: AuthUser,
   ) {
     return this.service.transition(id, dto.status, user.id);
+  }
+  @Roles(Role.CEO, Role.ADMIN, Role.DOCTOR)
+  @Post(":id/billing-request")
+  requestBilling(@Param("id") id: string, @CurrentUser() user: AuthUser) {
+    return this.service.requestBilling(id, user.id);
   }
 }

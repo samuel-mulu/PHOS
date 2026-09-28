@@ -11,6 +11,10 @@ import {
   PatientQueryDto,
   UpdatePatientDto,
 } from "./dto/patient.dto";
+import {
+  sanitizeCreatePatientDto,
+  sanitizeUpdatePatientDto,
+} from "./patient-payload.util";
 @Injectable()
 export class PatientsService {
   constructor(
@@ -18,6 +22,7 @@ export class PatientsService {
     private readonly audit: AuditService,
   ) {}
   async create(dto: CreatePatientDto, actorId: string) {
+    dto = sanitizeCreatePatientDto(dto);
     const duplicate = await this.detectDuplicate(dto);
     if (duplicate.length)
       throw new ConflictException({
@@ -88,6 +93,66 @@ export class PatientsService {
     ]);
     return { items, total, page: query.page, limit: query.limit };
   }
+  async findByPatientNumber(patientNumber: string) {
+    const patient = await this.prisma.patient.findFirst({
+      where: {
+        patientNumber: { equals: patientNumber, mode: "insensitive" },
+        deletedAt: null,
+      },
+    });
+    if (!patient) throw new NotFoundException("Patient not found");
+    return patient;
+  }
+  async getChart(id: string) {
+    const patient = await this.prisma.patient.findFirst({
+      where: { id, deletedAt: null },
+    });
+    if (!patient) throw new NotFoundException("Patient not found");
+    const [encounters, labOrders, prescriptions, invoices, appointments] =
+      await Promise.all([
+        this.prisma.encounter.findMany({
+          where: { patientId: id, deletedAt: null },
+          orderBy: { startedAt: "desc" },
+          take: 15,
+          include: {
+            triage: true,
+            consultation: {
+              include: {
+                diagnoses: { where: { deletedAt: null } },
+              },
+            },
+            service: true,
+          },
+        }),
+        this.prisma.labOrder.findMany({
+          where: { patientId: id },
+          orderBy: { createdAt: "desc" },
+          take: 20,
+          include: {
+            items: { include: { labTest: true, result: true } },
+            doctor: { select: { firstName: true, lastName: true } },
+          },
+        }),
+        this.prisma.prescription.findMany({
+          where: { patientId: id },
+          orderBy: { createdAt: "desc" },
+          take: 20,
+          include: { items: { include: { medicine: true } } },
+        }),
+        this.prisma.invoice.findMany({
+          where: { patientId: id },
+          orderBy: { createdAt: "desc" },
+          take: 15,
+          include: { items: true, payments: true },
+        }),
+        this.prisma.appointment.findMany({
+          where: { patientId: id },
+          orderBy: { scheduledAt: "desc" },
+          take: 10,
+        }),
+      ]);
+    return { patient, encounters, labOrders, prescriptions, invoices, appointments };
+  }
   async findOne(id: string) {
     const patient = await this.prisma.patient.findFirst({
       where: { id, deletedAt: null },
@@ -103,6 +168,7 @@ export class PatientsService {
     return patient;
   }
   async update(id: string, dto: UpdatePatientDto, actorId: string) {
+    dto = sanitizeUpdatePatientDto(dto);
     const old = await this.findOne(id);
     return this.prisma.$transaction(async (tx) => {
       const patient = await tx.patient.update({ where: { id }, data: dto });

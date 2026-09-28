@@ -20,6 +20,7 @@ export const Role = {
   STOREKEEPER: 'STOREKEEPER',
   RECEPTIONIST: 'RECEPTIONIST',
   CASHIER: 'CASHIER',
+  FRONT_DESK: 'FRONT_DESK',
   REPORTING_OFFICER: 'REPORTING_OFFICER',
   IT_ADMIN: 'IT_ADMIN'
 } as const
@@ -124,6 +125,7 @@ export type DiagnosisType = (typeof DiagnosisType)[keyof typeof DiagnosisType]
 
 export const LabOrderStatus = {
   ORDERED: 'ORDERED',
+  RECEIVED: 'RECEIVED',
   PROCESSING: 'PROCESSING',
   RESULT_ENTERED: 'RESULT_ENTERED',
   VERIFIED: 'VERIFIED',
@@ -131,6 +133,17 @@ export const LabOrderStatus = {
 } as const
 
 export type LabOrderStatus = (typeof LabOrderStatus)[keyof typeof LabOrderStatus]
+
+
+export const AppointmentStatus = {
+  SCHEDULED: 'SCHEDULED',
+  CHECKED_IN: 'CHECKED_IN',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED',
+  NO_SHOW: 'NO_SHOW'
+} as const
+
+export type AppointmentStatus = (typeof AppointmentStatus)[keyof typeof AppointmentStatus]
 
 
 export const LabResultFlag = {
@@ -190,6 +203,7 @@ export type InvoiceItemType = (typeof InvoiceItemType)[keyof typeof InvoiceItemT
 
 export const PaymentMethod = {
   CASH: 'CASH',
+  CARD: 'CARD',
   TELEBIRR: 'TELEBIRR',
   BANK_TRANSFER: 'BANK_TRANSFER',
   INSURANCE: 'INSURANCE',
