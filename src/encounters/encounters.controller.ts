@@ -15,6 +15,7 @@ import { DESK_REGISTER_ROLES } from "../common/constants/desk-roles";
 import { EncounterStatus, Role } from "../generated/prisma/client";
 import {
   CreateEncounterDto,
+  RouteEncounterDto,
   TransitionEncounterDto,
 } from "./dto/encounter.dto";
 import { EncountersService } from "./encounters.service";
@@ -46,6 +47,22 @@ export class EncountersController {
     @CurrentUser() user: AuthUser,
   ) {
     return this.service.transition(id, dto.status, user.id);
+  }
+  @Roles(
+    Role.CEO,
+    Role.ADMIN,
+    Role.RECEPTIONIST,
+    Role.FRONT_DESK,
+    Role.NURSE,
+    Role.DOCTOR,
+  )
+  @Post(":id/route")
+  route(
+    @Param("id") id: string,
+    @Body() dto: RouteEncounterDto,
+    @CurrentUser() user: AuthUser,
+  ) {
+    return this.service.route(id, dto.station, user.id);
   }
   @Roles(Role.CEO, Role.ADMIN, Role.DOCTOR)
   @Post(":id/billing-request")

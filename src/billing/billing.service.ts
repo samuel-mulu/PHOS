@@ -157,7 +157,18 @@ export class BillingService {
           },
         });
       }
-      if (encounter.status !== "WAITING_PAYMENT") {
+      // Early consultation-fee invoices keep triage/doctor status.
+      // Only hold at cashier when care is finished (or already waiting to pay).
+      const consultation = await tx.consultation.findUnique({
+        where: { encounterId: encounter.id },
+        select: { status: true },
+      });
+      const holdAtCashier =
+        consultation?.status === "FINALIZED" ||
+        consultation?.status === "CORRECTED" ||
+        encounter.status === "WAITING_PAYMENT";
+
+      if (holdAtCashier && encounter.status !== "WAITING_PAYMENT") {
         await tx.encounter.update({
           where: { id: encounter.id },
           data: { status: "WAITING_PAYMENT" },

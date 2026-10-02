@@ -19,17 +19,25 @@ export class LaboratoryService {
   async createOrder(
     consultationId: string,
     dto: CreateLabOrderDto,
-    doctorId: string,
+    actorId: string,
+    actorRole: Role = Role.DOCTOR,
   ) {
     const unique = [...new Set(dto.labTestIds)];
+    const isElevated = actorRole === Role.ADMIN || actorRole === Role.CEO;
     const consultation = await this.prisma.consultation.findFirst({
-      where: { id: consultationId, doctorId, status: "DRAFT", deletedAt: null },
+      where: {
+        id: consultationId,
+        status: "DRAFT",
+        deletedAt: null,
+        ...(isElevated ? {} : { doctorId: actorId }),
+      },
       include: { encounter: true },
     });
     if (!consultation)
       throw new ConflictException(
-        "Lab orders require your active draft consultation",
+        "Lab orders require an active draft consultation you own",
       );
+    const doctorId = consultation.doctorId;
     const tests = await this.prisma.labTest.findMany({
       where: { id: { in: unique }, active: true, deletedAt: null },
     });
@@ -63,13 +71,22 @@ export class LaboratoryService {
         where: { id: consultation.encounterId },
         data: { status: "WAITING_LAB" },
       });
-      await tx.queueEntry.create({
-        data: {
+      const openLab = await tx.queueEntry.findFirst({
+        where: {
           encounterId: consultation.encounterId,
           station: "LAB",
-          priority: order.priority,
+          status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
         },
       });
+      if (!openLab) {
+        await tx.queueEntry.create({
+          data: {
+            encounterId: consultation.encounterId,
+            station: "LAB",
+            priority: order.priority,
+          },
+        });
+      }
       await this.notifications.createForRoles(
         [Role.LAB_TECH, Role.LAB_SUPERVISOR],
         {
@@ -83,7 +100,7 @@ export class LaboratoryService {
       );
       await this.audit.create(
         {
-          actorId: doctorId,
+          actorId,
           action: "lab.order_created",
           entityType: "LabOrder",
           entityId: order.id,

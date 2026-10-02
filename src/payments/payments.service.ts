@@ -35,7 +35,14 @@ export class PaymentsService {
       const invoice = await tx.invoice.findUnique({
         where: { id: dto.invoiceId },
         include: {
-          encounter: { include: { consultation: { select: { doctorId: true } } } },
+          encounter: {
+            include: {
+              consultation: { select: { doctorId: true, status: true } },
+              queueEntries: {
+                where: { status: { in: ["WAITING", "CALLED", "IN_SERVICE"] } },
+              },
+            },
+          },
         },
       });
       if (!invoice || !["ISSUED", "PARTIALLY_PAID"].includes(invoice.status))
@@ -68,18 +75,94 @@ export class PaymentsService {
         },
       });
       const paidCents = invoice.paidCents + dto.amountCents;
+      const fullyPaid = paidCents === invoice.totalCents;
       await tx.invoice.update({
         where: { id: invoice.id },
         data: {
           paidCents,
-          status: paidCents === invoice.totalCents ? "PAID" : "PARTIALLY_PAID",
+          status: fullyPaid ? "PAID" : "PARTIALLY_PAID",
         },
       });
-      if (paidCents === invoice.totalCents)
-        await tx.encounter.update({
-          where: { id: invoice.encounterId },
-          data: { status: "COMPLETED", closedAt: new Date() },
+
+      if (fullyPaid) {
+        const now = new Date();
+        await tx.queueEntry.updateMany({
+          where: {
+            encounterId: invoice.encounterId,
+            station: "CASHIER",
+            status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
+          },
+          data: { status: "COMPLETED", completedAt: now },
         });
+
+        const consultStatus = invoice.encounter.consultation?.status;
+        const careFinished =
+          consultStatus === "FINALIZED" || consultStatus === "CORRECTED";
+
+        if (careFinished) {
+          await tx.encounter.update({
+            where: { id: invoice.encounterId },
+            data: { status: "COMPLETED", closedAt: now },
+          });
+        } else {
+          // Early / mid-visit fee — do not close the visit; resume clinical care
+          const openClinical = invoice.encounter.queueEntries.find((q) =>
+            ["TRIAGE", "DOCTOR", "LAB", "PHARMACY"].includes(q.station),
+          );
+
+          if (openClinical) {
+            if (invoice.encounter.status === "WAITING_PAYMENT") {
+              const map: Record<string, "WAITING_TRIAGE" | "WAITING_DOCTOR" | "WAITING_LAB" | "WAITING_PHARMACY"> = {
+                TRIAGE: "WAITING_TRIAGE",
+                DOCTOR: "WAITING_DOCTOR",
+                LAB: "WAITING_LAB",
+                PHARMACY: "WAITING_PHARMACY",
+              };
+              await tx.encounter.update({
+                where: { id: invoice.encounterId },
+                data: {
+                  status: map[openClinical.station] ?? "WAITING_DOCTOR",
+                  closedAt: null,
+                },
+              });
+            }
+          } else {
+            const hadTriage = await tx.triage.findFirst({
+              where: { encounterId: invoice.encounterId, deletedAt: null },
+            });
+            const pastTriage = await tx.queueEntry.findFirst({
+              where: { encounterId: invoice.encounterId, station: "TRIAGE" },
+              orderBy: { enteredAt: "desc" },
+            });
+            const pastDoctor = await tx.queueEntry.findFirst({
+              where: { encounterId: invoice.encounterId, station: "DOCTOR" },
+              orderBy: { enteredAt: "desc" },
+            });
+
+            let station: "TRIAGE" | "DOCTOR" = "DOCTOR";
+            if (hadTriage || pastDoctor) {
+              station = "DOCTOR";
+            } else if (pastTriage) {
+              station = "TRIAGE";
+            }
+
+            const status =
+              station === "TRIAGE" ? "WAITING_TRIAGE" : "WAITING_DOCTOR";
+            await tx.encounter.update({
+              where: { id: invoice.encounterId },
+              data: { status, closedAt: null },
+            });
+            await tx.queueEntry.create({
+              data: {
+                encounterId: invoice.encounterId,
+                station,
+                priority: invoice.encounter.priority,
+              },
+            });
+          }
+        }
+      }
+
       await this.notifications.createForUser(
         {
           recipientId: actorId,
@@ -92,14 +175,13 @@ export class PaymentsService {
         tx,
       );
       const doctorId = invoice.encounter.consultation?.doctorId;
-      const fullyPaid = paidCents === invoice.totalCents;
       if (fullyPaid && doctorId) {
         await this.notifications.createForUser(
           {
             recipientId: doctorId,
             type: "PAYMENT_COMPLETED",
             title: "Payment received",
-            message: `${payment.paymentNumber} — visit can be closed for billing`,
+            message: `${payment.paymentNumber} recorded for this visit`,
             entityType: "Encounter",
             entityId: invoice.encounterId,
           },
@@ -111,7 +193,7 @@ export class PaymentsService {
           DESK_NOTIFY_ROLES,
           {
             type: "PAYMENT_COMPLETED",
-            title: "Visit paid in full",
+            title: "Payment recorded",
             message: `${payment.paymentNumber} for encounter billing`,
             entityType: "Payment",
             entityId: payment.id,

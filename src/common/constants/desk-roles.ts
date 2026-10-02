@@ -14,6 +14,7 @@ export const DESK_PAY_ROLES: Role[] = [
   Role.ADMIN,
   Role.CASHIER,
   Role.FRONT_DESK,
+  Role.RECEPTIONIST,
 ];
 
 export const DESK_BILLING_CREATE_ROLES: Role[] = [

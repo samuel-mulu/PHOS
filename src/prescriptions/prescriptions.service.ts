@@ -19,16 +19,24 @@ export class PrescriptionsService {
   async create(
     consultationId: string,
     dto: CreatePrescriptionDto,
-    doctorId: string,
+    actorId: string,
+    actorRole: Role = Role.DOCTOR,
   ) {
+    const isElevated = actorRole === Role.ADMIN || actorRole === Role.CEO;
     const consultation = await this.prisma.consultation.findFirst({
-      where: { id: consultationId, doctorId, status: "DRAFT", deletedAt: null },
+      where: {
+        id: consultationId,
+        status: "DRAFT",
+        deletedAt: null,
+        ...(isElevated ? {} : { doctorId: actorId }),
+      },
       include: { encounter: true },
     });
     if (!consultation)
       throw new ConflictException(
-        "Prescription requires your active draft consultation",
+        "Prescription requires an active draft consultation you own",
       );
+    const doctorId = consultation.doctorId;
     const medicineIds = [...new Set(dto.items.map((item) => item.medicineId))];
     const count = await this.prisma.medicine.count({
       where: { id: { in: medicineIds }, active: true, deletedAt: null },
@@ -85,7 +93,7 @@ export class PrescriptionsService {
       );
       await this.audit.create(
         {
-          actorId: doctorId,
+          actorId,
           action: "prescription.created",
           entityType: "Prescription",
           entityId: prescription.id,

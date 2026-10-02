@@ -11,14 +11,14 @@ import { PrescriptionsService } from "./prescriptions.service";
 @Controller()
 export class PrescriptionsController {
   constructor(private readonly service: PrescriptionsService) {}
-  @Roles(Role.DOCTOR)
+  @Roles(Role.DOCTOR, Role.ADMIN, Role.CEO)
   @Post("consultations/:consultationId/prescriptions")
   create(
     @Param("consultationId") id: string,
     @Body() dto: CreatePrescriptionDto,
     @CurrentUser() user: AuthUser,
   ) {
-    return this.service.create(id, dto, user.id);
+    return this.service.create(id, dto, user.id, user.role);
   }
   @Get("prescriptions") list(@Query("status") status?: PrescriptionStatus) {
     return this.service.list(status);
@@ -26,7 +26,7 @@ export class PrescriptionsController {
   @Get("prescriptions/:id") find(@Param("id") id: string) {
     return this.service.find(id);
   }
-  @Roles(Role.DOCTOR)
+  @Roles(Role.DOCTOR, Role.ADMIN, Role.CEO)
   @Post("prescriptions/:id/cancel")
   cancel(@Param("id") id: string, @CurrentUser() user: AuthUser) {
     return this.service.cancel(id, user.id);

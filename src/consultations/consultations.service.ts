@@ -157,6 +157,27 @@ export class ConsultationsService {
         },
         data: { status: "COMPLETED", completedAt: new Date() },
       });
+      if (nextStatus === "WAITING_PAYMENT") {
+        const openCashier = await tx.queueEntry.findFirst({
+          where: {
+            encounterId: item.encounterId,
+            station: "CASHIER",
+            status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
+          },
+        });
+        if (!openCashier) {
+          const enc = await tx.encounter.findUniqueOrThrow({
+            where: { id: item.encounterId },
+          });
+          await tx.queueEntry.create({
+            data: {
+              encounterId: item.encounterId,
+              station: "CASHIER",
+              priority: enc.priority,
+            },
+          });
+        }
+      }
       await this.audit.create(
         {
           actorId,

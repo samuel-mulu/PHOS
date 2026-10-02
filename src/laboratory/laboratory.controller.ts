@@ -11,14 +11,14 @@ import { LaboratoryService } from "./laboratory.service";
 @Controller()
 export class LaboratoryController {
   constructor(private readonly service: LaboratoryService) {}
-  @Roles(Role.DOCTOR)
+  @Roles(Role.DOCTOR, Role.ADMIN, Role.CEO)
   @Post("consultations/:consultationId/lab-orders")
   create(
     @Param("consultationId") id: string,
     @Body() dto: CreateLabOrderDto,
     @CurrentUser() user: AuthUser,
   ) {
-    return this.service.createOrder(id, dto, user.id);
+    return this.service.createOrder(id, dto, user.id, user.role);
   }
   @Roles(Role.DOCTOR, Role.LAB_TECH, Role.LAB_SUPERVISOR, Role.ADMIN, Role.CEO)
   @Get("lab/tests")

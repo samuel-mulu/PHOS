@@ -6,11 +6,16 @@ import {
 } from "@nestjs/common";
 import { AuditService } from "../audit/audit.service";
 import { DESK_NOTIFY_ROLES } from "../common/constants/desk-roles";
-import { EncounterStatus, Prisma } from "../generated/prisma/client";
+import {
+  EncounterStatus,
+  Prisma,
+  QueueStation,
+} from "../generated/prisma/client";
 import { NotificationsService } from "../notifications/notifications.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { CreateEncounterDto } from "./dto/encounter.dto";
-import { ENCOUNTER_TRANSITIONS } from "./encounter-state";
+import { ENCOUNTER_TRANSITIONS, STATION_STATUS } from "./encounter-state";
+
 @Injectable()
 export class EncountersService {
   constructor(
@@ -18,7 +23,13 @@ export class EncountersService {
     private readonly audit: AuditService,
     private readonly notifications: NotificationsService,
   ) {}
+
   async create(dto: CreateEncounterDto, actorId: string) {
+    const { initialStation, ...encounterFields } = dto;
+    const station: "TRIAGE" | "DOCTOR" =
+      initialStation === "TRIAGE" ? "TRIAGE" : "DOCTOR";
+    const status = STATION_STATUS[station];
+
     const config = await this.prisma.service.findFirst({
       where: {
         id: dto.serviceId,
@@ -53,16 +64,16 @@ export class EncountersService {
       >`SELECT nextval('encounter_number_seq')`;
       const encounter = await tx.encounter.create({
         data: {
-          ...dto,
+          ...encounterFields,
           encounterNumber: `ENC-${new Date().getUTCFullYear()}-${seq[0].nextval.toString().padStart(6, "0")}`,
           createdById: actorId,
-          status: "WAITING_TRIAGE",
+          status,
         },
       });
       await tx.queueEntry.create({
         data: {
           encounterId: encounter.id,
-          station: "TRIAGE",
+          station,
           priority: encounter.priority,
         },
       });
@@ -72,12 +83,14 @@ export class EncountersService {
           action: "encounter.created",
           entityType: "Encounter",
           entityId: encounter.id,
+          newValues: { status, station },
         },
         tx,
       );
       return encounter;
     });
   }
+
   list(status?: EncounterStatus, patientId?: string) {
     return this.prisma.encounter.findMany({
       where: { status, patientId, deletedAt: null },
@@ -86,6 +99,7 @@ export class EncountersService {
       take: 100,
     });
   }
+
   async findOne(id: string) {
     const item = await this.prisma.encounter.findFirst({
       where: { id, deletedAt: null },
@@ -104,6 +118,7 @@ export class EncountersService {
     if (!item) throw new NotFoundException("Encounter not found");
     return item;
   }
+
   async transition(
     id: string,
     target: EncounterStatus,
@@ -144,6 +159,100 @@ export class EncountersService {
     );
     return updated;
   }
+
+  /**
+   * Send patient to a station: updates encounter status + queue.
+   * Used by doctor/nurse/desk for Lab, Pharmacy, Cashier, Triage, Doctor.
+   */
+  async route(id: string, station: QueueStation, actorId: string) {
+    const targetStatus = STATION_STATUS[station];
+    if (!targetStatus)
+      throw new BadRequestException(`Unsupported station ${station}`);
+
+    return this.prisma.$transaction(async (tx) => {
+      const encounter = await tx.encounter.findFirst({
+        where: { id, deletedAt: null },
+      });
+      if (!encounter) throw new NotFoundException("Encounter not found");
+      if (["COMPLETED", "CANCELLED"].includes(encounter.status))
+        throw new ConflictException("Visit is already closed");
+
+      if (encounter.status !== targetStatus) {
+        if (!ENCOUNTER_TRANSITIONS[encounter.status].includes(targetStatus))
+          throw new ConflictException(
+            `Cannot send patient from ${encounter.status} to ${station}`,
+          );
+        await tx.encounter.update({
+          where: { id },
+          data: { status: targetStatus, closedAt: null },
+        });
+      }
+
+      // Complete other open clinical queues (keep destination if already open)
+      await tx.queueEntry.updateMany({
+        where: {
+          encounterId: id,
+          station: { not: station },
+          status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
+        },
+        data: { status: "COMPLETED", completedAt: new Date() },
+      });
+
+      const openDest = await tx.queueEntry.findFirst({
+        where: {
+          encounterId: id,
+          station,
+          status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
+        },
+      });
+      if (!openDest) {
+        await tx.queueEntry.create({
+          data: {
+            encounterId: id,
+            station,
+            priority: encounter.priority,
+          },
+        });
+      }
+
+      await this.audit.create(
+        {
+          actorId,
+          action: "encounter.routed",
+          entityType: "Encounter",
+          entityId: id,
+          oldValues: { status: encounter.status },
+          newValues: { status: targetStatus, station },
+        },
+        tx,
+      );
+
+      if (station === "CASHIER") {
+        await this.notifications.createForRoles(
+          DESK_NOTIFY_ROLES,
+          {
+            type: "SYSTEM",
+            title: "Patient sent to cashier",
+            message: `${encounter.encounterNumber} — collect payment`,
+            entityType: "Encounter",
+            entityId: id,
+          },
+          tx,
+        );
+      }
+
+      return tx.encounter.findUniqueOrThrow({
+        where: { id },
+        include: {
+          patient: true,
+          queueEntries: {
+            where: { status: { in: ["WAITING", "CALLED", "IN_SERVICE"] } },
+          },
+        },
+      });
+    });
+  }
+
   async requestBilling(encounterId: string, doctorId: string) {
     const encounter = await this.prisma.encounter.findFirst({
       where: { id: encounterId, deletedAt: null },
@@ -158,6 +267,10 @@ export class EncountersService {
       throw new ConflictException(
         "Only the consulting doctor can request billing for this visit",
       );
+
+    // Route to cashier so desk sees them on the payment queue
+    await this.route(encounterId, "CASHIER", doctorId);
+
     const label = encounter.patient
       ? `${encounter.patient.firstName} ${encounter.patient.lastName}`
       : encounter.encounterNumber;
@@ -167,7 +280,7 @@ export class EncountersService {
     await this.notifications.createForRoles(DESK_NOTIFY_ROLES, {
       type: "SYSTEM",
       title: "Payment requested",
-      message: `Doctor requested billing for ${label} (${encounter.encounterNumber}).${invoiceHint}`,
+      message: `Doctor sent ${label} (${encounter.encounterNumber}) to cashier.${invoiceHint}`,
       entityType: "Encounter",
       entityId: encounterId,
     });
