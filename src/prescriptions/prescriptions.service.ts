@@ -61,40 +61,45 @@ export class PrescriptionsService {
         },
         include: { items: { include: { medicine: true } } },
       });
-      await tx.encounter.update({
-        where: { id: consultation.encounterId },
-        data: { status: "WAITING_PHARMACY" },
-      });
-      const existingQueue = await tx.queueEntry.findFirst({
-        where: {
-          encounterId: consultation.encounterId,
-          station: "PHARMACY",
-          status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
-        },
-      });
-      if (!existingQueue)
-        await tx.queueEntry.create({
-          data: {
+      const sendToPharmacy = dto.sendToPharmacy === true;
+      if (sendToPharmacy) {
+        await tx.encounter.update({
+          where: { id: consultation.encounterId },
+          data: { status: "WAITING_PHARMACY" },
+        });
+        const existingQueue = await tx.queueEntry.findFirst({
+          where: {
             encounterId: consultation.encounterId,
             station: "PHARMACY",
-            priority: consultation.encounter.priority,
+            status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
           },
         });
-      await this.notifications.createForRoles(
-        [Role.PHARMACIST],
-        {
-          type: "PRESCRIPTION_CREATED",
-          title: "New prescription",
-          message: `${prescription.prescriptionNumber} is waiting to dispense`,
-          entityType: "Prescription",
-          entityId: prescription.id,
-        },
-        tx,
-      );
+        if (!existingQueue)
+          await tx.queueEntry.create({
+            data: {
+              encounterId: consultation.encounterId,
+              station: "PHARMACY",
+              priority: consultation.encounter.priority,
+            },
+          });
+        await this.notifications.createForRoles(
+          [Role.PHARMACIST],
+          {
+            type: "PRESCRIPTION_CREATED",
+            title: "New prescription",
+            message: `${prescription.prescriptionNumber} is waiting to dispense`,
+            entityType: "Prescription",
+            entityId: prescription.id,
+          },
+          tx,
+        );
+      }
       await this.audit.create(
         {
           actorId,
-          action: "prescription.created",
+          action: sendToPharmacy
+            ? "prescription.created_and_sent"
+            : "prescription.saved",
           entityType: "Prescription",
           entityId: prescription.id,
         },

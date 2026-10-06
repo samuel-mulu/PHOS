@@ -30,6 +30,18 @@ export class UsersController {
   @Get("me") me(@CurrentUser() user: AuthUser) {
     return this.users.findOne(user.id);
   }
+  @Roles(
+    Role.CEO,
+    Role.ADMIN,
+    Role.RECEPTIONIST,
+    Role.FRONT_DESK,
+    Role.NURSE,
+    Role.DOCTOR,
+  )
+  @Get("doctors")
+  listDoctors() {
+    return this.users.listDoctors();
+  }
   @Roles(Role.CEO, Role.ADMIN, Role.IT_ADMIN) @Get() list(
     @Query("search") search?: string,
   ) {

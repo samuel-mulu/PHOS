@@ -215,6 +215,7 @@ export const EncounterScalarFieldEnum = {
   startedAt: 'startedAt',
   closedAt: 'closedAt',
   createdById: 'createdById',
+  assignedDoctorId: 'assignedDoctorId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'

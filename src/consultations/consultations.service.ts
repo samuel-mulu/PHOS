@@ -33,7 +33,9 @@ export class ConsultationsService {
       const encounter = await tx.encounter.findFirst({
         where: {
           id: encounterId,
-          status: { in: ["WAITING_DOCTOR", "IN_CONSULTATION"] },
+          status: {
+            in: ["WAITING_DOCTOR", "IN_CONSULTATION", "WAITING_REVIEW"],
+          },
           deletedAt: null,
         },
       });
@@ -51,11 +53,23 @@ export class ConsultationsService {
         create: { ...dto, encounterId, doctorId },
         update: dto,
       });
-      if (encounter.status === "WAITING_DOCTOR")
+      if (
+        encounter.status === "WAITING_DOCTOR" ||
+        encounter.status === "WAITING_REVIEW"
+      )
         await tx.encounter.update({
           where: { id: encounterId },
-          data: { status: "IN_CONSULTATION" },
+          data: {
+            status: "IN_CONSULTATION",
+            assignedDoctorId: encounter.assignedDoctorId ?? doctorId,
+          },
         });
+      else if (!encounter.assignedDoctorId) {
+        await tx.encounter.update({
+          where: { id: encounterId },
+          data: { assignedDoctorId: doctorId },
+        });
+      }
       await tx.queueEntry.updateMany({
         where: {
           encounterId,
@@ -173,6 +187,48 @@ export class ConsultationsService {
             data: {
               encounterId: item.encounterId,
               station: "CASHIER",
+              priority: enc.priority,
+            },
+          });
+        }
+      }
+      if (nextStatus === "WAITING_PHARMACY") {
+        const openPharmacy = await tx.queueEntry.findFirst({
+          where: {
+            encounterId: item.encounterId,
+            station: "PHARMACY",
+            status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
+          },
+        });
+        if (!openPharmacy) {
+          const enc = await tx.encounter.findUniqueOrThrow({
+            where: { id: item.encounterId },
+          });
+          await tx.queueEntry.create({
+            data: {
+              encounterId: item.encounterId,
+              station: "PHARMACY",
+              priority: enc.priority,
+            },
+          });
+        }
+      }
+      if (nextStatus === "WAITING_LAB") {
+        const openLab = await tx.queueEntry.findFirst({
+          where: {
+            encounterId: item.encounterId,
+            station: "LAB",
+            status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
+          },
+        });
+        if (!openLab) {
+          const enc = await tx.encounter.findUniqueOrThrow({
+            where: { id: item.encounterId },
+          });
+          await tx.queueEntry.create({
+            data: {
+              encounterId: item.encounterId,
+              station: "LAB",
               priority: enc.priority,
             },
           });

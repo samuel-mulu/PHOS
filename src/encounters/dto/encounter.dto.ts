@@ -19,10 +19,21 @@ export class CreateEncounterDto {
   @IsOptional()
   @IsIn(["TRIAGE", "DOCTOR"])
   initialStation?: "TRIAGE" | "DOCTOR";
+  /** Optional doctor assignment (front desk / admin). */
+  @IsOptional()
+  @IsUUID()
+  assignedDoctorId?: string;
 }
 export class TransitionEncounterDto {
   @IsEnum(EncounterStatus) status!: EncounterStatus;
 }
 export class RouteEncounterDto {
   @IsEnum(QueueStation) station!: QueueStation;
+  @IsOptional()
+  @IsUUID()
+  assignedDoctorId?: string;
+}
+export class AssignDoctorDto {
+  @IsUUID()
+  assignedDoctorId!: string;
 }

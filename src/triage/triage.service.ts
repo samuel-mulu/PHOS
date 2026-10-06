@@ -60,8 +60,15 @@ export class TriageService {
             encounterId,
             station: "DOCTOR",
             priority: encounter.priority,
+            assignedToId: encounter.assignedDoctorId,
           },
         });
+      else if (encounter.assignedDoctorId && !doctorEntry.assignedToId) {
+        await tx.queueEntry.update({
+          where: { id: doctorEntry.id },
+          data: { assignedToId: encounter.assignedDoctorId },
+        });
+      }
       await this.audit.create(
         {
           actorId,

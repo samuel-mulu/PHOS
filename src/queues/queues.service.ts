@@ -13,15 +13,29 @@ export class QueuesService {
     private readonly prisma: PrismaService,
     private readonly audit: AuditService,
   ) {}
-  list(station: QueueStation, assignedToId?: string) {
+  list(station: QueueStation, assignedToId?: string, forDoctorId?: string) {
     return this.prisma.queueEntry.findMany({
       where: {
         station,
-        assignedToId,
         status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
+        ...(assignedToId ? { assignedToId } : {}),
+        // Doctor users: own assigned patients + unassigned (so desk can still share)
+        ...(forDoctorId && !assignedToId
+          ? {
+              OR: [{ assignedToId: forDoctorId }, { assignedToId: null }],
+            }
+          : {}),
       },
       include: {
-        encounter: { include: { patient: true, service: true } },
+        encounter: {
+          include: {
+            patient: true,
+            service: true,
+            assignedDoctor: {
+              select: { id: true, firstName: true, lastName: true },
+            },
+          },
+        },
         assignedTo: { select: { id: true, firstName: true, lastName: true } },
       },
       orderBy: [{ priority: "desc" }, { enteredAt: "asc" }],

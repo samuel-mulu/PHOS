@@ -67,9 +67,19 @@ export class LaboratoryService {
         },
         include: { items: { include: { labTest: true } } },
       });
+      const now = new Date();
       await tx.encounter.update({
         where: { id: consultation.encounterId },
         data: { status: "WAITING_LAB" },
+      });
+      // Leave doctor queue while at lab so they reappear under "Lab results ready" after verify
+      await tx.queueEntry.updateMany({
+        where: {
+          encounterId: consultation.encounterId,
+          station: "DOCTOR",
+          status: { notIn: ["COMPLETED", "CANCELLED"] },
+        },
+        data: { status: "COMPLETED", completedAt: now },
       });
       const openLab = await tx.queueEntry.findFirst({
         where: {
@@ -271,12 +281,51 @@ export class LaboratoryService {
         },
         data: { status: "COMPLETED", completedAt: now },
       });
+      // Complete other open clinical queues, then put patient back on doctor queue
+      await tx.queueEntry.updateMany({
+        where: {
+          encounterId: order.encounterId,
+          station: { not: "DOCTOR" },
+          status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
+        },
+        data: { status: "COMPLETED", completedAt: now },
+      });
+      const encounter = await tx.encounter.findUniqueOrThrow({
+        where: { id: order.encounterId },
+        select: { assignedDoctorId: true, priority: true },
+      });
+      const doctorAssignee =
+        order.doctorId ?? encounter.assignedDoctorId ?? null;
+      // Keep encounter assigned to the ordering doctor for the return trip
+      if (order.doctorId && encounter.assignedDoctorId !== order.doctorId) {
+        await tx.encounter.update({
+          where: { id: order.encounterId },
+          data: { assignedDoctorId: order.doctorId },
+        });
+      }
+      // Always start a fresh WAITING doctor entry so "Lab results ready" shows Call/Start
+      await tx.queueEntry.updateMany({
+        where: {
+          encounterId: order.encounterId,
+          station: "DOCTOR",
+          status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
+        },
+        data: { status: "COMPLETED", completedAt: now },
+      });
+      await tx.queueEntry.create({
+        data: {
+          encounterId: order.encounterId,
+          station: "DOCTOR",
+          priority: order.priority,
+          assignedToId: doctorAssignee,
+        },
+      });
       await this.notifications.createForUser(
         {
           recipientId: order.doctorId,
           type: "LAB_RESULT_VERIFIED",
-          title: "Lab result verified",
-          message: `Order ${order.orderNumber} is ready for review`,
+          title: "Lab result ready — patient sent to you",
+          message: `Order ${order.orderNumber} verified and returned to doctor queue for review`,
           entityType: "LabOrder",
           entityId: order.id,
         },

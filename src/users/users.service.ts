@@ -56,6 +56,24 @@ export class UsersService {
       orderBy: { createdAt: "desc" },
     });
   }
+  /** Active doctors for front-desk / nurse assignment pickers. */
+  listDoctors() {
+    return this.prisma.user.findMany({
+      where: {
+        role: "DOCTOR",
+        status: "ACTIVE",
+        deletedAt: null,
+      },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        departmentId: true,
+      },
+      orderBy: [{ lastName: "asc" }, { firstName: "asc" }],
+    });
+  }
   async findOne(id: string) {
     const user = await this.prisma.user.findFirst({
       where: { id, deletedAt: null },

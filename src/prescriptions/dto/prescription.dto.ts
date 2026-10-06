@@ -2,6 +2,7 @@ import { Type } from "class-transformer";
 import {
   ArrayMinSize,
   IsArray,
+  IsBoolean,
   IsInt,
   IsOptional,
   IsString,
@@ -25,4 +26,6 @@ export class CreatePrescriptionDto {
   @Type(() => PrescriptionItemDto)
   items!: PrescriptionItemDto[];
   @IsOptional() @IsString() notes?: string;
+  /** When true, put patient on pharmacy queue. When false, save Rx only. */
+  @IsOptional() @IsBoolean() sendToPharmacy?: boolean;
 }

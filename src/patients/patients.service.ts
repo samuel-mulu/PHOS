@@ -113,45 +113,78 @@ export class PatientsService {
         this.prisma.encounter.findMany({
           where: { patientId: id, deletedAt: null },
           orderBy: { startedAt: "desc" },
-          take: 15,
+          take: 30,
           include: {
             triage: true,
+            assignedDoctor: {
+              select: { id: true, firstName: true, lastName: true },
+            },
             consultation: {
               include: {
+                doctor: {
+                  select: { id: true, firstName: true, lastName: true },
+                },
                 diagnoses: { where: { deletedAt: null } },
               },
             },
-            service: true,
+            service: { select: { id: true, name: true, code: true } },
+            department: { select: { id: true, name: true } },
           },
         }),
         this.prisma.labOrder.findMany({
           where: { patientId: id },
           orderBy: { createdAt: "desc" },
-          take: 20,
+          take: 40,
           include: {
             items: { include: { labTest: true, result: true } },
-            doctor: { select: { firstName: true, lastName: true } },
+            doctor: {
+              select: { id: true, firstName: true, lastName: true },
+            },
           },
         }),
         this.prisma.prescription.findMany({
           where: { patientId: id },
           orderBy: { createdAt: "desc" },
-          take: 20,
-          include: { items: { include: { medicine: true } } },
+          take: 40,
+          include: {
+            doctor: {
+              select: { id: true, firstName: true, lastName: true },
+            },
+            items: {
+              include: {
+                medicine: {
+                  select: {
+                    id: true,
+                    name: true,
+                    code: true,
+                    strength: true,
+                    form: true,
+                  },
+                },
+              },
+            },
+          },
         }),
         this.prisma.invoice.findMany({
           where: { patientId: id },
           orderBy: { createdAt: "desc" },
-          take: 15,
+          take: 20,
           include: { items: true, payments: true },
         }),
         this.prisma.appointment.findMany({
           where: { patientId: id },
           orderBy: { scheduledAt: "desc" },
-          take: 10,
+          take: 15,
         }),
       ]);
-    return { patient, encounters, labOrders, prescriptions, invoices, appointments };
+    return {
+      patient,
+      encounters,
+      labOrders,
+      prescriptions,
+      invoices,
+      appointments,
+    };
   }
   async findOne(id: string) {
     const patient = await this.prisma.patient.findFirst({

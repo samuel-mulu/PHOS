@@ -10,6 +10,7 @@ import {
   EncounterStatus,
   Prisma,
   QueueStation,
+  Role,
 } from "../generated/prisma/client";
 import { NotificationsService } from "../notifications/notifications.service";
 import { PrismaService } from "../prisma/prisma.service";
@@ -25,7 +26,7 @@ export class EncountersService {
   ) {}
 
   async create(dto: CreateEncounterDto, actorId: string) {
-    const { initialStation, ...encounterFields } = dto;
+    const { initialStation, assignedDoctorId, ...encounterFields } = dto;
     const station: "TRIAGE" | "DOCTOR" =
       initialStation === "TRIAGE" ? "TRIAGE" : "DOCTOR";
     const status = STATION_STATUS[station];
@@ -47,6 +48,8 @@ export class EncountersService {
       throw new BadRequestException(
         "Facility, department and service do not form an active configuration",
       );
+    if (assignedDoctorId)
+      await this.assertActiveDoctor(assignedDoctorId);
     const active = await this.prisma.encounter.findFirst({
       where: {
         patientId: dto.patientId,
@@ -65,9 +68,15 @@ export class EncountersService {
       const encounter = await tx.encounter.create({
         data: {
           ...encounterFields,
+          assignedDoctorId: assignedDoctorId ?? null,
           encounterNumber: `ENC-${new Date().getUTCFullYear()}-${seq[0].nextval.toString().padStart(6, "0")}`,
           createdById: actorId,
           status,
+        },
+        include: {
+          assignedDoctor: {
+            select: { id: true, firstName: true, lastName: true },
+          },
         },
       });
       await tx.queueEntry.create({
@@ -75,6 +84,8 @@ export class EncountersService {
           encounterId: encounter.id,
           station,
           priority: encounter.priority,
+          assignedToId:
+            station === "DOCTOR" ? (assignedDoctorId ?? null) : null,
         },
       });
       await this.audit.create(
@@ -83,7 +94,7 @@ export class EncountersService {
           action: "encounter.created",
           entityType: "Encounter",
           entityId: encounter.id,
-          newValues: { status, station },
+          newValues: { status, station, assignedDoctorId },
         },
         tx,
       );
@@ -94,7 +105,14 @@ export class EncountersService {
   list(status?: EncounterStatus, patientId?: string) {
     return this.prisma.encounter.findMany({
       where: { status, patientId, deletedAt: null },
-      include: { patient: true, service: true, department: true },
+      include: {
+        patient: true,
+        service: true,
+        department: true,
+        assignedDoctor: {
+          select: { id: true, firstName: true, lastName: true },
+        },
+      },
       orderBy: { startedAt: "desc" },
       take: 100,
     });
@@ -107,6 +125,9 @@ export class EncountersService {
         patient: true,
         service: true,
         department: true,
+        assignedDoctor: {
+          select: { id: true, firstName: true, lastName: true },
+        },
         queueEntries: { orderBy: { enteredAt: "asc" } },
         triage: true,
         consultation: {
@@ -164,10 +185,16 @@ export class EncountersService {
    * Send patient to a station: updates encounter status + queue.
    * Used by doctor/nurse/desk for Lab, Pharmacy, Cashier, Triage, Doctor.
    */
-  async route(id: string, station: QueueStation, actorId: string) {
+  async route(
+    id: string,
+    station: QueueStation,
+    actorId: string,
+    assignedDoctorId?: string,
+  ) {
     const targetStatus = STATION_STATUS[station];
     if (!targetStatus)
       throw new BadRequestException(`Unsupported station ${station}`);
+    if (assignedDoctorId) await this.assertActiveDoctor(assignedDoctorId);
 
     return this.prisma.$transaction(async (tx) => {
       const encounter = await tx.encounter.findFirst({
@@ -177,18 +204,33 @@ export class EncountersService {
       if (["COMPLETED", "CANCELLED"].includes(encounter.status))
         throw new ConflictException("Visit is already closed");
 
-      if (encounter.status !== targetStatus) {
-        if (!ENCOUNTER_TRANSITIONS[encounter.status].includes(targetStatus))
+      const nextAssignedDoctorId =
+        assignedDoctorId ?? encounter.assignedDoctorId ?? null;
+
+      if (
+        encounter.status !== targetStatus ||
+        (assignedDoctorId &&
+          assignedDoctorId !== encounter.assignedDoctorId)
+      ) {
+        if (
+          encounter.status !== targetStatus &&
+          !ENCOUNTER_TRANSITIONS[encounter.status].includes(targetStatus)
+        )
           throw new ConflictException(
             `Cannot send patient from ${encounter.status} to ${station}`,
           );
         await tx.encounter.update({
           where: { id },
-          data: { status: targetStatus, closedAt: null },
+          data: {
+            status: targetStatus,
+            closedAt: null,
+            ...(assignedDoctorId
+              ? { assignedDoctorId: assignedDoctorId }
+              : {}),
+          },
         });
       }
 
-      // Complete other open clinical queues (keep destination if already open)
       await tx.queueEntry.updateMany({
         where: {
           encounterId: id,
@@ -211,7 +253,14 @@ export class EncountersService {
             encounterId: id,
             station,
             priority: encounter.priority,
+            assignedToId:
+              station === "DOCTOR" ? nextAssignedDoctorId : null,
           },
+        });
+      } else if (station === "DOCTOR" && nextAssignedDoctorId) {
+        await tx.queueEntry.update({
+          where: { id: openDest.id },
+          data: { assignedToId: nextAssignedDoctorId },
         });
       }
 
@@ -222,7 +271,11 @@ export class EncountersService {
           entityType: "Encounter",
           entityId: id,
           oldValues: { status: encounter.status },
-          newValues: { status: targetStatus, station },
+          newValues: {
+            status: targetStatus,
+            station,
+            assignedDoctorId: nextAssignedDoctorId,
+          },
         },
         tx,
       );
@@ -245,6 +298,9 @@ export class EncountersService {
         where: { id },
         include: {
           patient: true,
+          assignedDoctor: {
+            select: { id: true, firstName: true, lastName: true },
+          },
           queueEntries: {
             where: { status: { in: ["WAITING", "CALLED", "IN_SERVICE"] } },
           },
@@ -253,7 +309,76 @@ export class EncountersService {
     });
   }
 
-  async requestBilling(encounterId: string, doctorId: string) {
+  async assignDoctor(
+    id: string,
+    assignedDoctorId: string,
+    actorId: string,
+  ) {
+    await this.assertActiveDoctor(assignedDoctorId);
+    return this.prisma.$transaction(async (tx) => {
+      const encounter = await tx.encounter.findFirst({
+        where: { id, deletedAt: null },
+      });
+      if (!encounter) throw new NotFoundException("Encounter not found");
+      if (["COMPLETED", "CANCELLED"].includes(encounter.status))
+        throw new ConflictException("Visit is already closed");
+
+      const updated = await tx.encounter.update({
+        where: { id },
+        data: { assignedDoctorId },
+        include: {
+          patient: true,
+          assignedDoctor: {
+            select: { id: true, firstName: true, lastName: true },
+          },
+        },
+      });
+
+      await tx.queueEntry.updateMany({
+        where: {
+          encounterId: id,
+          station: "DOCTOR",
+          status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
+        },
+        data: { assignedToId: assignedDoctorId },
+      });
+
+      await this.audit.create(
+        {
+          actorId,
+          action: "encounter.doctor_assigned",
+          entityType: "Encounter",
+          entityId: id,
+          oldValues: { assignedDoctorId: encounter.assignedDoctorId },
+          newValues: { assignedDoctorId },
+        },
+        tx,
+      );
+      return updated;
+    });
+  }
+
+  private async assertActiveDoctor(doctorId: string) {
+    const doctor = await this.prisma.user.findFirst({
+      where: {
+        id: doctorId,
+        role: "DOCTOR",
+        status: "ACTIVE",
+        deletedAt: null,
+      },
+      select: { id: true },
+    });
+    if (!doctor)
+      throw new BadRequestException(
+        "Assigned doctor must be an active doctor user",
+      );
+  }
+
+  async requestBilling(
+    encounterId: string,
+    actorId: string,
+    actorRole?: Role,
+  ) {
     const encounter = await this.prisma.encounter.findFirst({
       where: { id: encounterId, deletedAt: null },
       include: {
@@ -263,13 +388,18 @@ export class EncountersService {
       },
     });
     if (!encounter) throw new NotFoundException("Encounter not found");
-    if (encounter.consultation?.doctorId !== doctorId)
+    const elevated = actorRole === Role.ADMIN || actorRole === Role.CEO;
+    if (
+      !elevated &&
+      encounter.consultation?.doctorId &&
+      encounter.consultation.doctorId !== actorId
+    )
       throw new ConflictException(
         "Only the consulting doctor can request billing for this visit",
       );
 
     // Route to cashier so desk sees them on the payment queue
-    await this.route(encounterId, "CASHIER", doctorId);
+    await this.route(encounterId, "CASHIER", actorId);
 
     const label = encounter.patient
       ? `${encounter.patient.firstName} ${encounter.patient.lastName}`
@@ -285,7 +415,7 @@ export class EncountersService {
       entityId: encounterId,
     });
     await this.audit.create({
-      actorId: doctorId,
+      actorId,
       action: "encounter.billing_requested",
       entityType: "Encounter",
       entityId: encounterId,

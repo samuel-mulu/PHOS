@@ -22,8 +22,11 @@ export class QueuesController {
   @Get("queues/:station") list(
     @Param("station") station: QueueStation,
     @Query("assignedToId") assignedToId?: string,
+    @CurrentUser() user?: AuthUser,
   ) {
-    return this.service.list(station, assignedToId);
+    const forDoctorId =
+      station === "DOCTOR" && user?.role === Role.DOCTOR ? user.id : undefined;
+    return this.service.list(station, assignedToId, forDoctorId);
   }
   @Roles(Role.CEO, Role.ADMIN, Role.RECEPTIONIST, Role.FRONT_DESK, Role.NURSE, Role.DOCTOR)
   @Post("queue-entries")

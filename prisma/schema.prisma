@@ -199,6 +199,7 @@ model User {
   refreshSessions    RefreshSession[]
   createdPatients    Patient[]           @relation("PatientCreator")
   createdEncounters  Encounter[]         @relation("EncounterCreator")
+  assignedEncounters Encounter[]         @relation("EncounterAssignedDoctor")
   assignedQueues     QueueEntry[]        @relation("QueueAssignee")
   recordedTriages    Triage[]            @relation("TriageRecorder")
   consultations      Consultation[]      @relation("ConsultationDoctor")
@@ -341,11 +342,13 @@ model Encounter {
   startedAt       DateTime          @default(now()) @map("started_at")
   closedAt        DateTime?         @map("closed_at")
   createdById     String            @map("created_by_id") @db.Uuid
+  assignedDoctorId String?          @map("assigned_doctor_id") @db.Uuid
   patient         Patient           @relation(fields: [patientId], references: [id])
   facility        Facility          @relation(fields: [facilityId], references: [id])
   department      Department        @relation(fields: [departmentId], references: [id])
   service         Service           @relation(fields: [serviceId], references: [id])
   createdBy       User              @relation("EncounterCreator", fields: [createdById], references: [id])
+  assignedDoctor  User?             @relation("EncounterAssignedDoctor", fields: [assignedDoctorId], references: [id])
   queueEntries    QueueEntry[]
   triage          Triage?
   consultation    Consultation?
@@ -359,6 +362,7 @@ model Encounter {
 
   @@index([patientId, startedAt])
   @@index([status, departmentId])
+  @@index([assignedDoctorId, status])
   @@map("encounters")
 }
 

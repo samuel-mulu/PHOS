@@ -15,6 +15,7 @@ import { DESK_REGISTER_ROLES } from "../common/constants/desk-roles";
 import { EncounterStatus, Role } from "../generated/prisma/client";
 import {
   CreateEncounterDto,
+  AssignDoctorDto,
   RouteEncounterDto,
   TransitionEncounterDto,
 } from "./dto/encounter.dto";
@@ -48,6 +49,15 @@ export class EncountersController {
   ) {
     return this.service.transition(id, dto.status, user.id);
   }
+  @Roles(...DESK_REGISTER_ROLES, Role.NURSE, Role.DOCTOR)
+  @Patch(":id/assign-doctor")
+  assignDoctor(
+    @Param("id") id: string,
+    @Body() dto: AssignDoctorDto,
+    @CurrentUser() user: AuthUser,
+  ) {
+    return this.service.assignDoctor(id, dto.assignedDoctorId, user.id);
+  }
   @Roles(
     Role.CEO,
     Role.ADMIN,
@@ -62,11 +72,16 @@ export class EncountersController {
     @Body() dto: RouteEncounterDto,
     @CurrentUser() user: AuthUser,
   ) {
-    return this.service.route(id, dto.station, user.id);
+    return this.service.route(
+      id,
+      dto.station,
+      user.id,
+      dto.assignedDoctorId,
+    );
   }
   @Roles(Role.CEO, Role.ADMIN, Role.DOCTOR)
   @Post(":id/billing-request")
   requestBilling(@Param("id") id: string, @CurrentUser() user: AuthUser) {
-    return this.service.requestBilling(id, user.id);
+    return this.service.requestBilling(id, user.id, user.role);
   }
 }
