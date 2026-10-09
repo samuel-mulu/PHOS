@@ -8,7 +8,12 @@ import { AuditService } from "../audit/audit.service";
 import { LabOrderStatus, Role } from "../generated/prisma/client";
 import { NotificationsService } from "../notifications/notifications.service";
 import { PrismaService } from "../prisma/prisma.service";
-import { CreateLabOrderDto, EnterLabResultsDto } from "./dto/laboratory.dto";
+import {
+  CreateLabOrderDto,
+  CreateLabTestDto,
+  EnterLabResultsDto,
+  UpdateLabTestDto,
+} from "./dto/laboratory.dto";
 @Injectable()
 export class LaboratoryService {
   constructor(
@@ -123,8 +128,69 @@ export class LaboratoryService {
   listTests() {
     return this.prisma.labTest.findMany({
       where: { active: true, deletedAt: null },
-      orderBy: { name: "asc" },
+      orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
     });
+  }
+
+  /** Admin catalog: active + inactive. */
+  listAllTests() {
+    return this.prisma.labTest.findMany({
+      where: { deletedAt: null },
+      orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+    });
+  }
+
+  async createTest(dto: CreateLabTestDto) {
+    try {
+      return await this.prisma.labTest.create({
+        data: {
+          code: dto.code.trim().toUpperCase(),
+          name: dto.name.trim(),
+          category: dto.category?.trim() || null,
+          unit: dto.unit?.trim() || null,
+          referenceRange: dto.referenceRange?.trim() || null,
+          priceCents: dto.priceCents,
+          sortOrder: dto.sortOrder ?? 500,
+          active: dto.active ?? true,
+        },
+      });
+    } catch (e: any) {
+      if (e.code === "P2002")
+        throw new ConflictException("Lab test code already exists");
+      throw e;
+    }
+  }
+
+  async updateTest(id: string, dto: UpdateLabTestDto) {
+    const existing = await this.prisma.labTest.findFirst({
+      where: { id, deletedAt: null },
+    });
+    if (!existing) throw new NotFoundException("Lab test not found");
+    return this.prisma.labTest.update({
+      where: { id },
+      data: {
+        ...(dto.name !== undefined ? { name: dto.name.trim() } : {}),
+        ...(dto.category !== undefined
+          ? { category: dto.category.trim() || null }
+          : {}),
+        ...(dto.unit !== undefined ? { unit: dto.unit.trim() || null } : {}),
+        ...(dto.referenceRange !== undefined
+          ? { referenceRange: dto.referenceRange.trim() || null }
+          : {}),
+        ...(dto.priceCents !== undefined ? { priceCents: dto.priceCents } : {}),
+        ...(dto.sortOrder !== undefined ? { sortOrder: dto.sortOrder } : {}),
+        ...(dto.active !== undefined ? { active: dto.active } : {}),
+      },
+    });
+  }
+
+  async setTestActive(id: string, active: boolean) {
+    const result = await this.prisma.labTest.updateMany({
+      where: { id, deletedAt: null },
+      data: { active },
+    });
+    if (!result.count) throw new NotFoundException("Lab test not found");
+    return this.prisma.labTest.findUnique({ where: { id } });
   }
   listOrders(status?: LabOrderStatus) {
     return this.prisma.labOrder.findMany({
@@ -134,7 +200,7 @@ export class LaboratoryService {
         doctor: { select: { id: true, firstName: true, lastName: true } },
         items: { include: { labTest: true, result: true } },
       },
-      orderBy: [{ priority: "desc" }, { createdAt: "asc" }],
+      orderBy: [{ priority: "desc" }, { createdAt: "desc" }],
     });
   }
   async findOrder(id: string, viewerRole?: Role) {

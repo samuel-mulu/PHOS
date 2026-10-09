@@ -2896,6 +2896,7 @@ export const EncounterScalarFieldEnum = {
   closedAt: 'closedAt',
   createdById: 'createdById',
   assignedDoctorId: 'assignedDoctorId',
+  paymentReturnStation: 'paymentReturnStation',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -3020,9 +3021,11 @@ export const LabTestScalarFieldEnum = {
   id: 'id',
   code: 'code',
   name: 'name',
+  category: 'category',
   unit: 'unit',
   referenceRange: 'referenceRange',
   priceCents: 'priceCents',
+  sortOrder: 'sortOrder',
   active: 'active',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -3472,20 +3475,6 @@ export type ListEnumEncounterPriorityFieldRefInput<$PrismaModel> = FieldRefInput
 
 
 /**
- * Reference to a field of type 'AppointmentStatus'
- */
-export type EnumAppointmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentStatus'>
-    
-
-
-/**
- * Reference to a field of type 'AppointmentStatus[]'
- */
-export type ListEnumAppointmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentStatus[]'>
-    
-
-
-/**
  * Reference to a field of type 'QueueStation'
  */
 export type EnumQueueStationFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueueStation'>
@@ -3496,6 +3485,20 @@ export type EnumQueueStationFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'QueueStation[]'
  */
 export type ListEnumQueueStationFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueueStation[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AppointmentStatus'
+ */
+export type EnumAppointmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'AppointmentStatus[]'
+ */
+export type ListEnumAppointmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentStatus[]'>
     
 
 

@@ -334,7 +334,7 @@ model Encounter {
   patientId       String            @map("patient_id") @db.Uuid
   facilityId      String            @map("facility_id") @db.Uuid
   departmentId    String            @map("department_id") @db.Uuid
-  serviceId       String            @map("service_id") @db.Uuid
+  serviceId       String?           @map("service_id") @db.Uuid
   type            EncounterType     @default(WALK_IN)
   status          EncounterStatus   @default(REGISTERED)
   priority        EncounterPriority @default(ROUTINE)
@@ -343,10 +343,12 @@ model Encounter {
   closedAt        DateTime?         @map("closed_at")
   createdById     String            @map("created_by_id") @db.Uuid
   assignedDoctorId String?          @map("assigned_doctor_id") @db.Uuid
+  /** After mid-visit cashier payment, auto-return patient to this station. */
+  paymentReturnStation QueueStation? @map("payment_return_station")
   patient         Patient           @relation(fields: [patientId], references: [id])
   facility        Facility          @relation(fields: [facilityId], references: [id])
   department      Department        @relation(fields: [departmentId], references: [id])
-  service         Service           @relation(fields: [serviceId], references: [id])
+  service         Service?          @relation(fields: [serviceId], references: [id])
   createdBy       User              @relation("EncounterCreator", fields: [createdById], references: [id])
   assignedDoctor  User?             @relation("EncounterAssignedDoctor", fields: [assignedDoctorId], references: [id])
   queueEntries    QueueEntry[]
@@ -501,16 +503,19 @@ model LabTest {
   id             String         @id @default(uuid()) @db.Uuid
   code           String         @unique
   name           String
+  category       String?        @map("category")
   unit           String?
   referenceRange String?        @map("reference_range")
   priceCents     Int            @default(0) @map("price_cents")
+  sortOrder      Int            @default(0) @map("sort_order")
   active         Boolean        @default(true)
   orderItems     LabOrderItem[]
   createdAt      DateTime       @default(now()) @map("created_at")
   updatedAt      DateTime       @updatedAt @map("updated_at")
   deletedAt      DateTime?      @map("deleted_at")
 
-  @@index([active, name])
+  @@index([active, sortOrder, name])
+  @@index([category])
   @@map("lab_tests")
 }
 

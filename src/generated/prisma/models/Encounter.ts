@@ -39,6 +39,7 @@ export type EncounterMinAggregateOutputType = {
   closedAt: Date | null
   createdById: string | null
   assignedDoctorId: string | null
+  paymentReturnStation: $Enums.QueueStation | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -59,6 +60,7 @@ export type EncounterMaxAggregateOutputType = {
   closedAt: Date | null
   createdById: string | null
   assignedDoctorId: string | null
+  paymentReturnStation: $Enums.QueueStation | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -79,6 +81,7 @@ export type EncounterCountAggregateOutputType = {
   closedAt: number
   createdById: number
   assignedDoctorId: number
+  paymentReturnStation: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -101,6 +104,7 @@ export type EncounterMinAggregateInputType = {
   closedAt?: true
   createdById?: true
   assignedDoctorId?: true
+  paymentReturnStation?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -121,6 +125,7 @@ export type EncounterMaxAggregateInputType = {
   closedAt?: true
   createdById?: true
   assignedDoctorId?: true
+  paymentReturnStation?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -141,6 +146,7 @@ export type EncounterCountAggregateInputType = {
   closedAt?: true
   createdById?: true
   assignedDoctorId?: true
+  paymentReturnStation?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -225,7 +231,7 @@ export type EncounterGroupByOutputType = {
   patientId: string
   facilityId: string
   departmentId: string
-  serviceId: string
+  serviceId: string | null
   type: $Enums.EncounterType
   status: $Enums.EncounterStatus
   priority: $Enums.EncounterPriority
@@ -234,6 +240,7 @@ export type EncounterGroupByOutputType = {
   closedAt: Date | null
   createdById: string
   assignedDoctorId: string | null
+  paymentReturnStation: $Enums.QueueStation | null
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -266,7 +273,7 @@ export type EncounterWhereInput = {
   patientId?: Prisma.UuidFilter<"Encounter"> | string
   facilityId?: Prisma.UuidFilter<"Encounter"> | string
   departmentId?: Prisma.UuidFilter<"Encounter"> | string
-  serviceId?: Prisma.UuidFilter<"Encounter"> | string
+  serviceId?: Prisma.UuidNullableFilter<"Encounter"> | string | null
   type?: Prisma.EnumEncounterTypeFilter<"Encounter"> | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFilter<"Encounter"> | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFilter<"Encounter"> | $Enums.EncounterPriority
@@ -275,13 +282,14 @@ export type EncounterWhereInput = {
   closedAt?: Prisma.DateTimeNullableFilter<"Encounter"> | Date | string | null
   createdById?: Prisma.UuidFilter<"Encounter"> | string
   assignedDoctorId?: Prisma.UuidNullableFilter<"Encounter"> | string | null
+  paymentReturnStation?: Prisma.EnumQueueStationNullableFilter<"Encounter"> | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFilter<"Encounter"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Encounter"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Encounter"> | Date | string | null
   patient?: Prisma.XOR<Prisma.PatientScalarRelationFilter, Prisma.PatientWhereInput>
   facility?: Prisma.XOR<Prisma.FacilityScalarRelationFilter, Prisma.FacilityWhereInput>
   department?: Prisma.XOR<Prisma.DepartmentScalarRelationFilter, Prisma.DepartmentWhereInput>
-  service?: Prisma.XOR<Prisma.ServiceScalarRelationFilter, Prisma.ServiceWhereInput>
+  service?: Prisma.XOR<Prisma.ServiceNullableScalarRelationFilter, Prisma.ServiceWhereInput> | null
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   assignedDoctor?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   queueEntries?: Prisma.QueueEntryListRelationFilter
@@ -299,7 +307,7 @@ export type EncounterOrderByWithRelationInput = {
   patientId?: Prisma.SortOrder
   facilityId?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
-  serviceId?: Prisma.SortOrder
+  serviceId?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
   status?: Prisma.SortOrder
   priority?: Prisma.SortOrder
@@ -308,6 +316,7 @@ export type EncounterOrderByWithRelationInput = {
   closedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
   assignedDoctorId?: Prisma.SortOrderInput | Prisma.SortOrder
+  paymentReturnStation?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -335,7 +344,7 @@ export type EncounterWhereUniqueInput = Prisma.AtLeast<{
   patientId?: Prisma.UuidFilter<"Encounter"> | string
   facilityId?: Prisma.UuidFilter<"Encounter"> | string
   departmentId?: Prisma.UuidFilter<"Encounter"> | string
-  serviceId?: Prisma.UuidFilter<"Encounter"> | string
+  serviceId?: Prisma.UuidNullableFilter<"Encounter"> | string | null
   type?: Prisma.EnumEncounterTypeFilter<"Encounter"> | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFilter<"Encounter"> | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFilter<"Encounter"> | $Enums.EncounterPriority
@@ -344,13 +353,14 @@ export type EncounterWhereUniqueInput = Prisma.AtLeast<{
   closedAt?: Prisma.DateTimeNullableFilter<"Encounter"> | Date | string | null
   createdById?: Prisma.UuidFilter<"Encounter"> | string
   assignedDoctorId?: Prisma.UuidNullableFilter<"Encounter"> | string | null
+  paymentReturnStation?: Prisma.EnumQueueStationNullableFilter<"Encounter"> | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFilter<"Encounter"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Encounter"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Encounter"> | Date | string | null
   patient?: Prisma.XOR<Prisma.PatientScalarRelationFilter, Prisma.PatientWhereInput>
   facility?: Prisma.XOR<Prisma.FacilityScalarRelationFilter, Prisma.FacilityWhereInput>
   department?: Prisma.XOR<Prisma.DepartmentScalarRelationFilter, Prisma.DepartmentWhereInput>
-  service?: Prisma.XOR<Prisma.ServiceScalarRelationFilter, Prisma.ServiceWhereInput>
+  service?: Prisma.XOR<Prisma.ServiceNullableScalarRelationFilter, Prisma.ServiceWhereInput> | null
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   assignedDoctor?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   queueEntries?: Prisma.QueueEntryListRelationFilter
@@ -368,7 +378,7 @@ export type EncounterOrderByWithAggregationInput = {
   patientId?: Prisma.SortOrder
   facilityId?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
-  serviceId?: Prisma.SortOrder
+  serviceId?: Prisma.SortOrderInput | Prisma.SortOrder
   type?: Prisma.SortOrder
   status?: Prisma.SortOrder
   priority?: Prisma.SortOrder
@@ -377,6 +387,7 @@ export type EncounterOrderByWithAggregationInput = {
   closedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrder
   assignedDoctorId?: Prisma.SortOrderInput | Prisma.SortOrder
+  paymentReturnStation?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -394,7 +405,7 @@ export type EncounterScalarWhereWithAggregatesInput = {
   patientId?: Prisma.UuidWithAggregatesFilter<"Encounter"> | string
   facilityId?: Prisma.UuidWithAggregatesFilter<"Encounter"> | string
   departmentId?: Prisma.UuidWithAggregatesFilter<"Encounter"> | string
-  serviceId?: Prisma.UuidWithAggregatesFilter<"Encounter"> | string
+  serviceId?: Prisma.UuidNullableWithAggregatesFilter<"Encounter"> | string | null
   type?: Prisma.EnumEncounterTypeWithAggregatesFilter<"Encounter"> | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusWithAggregatesFilter<"Encounter"> | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityWithAggregatesFilter<"Encounter"> | $Enums.EncounterPriority
@@ -403,6 +414,7 @@ export type EncounterScalarWhereWithAggregatesInput = {
   closedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Encounter"> | Date | string | null
   createdById?: Prisma.UuidWithAggregatesFilter<"Encounter"> | string
   assignedDoctorId?: Prisma.UuidNullableWithAggregatesFilter<"Encounter"> | string | null
+  paymentReturnStation?: Prisma.EnumQueueStationNullableWithAggregatesFilter<"Encounter"> | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Encounter"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Encounter"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Encounter"> | Date | string | null
@@ -417,13 +429,14 @@ export type EncounterCreateInput = {
   reason?: string | null
   startedAt?: Date | string
   closedAt?: Date | string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   patient: Prisma.PatientCreateNestedOneWithoutEncountersInput
   facility: Prisma.FacilityCreateNestedOneWithoutEncountersInput
   department: Prisma.DepartmentCreateNestedOneWithoutEncountersInput
-  service: Prisma.ServiceCreateNestedOneWithoutEncountersInput
+  service?: Prisma.ServiceCreateNestedOneWithoutEncountersInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEncountersInput
   assignedDoctor?: Prisma.UserCreateNestedOneWithoutAssignedEncountersInput
   queueEntries?: Prisma.QueueEntryCreateNestedManyWithoutEncounterInput
@@ -441,7 +454,7 @@ export type EncounterUncheckedCreateInput = {
   patientId: string
   facilityId: string
   departmentId: string
-  serviceId: string
+  serviceId?: string | null
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -450,6 +463,7 @@ export type EncounterUncheckedCreateInput = {
   closedAt?: Date | string | null
   createdById: string
   assignedDoctorId?: string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -471,13 +485,14 @@ export type EncounterUpdateInput = {
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   patient?: Prisma.PatientUpdateOneRequiredWithoutEncountersNestedInput
   facility?: Prisma.FacilityUpdateOneRequiredWithoutEncountersNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutEncountersNestedInput
-  service?: Prisma.ServiceUpdateOneRequiredWithoutEncountersNestedInput
+  service?: Prisma.ServiceUpdateOneWithoutEncountersNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEncountersNestedInput
   assignedDoctor?: Prisma.UserUpdateOneWithoutAssignedEncountersNestedInput
   queueEntries?: Prisma.QueueEntryUpdateManyWithoutEncounterNestedInput
@@ -495,7 +510,7 @@ export type EncounterUncheckedUpdateInput = {
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
-  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -504,6 +519,7 @@ export type EncounterUncheckedUpdateInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   assignedDoctorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -522,7 +538,7 @@ export type EncounterCreateManyInput = {
   patientId: string
   facilityId: string
   departmentId: string
-  serviceId: string
+  serviceId?: string | null
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -531,6 +547,7 @@ export type EncounterCreateManyInput = {
   closedAt?: Date | string | null
   createdById: string
   assignedDoctorId?: string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -545,6 +562,7 @@ export type EncounterUpdateManyMutationInput = {
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -556,7 +574,7 @@ export type EncounterUncheckedUpdateManyInput = {
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
-  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -565,6 +583,7 @@ export type EncounterUncheckedUpdateManyInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   assignedDoctorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -595,6 +614,7 @@ export type EncounterCountOrderByAggregateInput = {
   closedAt?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   assignedDoctorId?: Prisma.SortOrder
+  paymentReturnStation?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -615,6 +635,7 @@ export type EncounterMaxOrderByAggregateInput = {
   closedAt?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   assignedDoctorId?: Prisma.SortOrder
+  paymentReturnStation?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -635,6 +656,7 @@ export type EncounterMinOrderByAggregateInput = {
   closedAt?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   assignedDoctorId?: Prisma.SortOrder
+  paymentReturnStation?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -914,6 +936,10 @@ export type EnumEncounterPriorityFieldUpdateOperationsInput = {
   set?: $Enums.EncounterPriority
 }
 
+export type NullableEnumQueueStationFieldUpdateOperationsInput = {
+  set?: $Enums.QueueStation | null
+}
+
 export type EncounterCreateNestedOneWithoutAppointmentInput = {
   create?: Prisma.XOR<Prisma.EncounterCreateWithoutAppointmentInput, Prisma.EncounterUncheckedCreateWithoutAppointmentInput>
   connectOrCreate?: Prisma.EncounterCreateOrConnectWithoutAppointmentInput
@@ -1023,13 +1049,14 @@ export type EncounterCreateWithoutCreatedByInput = {
   reason?: string | null
   startedAt?: Date | string
   closedAt?: Date | string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   patient: Prisma.PatientCreateNestedOneWithoutEncountersInput
   facility: Prisma.FacilityCreateNestedOneWithoutEncountersInput
   department: Prisma.DepartmentCreateNestedOneWithoutEncountersInput
-  service: Prisma.ServiceCreateNestedOneWithoutEncountersInput
+  service?: Prisma.ServiceCreateNestedOneWithoutEncountersInput
   assignedDoctor?: Prisma.UserCreateNestedOneWithoutAssignedEncountersInput
   queueEntries?: Prisma.QueueEntryCreateNestedManyWithoutEncounterInput
   triage?: Prisma.TriageCreateNestedOneWithoutEncounterInput
@@ -1046,7 +1073,7 @@ export type EncounterUncheckedCreateWithoutCreatedByInput = {
   patientId: string
   facilityId: string
   departmentId: string
-  serviceId: string
+  serviceId?: string | null
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -1054,6 +1081,7 @@ export type EncounterUncheckedCreateWithoutCreatedByInput = {
   startedAt?: Date | string
   closedAt?: Date | string | null
   assignedDoctorId?: string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1085,13 +1113,14 @@ export type EncounterCreateWithoutAssignedDoctorInput = {
   reason?: string | null
   startedAt?: Date | string
   closedAt?: Date | string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   patient: Prisma.PatientCreateNestedOneWithoutEncountersInput
   facility: Prisma.FacilityCreateNestedOneWithoutEncountersInput
   department: Prisma.DepartmentCreateNestedOneWithoutEncountersInput
-  service: Prisma.ServiceCreateNestedOneWithoutEncountersInput
+  service?: Prisma.ServiceCreateNestedOneWithoutEncountersInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEncountersInput
   queueEntries?: Prisma.QueueEntryCreateNestedManyWithoutEncounterInput
   triage?: Prisma.TriageCreateNestedOneWithoutEncounterInput
@@ -1108,7 +1137,7 @@ export type EncounterUncheckedCreateWithoutAssignedDoctorInput = {
   patientId: string
   facilityId: string
   departmentId: string
-  serviceId: string
+  serviceId?: string | null
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -1116,6 +1145,7 @@ export type EncounterUncheckedCreateWithoutAssignedDoctorInput = {
   startedAt?: Date | string
   closedAt?: Date | string | null
   createdById: string
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1163,7 +1193,7 @@ export type EncounterScalarWhereInput = {
   patientId?: Prisma.UuidFilter<"Encounter"> | string
   facilityId?: Prisma.UuidFilter<"Encounter"> | string
   departmentId?: Prisma.UuidFilter<"Encounter"> | string
-  serviceId?: Prisma.UuidFilter<"Encounter"> | string
+  serviceId?: Prisma.UuidNullableFilter<"Encounter"> | string | null
   type?: Prisma.EnumEncounterTypeFilter<"Encounter"> | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFilter<"Encounter"> | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFilter<"Encounter"> | $Enums.EncounterPriority
@@ -1172,6 +1202,7 @@ export type EncounterScalarWhereInput = {
   closedAt?: Prisma.DateTimeNullableFilter<"Encounter"> | Date | string | null
   createdById?: Prisma.UuidFilter<"Encounter"> | string
   assignedDoctorId?: Prisma.UuidNullableFilter<"Encounter"> | string | null
+  paymentReturnStation?: Prisma.EnumQueueStationNullableFilter<"Encounter"> | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFilter<"Encounter"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Encounter"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Encounter"> | Date | string | null
@@ -1202,12 +1233,13 @@ export type EncounterCreateWithoutFacilityInput = {
   reason?: string | null
   startedAt?: Date | string
   closedAt?: Date | string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   patient: Prisma.PatientCreateNestedOneWithoutEncountersInput
   department: Prisma.DepartmentCreateNestedOneWithoutEncountersInput
-  service: Prisma.ServiceCreateNestedOneWithoutEncountersInput
+  service?: Prisma.ServiceCreateNestedOneWithoutEncountersInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEncountersInput
   assignedDoctor?: Prisma.UserCreateNestedOneWithoutAssignedEncountersInput
   queueEntries?: Prisma.QueueEntryCreateNestedManyWithoutEncounterInput
@@ -1224,7 +1256,7 @@ export type EncounterUncheckedCreateWithoutFacilityInput = {
   encounterNumber: string
   patientId: string
   departmentId: string
-  serviceId: string
+  serviceId?: string | null
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -1233,6 +1265,7 @@ export type EncounterUncheckedCreateWithoutFacilityInput = {
   closedAt?: Date | string | null
   createdById: string
   assignedDoctorId?: string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1280,12 +1313,13 @@ export type EncounterCreateWithoutDepartmentInput = {
   reason?: string | null
   startedAt?: Date | string
   closedAt?: Date | string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   patient: Prisma.PatientCreateNestedOneWithoutEncountersInput
   facility: Prisma.FacilityCreateNestedOneWithoutEncountersInput
-  service: Prisma.ServiceCreateNestedOneWithoutEncountersInput
+  service?: Prisma.ServiceCreateNestedOneWithoutEncountersInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEncountersInput
   assignedDoctor?: Prisma.UserCreateNestedOneWithoutAssignedEncountersInput
   queueEntries?: Prisma.QueueEntryCreateNestedManyWithoutEncounterInput
@@ -1302,7 +1336,7 @@ export type EncounterUncheckedCreateWithoutDepartmentInput = {
   encounterNumber: string
   patientId: string
   facilityId: string
-  serviceId: string
+  serviceId?: string | null
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -1311,6 +1345,7 @@ export type EncounterUncheckedCreateWithoutDepartmentInput = {
   closedAt?: Date | string | null
   createdById: string
   assignedDoctorId?: string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1358,6 +1393,7 @@ export type EncounterCreateWithoutServiceInput = {
   reason?: string | null
   startedAt?: Date | string
   closedAt?: Date | string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1389,6 +1425,7 @@ export type EncounterUncheckedCreateWithoutServiceInput = {
   closedAt?: Date | string | null
   createdById: string
   assignedDoctorId?: string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1436,12 +1473,13 @@ export type EncounterCreateWithoutPatientInput = {
   reason?: string | null
   startedAt?: Date | string
   closedAt?: Date | string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   facility: Prisma.FacilityCreateNestedOneWithoutEncountersInput
   department: Prisma.DepartmentCreateNestedOneWithoutEncountersInput
-  service: Prisma.ServiceCreateNestedOneWithoutEncountersInput
+  service?: Prisma.ServiceCreateNestedOneWithoutEncountersInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEncountersInput
   assignedDoctor?: Prisma.UserCreateNestedOneWithoutAssignedEncountersInput
   queueEntries?: Prisma.QueueEntryCreateNestedManyWithoutEncounterInput
@@ -1458,7 +1496,7 @@ export type EncounterUncheckedCreateWithoutPatientInput = {
   encounterNumber: string
   facilityId: string
   departmentId: string
-  serviceId: string
+  serviceId?: string | null
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -1467,6 +1505,7 @@ export type EncounterUncheckedCreateWithoutPatientInput = {
   closedAt?: Date | string | null
   createdById: string
   assignedDoctorId?: string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1514,13 +1553,14 @@ export type EncounterCreateWithoutAppointmentInput = {
   reason?: string | null
   startedAt?: Date | string
   closedAt?: Date | string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   patient: Prisma.PatientCreateNestedOneWithoutEncountersInput
   facility: Prisma.FacilityCreateNestedOneWithoutEncountersInput
   department: Prisma.DepartmentCreateNestedOneWithoutEncountersInput
-  service: Prisma.ServiceCreateNestedOneWithoutEncountersInput
+  service?: Prisma.ServiceCreateNestedOneWithoutEncountersInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEncountersInput
   assignedDoctor?: Prisma.UserCreateNestedOneWithoutAssignedEncountersInput
   queueEntries?: Prisma.QueueEntryCreateNestedManyWithoutEncounterInput
@@ -1537,7 +1577,7 @@ export type EncounterUncheckedCreateWithoutAppointmentInput = {
   patientId: string
   facilityId: string
   departmentId: string
-  serviceId: string
+  serviceId?: string | null
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -1546,6 +1586,7 @@ export type EncounterUncheckedCreateWithoutAppointmentInput = {
   closedAt?: Date | string | null
   createdById: string
   assignedDoctorId?: string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1582,13 +1623,14 @@ export type EncounterUpdateWithoutAppointmentInput = {
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   patient?: Prisma.PatientUpdateOneRequiredWithoutEncountersNestedInput
   facility?: Prisma.FacilityUpdateOneRequiredWithoutEncountersNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutEncountersNestedInput
-  service?: Prisma.ServiceUpdateOneRequiredWithoutEncountersNestedInput
+  service?: Prisma.ServiceUpdateOneWithoutEncountersNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEncountersNestedInput
   assignedDoctor?: Prisma.UserUpdateOneWithoutAssignedEncountersNestedInput
   queueEntries?: Prisma.QueueEntryUpdateManyWithoutEncounterNestedInput
@@ -1605,7 +1647,7 @@ export type EncounterUncheckedUpdateWithoutAppointmentInput = {
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
-  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -1614,6 +1656,7 @@ export type EncounterUncheckedUpdateWithoutAppointmentInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   assignedDoctorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1634,13 +1677,14 @@ export type EncounterCreateWithoutQueueEntriesInput = {
   reason?: string | null
   startedAt?: Date | string
   closedAt?: Date | string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   patient: Prisma.PatientCreateNestedOneWithoutEncountersInput
   facility: Prisma.FacilityCreateNestedOneWithoutEncountersInput
   department: Prisma.DepartmentCreateNestedOneWithoutEncountersInput
-  service: Prisma.ServiceCreateNestedOneWithoutEncountersInput
+  service?: Prisma.ServiceCreateNestedOneWithoutEncountersInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEncountersInput
   assignedDoctor?: Prisma.UserCreateNestedOneWithoutAssignedEncountersInput
   triage?: Prisma.TriageCreateNestedOneWithoutEncounterInput
@@ -1657,7 +1701,7 @@ export type EncounterUncheckedCreateWithoutQueueEntriesInput = {
   patientId: string
   facilityId: string
   departmentId: string
-  serviceId: string
+  serviceId?: string | null
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -1666,6 +1710,7 @@ export type EncounterUncheckedCreateWithoutQueueEntriesInput = {
   closedAt?: Date | string | null
   createdById: string
   assignedDoctorId?: string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1702,13 +1747,14 @@ export type EncounterUpdateWithoutQueueEntriesInput = {
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   patient?: Prisma.PatientUpdateOneRequiredWithoutEncountersNestedInput
   facility?: Prisma.FacilityUpdateOneRequiredWithoutEncountersNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutEncountersNestedInput
-  service?: Prisma.ServiceUpdateOneRequiredWithoutEncountersNestedInput
+  service?: Prisma.ServiceUpdateOneWithoutEncountersNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEncountersNestedInput
   assignedDoctor?: Prisma.UserUpdateOneWithoutAssignedEncountersNestedInput
   triage?: Prisma.TriageUpdateOneWithoutEncounterNestedInput
@@ -1725,7 +1771,7 @@ export type EncounterUncheckedUpdateWithoutQueueEntriesInput = {
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
-  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -1734,6 +1780,7 @@ export type EncounterUncheckedUpdateWithoutQueueEntriesInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   assignedDoctorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1754,13 +1801,14 @@ export type EncounterCreateWithoutTriageInput = {
   reason?: string | null
   startedAt?: Date | string
   closedAt?: Date | string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   patient: Prisma.PatientCreateNestedOneWithoutEncountersInput
   facility: Prisma.FacilityCreateNestedOneWithoutEncountersInput
   department: Prisma.DepartmentCreateNestedOneWithoutEncountersInput
-  service: Prisma.ServiceCreateNestedOneWithoutEncountersInput
+  service?: Prisma.ServiceCreateNestedOneWithoutEncountersInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEncountersInput
   assignedDoctor?: Prisma.UserCreateNestedOneWithoutAssignedEncountersInput
   queueEntries?: Prisma.QueueEntryCreateNestedManyWithoutEncounterInput
@@ -1777,7 +1825,7 @@ export type EncounterUncheckedCreateWithoutTriageInput = {
   patientId: string
   facilityId: string
   departmentId: string
-  serviceId: string
+  serviceId?: string | null
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -1786,6 +1834,7 @@ export type EncounterUncheckedCreateWithoutTriageInput = {
   closedAt?: Date | string | null
   createdById: string
   assignedDoctorId?: string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1822,13 +1871,14 @@ export type EncounterUpdateWithoutTriageInput = {
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   patient?: Prisma.PatientUpdateOneRequiredWithoutEncountersNestedInput
   facility?: Prisma.FacilityUpdateOneRequiredWithoutEncountersNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutEncountersNestedInput
-  service?: Prisma.ServiceUpdateOneRequiredWithoutEncountersNestedInput
+  service?: Prisma.ServiceUpdateOneWithoutEncountersNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEncountersNestedInput
   assignedDoctor?: Prisma.UserUpdateOneWithoutAssignedEncountersNestedInput
   queueEntries?: Prisma.QueueEntryUpdateManyWithoutEncounterNestedInput
@@ -1845,7 +1895,7 @@ export type EncounterUncheckedUpdateWithoutTriageInput = {
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
-  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -1854,6 +1904,7 @@ export type EncounterUncheckedUpdateWithoutTriageInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   assignedDoctorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1874,13 +1925,14 @@ export type EncounterCreateWithoutConsultationInput = {
   reason?: string | null
   startedAt?: Date | string
   closedAt?: Date | string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   patient: Prisma.PatientCreateNestedOneWithoutEncountersInput
   facility: Prisma.FacilityCreateNestedOneWithoutEncountersInput
   department: Prisma.DepartmentCreateNestedOneWithoutEncountersInput
-  service: Prisma.ServiceCreateNestedOneWithoutEncountersInput
+  service?: Prisma.ServiceCreateNestedOneWithoutEncountersInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEncountersInput
   assignedDoctor?: Prisma.UserCreateNestedOneWithoutAssignedEncountersInput
   queueEntries?: Prisma.QueueEntryCreateNestedManyWithoutEncounterInput
@@ -1897,7 +1949,7 @@ export type EncounterUncheckedCreateWithoutConsultationInput = {
   patientId: string
   facilityId: string
   departmentId: string
-  serviceId: string
+  serviceId?: string | null
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -1906,6 +1958,7 @@ export type EncounterUncheckedCreateWithoutConsultationInput = {
   closedAt?: Date | string | null
   createdById: string
   assignedDoctorId?: string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1942,13 +1995,14 @@ export type EncounterUpdateWithoutConsultationInput = {
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   patient?: Prisma.PatientUpdateOneRequiredWithoutEncountersNestedInput
   facility?: Prisma.FacilityUpdateOneRequiredWithoutEncountersNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutEncountersNestedInput
-  service?: Prisma.ServiceUpdateOneRequiredWithoutEncountersNestedInput
+  service?: Prisma.ServiceUpdateOneWithoutEncountersNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEncountersNestedInput
   assignedDoctor?: Prisma.UserUpdateOneWithoutAssignedEncountersNestedInput
   queueEntries?: Prisma.QueueEntryUpdateManyWithoutEncounterNestedInput
@@ -1965,7 +2019,7 @@ export type EncounterUncheckedUpdateWithoutConsultationInput = {
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
-  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -1974,6 +2028,7 @@ export type EncounterUncheckedUpdateWithoutConsultationInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   assignedDoctorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1994,13 +2049,14 @@ export type EncounterCreateWithoutLabOrdersInput = {
   reason?: string | null
   startedAt?: Date | string
   closedAt?: Date | string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   patient: Prisma.PatientCreateNestedOneWithoutEncountersInput
   facility: Prisma.FacilityCreateNestedOneWithoutEncountersInput
   department: Prisma.DepartmentCreateNestedOneWithoutEncountersInput
-  service: Prisma.ServiceCreateNestedOneWithoutEncountersInput
+  service?: Prisma.ServiceCreateNestedOneWithoutEncountersInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEncountersInput
   assignedDoctor?: Prisma.UserCreateNestedOneWithoutAssignedEncountersInput
   queueEntries?: Prisma.QueueEntryCreateNestedManyWithoutEncounterInput
@@ -2017,7 +2073,7 @@ export type EncounterUncheckedCreateWithoutLabOrdersInput = {
   patientId: string
   facilityId: string
   departmentId: string
-  serviceId: string
+  serviceId?: string | null
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -2026,6 +2082,7 @@ export type EncounterUncheckedCreateWithoutLabOrdersInput = {
   closedAt?: Date | string | null
   createdById: string
   assignedDoctorId?: string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2062,13 +2119,14 @@ export type EncounterUpdateWithoutLabOrdersInput = {
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   patient?: Prisma.PatientUpdateOneRequiredWithoutEncountersNestedInput
   facility?: Prisma.FacilityUpdateOneRequiredWithoutEncountersNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutEncountersNestedInput
-  service?: Prisma.ServiceUpdateOneRequiredWithoutEncountersNestedInput
+  service?: Prisma.ServiceUpdateOneWithoutEncountersNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEncountersNestedInput
   assignedDoctor?: Prisma.UserUpdateOneWithoutAssignedEncountersNestedInput
   queueEntries?: Prisma.QueueEntryUpdateManyWithoutEncounterNestedInput
@@ -2085,7 +2143,7 @@ export type EncounterUncheckedUpdateWithoutLabOrdersInput = {
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
-  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2094,6 +2152,7 @@ export type EncounterUncheckedUpdateWithoutLabOrdersInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   assignedDoctorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2114,13 +2173,14 @@ export type EncounterCreateWithoutPrescriptionsInput = {
   reason?: string | null
   startedAt?: Date | string
   closedAt?: Date | string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   patient: Prisma.PatientCreateNestedOneWithoutEncountersInput
   facility: Prisma.FacilityCreateNestedOneWithoutEncountersInput
   department: Prisma.DepartmentCreateNestedOneWithoutEncountersInput
-  service: Prisma.ServiceCreateNestedOneWithoutEncountersInput
+  service?: Prisma.ServiceCreateNestedOneWithoutEncountersInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEncountersInput
   assignedDoctor?: Prisma.UserCreateNestedOneWithoutAssignedEncountersInput
   queueEntries?: Prisma.QueueEntryCreateNestedManyWithoutEncounterInput
@@ -2137,7 +2197,7 @@ export type EncounterUncheckedCreateWithoutPrescriptionsInput = {
   patientId: string
   facilityId: string
   departmentId: string
-  serviceId: string
+  serviceId?: string | null
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -2146,6 +2206,7 @@ export type EncounterUncheckedCreateWithoutPrescriptionsInput = {
   closedAt?: Date | string | null
   createdById: string
   assignedDoctorId?: string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2182,13 +2243,14 @@ export type EncounterUpdateWithoutPrescriptionsInput = {
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   patient?: Prisma.PatientUpdateOneRequiredWithoutEncountersNestedInput
   facility?: Prisma.FacilityUpdateOneRequiredWithoutEncountersNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutEncountersNestedInput
-  service?: Prisma.ServiceUpdateOneRequiredWithoutEncountersNestedInput
+  service?: Prisma.ServiceUpdateOneWithoutEncountersNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEncountersNestedInput
   assignedDoctor?: Prisma.UserUpdateOneWithoutAssignedEncountersNestedInput
   queueEntries?: Prisma.QueueEntryUpdateManyWithoutEncounterNestedInput
@@ -2205,7 +2267,7 @@ export type EncounterUncheckedUpdateWithoutPrescriptionsInput = {
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
-  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2214,6 +2276,7 @@ export type EncounterUncheckedUpdateWithoutPrescriptionsInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   assignedDoctorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2234,13 +2297,14 @@ export type EncounterCreateWithoutInvoiceInput = {
   reason?: string | null
   startedAt?: Date | string
   closedAt?: Date | string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   patient: Prisma.PatientCreateNestedOneWithoutEncountersInput
   facility: Prisma.FacilityCreateNestedOneWithoutEncountersInput
   department: Prisma.DepartmentCreateNestedOneWithoutEncountersInput
-  service: Prisma.ServiceCreateNestedOneWithoutEncountersInput
+  service?: Prisma.ServiceCreateNestedOneWithoutEncountersInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedEncountersInput
   assignedDoctor?: Prisma.UserCreateNestedOneWithoutAssignedEncountersInput
   queueEntries?: Prisma.QueueEntryCreateNestedManyWithoutEncounterInput
@@ -2257,7 +2321,7 @@ export type EncounterUncheckedCreateWithoutInvoiceInput = {
   patientId: string
   facilityId: string
   departmentId: string
-  serviceId: string
+  serviceId?: string | null
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -2266,6 +2330,7 @@ export type EncounterUncheckedCreateWithoutInvoiceInput = {
   closedAt?: Date | string | null
   createdById: string
   assignedDoctorId?: string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2302,13 +2367,14 @@ export type EncounterUpdateWithoutInvoiceInput = {
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   patient?: Prisma.PatientUpdateOneRequiredWithoutEncountersNestedInput
   facility?: Prisma.FacilityUpdateOneRequiredWithoutEncountersNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutEncountersNestedInput
-  service?: Prisma.ServiceUpdateOneRequiredWithoutEncountersNestedInput
+  service?: Prisma.ServiceUpdateOneWithoutEncountersNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEncountersNestedInput
   assignedDoctor?: Prisma.UserUpdateOneWithoutAssignedEncountersNestedInput
   queueEntries?: Prisma.QueueEntryUpdateManyWithoutEncounterNestedInput
@@ -2325,7 +2391,7 @@ export type EncounterUncheckedUpdateWithoutInvoiceInput = {
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
-  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2334,6 +2400,7 @@ export type EncounterUncheckedUpdateWithoutInvoiceInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   assignedDoctorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2351,7 +2418,7 @@ export type EncounterCreateManyCreatedByInput = {
   patientId: string
   facilityId: string
   departmentId: string
-  serviceId: string
+  serviceId?: string | null
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -2359,6 +2426,7 @@ export type EncounterCreateManyCreatedByInput = {
   startedAt?: Date | string
   closedAt?: Date | string | null
   assignedDoctorId?: string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2370,7 +2438,7 @@ export type EncounterCreateManyAssignedDoctorInput = {
   patientId: string
   facilityId: string
   departmentId: string
-  serviceId: string
+  serviceId?: string | null
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -2378,6 +2446,7 @@ export type EncounterCreateManyAssignedDoctorInput = {
   startedAt?: Date | string
   closedAt?: Date | string | null
   createdById: string
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2392,13 +2461,14 @@ export type EncounterUpdateWithoutCreatedByInput = {
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   patient?: Prisma.PatientUpdateOneRequiredWithoutEncountersNestedInput
   facility?: Prisma.FacilityUpdateOneRequiredWithoutEncountersNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutEncountersNestedInput
-  service?: Prisma.ServiceUpdateOneRequiredWithoutEncountersNestedInput
+  service?: Prisma.ServiceUpdateOneWithoutEncountersNestedInput
   assignedDoctor?: Prisma.UserUpdateOneWithoutAssignedEncountersNestedInput
   queueEntries?: Prisma.QueueEntryUpdateManyWithoutEncounterNestedInput
   triage?: Prisma.TriageUpdateOneWithoutEncounterNestedInput
@@ -2415,7 +2485,7 @@ export type EncounterUncheckedUpdateWithoutCreatedByInput = {
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
-  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2423,6 +2493,7 @@ export type EncounterUncheckedUpdateWithoutCreatedByInput = {
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   assignedDoctorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2441,7 +2512,7 @@ export type EncounterUncheckedUpdateManyWithoutCreatedByInput = {
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
-  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2449,6 +2520,7 @@ export type EncounterUncheckedUpdateManyWithoutCreatedByInput = {
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   assignedDoctorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2463,13 +2535,14 @@ export type EncounterUpdateWithoutAssignedDoctorInput = {
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   patient?: Prisma.PatientUpdateOneRequiredWithoutEncountersNestedInput
   facility?: Prisma.FacilityUpdateOneRequiredWithoutEncountersNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutEncountersNestedInput
-  service?: Prisma.ServiceUpdateOneRequiredWithoutEncountersNestedInput
+  service?: Prisma.ServiceUpdateOneWithoutEncountersNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEncountersNestedInput
   queueEntries?: Prisma.QueueEntryUpdateManyWithoutEncounterNestedInput
   triage?: Prisma.TriageUpdateOneWithoutEncounterNestedInput
@@ -2486,7 +2559,7 @@ export type EncounterUncheckedUpdateWithoutAssignedDoctorInput = {
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
-  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2494,6 +2567,7 @@ export type EncounterUncheckedUpdateWithoutAssignedDoctorInput = {
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2512,7 +2586,7 @@ export type EncounterUncheckedUpdateManyWithoutAssignedDoctorInput = {
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
-  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2520,6 +2594,7 @@ export type EncounterUncheckedUpdateManyWithoutAssignedDoctorInput = {
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2530,7 +2605,7 @@ export type EncounterCreateManyFacilityInput = {
   encounterNumber: string
   patientId: string
   departmentId: string
-  serviceId: string
+  serviceId?: string | null
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -2539,6 +2614,7 @@ export type EncounterCreateManyFacilityInput = {
   closedAt?: Date | string | null
   createdById: string
   assignedDoctorId?: string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2553,12 +2629,13 @@ export type EncounterUpdateWithoutFacilityInput = {
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   patient?: Prisma.PatientUpdateOneRequiredWithoutEncountersNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutEncountersNestedInput
-  service?: Prisma.ServiceUpdateOneRequiredWithoutEncountersNestedInput
+  service?: Prisma.ServiceUpdateOneWithoutEncountersNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEncountersNestedInput
   assignedDoctor?: Prisma.UserUpdateOneWithoutAssignedEncountersNestedInput
   queueEntries?: Prisma.QueueEntryUpdateManyWithoutEncounterNestedInput
@@ -2575,7 +2652,7 @@ export type EncounterUncheckedUpdateWithoutFacilityInput = {
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
-  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2584,6 +2661,7 @@ export type EncounterUncheckedUpdateWithoutFacilityInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   assignedDoctorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2601,7 +2679,7 @@ export type EncounterUncheckedUpdateManyWithoutFacilityInput = {
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
-  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2610,6 +2688,7 @@ export type EncounterUncheckedUpdateManyWithoutFacilityInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   assignedDoctorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2620,7 +2699,7 @@ export type EncounterCreateManyDepartmentInput = {
   encounterNumber: string
   patientId: string
   facilityId: string
-  serviceId: string
+  serviceId?: string | null
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -2629,6 +2708,7 @@ export type EncounterCreateManyDepartmentInput = {
   closedAt?: Date | string | null
   createdById: string
   assignedDoctorId?: string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2643,12 +2723,13 @@ export type EncounterUpdateWithoutDepartmentInput = {
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   patient?: Prisma.PatientUpdateOneRequiredWithoutEncountersNestedInput
   facility?: Prisma.FacilityUpdateOneRequiredWithoutEncountersNestedInput
-  service?: Prisma.ServiceUpdateOneRequiredWithoutEncountersNestedInput
+  service?: Prisma.ServiceUpdateOneWithoutEncountersNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEncountersNestedInput
   assignedDoctor?: Prisma.UserUpdateOneWithoutAssignedEncountersNestedInput
   queueEntries?: Prisma.QueueEntryUpdateManyWithoutEncounterNestedInput
@@ -2665,7 +2746,7 @@ export type EncounterUncheckedUpdateWithoutDepartmentInput = {
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
-  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2674,6 +2755,7 @@ export type EncounterUncheckedUpdateWithoutDepartmentInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   assignedDoctorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2691,7 +2773,7 @@ export type EncounterUncheckedUpdateManyWithoutDepartmentInput = {
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
-  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2700,6 +2782,7 @@ export type EncounterUncheckedUpdateManyWithoutDepartmentInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   assignedDoctorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2719,6 +2802,7 @@ export type EncounterCreateManyServiceInput = {
   closedAt?: Date | string | null
   createdById: string
   assignedDoctorId?: string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2733,6 +2817,7 @@ export type EncounterUpdateWithoutServiceInput = {
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2764,6 +2849,7 @@ export type EncounterUncheckedUpdateWithoutServiceInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   assignedDoctorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2790,6 +2876,7 @@ export type EncounterUncheckedUpdateManyWithoutServiceInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   assignedDoctorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2800,7 +2887,7 @@ export type EncounterCreateManyPatientInput = {
   encounterNumber: string
   facilityId: string
   departmentId: string
-  serviceId: string
+  serviceId?: string | null
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -2809,6 +2896,7 @@ export type EncounterCreateManyPatientInput = {
   closedAt?: Date | string | null
   createdById: string
   assignedDoctorId?: string | null
+  paymentReturnStation?: $Enums.QueueStation | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2823,12 +2911,13 @@ export type EncounterUpdateWithoutPatientInput = {
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   facility?: Prisma.FacilityUpdateOneRequiredWithoutEncountersNestedInput
   department?: Prisma.DepartmentUpdateOneRequiredWithoutEncountersNestedInput
-  service?: Prisma.ServiceUpdateOneRequiredWithoutEncountersNestedInput
+  service?: Prisma.ServiceUpdateOneWithoutEncountersNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedEncountersNestedInput
   assignedDoctor?: Prisma.UserUpdateOneWithoutAssignedEncountersNestedInput
   queueEntries?: Prisma.QueueEntryUpdateManyWithoutEncounterNestedInput
@@ -2845,7 +2934,7 @@ export type EncounterUncheckedUpdateWithoutPatientInput = {
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
-  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2854,6 +2943,7 @@ export type EncounterUncheckedUpdateWithoutPatientInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   assignedDoctorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2871,7 +2961,7 @@ export type EncounterUncheckedUpdateManyWithoutPatientInput = {
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
-  serviceId?: Prisma.StringFieldUpdateOperationsInput | string
+  serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2880,6 +2970,7 @@ export type EncounterUncheckedUpdateManyWithoutPatientInput = {
   closedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdById?: Prisma.StringFieldUpdateOperationsInput | string
   assignedDoctorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentReturnStation?: Prisma.NullableEnumQueueStationFieldUpdateOperationsInput | $Enums.QueueStation | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2949,13 +3040,14 @@ export type EncounterSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   closedAt?: boolean
   createdById?: boolean
   assignedDoctorId?: boolean
+  paymentReturnStation?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   facility?: boolean | Prisma.FacilityDefaultArgs<ExtArgs>
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
-  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
+  service?: boolean | Prisma.Encounter$serviceArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   assignedDoctor?: boolean | Prisma.Encounter$assignedDoctorArgs<ExtArgs>
   queueEntries?: boolean | Prisma.Encounter$queueEntriesArgs<ExtArgs>
@@ -2983,13 +3075,14 @@ export type EncounterSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   closedAt?: boolean
   createdById?: boolean
   assignedDoctorId?: boolean
+  paymentReturnStation?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   facility?: boolean | Prisma.FacilityDefaultArgs<ExtArgs>
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
-  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
+  service?: boolean | Prisma.Encounter$serviceArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   assignedDoctor?: boolean | Prisma.Encounter$assignedDoctorArgs<ExtArgs>
 }, ExtArgs["result"]["encounter"]>
@@ -3009,13 +3102,14 @@ export type EncounterSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   closedAt?: boolean
   createdById?: boolean
   assignedDoctorId?: boolean
+  paymentReturnStation?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   facility?: boolean | Prisma.FacilityDefaultArgs<ExtArgs>
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
-  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
+  service?: boolean | Prisma.Encounter$serviceArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   assignedDoctor?: boolean | Prisma.Encounter$assignedDoctorArgs<ExtArgs>
 }, ExtArgs["result"]["encounter"]>
@@ -3035,17 +3129,18 @@ export type EncounterSelectScalar = {
   closedAt?: boolean
   createdById?: boolean
   assignedDoctorId?: boolean
+  paymentReturnStation?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type EncounterOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "encounterNumber" | "patientId" | "facilityId" | "departmentId" | "serviceId" | "type" | "status" | "priority" | "reason" | "startedAt" | "closedAt" | "createdById" | "assignedDoctorId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["encounter"]>
+export type EncounterOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "encounterNumber" | "patientId" | "facilityId" | "departmentId" | "serviceId" | "type" | "status" | "priority" | "reason" | "startedAt" | "closedAt" | "createdById" | "assignedDoctorId" | "paymentReturnStation" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["encounter"]>
 export type EncounterInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   facility?: boolean | Prisma.FacilityDefaultArgs<ExtArgs>
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
-  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
+  service?: boolean | Prisma.Encounter$serviceArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   assignedDoctor?: boolean | Prisma.Encounter$assignedDoctorArgs<ExtArgs>
   queueEntries?: boolean | Prisma.Encounter$queueEntriesArgs<ExtArgs>
@@ -3061,7 +3156,7 @@ export type EncounterIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   facility?: boolean | Prisma.FacilityDefaultArgs<ExtArgs>
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
-  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
+  service?: boolean | Prisma.Encounter$serviceArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   assignedDoctor?: boolean | Prisma.Encounter$assignedDoctorArgs<ExtArgs>
 }
@@ -3069,7 +3164,7 @@ export type EncounterIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   facility?: boolean | Prisma.FacilityDefaultArgs<ExtArgs>
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
-  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>
+  service?: boolean | Prisma.Encounter$serviceArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   assignedDoctor?: boolean | Prisma.Encounter$assignedDoctorArgs<ExtArgs>
 }
@@ -3080,7 +3175,7 @@ export type $EncounterPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     patient: Prisma.$PatientPayload<ExtArgs>
     facility: Prisma.$FacilityPayload<ExtArgs>
     department: Prisma.$DepartmentPayload<ExtArgs>
-    service: Prisma.$ServicePayload<ExtArgs>
+    service: Prisma.$ServicePayload<ExtArgs> | null
     createdBy: Prisma.$UserPayload<ExtArgs>
     assignedDoctor: Prisma.$UserPayload<ExtArgs> | null
     queueEntries: Prisma.$QueueEntryPayload<ExtArgs>[]
@@ -3097,7 +3192,7 @@ export type $EncounterPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     patientId: string
     facilityId: string
     departmentId: string
-    serviceId: string
+    serviceId: string | null
     type: $Enums.EncounterType
     status: $Enums.EncounterStatus
     priority: $Enums.EncounterPriority
@@ -3106,6 +3201,10 @@ export type $EncounterPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     closedAt: Date | null
     createdById: string
     assignedDoctorId: string | null
+    /**
+     * * After mid-visit cashier payment, auto-return patient to this station.
+     */
+    paymentReturnStation: $Enums.QueueStation | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -3506,7 +3605,7 @@ export interface Prisma__EncounterClient<T, Null = never, ExtArgs extends runtim
   patient<T extends Prisma.PatientDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PatientDefaultArgs<ExtArgs>>): Prisma.Prisma__PatientClient<runtime.Types.Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   facility<T extends Prisma.FacilityDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FacilityDefaultArgs<ExtArgs>>): Prisma.Prisma__FacilityClient<runtime.Types.Result.GetResult<Prisma.$FacilityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   department<T extends Prisma.DepartmentDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DepartmentDefaultArgs<ExtArgs>>): Prisma.Prisma__DepartmentClient<runtime.Types.Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  service<T extends Prisma.ServiceDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ServiceDefaultArgs<ExtArgs>>): Prisma.Prisma__ServiceClient<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  service<T extends Prisma.Encounter$serviceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Encounter$serviceArgs<ExtArgs>>): Prisma.Prisma__ServiceClient<runtime.Types.Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   createdBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   assignedDoctor<T extends Prisma.Encounter$assignedDoctorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Encounter$assignedDoctorArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   queueEntries<T extends Prisma.Encounter$queueEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Encounter$queueEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QueueEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3559,6 +3658,7 @@ export interface EncounterFieldRefs {
   readonly closedAt: Prisma.FieldRef<"Encounter", 'DateTime'>
   readonly createdById: Prisma.FieldRef<"Encounter", 'String'>
   readonly assignedDoctorId: Prisma.FieldRef<"Encounter", 'String'>
+  readonly paymentReturnStation: Prisma.FieldRef<"Encounter", 'QueueStation'>
   readonly createdAt: Prisma.FieldRef<"Encounter", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Encounter", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Encounter", 'DateTime'>
@@ -3960,6 +4060,25 @@ export type EncounterDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Limit how many Encounters to delete.
    */
   limit?: number
+}
+
+/**
+ * Encounter.service
+ */
+export type Encounter$serviceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Service
+   */
+  select?: Prisma.ServiceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Service
+   */
+  omit?: Prisma.ServiceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ServiceInclude<ExtArgs> | null
+  where?: Prisma.ServiceWhereInput
 }
 
 /**

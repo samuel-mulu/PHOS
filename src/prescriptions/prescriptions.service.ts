@@ -116,7 +116,7 @@ export class PrescriptionsService {
         doctor: { select: { id: true, firstName: true, lastName: true } },
         items: { include: { medicine: true } },
       },
-      orderBy: { createdAt: "asc" },
+      orderBy: { createdAt: "desc" },
     });
   }
   async find(id: string) {

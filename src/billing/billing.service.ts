@@ -36,9 +36,9 @@ export class BillingService {
         "Only procedure or other manual items may be added",
       );
     const [service, labItems, dispensedItems] = await Promise.all([
-      this.prisma.service.findUniqueOrThrow({
-        where: { id: encounter.serviceId },
-      }),
+      encounter.serviceId
+        ? this.prisma.service.findUnique({ where: { id: encounter.serviceId } })
+        : Promise.resolve(null),
       this.prisma.labOrderItem.findMany({
         where: { labOrder: { encounterId, status: "VERIFIED" } },
         include: { labTest: true },
@@ -52,13 +52,17 @@ export class BillingService {
       }),
     ]);
     const items = [
-      {
-        type: "CONSULTATION" as const,
-        description: service.name,
-        sourceId: service.id,
-        quantity: 1,
-        unitPriceCents: service.priceCents,
-      },
+      ...(service
+        ? [
+            {
+              type: "CONSULTATION" as const,
+              description: service.name,
+              sourceId: service.id,
+              quantity: 1,
+              unitPriceCents: service.priceCents,
+            },
+          ]
+        : []),
       ...labItems.map((item) => ({
         type: "LAB" as const,
         description: item.labTest.name,
@@ -75,6 +79,10 @@ export class BillingService {
       })),
       ...dto.additionalItems,
     ];
+    if (items.length === 0)
+      throw new BadRequestException(
+        "Nothing to bill — pick a clinic service or add line items",
+      );
     let totals: { subtotalCents: number; totalCents: number };
     try {
       totals = calculateInvoiceTotals(items, dto.discountCents);
@@ -219,5 +227,123 @@ export class BillingService {
       entityId: id,
     });
     return this.find(id);
+  }
+
+  /**
+   * Ensure an payable invoice exists with this ad-hoc charge line.
+   * Creates invoice, or appends a line and recalculates totals.
+   * Issues draft invoices so cashier can collect.
+   */
+  async addChargeAndEnsurePayable(
+    encounterId: string,
+    description: string,
+    amountCents: number,
+    actorId: string,
+  ) {
+    const trimmed = description.trim();
+    if (!trimmed)
+      throw new BadRequestException("Service description is required");
+    if (!Number.isInteger(amountCents) || amountCents < 1)
+      throw new BadRequestException("Amount must be at least 1 cent");
+
+    const encounter = await this.prisma.encounter.findFirst({
+      where: { id: encounterId, deletedAt: null },
+    });
+    if (!encounter) throw new NotFoundException("Encounter not found");
+
+    const existing = await this.prisma.invoice.findUnique({
+      where: { encounterId },
+      include: { items: true },
+    });
+
+    if (existing?.status === "VOID")
+      throw new ConflictException("Invoice is void — cannot add charges");
+    if (existing?.status === "PAID")
+      throw new ConflictException(
+        "Invoice already paid — start a new visit charge via desk if needed",
+      );
+
+    if (!existing) {
+      const created = await this.create(
+        encounterId,
+        {
+          additionalItems: [
+            {
+              type: "OTHER",
+              description: trimmed,
+              quantity: 1,
+              unitPriceCents: amountCents,
+            },
+          ],
+          discountCents: 0,
+        },
+        actorId,
+      );
+      return this.issue(created.id, actorId);
+    }
+
+    return this.prisma.$transaction(async (tx) => {
+      await tx.invoiceItem.create({
+        data: {
+          invoiceId: existing.id,
+          type: "OTHER",
+          description: trimmed,
+          quantity: 1,
+          unitPriceCents: amountCents,
+          totalCents: amountCents,
+        },
+      });
+
+      const items = await tx.invoiceItem.findMany({
+        where: { invoiceId: existing.id },
+      });
+      let totals: { subtotalCents: number; totalCents: number };
+      try {
+        totals = calculateInvoiceTotals(items, existing.discountCents);
+      } catch {
+        throw new BadRequestException("Discount cannot exceed subtotal");
+      }
+
+      if (totals.totalCents < existing.paidCents)
+        throw new ConflictException(
+          "New total would be less than amount already paid",
+        );
+
+      const nextStatus =
+        existing.status === "DRAFT"
+          ? "ISSUED"
+          : existing.paidCents > 0
+            ? "PARTIALLY_PAID"
+            : "ISSUED";
+
+      const invoice = await tx.invoice.update({
+        where: { id: existing.id },
+        data: {
+          subtotalCents: totals.subtotalCents,
+          totalCents: totals.totalCents,
+          status: nextStatus,
+          issuedAt: existing.issuedAt ?? new Date(),
+        },
+        include: {
+          patient: true,
+          encounter: true,
+          items: true,
+          payments: { include: { refunds: true } },
+        },
+      });
+
+      await this.audit.create(
+        {
+          actorId,
+          action: "invoice.charge_added",
+          entityType: "Invoice",
+          entityId: existing.id,
+          newValues: { description: trimmed, amountCents },
+        },
+        tx,
+      );
+
+      return invoice;
+    });
   }
 }

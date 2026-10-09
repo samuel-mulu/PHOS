@@ -328,6 +328,13 @@ export type EnumEncounterPriorityFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumEncounterPriorityFilter<$PrismaModel> | $Enums.EncounterPriority
 }
 
+export type EnumQueueStationNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.QueueStation | Prisma.EnumQueueStationFieldRefInput<$PrismaModel> | null
+  in?: $Enums.QueueStation[] | Prisma.ListEnumQueueStationFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.QueueStation[] | Prisma.ListEnumQueueStationFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumQueueStationNullableFilter<$PrismaModel> | $Enums.QueueStation | null
+}
+
 export type EnumEncounterTypeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.EncounterType | Prisma.EnumEncounterTypeFieldRefInput<$PrismaModel>
   in?: $Enums.EncounterType[] | Prisma.ListEnumEncounterTypeFieldRefInput<$PrismaModel>
@@ -356,6 +363,16 @@ export type EnumEncounterPriorityWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumEncounterPriorityFilter<$PrismaModel>
   _max?: Prisma.NestedEnumEncounterPriorityFilter<$PrismaModel>
+}
+
+export type EnumQueueStationNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.QueueStation | Prisma.EnumQueueStationFieldRefInput<$PrismaModel> | null
+  in?: $Enums.QueueStation[] | Prisma.ListEnumQueueStationFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.QueueStation[] | Prisma.ListEnumQueueStationFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumQueueStationNullableWithAggregatesFilter<$PrismaModel> | $Enums.QueueStation | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumQueueStationNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumQueueStationNullableFilter<$PrismaModel>
 }
 
 export type EnumAppointmentStatusFilter<$PrismaModel = never> = {
@@ -1031,6 +1048,13 @@ export type NestedEnumEncounterPriorityFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumEncounterPriorityFilter<$PrismaModel> | $Enums.EncounterPriority
 }
 
+export type NestedEnumQueueStationNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.QueueStation | Prisma.EnumQueueStationFieldRefInput<$PrismaModel> | null
+  in?: $Enums.QueueStation[] | Prisma.ListEnumQueueStationFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.QueueStation[] | Prisma.ListEnumQueueStationFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumQueueStationNullableFilter<$PrismaModel> | $Enums.QueueStation | null
+}
+
 export type NestedEnumEncounterTypeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.EncounterType | Prisma.EnumEncounterTypeFieldRefInput<$PrismaModel>
   in?: $Enums.EncounterType[] | Prisma.ListEnumEncounterTypeFieldRefInput<$PrismaModel>
@@ -1059,6 +1083,16 @@ export type NestedEnumEncounterPriorityWithAggregatesFilter<$PrismaModel = never
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumEncounterPriorityFilter<$PrismaModel>
   _max?: Prisma.NestedEnumEncounterPriorityFilter<$PrismaModel>
+}
+
+export type NestedEnumQueueStationNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.QueueStation | Prisma.EnumQueueStationFieldRefInput<$PrismaModel> | null
+  in?: $Enums.QueueStation[] | Prisma.ListEnumQueueStationFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.QueueStation[] | Prisma.ListEnumQueueStationFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumQueueStationNullableWithAggregatesFilter<$PrismaModel> | $Enums.QueueStation | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumQueueStationNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumQueueStationNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumAppointmentStatusFilter<$PrismaModel = never> = {

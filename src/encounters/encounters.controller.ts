@@ -16,6 +16,7 @@ import { EncounterStatus, Role } from "../generated/prisma/client";
 import {
   CreateEncounterDto,
   AssignDoctorDto,
+  PaymentRequestDto,
   RouteEncounterDto,
   TransitionEncounterDto,
 } from "./dto/encounter.dto";
@@ -83,5 +84,25 @@ export class EncountersController {
   @Post(":id/billing-request")
   requestBilling(@Param("id") id: string, @CurrentUser() user: AuthUser) {
     return this.service.requestBilling(id, user.id, user.role);
+  }
+
+  @Roles(
+    Role.CEO,
+    Role.ADMIN,
+    Role.DOCTOR,
+    Role.LAB_TECH,
+    Role.LAB_SUPERVISOR,
+    Role.PHARMACIST,
+    Role.NURSE,
+    Role.RECEPTIONIST,
+    Role.FRONT_DESK,
+  )
+  @Post(":id/payment-request")
+  paymentRequest(
+    @Param("id") id: string,
+    @Body() dto: PaymentRequestDto,
+    @CurrentUser() user: AuthUser,
+  ) {
+    return this.service.paymentRequest(id, dto, user.id, user.role);
   }
 }

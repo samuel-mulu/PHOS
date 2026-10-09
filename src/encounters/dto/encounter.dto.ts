@@ -1,4 +1,13 @@
-import { IsEnum, IsIn, IsOptional, IsString, IsUUID } from "class-validator";
+import {
+  IsEnum,
+  IsIn,
+  IsInt,
+  IsOptional,
+  IsString,
+  IsUUID,
+  Min,
+  MinLength,
+} from "class-validator";
 import {
   EncounterPriority,
   EncounterStatus,
@@ -11,7 +20,8 @@ export class CreateEncounterDto {
   @IsUUID() patientId!: string;
   @IsUUID() facilityId!: string;
   @IsUUID() departmentId!: string;
-  @IsUUID() serviceId!: string;
+  /** Optional clinic service / fee — not required for every visit. */
+  @IsOptional() @IsUUID() serviceId?: string;
   @IsOptional() @IsEnum(EncounterType) type?: EncounterType;
   @IsOptional() @IsEnum(EncounterPriority) priority?: EncounterPriority;
   @IsOptional() @IsString() reason?: string;
@@ -36,4 +46,18 @@ export class RouteEncounterDto {
 export class AssignDoctorDto {
   @IsUUID()
   assignedDoctorId!: string;
+}
+
+/** Clinical mid-visit charge → cashier, then auto-return to origin station. */
+export class PaymentRequestDto {
+  @IsString()
+  @MinLength(1)
+  description!: string;
+
+  @IsInt()
+  @Min(1)
+  amountCents!: number;
+
+  @IsIn(["DOCTOR", "LAB", "PHARMACY", "TRIAGE"])
+  returnStation!: "DOCTOR" | "LAB" | "PHARMACY" | "TRIAGE";
 }

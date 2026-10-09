@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { AuditService } from "../audit/audit.service";
+import { BillingService } from "../billing/billing.service";
 import { DESK_NOTIFY_ROLES } from "../common/constants/desk-roles";
 import {
   EncounterStatus,
@@ -14,7 +15,7 @@ import {
 } from "../generated/prisma/client";
 import { NotificationsService } from "../notifications/notifications.service";
 import { PrismaService } from "../prisma/prisma.service";
-import { CreateEncounterDto } from "./dto/encounter.dto";
+import { CreateEncounterDto, PaymentRequestDto } from "./dto/encounter.dto";
 import { ENCOUNTER_TRANSITIONS, STATION_STATUS } from "./encounter-state";
 
 @Injectable()
@@ -23,6 +24,7 @@ export class EncountersService {
     private readonly prisma: PrismaService,
     private readonly audit: AuditService,
     private readonly notifications: NotificationsService,
+    private readonly billing: BillingService,
   ) {}
 
   async create(dto: CreateEncounterDto, actorId: string) {
@@ -31,23 +33,33 @@ export class EncountersService {
       initialStation === "TRIAGE" ? "TRIAGE" : "DOCTOR";
     const status = STATION_STATUS[station];
 
-    const config = await this.prisma.service.findFirst({
+    const department = await this.prisma.department.findFirst({
       where: {
-        id: dto.serviceId,
-        departmentId: dto.departmentId,
-        department: {
-          facilityId: dto.facilityId,
-          active: true,
-          deletedAt: null,
-        },
+        id: dto.departmentId,
+        facilityId: dto.facilityId,
         active: true,
         deletedAt: null,
       },
     });
-    if (!config)
+    if (!department)
       throw new BadRequestException(
-        "Facility, department and service do not form an active configuration",
+        "Facility and department do not form an active configuration",
       );
+
+    if (dto.serviceId) {
+      const config = await this.prisma.service.findFirst({
+        where: {
+          id: dto.serviceId,
+          departmentId: dto.departmentId,
+          active: true,
+          deletedAt: null,
+        },
+      });
+      if (!config)
+        throw new BadRequestException(
+          "Selected clinic service is invalid or inactive",
+        );
+    }
     if (assignedDoctorId)
       await this.assertActiveDoctor(assignedDoctorId);
     const active = await this.prisma.encounter.findFirst({
@@ -398,7 +410,11 @@ export class EncountersService {
         "Only the consulting doctor can request billing for this visit",
       );
 
-    // Route to cashier so desk sees them on the payment queue
+    // Desk/legacy path: route only (no ad-hoc charge). Prefer paymentRequest from clinical UI.
+    await this.prisma.encounter.update({
+      where: { id: encounterId },
+      data: { paymentReturnStation: "DOCTOR" },
+    });
     await this.route(encounterId, "CASHIER", actorId);
 
     const label = encounter.patient
@@ -410,7 +426,7 @@ export class EncountersService {
     await this.notifications.createForRoles(DESK_NOTIFY_ROLES, {
       type: "SYSTEM",
       title: "Payment requested",
-      message: `Doctor sent ${label} (${encounter.encounterNumber}) to cashier.${invoiceHint}`,
+      message: `Doctor sent ${label} (${encounter.encounterNumber}) to cashier.${invoiceHint} Returns to doctor after pay.`,
       entityType: "Encounter",
       entityId: encounterId,
     });
@@ -421,5 +437,122 @@ export class EncountersService {
       entityId: encounterId,
     });
     return { success: true, encounterId };
+  }
+
+  /**
+   * Clinical charge: add invoice line, remember return station, send to cashier.
+   */
+  async paymentRequest(
+    encounterId: string,
+    dto: PaymentRequestDto,
+    actorId: string,
+    actorRole: Role,
+  ) {
+    const encounter = await this.prisma.encounter.findFirst({
+      where: { id: encounterId, deletedAt: null },
+      include: { patient: true, consultation: true },
+    });
+    if (!encounter) throw new NotFoundException("Encounter not found");
+    if (["COMPLETED", "CANCELLED"].includes(encounter.status))
+      throw new ConflictException("Visit is already closed");
+
+    const elevated = actorRole === Role.ADMIN || actorRole === Role.CEO;
+    const isDoctor = actorRole === Role.DOCTOR;
+    const isLab =
+      actorRole === Role.LAB_TECH || actorRole === Role.LAB_SUPERVISOR;
+    const isPharmacy = actorRole === Role.PHARMACIST;
+    const isTriage =
+      actorRole === Role.NURSE ||
+      actorRole === Role.RECEPTIONIST ||
+      actorRole === Role.FRONT_DESK;
+
+    if (!elevated && !isDoctor && !isLab && !isPharmacy && !isTriage)
+      throw new ConflictException("Not allowed to request payment");
+
+    if (
+      isDoctor &&
+      !elevated &&
+      encounter.consultation?.doctorId &&
+      encounter.consultation.doctorId !== actorId
+    )
+      throw new ConflictException(
+        "Only the consulting doctor can request payment for this visit",
+      );
+
+    if (!elevated) {
+      if (isDoctor && dto.returnStation !== "DOCTOR")
+        throw new BadRequestException(
+          "Doctor payment requests return to doctor",
+        );
+      if (isLab && dto.returnStation !== "LAB")
+        throw new BadRequestException("Lab payment requests return to lab");
+      if (isPharmacy && dto.returnStation !== "PHARMACY")
+        throw new BadRequestException(
+          "Pharmacy payment requests return to pharmacy",
+        );
+      if (
+        isTriage &&
+        !isDoctor &&
+        !isLab &&
+        !isPharmacy &&
+        dto.returnStation !== "TRIAGE"
+      )
+        throw new BadRequestException(
+          "Triage payment requests return to triage",
+        );
+    }
+
+    const invoice = await this.billing.addChargeAndEnsurePayable(
+      encounterId,
+      dto.description,
+      dto.amountCents,
+      actorId,
+    );
+
+    await this.prisma.encounter.update({
+      where: { id: encounterId },
+      data: { paymentReturnStation: dto.returnStation },
+    });
+
+    await this.route(encounterId, "CASHIER", actorId);
+
+    const label = encounter.patient
+      ? `${encounter.patient.firstName} ${encounter.patient.lastName}`
+      : encounter.encounterNumber;
+    const amountEtb = (dto.amountCents / 100).toFixed(2);
+    const returnLabels: Record<PaymentRequestDto["returnStation"], string> = {
+      DOCTOR: "doctor",
+      LAB: "lab",
+      PHARMACY: "pharmacy",
+      TRIAGE: "triage",
+    };
+    const returnLabel = returnLabels[dto.returnStation];
+
+    await this.notifications.createForRoles(DESK_NOTIFY_ROLES, {
+      type: "SYSTEM",
+      title: "Payment request",
+      message: `${label} (${encounter.encounterNumber}): ${dto.description.trim()} — ETB ${amountEtb}. Collect, then returns to ${returnLabel}.`,
+      entityType: "Encounter",
+      entityId: encounterId,
+    });
+    await this.audit.create({
+      actorId,
+      action: "encounter.payment_requested",
+      entityType: "Encounter",
+      entityId: encounterId,
+      newValues: {
+        description: dto.description.trim(),
+        amountCents: dto.amountCents,
+        returnStation: dto.returnStation,
+        invoiceId: invoice.id,
+      },
+    });
+
+    return {
+      success: true,
+      encounterId,
+      invoiceId: invoice.id,
+      returnStation: dto.returnStation,
+    };
   }
 }

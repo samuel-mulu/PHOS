@@ -28,19 +28,23 @@ export type AggregateLabTest = {
 
 export type LabTestAvgAggregateOutputType = {
   priceCents: number | null
+  sortOrder: number | null
 }
 
 export type LabTestSumAggregateOutputType = {
   priceCents: number | null
+  sortOrder: number | null
 }
 
 export type LabTestMinAggregateOutputType = {
   id: string | null
   code: string | null
   name: string | null
+  category: string | null
   unit: string | null
   referenceRange: string | null
   priceCents: number | null
+  sortOrder: number | null
   active: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -51,9 +55,11 @@ export type LabTestMaxAggregateOutputType = {
   id: string | null
   code: string | null
   name: string | null
+  category: string | null
   unit: string | null
   referenceRange: string | null
   priceCents: number | null
+  sortOrder: number | null
   active: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -64,9 +70,11 @@ export type LabTestCountAggregateOutputType = {
   id: number
   code: number
   name: number
+  category: number
   unit: number
   referenceRange: number
   priceCents: number
+  sortOrder: number
   active: number
   createdAt: number
   updatedAt: number
@@ -77,19 +85,23 @@ export type LabTestCountAggregateOutputType = {
 
 export type LabTestAvgAggregateInputType = {
   priceCents?: true
+  sortOrder?: true
 }
 
 export type LabTestSumAggregateInputType = {
   priceCents?: true
+  sortOrder?: true
 }
 
 export type LabTestMinAggregateInputType = {
   id?: true
   code?: true
   name?: true
+  category?: true
   unit?: true
   referenceRange?: true
   priceCents?: true
+  sortOrder?: true
   active?: true
   createdAt?: true
   updatedAt?: true
@@ -100,9 +112,11 @@ export type LabTestMaxAggregateInputType = {
   id?: true
   code?: true
   name?: true
+  category?: true
   unit?: true
   referenceRange?: true
   priceCents?: true
+  sortOrder?: true
   active?: true
   createdAt?: true
   updatedAt?: true
@@ -113,9 +127,11 @@ export type LabTestCountAggregateInputType = {
   id?: true
   code?: true
   name?: true
+  category?: true
   unit?: true
   referenceRange?: true
   priceCents?: true
+  sortOrder?: true
   active?: true
   createdAt?: true
   updatedAt?: true
@@ -213,9 +229,11 @@ export type LabTestGroupByOutputType = {
   id: string
   code: string
   name: string
+  category: string | null
   unit: string | null
   referenceRange: string | null
   priceCents: number
+  sortOrder: number
   active: boolean
   createdAt: Date
   updatedAt: Date
@@ -249,9 +267,11 @@ export type LabTestWhereInput = {
   id?: Prisma.UuidFilter<"LabTest"> | string
   code?: Prisma.StringFilter<"LabTest"> | string
   name?: Prisma.StringFilter<"LabTest"> | string
+  category?: Prisma.StringNullableFilter<"LabTest"> | string | null
   unit?: Prisma.StringNullableFilter<"LabTest"> | string | null
   referenceRange?: Prisma.StringNullableFilter<"LabTest"> | string | null
   priceCents?: Prisma.IntFilter<"LabTest"> | number
+  sortOrder?: Prisma.IntFilter<"LabTest"> | number
   active?: Prisma.BoolFilter<"LabTest"> | boolean
   createdAt?: Prisma.DateTimeFilter<"LabTest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"LabTest"> | Date | string
@@ -263,9 +283,11 @@ export type LabTestOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  category?: Prisma.SortOrderInput | Prisma.SortOrder
   unit?: Prisma.SortOrderInput | Prisma.SortOrder
   referenceRange?: Prisma.SortOrderInput | Prisma.SortOrder
   priceCents?: Prisma.SortOrder
+  sortOrder?: Prisma.SortOrder
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -280,9 +302,11 @@ export type LabTestWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.LabTestWhereInput[]
   NOT?: Prisma.LabTestWhereInput | Prisma.LabTestWhereInput[]
   name?: Prisma.StringFilter<"LabTest"> | string
+  category?: Prisma.StringNullableFilter<"LabTest"> | string | null
   unit?: Prisma.StringNullableFilter<"LabTest"> | string | null
   referenceRange?: Prisma.StringNullableFilter<"LabTest"> | string | null
   priceCents?: Prisma.IntFilter<"LabTest"> | number
+  sortOrder?: Prisma.IntFilter<"LabTest"> | number
   active?: Prisma.BoolFilter<"LabTest"> | boolean
   createdAt?: Prisma.DateTimeFilter<"LabTest"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"LabTest"> | Date | string
@@ -294,9 +318,11 @@ export type LabTestOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  category?: Prisma.SortOrderInput | Prisma.SortOrder
   unit?: Prisma.SortOrderInput | Prisma.SortOrder
   referenceRange?: Prisma.SortOrderInput | Prisma.SortOrder
   priceCents?: Prisma.SortOrder
+  sortOrder?: Prisma.SortOrder
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -315,9 +341,11 @@ export type LabTestScalarWhereWithAggregatesInput = {
   id?: Prisma.UuidWithAggregatesFilter<"LabTest"> | string
   code?: Prisma.StringWithAggregatesFilter<"LabTest"> | string
   name?: Prisma.StringWithAggregatesFilter<"LabTest"> | string
+  category?: Prisma.StringNullableWithAggregatesFilter<"LabTest"> | string | null
   unit?: Prisma.StringNullableWithAggregatesFilter<"LabTest"> | string | null
   referenceRange?: Prisma.StringNullableWithAggregatesFilter<"LabTest"> | string | null
   priceCents?: Prisma.IntWithAggregatesFilter<"LabTest"> | number
+  sortOrder?: Prisma.IntWithAggregatesFilter<"LabTest"> | number
   active?: Prisma.BoolWithAggregatesFilter<"LabTest"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"LabTest"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"LabTest"> | Date | string
@@ -328,9 +356,11 @@ export type LabTestCreateInput = {
   id?: string
   code: string
   name: string
+  category?: string | null
   unit?: string | null
   referenceRange?: string | null
   priceCents?: number
+  sortOrder?: number
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -342,9 +372,11 @@ export type LabTestUncheckedCreateInput = {
   id?: string
   code: string
   name: string
+  category?: string | null
   unit?: string | null
   referenceRange?: string | null
   priceCents?: number
+  sortOrder?: number
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -356,9 +388,11 @@ export type LabTestUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   unit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priceCents?: Prisma.IntFieldUpdateOperationsInput | number
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -370,9 +404,11 @@ export type LabTestUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   unit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priceCents?: Prisma.IntFieldUpdateOperationsInput | number
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -384,9 +420,11 @@ export type LabTestCreateManyInput = {
   id?: string
   code: string
   name: string
+  category?: string | null
   unit?: string | null
   referenceRange?: string | null
   priceCents?: number
+  sortOrder?: number
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -397,9 +435,11 @@ export type LabTestUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   unit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priceCents?: Prisma.IntFieldUpdateOperationsInput | number
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -410,9 +450,11 @@ export type LabTestUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   unit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priceCents?: Prisma.IntFieldUpdateOperationsInput | number
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -423,9 +465,11 @@ export type LabTestCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   unit?: Prisma.SortOrder
   referenceRange?: Prisma.SortOrder
   priceCents?: Prisma.SortOrder
+  sortOrder?: Prisma.SortOrder
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -434,15 +478,18 @@ export type LabTestCountOrderByAggregateInput = {
 
 export type LabTestAvgOrderByAggregateInput = {
   priceCents?: Prisma.SortOrder
+  sortOrder?: Prisma.SortOrder
 }
 
 export type LabTestMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   unit?: Prisma.SortOrder
   referenceRange?: Prisma.SortOrder
   priceCents?: Prisma.SortOrder
+  sortOrder?: Prisma.SortOrder
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -453,9 +500,11 @@ export type LabTestMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   unit?: Prisma.SortOrder
   referenceRange?: Prisma.SortOrder
   priceCents?: Prisma.SortOrder
+  sortOrder?: Prisma.SortOrder
   active?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -464,6 +513,7 @@ export type LabTestMinOrderByAggregateInput = {
 
 export type LabTestSumOrderByAggregateInput = {
   priceCents?: Prisma.SortOrder
+  sortOrder?: Prisma.SortOrder
 }
 
 export type LabTestScalarRelationFilter = {
@@ -489,9 +539,11 @@ export type LabTestCreateWithoutOrderItemsInput = {
   id?: string
   code: string
   name: string
+  category?: string | null
   unit?: string | null
   referenceRange?: string | null
   priceCents?: number
+  sortOrder?: number
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -502,9 +554,11 @@ export type LabTestUncheckedCreateWithoutOrderItemsInput = {
   id?: string
   code: string
   name: string
+  category?: string | null
   unit?: string | null
   referenceRange?: string | null
   priceCents?: number
+  sortOrder?: number
   active?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -531,9 +585,11 @@ export type LabTestUpdateWithoutOrderItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   unit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priceCents?: Prisma.IntFieldUpdateOperationsInput | number
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -544,9 +600,11 @@ export type LabTestUncheckedUpdateWithoutOrderItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   unit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   priceCents?: Prisma.IntFieldUpdateOperationsInput | number
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -588,9 +646,11 @@ export type LabTestSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   id?: boolean
   code?: boolean
   name?: boolean
+  category?: boolean
   unit?: boolean
   referenceRange?: boolean
   priceCents?: boolean
+  sortOrder?: boolean
   active?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -603,9 +663,11 @@ export type LabTestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   code?: boolean
   name?: boolean
+  category?: boolean
   unit?: boolean
   referenceRange?: boolean
   priceCents?: boolean
+  sortOrder?: boolean
   active?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -616,9 +678,11 @@ export type LabTestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   code?: boolean
   name?: boolean
+  category?: boolean
   unit?: boolean
   referenceRange?: boolean
   priceCents?: boolean
+  sortOrder?: boolean
   active?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -629,16 +693,18 @@ export type LabTestSelectScalar = {
   id?: boolean
   code?: boolean
   name?: boolean
+  category?: boolean
   unit?: boolean
   referenceRange?: boolean
   priceCents?: boolean
+  sortOrder?: boolean
   active?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type LabTestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "unit" | "referenceRange" | "priceCents" | "active" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["labTest"]>
+export type LabTestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "category" | "unit" | "referenceRange" | "priceCents" | "sortOrder" | "active" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["labTest"]>
 export type LabTestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   orderItems?: boolean | Prisma.LabTest$orderItemsArgs<ExtArgs>
   _count?: boolean | Prisma.LabTestCountOutputTypeDefaultArgs<ExtArgs>
@@ -655,9 +721,11 @@ export type $LabTestPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     id: string
     code: string
     name: string
+    category: string | null
     unit: string | null
     referenceRange: string | null
     priceCents: number
+    sortOrder: number
     active: boolean
     createdAt: Date
     updatedAt: Date
@@ -1089,9 +1157,11 @@ export interface LabTestFieldRefs {
   readonly id: Prisma.FieldRef<"LabTest", 'String'>
   readonly code: Prisma.FieldRef<"LabTest", 'String'>
   readonly name: Prisma.FieldRef<"LabTest", 'String'>
+  readonly category: Prisma.FieldRef<"LabTest", 'String'>
   readonly unit: Prisma.FieldRef<"LabTest", 'String'>
   readonly referenceRange: Prisma.FieldRef<"LabTest", 'String'>
   readonly priceCents: Prisma.FieldRef<"LabTest", 'Int'>
+  readonly sortOrder: Prisma.FieldRef<"LabTest", 'Int'>
   readonly active: Prisma.FieldRef<"LabTest", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"LabTest", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"LabTest", 'DateTime'>

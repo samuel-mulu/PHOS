@@ -8,6 +8,7 @@ import { AuditService } from "../audit/audit.service";
 import { DESK_NOTIFY_ROLES } from "../common/constants/desk-roles";
 import { NotificationsService } from "../notifications/notifications.service";
 import { PrismaService } from "../prisma/prisma.service";
+import { Role } from "../generated/prisma/client";
 import { CreatePaymentDto, CreateRefundDto } from "./dto/payment.dto";
 @Injectable()
 export class PaymentsService {
@@ -63,6 +64,7 @@ export class PaymentsService {
             "Cash session is not open for this cashier",
           );
       }
+      const originReturnStation = invoice.encounter.paymentReturnStation;
       const seq = await tx.$queryRaw<
         Array<{ nextval: bigint }>
       >`SELECT nextval('payment_number_seq')`;
@@ -102,63 +104,112 @@ export class PaymentsService {
         if (careFinished) {
           await tx.encounter.update({
             where: { id: invoice.encounterId },
-            data: { status: "COMPLETED", closedAt: now },
+            data: {
+              status: "COMPLETED",
+              closedAt: now,
+              paymentReturnStation: null,
+            },
           });
         } else {
-          // Early / mid-visit fee — do not close the visit; resume clinical care
-          const openClinical = invoice.encounter.queueEntries.find((q) =>
-            ["TRIAGE", "DOCTOR", "LAB", "PHARMACY"].includes(q.station),
-          );
+          const statusByStation: Record<
+            string,
+            "WAITING_TRIAGE" | "WAITING_DOCTOR" | "WAITING_LAB" | "WAITING_PHARMACY"
+          > = {
+            TRIAGE: "WAITING_TRIAGE",
+            DOCTOR: "WAITING_DOCTOR",
+            LAB: "WAITING_LAB",
+            PHARMACY: "WAITING_PHARMACY",
+          };
 
-          if (openClinical) {
-            if (invoice.encounter.status === "WAITING_PAYMENT") {
-              const map: Record<string, "WAITING_TRIAGE" | "WAITING_DOCTOR" | "WAITING_LAB" | "WAITING_PHARMACY"> = {
-                TRIAGE: "WAITING_TRIAGE",
-                DOCTOR: "WAITING_DOCTOR",
-                LAB: "WAITING_LAB",
-                PHARMACY: "WAITING_PHARMACY",
-              };
-              await tx.encounter.update({
-                where: { id: invoice.encounterId },
+          // Prefer explicit origin from clinical payment request
+          if (
+            originReturnStation &&
+            ["TRIAGE", "DOCTOR", "LAB", "PHARMACY"].includes(originReturnStation)
+          ) {
+            const status =
+              statusByStation[originReturnStation] ?? "WAITING_DOCTOR";
+            await tx.encounter.update({
+              where: { id: invoice.encounterId },
+              data: {
+                status,
+                closedAt: null,
+                paymentReturnStation: null,
+              },
+            });
+            const openReturn = await tx.queueEntry.findFirst({
+              where: {
+                encounterId: invoice.encounterId,
+                station: originReturnStation,
+                status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
+              },
+            });
+            if (!openReturn) {
+              await tx.queueEntry.create({
                 data: {
-                  status: map[openClinical.station] ?? "WAITING_DOCTOR",
-                  closedAt: null,
+                  encounterId: invoice.encounterId,
+                  station: originReturnStation,
+                  priority: invoice.encounter.priority,
+                  assignedToId:
+                    originReturnStation === "DOCTOR"
+                      ? (invoice.encounter.consultation?.doctorId ??
+                        invoice.encounter.assignedDoctorId ??
+                        null)
+                      : null,
                 },
               });
             }
           } else {
-            const hadTriage = await tx.triage.findFirst({
-              where: { encounterId: invoice.encounterId, deletedAt: null },
-            });
-            const pastTriage = await tx.queueEntry.findFirst({
-              where: { encounterId: invoice.encounterId, station: "TRIAGE" },
-              orderBy: { enteredAt: "desc" },
-            });
-            const pastDoctor = await tx.queueEntry.findFirst({
-              where: { encounterId: invoice.encounterId, station: "DOCTOR" },
-              orderBy: { enteredAt: "desc" },
-            });
+            // Legacy heuristic when no return station was stored
+            const openClinical = invoice.encounter.queueEntries.find((q) =>
+              ["TRIAGE", "DOCTOR", "LAB", "PHARMACY"].includes(q.station),
+            );
 
-            let station: "TRIAGE" | "DOCTOR" = "DOCTOR";
-            if (hadTriage || pastDoctor) {
-              station = "DOCTOR";
-            } else if (pastTriage) {
-              station = "TRIAGE";
+            if (openClinical) {
+              if (invoice.encounter.status === "WAITING_PAYMENT") {
+                await tx.encounter.update({
+                  where: { id: invoice.encounterId },
+                  data: {
+                    status:
+                      statusByStation[openClinical.station] ?? "WAITING_DOCTOR",
+                    closedAt: null,
+                    paymentReturnStation: null,
+                  },
+                });
+              }
+            } else {
+              const hadTriage = await tx.triage.findFirst({
+                where: { encounterId: invoice.encounterId, deletedAt: null },
+              });
+              const pastTriage = await tx.queueEntry.findFirst({
+                where: { encounterId: invoice.encounterId, station: "TRIAGE" },
+                orderBy: { enteredAt: "desc" },
+              });
+              const pastDoctor = await tx.queueEntry.findFirst({
+                where: { encounterId: invoice.encounterId, station: "DOCTOR" },
+                orderBy: { enteredAt: "desc" },
+              });
+
+              let station: "TRIAGE" | "DOCTOR" = "DOCTOR";
+              if (hadTriage || pastDoctor) {
+                station = "DOCTOR";
+              } else if (pastTriage) {
+                station = "TRIAGE";
+              }
+
+              const status =
+                station === "TRIAGE" ? "WAITING_TRIAGE" : "WAITING_DOCTOR";
+              await tx.encounter.update({
+                where: { id: invoice.encounterId },
+                data: { status, closedAt: null, paymentReturnStation: null },
+              });
+              await tx.queueEntry.create({
+                data: {
+                  encounterId: invoice.encounterId,
+                  station,
+                  priority: invoice.encounter.priority,
+                },
+              });
             }
-
-            const status =
-              station === "TRIAGE" ? "WAITING_TRIAGE" : "WAITING_DOCTOR";
-            await tx.encounter.update({
-              where: { id: invoice.encounterId },
-              data: { status, closedAt: null },
-            });
-            await tx.queueEntry.create({
-              data: {
-                encounterId: invoice.encounterId,
-                station,
-                priority: invoice.encounter.priority,
-              },
-            });
           }
         }
       }
@@ -174,14 +225,58 @@ export class PaymentsService {
         },
         tx,
       );
-      const doctorId = invoice.encounter.consultation?.doctorId;
+      const doctorId =
+        invoice.encounter.consultation?.doctorId ??
+        invoice.encounter.assignedDoctorId;
       if (fullyPaid && doctorId) {
         await this.notifications.createForUser(
           {
             recipientId: doctorId,
             type: "PAYMENT_COMPLETED",
             title: "Payment received",
-            message: `${payment.paymentNumber} recorded for this visit`,
+            message:
+              originReturnStation === "DOCTOR" || !originReturnStation
+                ? `${payment.paymentNumber} recorded — patient is returning to your queue`
+                : `${payment.paymentNumber} recorded for this visit`,
+            entityType: "Encounter",
+            entityId: invoice.encounterId,
+          },
+          tx,
+        );
+      }
+      if (fullyPaid && originReturnStation === "LAB") {
+        await this.notifications.createForRoles(
+          [Role.LAB_TECH, Role.LAB_SUPERVISOR],
+          {
+            type: "PAYMENT_COMPLETED",
+            title: "Payment received — return to lab",
+            message: `${payment.paymentNumber} recorded — patient is returning to lab`,
+            entityType: "Encounter",
+            entityId: invoice.encounterId,
+          },
+          tx,
+        );
+      }
+      if (fullyPaid && originReturnStation === "PHARMACY") {
+        await this.notifications.createForRoles(
+          [Role.PHARMACIST],
+          {
+            type: "PAYMENT_COMPLETED",
+            title: "Payment received — return to pharmacy",
+            message: `${payment.paymentNumber} recorded — patient is returning to pharmacy`,
+            entityType: "Encounter",
+            entityId: invoice.encounterId,
+          },
+          tx,
+        );
+      }
+      if (fullyPaid && originReturnStation === "TRIAGE") {
+        await this.notifications.createForRoles(
+          [Role.NURSE, Role.RECEPTIONIST, Role.FRONT_DESK],
+          {
+            type: "PAYMENT_COMPLETED",
+            title: "Payment received — return to triage",
+            message: `${payment.paymentNumber} recorded — patient is returning to triage`,
             entityType: "Encounter",
             entityId: invoice.encounterId,
           },
@@ -303,5 +398,72 @@ export class PaymentsService {
       );
       return refund;
     });
+  }
+
+  async report(from: Date, to: Date) {
+    const payments = await this.prisma.payment.findMany({
+      where: {
+        createdAt: { gte: from, lte: to },
+        status: { in: ["COMPLETED", "PARTIALLY_REFUNDED", "REFUNDED"] },
+      },
+      include: {
+        patient: {
+          select: {
+            id: true,
+            patientNumber: true,
+            firstName: true,
+            middleName: true,
+            lastName: true,
+          },
+        },
+        invoice: { select: { id: true, invoiceNumber: true } },
+        recordedBy: {
+          select: { id: true, firstName: true, lastName: true },
+        },
+      },
+      orderBy: { createdAt: "desc" },
+      take: 5_000,
+    });
+
+    const byMethod: Record<string, { count: number; amountCents: number }> =
+      {};
+    let amountCents = 0;
+    let refundedCents = 0;
+
+    const rows = payments.map((p) => {
+      amountCents += p.amountCents;
+      refundedCents += p.refundedCents;
+      const bucket = byMethod[p.method] ?? { count: 0, amountCents: 0 };
+      bucket.count += 1;
+      bucket.amountCents += p.amountCents;
+      byMethod[p.method] = bucket;
+
+      return {
+        id: p.id,
+        paymentNumber: p.paymentNumber,
+        createdAt: p.createdAt.toISOString(),
+        method: p.method,
+        status: p.status,
+        amountCents: p.amountCents,
+        refundedCents: p.refundedCents,
+        netCents: p.amountCents - p.refundedCents,
+        referenceNumber: p.referenceNumber,
+        invoice: p.invoice,
+        patient: p.patient,
+        recordedBy: p.recordedBy,
+      };
+    });
+
+    return {
+      period: { from: from.toISOString(), to: to.toISOString() },
+      totals: {
+        count: rows.length,
+        amountCents,
+        refundedCents,
+        netCents: amountCents - refundedCents,
+        byMethod,
+      },
+      rows,
+    };
   }
 }
