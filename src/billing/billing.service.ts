@@ -258,10 +258,7 @@ export class BillingService {
 
     if (existing?.status === "VOID")
       throw new ConflictException("Invoice is void — cannot add charges");
-    if (existing?.status === "PAID")
-      throw new ConflictException(
-        "Invoice already paid — start a new visit charge via desk if needed",
-      );
+    // PAID is allowed: mid-visit lab/ultrasound adds a new unpaid balance.
 
     if (!existing) {
       const created = await this.create(
@@ -310,8 +307,8 @@ export class BillingService {
         );
 
       const nextStatus =
-        existing.status === "DRAFT"
-          ? "ISSUED"
+        totals.totalCents <= existing.paidCents
+          ? "PAID"
           : existing.paidCents > 0
             ? "PARTIALLY_PAID"
             : "ISSUED";

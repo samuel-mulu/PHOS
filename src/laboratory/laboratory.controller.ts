@@ -74,8 +74,11 @@ export class LaboratoryController {
 
   @Roles(Role.LAB_TECH, Role.LAB_SUPERVISOR, Role.DOCTOR, Role.ADMIN, Role.CEO)
   @Get("lab/orders")
-  list(@Query("status") status?: LabOrderStatus) {
-    return this.service.listOrders(status);
+  list(
+    @Query("status") status?: LabOrderStatus,
+    @CurrentUser() user?: AuthUser,
+  ) {
+    return this.service.listOrders(status, user?.role);
   }
 
   @Get("lab/orders/:id")

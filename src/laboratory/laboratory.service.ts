@@ -5,6 +5,8 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { AuditService } from "../audit/audit.service";
+import { BillingService } from "../billing/billing.service";
+import { EncountersService } from "../encounters/encounters.service";
 import { LabOrderStatus, Role } from "../generated/prisma/client";
 import { NotificationsService } from "../notifications/notifications.service";
 import { PrismaService } from "../prisma/prisma.service";
@@ -20,6 +22,8 @@ export class LaboratoryService {
     private readonly prisma: PrismaService,
     private readonly audit: AuditService,
     private readonly notifications: NotificationsService,
+    private readonly billing: BillingService,
+    private readonly encounters: EncountersService,
   ) {}
   async createOrder(
     consultationId: string,
@@ -50,11 +54,18 @@ export class LaboratoryService {
       throw new BadRequestException(
         "One or more lab tests are invalid or inactive",
       );
-    return this.prisma.$transaction(async (tx) => {
+    const billFirst = Boolean(dto.billFirst);
+    const amountCents = tests.reduce((sum, test) => sum + test.priceCents, 0);
+    if (billFirst && amountCents < 1)
+      throw new BadRequestException(
+        "Selected lab tests have no price — send to lab directly or set prices first",
+      );
+
+    const order = await this.prisma.$transaction(async (tx) => {
       const seq = await tx.$queryRaw<
         Array<{ nextval: bigint }>
       >`SELECT nextval('lab_order_number_seq')`;
-      const order = await tx.labOrder.create({
+      const created = await tx.labOrder.create({
         data: {
           orderNumber: `LAB-${new Date().getUTCFullYear()}-${seq[0].nextval.toString().padStart(6, "0")}`,
           consultationId,
@@ -72,58 +83,90 @@ export class LaboratoryService {
         },
         include: { items: { include: { labTest: true } } },
       });
-      const now = new Date();
-      await tx.encounter.update({
-        where: { id: consultation.encounterId },
-        data: { status: "WAITING_LAB" },
-      });
-      // Leave doctor queue while at lab so they reappear under "Lab results ready" after verify
-      await tx.queueEntry.updateMany({
-        where: {
-          encounterId: consultation.encounterId,
-          station: "DOCTOR",
-          status: { notIn: ["COMPLETED", "CANCELLED"] },
-        },
-        data: { status: "COMPLETED", completedAt: now },
-      });
-      const openLab = await tx.queueEntry.findFirst({
-        where: {
-          encounterId: consultation.encounterId,
-          station: "LAB",
-          status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
-        },
-      });
-      if (!openLab) {
-        await tx.queueEntry.create({
-          data: {
+
+      if (!billFirst) {
+        const now = new Date();
+        await tx.encounter.update({
+          where: { id: consultation.encounterId },
+          data: { status: "WAITING_LAB" },
+        });
+        // Leave doctor queue while at lab so they reappear under "Lab results ready" after verify
+        await tx.queueEntry.updateMany({
+          where: {
+            encounterId: consultation.encounterId,
+            station: "DOCTOR",
+            status: { notIn: ["COMPLETED", "CANCELLED"] },
+          },
+          data: { status: "COMPLETED", completedAt: now },
+        });
+        const openLab = await tx.queueEntry.findFirst({
+          where: {
             encounterId: consultation.encounterId,
             station: "LAB",
-            priority: order.priority,
+            status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
           },
         });
+        if (!openLab) {
+          await tx.queueEntry.create({
+            data: {
+              encounterId: consultation.encounterId,
+              station: "LAB",
+              priority: created.priority,
+            },
+          });
+        }
+        await this.notifications.createForRoles(
+          [Role.LAB_TECH, Role.LAB_SUPERVISOR],
+          {
+            type: "LAB_ORDER_CREATED",
+            title: "New lab order",
+            message: `Order ${created.orderNumber} is waiting`,
+            entityType: "LabOrder",
+            entityId: created.id,
+          },
+          tx,
+        );
       }
-      await this.notifications.createForRoles(
-        [Role.LAB_TECH, Role.LAB_SUPERVISOR],
-        {
-          type: "LAB_ORDER_CREATED",
-          title: "New lab order",
-          message: `Order ${order.orderNumber} is waiting`,
-          entityType: "LabOrder",
-          entityId: order.id,
-        },
-        tx,
-      );
+
       await this.audit.create(
         {
           actorId,
-          action: "lab.order_created",
+          action: billFirst ? "lab.order_created_bill_first" : "lab.order_created",
           entityType: "LabOrder",
-          entityId: order.id,
+          entityId: created.id,
         },
         tx,
       );
-      return order;
+      return created;
     });
+
+    if (!billFirst) return order;
+
+    try {
+      const names = tests.map((test) => test.name).join(", ");
+      await this.billing.addChargeAndEnsurePayable(
+        consultation.encounterId,
+        `Lab order ${order.orderNumber}: ${names}`,
+        amountCents,
+        actorId,
+      );
+      await this.prisma.encounter.update({
+        where: { id: consultation.encounterId },
+        data: { paymentReturnStation: "LAB" },
+      });
+      await this.encounters.route(
+        consultation.encounterId,
+        "CASHIER",
+        actorId,
+      );
+      return order;
+    } catch (err) {
+      await this.prisma.labOrder.update({
+        where: { id: order.id },
+        data: { status: "CANCELLED" },
+      });
+      throw err;
+    }
   }
   listTests() {
     return this.prisma.labTest.findMany({
@@ -192,9 +235,24 @@ export class LaboratoryService {
     if (!result.count) throw new NotFoundException("Lab test not found");
     return this.prisma.labTest.findUnique({ where: { id } });
   }
-  listOrders(status?: LabOrderStatus) {
+  listOrders(status?: LabOrderStatus, viewerRole?: Role) {
+    const labStaff =
+      viewerRole === Role.LAB_TECH || viewerRole === Role.LAB_SUPERVISOR;
     return this.prisma.labOrder.findMany({
-      where: { status },
+      where: {
+        status,
+        ...(labStaff
+          ? {
+              NOT: {
+                status: "ORDERED",
+                encounter: {
+                  status: "WAITING_PAYMENT",
+                  paymentReturnStation: "LAB",
+                },
+              },
+            }
+          : {}),
+      },
       include: {
         patient: true,
         doctor: { select: { id: true, firstName: true, lastName: true } },
@@ -238,9 +296,23 @@ export class LaboratoryService {
   }
   async receive(id: string, actorId: string) {
     return this.prisma.$transaction(async (tx) => {
-      const order = await tx.labOrder.findUnique({ where: { id } });
+      const order = await tx.labOrder.findUnique({
+        where: { id },
+        include: {
+          encounter: {
+            select: { status: true, paymentReturnStation: true },
+          },
+        },
+      });
       if (!order || order.status !== "ORDERED")
         throw new ConflictException("Only ordered tests can be marked received");
+      if (
+        order.encounter.status === "WAITING_PAYMENT" &&
+        order.encounter.paymentReturnStation === "LAB"
+      )
+        throw new ConflictException(
+          "Collect lab payment at cashier before receiving this order",
+        );
       const updated = await tx.labOrder.update({
         where: { id },
         data: { status: "RECEIVED" },

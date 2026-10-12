@@ -38,7 +38,10 @@ export class QueuesService {
         },
         assignedTo: { select: { id: true, firstName: true, lastName: true } },
       },
-      orderBy: [{ priority: "desc" }, { enteredAt: "desc" }],
+      orderBy:
+        station === "CASHIER"
+          ? [{ enteredAt: "desc" }]
+          : [{ priority: "desc" }, { enteredAt: "desc" }],
     });
   }
   async create(dto: CreateQueueEntryDto, actorId: string) {

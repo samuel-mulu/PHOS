@@ -269,10 +269,18 @@ export class EncountersService {
               station === "DOCTOR" ? nextAssignedDoctorId : null,
           },
         });
-      } else if (station === "DOCTOR" && nextAssignedDoctorId) {
+      } else {
         await tx.queueEntry.update({
           where: { id: openDest.id },
-          data: { assignedToId: nextAssignedDoctorId },
+          data: {
+            enteredAt: new Date(),
+            status: "WAITING",
+            calledAt: null,
+            serviceStartedAt: null,
+            ...(station === "DOCTOR" && nextAssignedDoctorId
+              ? { assignedToId: nextAssignedDoctorId }
+              : {}),
+          },
         });
       }
 

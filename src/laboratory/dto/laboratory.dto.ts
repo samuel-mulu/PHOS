@@ -49,6 +49,8 @@ export class CreateLabOrderDto {
   labTestIds!: string[];
   @IsOptional() @IsEnum(EncounterPriority) priority?: EncounterPriority;
   @IsOptional() @IsString() clinicalNotes?: string;
+  /** Pay at cashier first; lab queue only after payment. */
+  @IsOptional() @IsBoolean() billFirst?: boolean;
 }
 export class ResultValueDto {
   @IsUUID() labOrderItemId!: string;
