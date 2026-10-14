@@ -63,13 +63,15 @@ export class BillingService {
             },
           ]
         : []),
-      ...labItems.map((item) => ({
-        type: "LAB" as const,
-        description: item.labTest.name,
-        sourceId: item.id,
-        quantity: 1,
-        unitPriceCents: item.priceCents,
-      })),
+      ...labItems
+        .filter((item) => item.priceCents > 0)
+        .map((item) => ({
+          type: "LAB" as const,
+          description: item.labTest.name,
+          sourceId: item.id,
+          quantity: 1,
+          unitPriceCents: item.priceCents,
+        })),
       ...dispensedItems.map((item) => ({
         type: "MEDICINE" as const,
         description: item.medicine.name,

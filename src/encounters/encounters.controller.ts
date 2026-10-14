@@ -35,8 +35,13 @@ export class EncountersController {
   @Get() list(
     @Query("status") status?: EncounterStatus,
     @Query("patientId") patientId?: string,
+    @Query("assignedDoctorId") assignedDoctorId?: string,
+    @Query("open") open?: string,
   ) {
-    return this.service.list(status, patientId);
+    return this.service.list(status, patientId, {
+      assignedDoctorId,
+      open: open === "true" || open === "1",
+    });
   }
   @Get(":id") find(@Param("id") id: string) {
     return this.service.findOne(id);

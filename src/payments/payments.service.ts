@@ -51,11 +51,7 @@ export class PaymentsService {
       const balance = invoice.totalCents - invoice.paidCents;
       if (dto.amountCents > balance)
         throw new BadRequestException("Payment exceeds invoice balance");
-      if (dto.method === "CASH") {
-        if (!dto.cashSessionId)
-          throw new BadRequestException(
-            "Cash payment requires an open cash session",
-          );
+      if (dto.cashSessionId) {
         const session = await tx.cashSession.findFirst({
           where: { id: dto.cashSessionId, cashierId: actorId, status: "OPEN" },
         });

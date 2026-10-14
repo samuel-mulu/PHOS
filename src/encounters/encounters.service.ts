@@ -114,9 +114,27 @@ export class EncountersService {
     });
   }
 
-  list(status?: EncounterStatus, patientId?: string) {
+  list(
+    status?: EncounterStatus,
+    patientId?: string,
+    opts?: { assignedDoctorId?: string; open?: boolean },
+  ) {
+    const assignedDoctorId = opts?.assignedDoctorId;
     return this.prisma.encounter.findMany({
-      where: { status, patientId, deletedAt: null },
+      where: {
+        deletedAt: null,
+        ...(patientId ? { patientId } : {}),
+        ...(status
+          ? { status }
+          : opts?.open
+            ? { status: { notIn: ["COMPLETED", "CANCELLED"] } }
+            : {}),
+        ...(assignedDoctorId === "unassigned"
+          ? { assignedDoctorId: null }
+          : assignedDoctorId
+            ? { assignedDoctorId }
+            : {}),
+      },
       include: {
         patient: true,
         service: true,
@@ -126,7 +144,7 @@ export class EncountersService {
         },
       },
       orderBy: { startedAt: "desc" },
-      take: 100,
+      take: opts?.open ? 300 : 100,
     });
   }
 

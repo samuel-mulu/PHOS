@@ -16,7 +16,15 @@ export class ReportsController {
     return this.service.dashboard();
   }
 
-  @Roles(Role.CEO, Role.ADMIN, Role.REPORTING_OFFICER)
+  @Roles(
+    Role.CEO,
+    Role.ADMIN,
+    Role.REPORTING_OFFICER,
+    Role.DOCTOR,
+    Role.NURSE,
+    Role.LAB_TECH,
+    Role.LAB_SUPERVISOR,
+  )
   @Get("hmis")
   hmis(@Query("from") from: string, @Query("to") to: string) {
     const start = from ? new Date(from) : new Date(new Date().setHours(0, 0, 0, 0));

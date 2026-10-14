@@ -143,7 +143,17 @@ export class LaboratoryService {
     if (!billFirst) return order;
 
     try {
-      const names = tests.map((test) => test.name).join(", ");
+      const panelNames = [
+        ...new Set(
+          tests
+            .map((test) => test.category)
+            .filter((category): category is string => Boolean(category)),
+        ),
+      ];
+      const names =
+        panelNames.length > 0
+          ? panelNames.join(", ")
+          : tests.map((test) => test.name).join(", ");
       await this.billing.addChargeAndEnsurePayable(
         consultation.encounterId,
         `Lab order ${order.orderNumber}: ${names}`,
