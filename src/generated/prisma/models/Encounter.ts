@@ -20,13 +20,24 @@ export type EncounterModel = runtime.Types.Result.DefaultSelection<Prisma.$Encou
 
 export type AggregateEncounter = {
   _count: EncounterCountAggregateOutputType | null
+  _avg: EncounterAvgAggregateOutputType | null
+  _sum: EncounterSumAggregateOutputType | null
   _min: EncounterMinAggregateOutputType | null
   _max: EncounterMaxAggregateOutputType | null
+}
+
+export type EncounterAvgAggregateOutputType = {
+  visitNumber: number | null
+}
+
+export type EncounterSumAggregateOutputType = {
+  visitNumber: number | null
 }
 
 export type EncounterMinAggregateOutputType = {
   id: string | null
   encounterNumber: string | null
+  visitNumber: number | null
   patientId: string | null
   facilityId: string | null
   departmentId: string | null
@@ -48,6 +59,7 @@ export type EncounterMinAggregateOutputType = {
 export type EncounterMaxAggregateOutputType = {
   id: string | null
   encounterNumber: string | null
+  visitNumber: number | null
   patientId: string | null
   facilityId: string | null
   departmentId: string | null
@@ -69,6 +81,7 @@ export type EncounterMaxAggregateOutputType = {
 export type EncounterCountAggregateOutputType = {
   id: number
   encounterNumber: number
+  visitNumber: number
   patientId: number
   facilityId: number
   departmentId: number
@@ -89,9 +102,18 @@ export type EncounterCountAggregateOutputType = {
 }
 
 
+export type EncounterAvgAggregateInputType = {
+  visitNumber?: true
+}
+
+export type EncounterSumAggregateInputType = {
+  visitNumber?: true
+}
+
 export type EncounterMinAggregateInputType = {
   id?: true
   encounterNumber?: true
+  visitNumber?: true
   patientId?: true
   facilityId?: true
   departmentId?: true
@@ -113,6 +135,7 @@ export type EncounterMinAggregateInputType = {
 export type EncounterMaxAggregateInputType = {
   id?: true
   encounterNumber?: true
+  visitNumber?: true
   patientId?: true
   facilityId?: true
   departmentId?: true
@@ -134,6 +157,7 @@ export type EncounterMaxAggregateInputType = {
 export type EncounterCountAggregateInputType = {
   id?: true
   encounterNumber?: true
+  visitNumber?: true
   patientId?: true
   facilityId?: true
   departmentId?: true
@@ -191,6 +215,18 @@ export type EncounterAggregateArgs<ExtArgs extends runtime.Types.Extensions.Inte
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: EncounterAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: EncounterSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: EncounterMinAggregateInputType
@@ -221,6 +257,8 @@ export type EncounterGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   _count?: EncounterCountAggregateInputType | true
+  _avg?: EncounterAvgAggregateInputType
+  _sum?: EncounterSumAggregateInputType
   _min?: EncounterMinAggregateInputType
   _max?: EncounterMaxAggregateInputType
 }
@@ -228,6 +266,7 @@ export type EncounterGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 export type EncounterGroupByOutputType = {
   id: string
   encounterNumber: string
+  visitNumber: number
   patientId: string
   facilityId: string
   departmentId: string
@@ -245,6 +284,8 @@ export type EncounterGroupByOutputType = {
   updatedAt: Date
   deletedAt: Date | null
   _count: EncounterCountAggregateOutputType | null
+  _avg: EncounterAvgAggregateOutputType | null
+  _sum: EncounterSumAggregateOutputType | null
   _min: EncounterMinAggregateOutputType | null
   _max: EncounterMaxAggregateOutputType | null
 }
@@ -270,6 +311,7 @@ export type EncounterWhereInput = {
   NOT?: Prisma.EncounterWhereInput | Prisma.EncounterWhereInput[]
   id?: Prisma.UuidFilter<"Encounter"> | string
   encounterNumber?: Prisma.StringFilter<"Encounter"> | string
+  visitNumber?: Prisma.IntFilter<"Encounter"> | number
   patientId?: Prisma.UuidFilter<"Encounter"> | string
   facilityId?: Prisma.UuidFilter<"Encounter"> | string
   departmentId?: Prisma.UuidFilter<"Encounter"> | string
@@ -304,6 +346,7 @@ export type EncounterWhereInput = {
 export type EncounterOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   encounterNumber?: Prisma.SortOrder
+  visitNumber?: Prisma.SortOrder
   patientId?: Prisma.SortOrder
   facilityId?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
@@ -341,6 +384,7 @@ export type EncounterWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.EncounterWhereInput | Prisma.EncounterWhereInput[]
   OR?: Prisma.EncounterWhereInput[]
   NOT?: Prisma.EncounterWhereInput | Prisma.EncounterWhereInput[]
+  visitNumber?: Prisma.IntFilter<"Encounter"> | number
   patientId?: Prisma.UuidFilter<"Encounter"> | string
   facilityId?: Prisma.UuidFilter<"Encounter"> | string
   departmentId?: Prisma.UuidFilter<"Encounter"> | string
@@ -375,6 +419,7 @@ export type EncounterWhereUniqueInput = Prisma.AtLeast<{
 export type EncounterOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   encounterNumber?: Prisma.SortOrder
+  visitNumber?: Prisma.SortOrder
   patientId?: Prisma.SortOrder
   facilityId?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
@@ -392,8 +437,10 @@ export type EncounterOrderByWithAggregationInput = {
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.EncounterCountOrderByAggregateInput
+  _avg?: Prisma.EncounterAvgOrderByAggregateInput
   _max?: Prisma.EncounterMaxOrderByAggregateInput
   _min?: Prisma.EncounterMinOrderByAggregateInput
+  _sum?: Prisma.EncounterSumOrderByAggregateInput
 }
 
 export type EncounterScalarWhereWithAggregatesInput = {
@@ -402,6 +449,7 @@ export type EncounterScalarWhereWithAggregatesInput = {
   NOT?: Prisma.EncounterScalarWhereWithAggregatesInput | Prisma.EncounterScalarWhereWithAggregatesInput[]
   id?: Prisma.UuidWithAggregatesFilter<"Encounter"> | string
   encounterNumber?: Prisma.StringWithAggregatesFilter<"Encounter"> | string
+  visitNumber?: Prisma.IntWithAggregatesFilter<"Encounter"> | number
   patientId?: Prisma.UuidWithAggregatesFilter<"Encounter"> | string
   facilityId?: Prisma.UuidWithAggregatesFilter<"Encounter"> | string
   departmentId?: Prisma.UuidWithAggregatesFilter<"Encounter"> | string
@@ -423,6 +471,7 @@ export type EncounterScalarWhereWithAggregatesInput = {
 export type EncounterCreateInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -451,6 +500,7 @@ export type EncounterCreateInput = {
 export type EncounterUncheckedCreateInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   patientId: string
   facilityId: string
   departmentId: string
@@ -479,6 +529,7 @@ export type EncounterUncheckedCreateInput = {
 export type EncounterUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -507,6 +558,7 @@ export type EncounterUpdateInput = {
 export type EncounterUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -535,6 +587,7 @@ export type EncounterUncheckedUpdateInput = {
 export type EncounterCreateManyInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   patientId: string
   facilityId: string
   departmentId: string
@@ -556,6 +609,7 @@ export type EncounterCreateManyInput = {
 export type EncounterUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -571,6 +625,7 @@ export type EncounterUpdateManyMutationInput = {
 export type EncounterUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -602,6 +657,7 @@ export type EncounterOrderByRelationAggregateInput = {
 export type EncounterCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   encounterNumber?: Prisma.SortOrder
+  visitNumber?: Prisma.SortOrder
   patientId?: Prisma.SortOrder
   facilityId?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
@@ -620,9 +676,14 @@ export type EncounterCountOrderByAggregateInput = {
   deletedAt?: Prisma.SortOrder
 }
 
+export type EncounterAvgOrderByAggregateInput = {
+  visitNumber?: Prisma.SortOrder
+}
+
 export type EncounterMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   encounterNumber?: Prisma.SortOrder
+  visitNumber?: Prisma.SortOrder
   patientId?: Prisma.SortOrder
   facilityId?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
@@ -644,6 +705,7 @@ export type EncounterMaxOrderByAggregateInput = {
 export type EncounterMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   encounterNumber?: Prisma.SortOrder
+  visitNumber?: Prisma.SortOrder
   patientId?: Prisma.SortOrder
   facilityId?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
@@ -660,6 +722,10 @@ export type EncounterMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
+}
+
+export type EncounterSumOrderByAggregateInput = {
+  visitNumber?: Prisma.SortOrder
 }
 
 export type EncounterNullableScalarRelationFilter = {
@@ -1043,6 +1109,7 @@ export type EncounterUpdateOneRequiredWithoutInvoiceNestedInput = {
 export type EncounterCreateWithoutCreatedByInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -1070,6 +1137,7 @@ export type EncounterCreateWithoutCreatedByInput = {
 export type EncounterUncheckedCreateWithoutCreatedByInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   patientId: string
   facilityId: string
   departmentId: string
@@ -1107,6 +1175,7 @@ export type EncounterCreateManyCreatedByInputEnvelope = {
 export type EncounterCreateWithoutAssignedDoctorInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -1134,6 +1203,7 @@ export type EncounterCreateWithoutAssignedDoctorInput = {
 export type EncounterUncheckedCreateWithoutAssignedDoctorInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   patientId: string
   facilityId: string
   departmentId: string
@@ -1190,6 +1260,7 @@ export type EncounterScalarWhereInput = {
   NOT?: Prisma.EncounterScalarWhereInput | Prisma.EncounterScalarWhereInput[]
   id?: Prisma.UuidFilter<"Encounter"> | string
   encounterNumber?: Prisma.StringFilter<"Encounter"> | string
+  visitNumber?: Prisma.IntFilter<"Encounter"> | number
   patientId?: Prisma.UuidFilter<"Encounter"> | string
   facilityId?: Prisma.UuidFilter<"Encounter"> | string
   departmentId?: Prisma.UuidFilter<"Encounter"> | string
@@ -1227,6 +1298,7 @@ export type EncounterUpdateManyWithWhereWithoutAssignedDoctorInput = {
 export type EncounterCreateWithoutFacilityInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -1254,6 +1326,7 @@ export type EncounterCreateWithoutFacilityInput = {
 export type EncounterUncheckedCreateWithoutFacilityInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   patientId: string
   departmentId: string
   serviceId?: string | null
@@ -1307,6 +1380,7 @@ export type EncounterUpdateManyWithWhereWithoutFacilityInput = {
 export type EncounterCreateWithoutDepartmentInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -1334,6 +1408,7 @@ export type EncounterCreateWithoutDepartmentInput = {
 export type EncounterUncheckedCreateWithoutDepartmentInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   patientId: string
   facilityId: string
   serviceId?: string | null
@@ -1387,6 +1462,7 @@ export type EncounterUpdateManyWithWhereWithoutDepartmentInput = {
 export type EncounterCreateWithoutServiceInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -1414,6 +1490,7 @@ export type EncounterCreateWithoutServiceInput = {
 export type EncounterUncheckedCreateWithoutServiceInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   patientId: string
   facilityId: string
   departmentId: string
@@ -1467,6 +1544,7 @@ export type EncounterUpdateManyWithWhereWithoutServiceInput = {
 export type EncounterCreateWithoutPatientInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -1494,6 +1572,7 @@ export type EncounterCreateWithoutPatientInput = {
 export type EncounterUncheckedCreateWithoutPatientInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   facilityId: string
   departmentId: string
   serviceId?: string | null
@@ -1547,6 +1626,7 @@ export type EncounterUpdateManyWithWhereWithoutPatientInput = {
 export type EncounterCreateWithoutAppointmentInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -1574,6 +1654,7 @@ export type EncounterCreateWithoutAppointmentInput = {
 export type EncounterUncheckedCreateWithoutAppointmentInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   patientId: string
   facilityId: string
   departmentId: string
@@ -1617,6 +1698,7 @@ export type EncounterUpdateToOneWithWhereWithoutAppointmentInput = {
 export type EncounterUpdateWithoutAppointmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -1644,6 +1726,7 @@ export type EncounterUpdateWithoutAppointmentInput = {
 export type EncounterUncheckedUpdateWithoutAppointmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1671,6 +1754,7 @@ export type EncounterUncheckedUpdateWithoutAppointmentInput = {
 export type EncounterCreateWithoutQueueEntriesInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -1698,6 +1782,7 @@ export type EncounterCreateWithoutQueueEntriesInput = {
 export type EncounterUncheckedCreateWithoutQueueEntriesInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   patientId: string
   facilityId: string
   departmentId: string
@@ -1741,6 +1826,7 @@ export type EncounterUpdateToOneWithWhereWithoutQueueEntriesInput = {
 export type EncounterUpdateWithoutQueueEntriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -1768,6 +1854,7 @@ export type EncounterUpdateWithoutQueueEntriesInput = {
 export type EncounterUncheckedUpdateWithoutQueueEntriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1795,6 +1882,7 @@ export type EncounterUncheckedUpdateWithoutQueueEntriesInput = {
 export type EncounterCreateWithoutTriageInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -1822,6 +1910,7 @@ export type EncounterCreateWithoutTriageInput = {
 export type EncounterUncheckedCreateWithoutTriageInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   patientId: string
   facilityId: string
   departmentId: string
@@ -1865,6 +1954,7 @@ export type EncounterUpdateToOneWithWhereWithoutTriageInput = {
 export type EncounterUpdateWithoutTriageInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -1892,6 +1982,7 @@ export type EncounterUpdateWithoutTriageInput = {
 export type EncounterUncheckedUpdateWithoutTriageInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1919,6 +2010,7 @@ export type EncounterUncheckedUpdateWithoutTriageInput = {
 export type EncounterCreateWithoutConsultationInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -1946,6 +2038,7 @@ export type EncounterCreateWithoutConsultationInput = {
 export type EncounterUncheckedCreateWithoutConsultationInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   patientId: string
   facilityId: string
   departmentId: string
@@ -1989,6 +2082,7 @@ export type EncounterUpdateToOneWithWhereWithoutConsultationInput = {
 export type EncounterUpdateWithoutConsultationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2016,6 +2110,7 @@ export type EncounterUpdateWithoutConsultationInput = {
 export type EncounterUncheckedUpdateWithoutConsultationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2043,6 +2138,7 @@ export type EncounterUncheckedUpdateWithoutConsultationInput = {
 export type EncounterCreateWithoutLabOrdersInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -2070,6 +2166,7 @@ export type EncounterCreateWithoutLabOrdersInput = {
 export type EncounterUncheckedCreateWithoutLabOrdersInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   patientId: string
   facilityId: string
   departmentId: string
@@ -2113,6 +2210,7 @@ export type EncounterUpdateToOneWithWhereWithoutLabOrdersInput = {
 export type EncounterUpdateWithoutLabOrdersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2140,6 +2238,7 @@ export type EncounterUpdateWithoutLabOrdersInput = {
 export type EncounterUncheckedUpdateWithoutLabOrdersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2167,6 +2266,7 @@ export type EncounterUncheckedUpdateWithoutLabOrdersInput = {
 export type EncounterCreateWithoutPrescriptionsInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -2194,6 +2294,7 @@ export type EncounterCreateWithoutPrescriptionsInput = {
 export type EncounterUncheckedCreateWithoutPrescriptionsInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   patientId: string
   facilityId: string
   departmentId: string
@@ -2237,6 +2338,7 @@ export type EncounterUpdateToOneWithWhereWithoutPrescriptionsInput = {
 export type EncounterUpdateWithoutPrescriptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2264,6 +2366,7 @@ export type EncounterUpdateWithoutPrescriptionsInput = {
 export type EncounterUncheckedUpdateWithoutPrescriptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2291,6 +2394,7 @@ export type EncounterUncheckedUpdateWithoutPrescriptionsInput = {
 export type EncounterCreateWithoutInvoiceInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   type?: $Enums.EncounterType
   status?: $Enums.EncounterStatus
   priority?: $Enums.EncounterPriority
@@ -2318,6 +2422,7 @@ export type EncounterCreateWithoutInvoiceInput = {
 export type EncounterUncheckedCreateWithoutInvoiceInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   patientId: string
   facilityId: string
   departmentId: string
@@ -2361,6 +2466,7 @@ export type EncounterUpdateToOneWithWhereWithoutInvoiceInput = {
 export type EncounterUpdateWithoutInvoiceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2388,6 +2494,7 @@ export type EncounterUpdateWithoutInvoiceInput = {
 export type EncounterUncheckedUpdateWithoutInvoiceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2415,6 +2522,7 @@ export type EncounterUncheckedUpdateWithoutInvoiceInput = {
 export type EncounterCreateManyCreatedByInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   patientId: string
   facilityId: string
   departmentId: string
@@ -2435,6 +2543,7 @@ export type EncounterCreateManyCreatedByInput = {
 export type EncounterCreateManyAssignedDoctorInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   patientId: string
   facilityId: string
   departmentId: string
@@ -2455,6 +2564,7 @@ export type EncounterCreateManyAssignedDoctorInput = {
 export type EncounterUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2482,6 +2592,7 @@ export type EncounterUpdateWithoutCreatedByInput = {
 export type EncounterUncheckedUpdateWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2509,6 +2620,7 @@ export type EncounterUncheckedUpdateWithoutCreatedByInput = {
 export type EncounterUncheckedUpdateManyWithoutCreatedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2529,6 +2641,7 @@ export type EncounterUncheckedUpdateManyWithoutCreatedByInput = {
 export type EncounterUpdateWithoutAssignedDoctorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2556,6 +2669,7 @@ export type EncounterUpdateWithoutAssignedDoctorInput = {
 export type EncounterUncheckedUpdateWithoutAssignedDoctorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2583,6 +2697,7 @@ export type EncounterUncheckedUpdateWithoutAssignedDoctorInput = {
 export type EncounterUncheckedUpdateManyWithoutAssignedDoctorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2603,6 +2718,7 @@ export type EncounterUncheckedUpdateManyWithoutAssignedDoctorInput = {
 export type EncounterCreateManyFacilityInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   patientId: string
   departmentId: string
   serviceId?: string | null
@@ -2623,6 +2739,7 @@ export type EncounterCreateManyFacilityInput = {
 export type EncounterUpdateWithoutFacilityInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2650,6 +2767,7 @@ export type EncounterUpdateWithoutFacilityInput = {
 export type EncounterUncheckedUpdateWithoutFacilityInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2677,6 +2795,7 @@ export type EncounterUncheckedUpdateWithoutFacilityInput = {
 export type EncounterUncheckedUpdateManyWithoutFacilityInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2697,6 +2816,7 @@ export type EncounterUncheckedUpdateManyWithoutFacilityInput = {
 export type EncounterCreateManyDepartmentInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   patientId: string
   facilityId: string
   serviceId?: string | null
@@ -2717,6 +2837,7 @@ export type EncounterCreateManyDepartmentInput = {
 export type EncounterUpdateWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2744,6 +2865,7 @@ export type EncounterUpdateWithoutDepartmentInput = {
 export type EncounterUncheckedUpdateWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2771,6 +2893,7 @@ export type EncounterUncheckedUpdateWithoutDepartmentInput = {
 export type EncounterUncheckedUpdateManyWithoutDepartmentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2791,6 +2914,7 @@ export type EncounterUncheckedUpdateManyWithoutDepartmentInput = {
 export type EncounterCreateManyServiceInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   patientId: string
   facilityId: string
   departmentId: string
@@ -2811,6 +2935,7 @@ export type EncounterCreateManyServiceInput = {
 export type EncounterUpdateWithoutServiceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2838,6 +2963,7 @@ export type EncounterUpdateWithoutServiceInput = {
 export type EncounterUncheckedUpdateWithoutServiceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2865,6 +2991,7 @@ export type EncounterUncheckedUpdateWithoutServiceInput = {
 export type EncounterUncheckedUpdateManyWithoutServiceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   patientId?: Prisma.StringFieldUpdateOperationsInput | string
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -2885,6 +3012,7 @@ export type EncounterUncheckedUpdateManyWithoutServiceInput = {
 export type EncounterCreateManyPatientInput = {
   id?: string
   encounterNumber: string
+  visitNumber?: number
   facilityId: string
   departmentId: string
   serviceId?: string | null
@@ -2905,6 +3033,7 @@ export type EncounterCreateManyPatientInput = {
 export type EncounterUpdateWithoutPatientInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   type?: Prisma.EnumEncounterTypeFieldUpdateOperationsInput | $Enums.EncounterType
   status?: Prisma.EnumEncounterStatusFieldUpdateOperationsInput | $Enums.EncounterStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
@@ -2932,6 +3061,7 @@ export type EncounterUpdateWithoutPatientInput = {
 export type EncounterUncheckedUpdateWithoutPatientInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2959,6 +3089,7 @@ export type EncounterUncheckedUpdateWithoutPatientInput = {
 export type EncounterUncheckedUpdateManyWithoutPatientInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   encounterNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  visitNumber?: Prisma.IntFieldUpdateOperationsInput | number
   facilityId?: Prisma.StringFieldUpdateOperationsInput | string
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   serviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -3028,6 +3159,7 @@ export type EncounterCountOutputTypeCountPrescriptionsArgs<ExtArgs extends runti
 export type EncounterSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   encounterNumber?: boolean
+  visitNumber?: boolean
   patientId?: boolean
   facilityId?: boolean
   departmentId?: boolean
@@ -3063,6 +3195,7 @@ export type EncounterSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type EncounterSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   encounterNumber?: boolean
+  visitNumber?: boolean
   patientId?: boolean
   facilityId?: boolean
   departmentId?: boolean
@@ -3090,6 +3223,7 @@ export type EncounterSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
 export type EncounterSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   encounterNumber?: boolean
+  visitNumber?: boolean
   patientId?: boolean
   facilityId?: boolean
   departmentId?: boolean
@@ -3117,6 +3251,7 @@ export type EncounterSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
 export type EncounterSelectScalar = {
   id?: boolean
   encounterNumber?: boolean
+  visitNumber?: boolean
   patientId?: boolean
   facilityId?: boolean
   departmentId?: boolean
@@ -3135,7 +3270,7 @@ export type EncounterSelectScalar = {
   deletedAt?: boolean
 }
 
-export type EncounterOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "encounterNumber" | "patientId" | "facilityId" | "departmentId" | "serviceId" | "type" | "status" | "priority" | "reason" | "startedAt" | "closedAt" | "createdById" | "assignedDoctorId" | "paymentReturnStation" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["encounter"]>
+export type EncounterOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "encounterNumber" | "visitNumber" | "patientId" | "facilityId" | "departmentId" | "serviceId" | "type" | "status" | "priority" | "reason" | "startedAt" | "closedAt" | "createdById" | "assignedDoctorId" | "paymentReturnStation" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["encounter"]>
 export type EncounterInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   facility?: boolean | Prisma.FacilityDefaultArgs<ExtArgs>
@@ -3189,6 +3324,10 @@ export type $EncounterPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     encounterNumber: string
+    /**
+     * * 1-based visit index for this patient (non-cancelled encounters).
+     */
+    visitNumber: number
     patientId: string
     facilityId: string
     departmentId: string
@@ -3646,6 +3785,7 @@ export interface Prisma__EncounterClient<T, Null = never, ExtArgs extends runtim
 export interface EncounterFieldRefs {
   readonly id: Prisma.FieldRef<"Encounter", 'String'>
   readonly encounterNumber: Prisma.FieldRef<"Encounter", 'String'>
+  readonly visitNumber: Prisma.FieldRef<"Encounter", 'Int'>
   readonly patientId: Prisma.FieldRef<"Encounter", 'String'>
   readonly facilityId: Prisma.FieldRef<"Encounter", 'String'>
   readonly departmentId: Prisma.FieldRef<"Encounter", 'String'>

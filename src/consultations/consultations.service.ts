@@ -132,9 +132,17 @@ export class ConsultationsService {
         throw new ConflictException(
           "Only a draft consultation can be finalized",
         );
-      if (!item.assessment && !item.notes && !item.diagnoses.length)
+      const hasVisitNote = Boolean(
+        item.physicalExam?.trim() ||
+          item.notes?.trim() ||
+          item.assessment?.trim() ||
+          item.plan?.trim() ||
+          item.historyPresentIllness?.trim() ||
+          item.diagnoses.length,
+      );
+      if (!hasVisitNote)
         throw new BadRequestException(
-          "Assessment, notes, or at least one diagnosis is required",
+          "Enter visit notes (vitals, medical notes, diagnosis, ultrasound, or prescription) before completing",
         );
       const updated = await tx.consultation.update({
         where: { id },

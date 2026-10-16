@@ -331,6 +331,8 @@ model Patient {
 model Encounter {
   id              String            @id @default(uuid()) @db.Uuid
   encounterNumber String            @unique @map("encounter_number")
+  /** 1-based visit index for this patient (non-cancelled encounters). */
+  visitNumber     Int               @default(1) @map("visit_number")
   patientId       String            @map("patient_id") @db.Uuid
   facilityId      String            @map("facility_id") @db.Uuid
   departmentId    String            @map("department_id") @db.Uuid

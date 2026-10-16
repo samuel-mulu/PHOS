@@ -17,6 +17,7 @@ import { NotificationsService } from "../notifications/notifications.service";
 import { PrismaService } from "../prisma/prisma.service";
 import { CreateEncounterDto, PaymentRequestDto } from "./dto/encounter.dto";
 import { ENCOUNTER_TRANSITIONS, STATION_STATUS } from "./encounter-state";
+import { nextVisitNumber } from "./visit-number";
 
 @Injectable()
 export class EncountersService {
@@ -77,15 +78,19 @@ export class EncountersService {
       const seq = await tx.$queryRaw<
         Array<{ nextval: bigint }>
       >`SELECT nextval('encounter_number_seq')`;
+      const visitNumber = await nextVisitNumber(tx, dto.patientId);
       const encounter = await tx.encounter.create({
         data: {
           ...encounterFields,
           assignedDoctorId: assignedDoctorId ?? null,
           encounterNumber: `ENC-${new Date().getUTCFullYear()}-${seq[0].nextval.toString().padStart(6, "0")}`,
+          visitNumber,
           createdById: actorId,
           status,
         },
         include: {
+          patient: true,
+          service: true,
           assignedDoctor: {
             select: { id: true, firstName: true, lastName: true },
           },
