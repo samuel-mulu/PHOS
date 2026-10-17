@@ -144,6 +144,21 @@ export class ConsultationsService {
         throw new BadRequestException(
           "Enter visit notes (vitals, medical notes, diagnosis, ultrasound, or prescription) before completing",
         );
+
+      const invoice = await tx.invoice.findFirst({
+        where: {
+          encounterId: item.encounterId,
+          status: { not: "VOID" },
+        },
+      });
+      const unpaidCents = invoice
+        ? Math.max(0, invoice.totalCents - invoice.paidCents)
+        : 0;
+      if (unpaidCents > 0)
+        throw new BadRequestException(
+          "Patient has not paid. Collect payment at cashier before completing this visit.",
+        );
+
       const updated = await tx.consultation.update({
         where: { id },
         data: { status: "FINALIZED", finalizedAt: new Date() },
@@ -166,10 +181,15 @@ export class ConsultationsService {
         ? "WAITING_LAB"
         : activePrescription
           ? "WAITING_PHARMACY"
-          : "WAITING_PAYMENT";
+          : "COMPLETED";
       await tx.encounter.update({
         where: { id: item.encounterId },
-        data: { status: nextStatus },
+        data: {
+          status: nextStatus,
+          ...(nextStatus === "COMPLETED"
+            ? { closedAt: new Date(), paymentReturnStation: null }
+            : {}),
+        },
       });
       await tx.queueEntry.updateMany({
         where: {
@@ -179,27 +199,15 @@ export class ConsultationsService {
         },
         data: { status: "COMPLETED", completedAt: new Date() },
       });
-      if (nextStatus === "WAITING_PAYMENT") {
-        const openCashier = await tx.queueEntry.findFirst({
-          where: {
-            encounterId: item.encounterId,
-            station: "CASHIER",
-            status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
-          },
-        });
-        if (!openCashier) {
-          const enc = await tx.encounter.findUniqueOrThrow({
-            where: { id: item.encounterId },
-          });
-          await tx.queueEntry.create({
-            data: {
-              encounterId: item.encounterId,
-              station: "CASHIER",
-              priority: enc.priority,
-            },
-          });
-        }
-      }
+      // Already paid — never leave (or re-open) a cashier waiting row.
+      await tx.queueEntry.updateMany({
+        where: {
+          encounterId: item.encounterId,
+          station: "CASHIER",
+          status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
+        },
+        data: { status: "COMPLETED", completedAt: new Date() },
+      });
       if (nextStatus === "WAITING_PHARMACY") {
         const openPharmacy = await tx.queueEntry.findFirst({
           where: {

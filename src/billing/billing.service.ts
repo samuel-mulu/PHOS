@@ -151,24 +151,9 @@ export class BillingService {
         data: { status: "ISSUED", issuedAt: new Date() },
       });
       const encounter = invoice.encounter;
-      const openCashier = await tx.queueEntry.findFirst({
-        where: {
-          encounterId: encounter.id,
-          station: "CASHIER",
-          status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
-        },
-      });
-      if (!openCashier) {
-        await tx.queueEntry.create({
-          data: {
-            encounterId: encounter.id,
-            station: "CASHIER",
-            priority: encounter.priority,
-          },
-        });
-      }
       // Early consultation-fee invoices keep triage/doctor status.
-      // Only hold at cashier when care is finished (or already waiting to pay).
+      // Only put the patient on the cashier queue when care is finished
+      // or they were explicitly sent to pay (mid-visit charge).
       const consultation = await tx.consultation.findUnique({
         where: { encounterId: encounter.id },
         select: { status: true },
@@ -176,13 +161,32 @@ export class BillingService {
       const holdAtCashier =
         consultation?.status === "FINALIZED" ||
         consultation?.status === "CORRECTED" ||
-        encounter.status === "WAITING_PAYMENT";
+        encounter.status === "WAITING_PAYMENT" ||
+        Boolean(encounter.paymentReturnStation);
 
-      if (holdAtCashier && encounter.status !== "WAITING_PAYMENT") {
-        await tx.encounter.update({
-          where: { id: encounter.id },
-          data: { status: "WAITING_PAYMENT" },
+      if (holdAtCashier) {
+        const openCashier = await tx.queueEntry.findFirst({
+          where: {
+            encounterId: encounter.id,
+            station: "CASHIER",
+            status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
+          },
         });
+        if (!openCashier) {
+          await tx.queueEntry.create({
+            data: {
+              encounterId: encounter.id,
+              station: "CASHIER",
+              priority: encounter.priority,
+            },
+          });
+        }
+        if (encounter.status !== "WAITING_PAYMENT") {
+          await tx.encounter.update({
+            where: { id: encounter.id },
+            data: { status: "WAITING_PAYMENT" },
+          });
+        }
       }
       await this.notifications.createForRoles(
         DESK_NOTIFY_ROLES,

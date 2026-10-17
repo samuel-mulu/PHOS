@@ -37,10 +37,13 @@ export class EncountersController {
     @Query("patientId") patientId?: string,
     @Query("assignedDoctorId") assignedDoctorId?: string,
     @Query("open") open?: string,
+    @Query("completedToday") completedToday?: string,
   ) {
     return this.service.list(status, patientId, {
       assignedDoctorId,
       open: open === "true" || open === "1",
+      completedToday:
+        completedToday === "true" || completedToday === "1",
     });
   }
   @Get(":id") find(@Param("id") id: string) {

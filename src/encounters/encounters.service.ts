@@ -8,6 +8,7 @@ import { AuditService } from "../audit/audit.service";
 import { BillingService } from "../billing/billing.service";
 import { DESK_NOTIFY_ROLES } from "../common/constants/desk-roles";
 import {
+  EncounterPriority,
   EncounterStatus,
   Prisma,
   QueueStation,
@@ -69,11 +70,48 @@ export class EncountersService {
         status: { notIn: ["COMPLETED", "CANCELLED"] },
         deletedAt: null,
       },
+      include: {
+        assignedDoctor: {
+          select: { firstName: true, lastName: true },
+        },
+        invoice: {
+          select: { status: true, totalCents: true, paidCents: true },
+        },
+        consultation: { select: { id: true, status: true } },
+      },
     });
-    if (active)
-      throw new ConflictException(
-        `Patient already has active encounter ${active.encounterNumber}`,
-      );
+    if (active) {
+      const unpaid = active.invoice
+        ? Math.max(0, active.invoice.totalCents - active.invoice.paidCents)
+        : 0;
+      const paidOff =
+        !active.invoice ||
+        active.invoice.status === "PAID" ||
+        unpaid <= 0;
+
+      // Stuck at cashier after fee already collected — close so a new return can start.
+      if (active.status === "WAITING_PAYMENT" && paidOff) {
+        await this.closePaidVisit(active.id);
+      } else {
+        if (active.status === "WAITING_PAYMENT" && unpaid > 0) {
+          await this.ensureCashierQueue(active.id, active.priority);
+        }
+        const doctor = active.assignedDoctor
+          ? `Dr. ${active.assignedDoctor.firstName} ${active.assignedDoctor.lastName}`
+          : "the doctor";
+        const visit =
+          active.visitNumber != null ? `Visit ${active.visitNumber}` : "visit";
+        if (active.status === "WAITING_PAYMENT") {
+          throw new ConflictException(
+            `${visit} (${active.encounterNumber}) still has unpaid balance. Collect payment at cashier first, then you can start a new return. Currently with ${doctor}.`,
+          );
+        }
+        const status = active.status.replaceAll("_", " ").toLowerCase();
+        throw new ConflictException(
+          `${doctor} still has an incomplete ${visit} (${active.encounterNumber}, ${status}). Ask them to complete it before starting a new return visit. Multiple visits the same day are allowed after the current one is completed.`,
+        );
+      }
+    }
     return this.prisma.$transaction(async (tx) => {
       const seq = await tx.$queryRaw<
         Array<{ nextval: bigint }>
@@ -119,21 +157,43 @@ export class EncountersService {
     });
   }
 
-  list(
+  async list(
     status?: EncounterStatus,
     patientId?: string,
-    opts?: { assignedDoctorId?: string; open?: boolean },
+    opts?: {
+      assignedDoctorId?: string;
+      open?: boolean;
+      /** Completed visits closed today (local server day). */
+      completedToday?: boolean;
+    },
   ) {
     const assignedDoctorId = opts?.assignedDoctorId;
-    return this.prisma.encounter.findMany({
+    const completedToday = Boolean(opts?.completedToday);
+    const dayStart = new Date();
+    dayStart.setHours(0, 0, 0, 0);
+    const dayEnd = new Date();
+    dayEnd.setHours(23, 59, 59, 999);
+
+    const rows = await this.prisma.encounter.findMany({
       where: {
         deletedAt: null,
         ...(patientId ? { patientId } : {}),
-        ...(status
-          ? { status }
-          : opts?.open
-            ? { status: { notIn: ["COMPLETED", "CANCELLED"] } }
-            : {}),
+        ...(completedToday
+          ? {
+              status: "COMPLETED",
+              OR: [
+                { closedAt: { gte: dayStart, lte: dayEnd } },
+                {
+                  closedAt: null,
+                  startedAt: { gte: dayStart, lte: dayEnd },
+                },
+              ],
+            }
+          : status
+            ? { status }
+            : opts?.open
+              ? { status: { notIn: ["COMPLETED", "CANCELLED"] } }
+              : {}),
         ...(assignedDoctorId === "unassigned"
           ? { assignedDoctorId: null }
           : assignedDoctorId
@@ -144,13 +204,58 @@ export class EncountersService {
         patient: true,
         service: true,
         department: true,
+        invoice: {
+          select: { status: true, totalCents: true, paidCents: true },
+        },
         assignedDoctor: {
           select: { id: true, firstName: true, lastName: true },
         },
+        ...(completedToday
+          ? {
+              consultation: {
+                select: {
+                  chiefComplaint: true,
+                  assessment: true,
+                  finalizedAt: true,
+                  diagnoses: {
+                    where: { deletedAt: null },
+                    select: {
+                      label: true,
+                      isPrimary: true,
+                    },
+                  },
+                },
+              },
+            }
+          : {}),
       },
-      orderBy: { startedAt: "desc" },
-      take: opts?.open ? 300 : 100,
+      orderBy: completedToday
+        ? [{ closedAt: "desc" }, { startedAt: "desc" }]
+        : status === "COMPLETED"
+          ? [{ closedAt: "desc" }, { startedAt: "desc" }]
+          : { startedAt: "desc" },
+      take: opts?.open || completedToday ? 300 : 100,
     });
+
+    if (!opts?.open) return rows;
+
+    const open: typeof rows = [];
+    for (const row of rows) {
+      const unpaid = row.invoice
+        ? Math.max(0, row.invoice.totalCents - row.invoice.paidCents)
+        : 0;
+      const paidOff =
+        !row.invoice || row.invoice.status === "PAID" || unpaid <= 0;
+      if (paidOff && row.status === "WAITING_PAYMENT") {
+        await this.closePaidVisit(row.id);
+        continue;
+      }
+      if (row.status === "WAITING_PAYMENT" && unpaid > 0) {
+        await this.ensureCashierQueue(row.id, row.priority);
+      }
+      open.push(row);
+    }
+    return open;
   }
 
   async findOne(id: string) {
@@ -585,5 +690,57 @@ export class EncountersService {
       invoiceId: invoice.id,
       returnStation: dto.returnStation,
     };
+  }
+
+  /** Close a visit that still looks open but has nothing left to collect. */
+  private async closePaidVisit(encounterId: string) {
+    const now = new Date();
+    await this.prisma.$transaction(async (tx) => {
+      const consultation = await tx.consultation.findFirst({
+        where: { encounterId, deletedAt: null },
+      });
+      if (consultation?.status === "DRAFT") {
+        await tx.consultation.update({
+          where: { id: consultation.id },
+          data: { status: "FINALIZED", finalizedAt: now },
+        });
+      }
+      await tx.encounter.update({
+        where: { id: encounterId },
+        data: {
+          status: "COMPLETED",
+          closedAt: now,
+          paymentReturnStation: null,
+        },
+      });
+      await tx.queueEntry.updateMany({
+        where: {
+          encounterId,
+          status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
+        },
+        data: { status: "COMPLETED", completedAt: now },
+      });
+    });
+  }
+
+  private async ensureCashierQueue(
+    encounterId: string,
+    priority: EncounterPriority,
+  ) {
+    const open = await this.prisma.queueEntry.findFirst({
+      where: {
+        encounterId,
+        station: "CASHIER",
+        status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
+      },
+    });
+    if (open) return;
+    await this.prisma.queueEntry.create({
+      data: {
+        encounterId,
+        station: "CASHIER",
+        priority,
+      },
+    });
   }
 }

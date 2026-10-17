@@ -13,8 +13,12 @@ export class QueuesService {
     private readonly prisma: PrismaService,
     private readonly audit: AuditService,
   ) {}
-  list(station: QueueStation, assignedToId?: string, forDoctorId?: string) {
-    return this.prisma.queueEntry.findMany({
+  async list(
+    station: QueueStation,
+    assignedToId?: string,
+    forDoctorId?: string,
+  ) {
+    const rows = await this.prisma.queueEntry.findMany({
       where: {
         station,
         status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
@@ -31,6 +35,14 @@ export class QueuesService {
           include: {
             patient: true,
             service: true,
+            invoice: {
+              select: {
+                id: true,
+                status: true,
+                totalCents: true,
+                paidCents: true,
+              },
+            },
             assignedDoctor: {
               select: { id: true, firstName: true, lastName: true },
             },
@@ -43,6 +55,49 @@ export class QueuesService {
           ? [{ enteredAt: "desc" }]
           : [{ priority: "desc" }, { enteredAt: "desc" }],
     });
+
+    if (station !== "CASHIER") return rows;
+
+    // Drop stale cashier rows: visit already closed or invoice already paid.
+    const staleIds: string[] = [];
+    const paidEncounterIds = new Set<string>();
+    const active = rows.filter((row) => {
+      const enc = row.encounter;
+      const inv = enc.invoice;
+      const unpaid =
+        inv != null ? Math.max(0, inv.totalCents - inv.paidCents) : 0;
+      const paidOff =
+        inv != null && (inv.status === "PAID" || unpaid <= 0);
+      const done =
+        enc.status === "COMPLETED" ||
+        enc.status === "CANCELLED" ||
+        paidOff;
+      if (done) staleIds.push(row.id);
+      if (paidOff && enc.status === "WAITING_PAYMENT") {
+        paidEncounterIds.add(enc.id);
+      }
+      return !done;
+    });
+    if (staleIds.length > 0) {
+      await this.prisma.queueEntry.updateMany({
+        where: { id: { in: staleIds } },
+        data: { status: "COMPLETED", completedAt: new Date() },
+      });
+    }
+    if (paidEncounterIds.size > 0) {
+      await this.prisma.encounter.updateMany({
+        where: {
+          id: { in: [...paidEncounterIds] },
+          status: "WAITING_PAYMENT",
+        },
+        data: {
+          status: "COMPLETED",
+          closedAt: new Date(),
+          paymentReturnStation: null,
+        },
+      });
+    }
+    return active;
   }
   async create(dto: CreateQueueEntryDto, actorId: string) {
     const exists = await this.prisma.queueEntry.findFirst({
