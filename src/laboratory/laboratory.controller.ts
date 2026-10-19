@@ -81,6 +81,28 @@ export class LaboratoryController {
     return this.service.listOrders(status, user?.role);
   }
 
+  /** Per-patient printable lab report data (RESULT_ENTERED + VERIFIED). */
+  @Roles(
+    Role.LAB_TECH,
+    Role.LAB_SUPERVISOR,
+    Role.DOCTOR,
+    Role.ADMIN,
+    Role.CEO,
+    Role.NURSE,
+  )
+  @Get("lab/patients/:patientId/orders")
+  listForPatient(
+    @Param("patientId") patientId: string,
+    @Query("from") from?: string,
+    @Query("to") to?: string,
+  ) {
+    const start = from ? new Date(from) : undefined;
+    const end = to
+      ? new Date(to.includes("T") ? to : `${to}T23:59:59.999`)
+      : undefined;
+    return this.service.listOrdersForPatient(patientId, start, end);
+  }
+
   @Get("lab/orders/:id")
   find(@Param("id") id: string, @CurrentUser() user: AuthUser) {
     return this.service.findOrder(id, user.role);

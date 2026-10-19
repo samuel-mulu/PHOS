@@ -271,6 +271,42 @@ export class LaboratoryService {
       orderBy: [{ priority: "desc" }, { createdAt: "desc" }],
     });
   }
+
+  /**
+   * Printable lab results for one patient (optional date range).
+   * Includes RESULT_ENTERED + VERIFIED orders with full result payloads.
+   */
+  async listOrdersForPatient(patientId: string, from?: Date, to?: Date) {
+    const patient = await this.prisma.patient.findFirst({
+      where: { id: patientId, deletedAt: null },
+    });
+    if (!patient) throw new NotFoundException("Patient not found");
+
+    const createdAt =
+      from || to
+        ? {
+            ...(from ? { gte: from } : {}),
+            ...(to ? { lte: to } : {}),
+          }
+        : undefined;
+
+    const orders = await this.prisma.labOrder.findMany({
+      where: {
+        patientId,
+        cancelledAt: null,
+        status: { in: ["RESULT_ENTERED", "VERIFIED"] },
+        ...(createdAt ? { createdAt } : {}),
+      },
+      include: {
+        patient: true,
+        doctor: { select: { id: true, firstName: true, lastName: true } },
+        items: { include: { labTest: true, result: true } },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+
+    return { patient, orders };
+  }
   async findOrder(id: string, viewerRole?: Role) {
     const order = await this.prisma.labOrder.findUnique({
       where: { id },
