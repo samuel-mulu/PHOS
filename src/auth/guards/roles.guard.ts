@@ -17,6 +17,7 @@ export class RolesGuard implements CanActivate {
       context.getClass(),
     ]);
     if (!roles?.length) return true;
+    if (context.getType() !== "http") return true;
     const user = context.switchToHttp().getRequest<{ user: AuthUser }>().user;
     if (!user) throw new ForbiddenException("Insufficient permission");
     // ADMIN and CEO are superusers: always allowed, even on endpoints that

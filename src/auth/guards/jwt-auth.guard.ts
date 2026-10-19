@@ -26,6 +26,8 @@ export class JwtAuthGuard implements CanActivate {
       ])
     )
       return true;
+    // Socket.IO auth is handled in NotificationsGateway.handleConnection.
+    if (context.getType() !== "http") return true;
     const req = context
       .switchToHttp()
       .getRequest<{ headers: { authorization?: string }; user: AuthUser }>();

@@ -5,10 +5,19 @@ import {
   alertPriorityForNotification,
   type AlertPriority,
 } from "./notification-priority";
+import {
+  NotificationsGateway,
+  type NotificationSocketPayload,
+} from "./notifications.gateway";
+
 @Injectable()
 export class NotificationsService {
-  constructor(private readonly prisma: PrismaService) {}
-  createForUser(
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly gateway: NotificationsGateway,
+  ) {}
+
+  async createForUser(
     input: {
       recipientId: string;
       type: NotificationType;
@@ -19,8 +28,12 @@ export class NotificationsService {
     },
     tx: Prisma.TransactionClient | PrismaService = this.prisma,
   ) {
-    return tx.notification.create({ data: input });
+    const row = await tx.notification.create({ data: input });
+    const enriched = this.enrich(row);
+    this.scheduleRealtime(row.recipientId, enriched);
+    return enriched;
   }
+
   async createForRoles(
     roles: Role[],
     input: Omit<
@@ -34,15 +47,77 @@ export class NotificationsService {
       select: { id: true },
     });
     if (!users.length) return { count: 0 };
-    return tx.notification.createMany({
-      data: users.map((user) => ({ ...input, recipientId: user.id })),
-    });
+
+    const rows = await Promise.all(
+      users.map((user) =>
+        tx.notification.create({
+          data: { ...input, recipientId: user.id },
+        }),
+      ),
+    );
+
+    for (const row of rows) {
+      this.scheduleRealtime(row.recipientId, this.enrich(row));
+    }
+    return { count: rows.length };
   }
-  private enrich<T extends { type: NotificationType; title: string }>(row: T) {
+
+  private enrich<
+    T extends {
+      id: string;
+      type: NotificationType;
+      title: string;
+      message: string;
+      entityType: string | null;
+      entityId: string | null;
+      readAt: Date | null;
+      createdAt: Date;
+    },
+  >(row: T) {
     return {
       ...row,
       priority: alertPriorityForNotification(row.type, row.title),
     };
+  }
+
+  private toSocketPayload(
+    row: ReturnType<NotificationsService["enrich"]>,
+  ): NotificationSocketPayload {
+    return {
+      id: row.id,
+      type: row.type,
+      title: row.title,
+      message: row.message,
+      entityType: row.entityType,
+      entityId: row.entityId,
+      readAt: row.readAt ? row.readAt.toISOString() : null,
+      createdAt: row.createdAt.toISOString(),
+      priority: row.priority,
+    };
+  }
+
+  /** Defer until after the surrounding Prisma transaction is likely committed. */
+  private scheduleRealtime(
+    recipientId: string,
+    row: ReturnType<NotificationsService["enrich"]>,
+  ) {
+    const payload = this.toSocketPayload(row);
+    setTimeout(() => {
+      void this.emitRealtime(recipientId, payload);
+    }, 150);
+  }
+
+  private async emitRealtime(
+    recipientId: string,
+    payload: NotificationSocketPayload,
+  ) {
+    try {
+      this.gateway.pushNew(recipientId, payload);
+      const summary = await this.unreadSummary(recipientId);
+      this.gateway.pushCount(recipientId, summary.total);
+    } catch {
+      // Socket may be down; REST polling remains the fallback.
+    }
   }
 
   async list(
@@ -75,18 +150,24 @@ export class NotificationsService {
     }
     return { total: rows.length, byPriority: summary };
   }
+
   async markRead(id: string, recipientId: string) {
     const result = await this.prisma.notification.updateMany({
       where: { id, recipientId },
       data: { readAt: new Date() },
     });
     if (!result.count) throw new NotFoundException("Notification not found");
+    const summary = await this.unreadSummary(recipientId);
+    this.gateway.pushCount(recipientId, summary.total);
     return { success: true };
   }
+
   async markAllRead(recipientId: string) {
-    return this.prisma.notification.updateMany({
+    const result = await this.prisma.notification.updateMany({
       where: { recipientId, readAt: null },
       data: { readAt: new Date() },
     });
+    this.gateway.pushCount(recipientId, 0);
+    return result;
   }
 }

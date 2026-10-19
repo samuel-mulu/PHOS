@@ -126,8 +126,9 @@ export class QueuesService {
   async update(id: string, dto: UpdateQueueEntryDto, actorId: string) {
     const current = await this.prisma.queueEntry.findUnique({ where: { id } });
     if (!current) throw new NotFoundException("Queue entry not found");
+    // Call may go WAITING → IN_SERVICE in one step (Start button removed).
     const allowed = {
-      WAITING: ["CALLED", "CANCELLED"],
+      WAITING: ["CALLED", "IN_SERVICE", "CANCELLED"],
       CALLED: ["IN_SERVICE", "WAITING", "CANCELLED"],
       IN_SERVICE: ["COMPLETED", "CANCELLED"],
       COMPLETED: [],
@@ -145,7 +146,11 @@ export class QueuesService {
       where: { id },
       data: {
         ...dto,
-        calledAt: dto.status === "CALLED" ? now : current.calledAt,
+        calledAt:
+          dto.status === "CALLED" ||
+          (dto.status === "IN_SERVICE" && !current.calledAt)
+            ? now
+            : current.calledAt,
         serviceStartedAt:
           dto.status === "IN_SERVICE" ? now : current.serviceStartedAt,
         completedAt: dto.status === "COMPLETED" ? now : current.completedAt,
