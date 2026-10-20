@@ -70,6 +70,7 @@ export type ConsultationCountAggregateOutputType = {
   assessment: number
   plan: number
   notes: number
+  referralSheet: number
   status: number
   finalizedAt: number
   correctionReason: number
@@ -126,6 +127,7 @@ export type ConsultationCountAggregateInputType = {
   assessment?: true
   plan?: true
   notes?: true
+  referralSheet?: true
   status?: true
   finalizedAt?: true
   correctionReason?: true
@@ -217,6 +219,7 @@ export type ConsultationGroupByOutputType = {
   assessment: string | null
   plan: string | null
   notes: string | null
+  referralSheet: runtime.JsonValue | null
   status: $Enums.ConsultationStatus
   finalizedAt: Date | null
   correctionReason: string | null
@@ -256,6 +259,7 @@ export type ConsultationWhereInput = {
   assessment?: Prisma.StringNullableFilter<"Consultation"> | string | null
   plan?: Prisma.StringNullableFilter<"Consultation"> | string | null
   notes?: Prisma.StringNullableFilter<"Consultation"> | string | null
+  referralSheet?: Prisma.JsonNullableFilter<"Consultation">
   status?: Prisma.EnumConsultationStatusFilter<"Consultation"> | $Enums.ConsultationStatus
   finalizedAt?: Prisma.DateTimeNullableFilter<"Consultation"> | Date | string | null
   correctionReason?: Prisma.StringNullableFilter<"Consultation"> | string | null
@@ -279,6 +283,7 @@ export type ConsultationOrderByWithRelationInput = {
   assessment?: Prisma.SortOrderInput | Prisma.SortOrder
   plan?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  referralSheet?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   finalizedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   correctionReason?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -305,6 +310,7 @@ export type ConsultationWhereUniqueInput = Prisma.AtLeast<{
   assessment?: Prisma.StringNullableFilter<"Consultation"> | string | null
   plan?: Prisma.StringNullableFilter<"Consultation"> | string | null
   notes?: Prisma.StringNullableFilter<"Consultation"> | string | null
+  referralSheet?: Prisma.JsonNullableFilter<"Consultation">
   status?: Prisma.EnumConsultationStatusFilter<"Consultation"> | $Enums.ConsultationStatus
   finalizedAt?: Prisma.DateTimeNullableFilter<"Consultation"> | Date | string | null
   correctionReason?: Prisma.StringNullableFilter<"Consultation"> | string | null
@@ -328,6 +334,7 @@ export type ConsultationOrderByWithAggregationInput = {
   assessment?: Prisma.SortOrderInput | Prisma.SortOrder
   plan?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  referralSheet?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   finalizedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   correctionReason?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -352,6 +359,7 @@ export type ConsultationScalarWhereWithAggregatesInput = {
   assessment?: Prisma.StringNullableWithAggregatesFilter<"Consultation"> | string | null
   plan?: Prisma.StringNullableWithAggregatesFilter<"Consultation"> | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"Consultation"> | string | null
+  referralSheet?: Prisma.JsonNullableWithAggregatesFilter<"Consultation">
   status?: Prisma.EnumConsultationStatusWithAggregatesFilter<"Consultation"> | $Enums.ConsultationStatus
   finalizedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Consultation"> | Date | string | null
   correctionReason?: Prisma.StringNullableWithAggregatesFilter<"Consultation"> | string | null
@@ -368,6 +376,7 @@ export type ConsultationCreateInput = {
   assessment?: string | null
   plan?: string | null
   notes?: string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ConsultationStatus
   finalizedAt?: Date | string | null
   correctionReason?: string | null
@@ -391,6 +400,7 @@ export type ConsultationUncheckedCreateInput = {
   assessment?: string | null
   plan?: string | null
   notes?: string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ConsultationStatus
   finalizedAt?: Date | string | null
   correctionReason?: string | null
@@ -410,6 +420,7 @@ export type ConsultationUpdateInput = {
   assessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
   finalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   correctionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -433,6 +444,7 @@ export type ConsultationUncheckedUpdateInput = {
   assessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
   finalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   correctionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -454,6 +466,7 @@ export type ConsultationCreateManyInput = {
   assessment?: string | null
   plan?: string | null
   notes?: string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ConsultationStatus
   finalizedAt?: Date | string | null
   correctionReason?: string | null
@@ -470,6 +483,7 @@ export type ConsultationUpdateManyMutationInput = {
   assessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
   finalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   correctionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -488,6 +502,7 @@ export type ConsultationUncheckedUpdateManyInput = {
   assessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
   finalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   correctionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -521,6 +536,7 @@ export type ConsultationCountOrderByAggregateInput = {
   assessment?: Prisma.SortOrder
   plan?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  referralSheet?: Prisma.SortOrder
   status?: Prisma.SortOrder
   finalizedAt?: Prisma.SortOrder
   correctionReason?: Prisma.SortOrder
@@ -698,6 +714,7 @@ export type ConsultationCreateWithoutDoctorInput = {
   assessment?: string | null
   plan?: string | null
   notes?: string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ConsultationStatus
   finalizedAt?: Date | string | null
   correctionReason?: string | null
@@ -719,6 +736,7 @@ export type ConsultationUncheckedCreateWithoutDoctorInput = {
   assessment?: string | null
   plan?: string | null
   notes?: string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ConsultationStatus
   finalizedAt?: Date | string | null
   correctionReason?: string | null
@@ -769,6 +787,7 @@ export type ConsultationScalarWhereInput = {
   assessment?: Prisma.StringNullableFilter<"Consultation"> | string | null
   plan?: Prisma.StringNullableFilter<"Consultation"> | string | null
   notes?: Prisma.StringNullableFilter<"Consultation"> | string | null
+  referralSheet?: Prisma.JsonNullableFilter<"Consultation">
   status?: Prisma.EnumConsultationStatusFilter<"Consultation"> | $Enums.ConsultationStatus
   finalizedAt?: Prisma.DateTimeNullableFilter<"Consultation"> | Date | string | null
   correctionReason?: Prisma.StringNullableFilter<"Consultation"> | string | null
@@ -785,6 +804,7 @@ export type ConsultationCreateWithoutEncounterInput = {
   assessment?: string | null
   plan?: string | null
   notes?: string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ConsultationStatus
   finalizedAt?: Date | string | null
   correctionReason?: string | null
@@ -806,6 +826,7 @@ export type ConsultationUncheckedCreateWithoutEncounterInput = {
   assessment?: string | null
   plan?: string | null
   notes?: string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ConsultationStatus
   finalizedAt?: Date | string | null
   correctionReason?: string | null
@@ -841,6 +862,7 @@ export type ConsultationUpdateWithoutEncounterInput = {
   assessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
   finalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   correctionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -862,6 +884,7 @@ export type ConsultationUncheckedUpdateWithoutEncounterInput = {
   assessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
   finalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   correctionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -881,6 +904,7 @@ export type ConsultationCreateWithoutDiagnosesInput = {
   assessment?: string | null
   plan?: string | null
   notes?: string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ConsultationStatus
   finalizedAt?: Date | string | null
   correctionReason?: string | null
@@ -903,6 +927,7 @@ export type ConsultationUncheckedCreateWithoutDiagnosesInput = {
   assessment?: string | null
   plan?: string | null
   notes?: string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ConsultationStatus
   finalizedAt?: Date | string | null
   correctionReason?: string | null
@@ -937,6 +962,7 @@ export type ConsultationUpdateWithoutDiagnosesInput = {
   assessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
   finalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   correctionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -959,6 +985,7 @@ export type ConsultationUncheckedUpdateWithoutDiagnosesInput = {
   assessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
   finalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   correctionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -977,6 +1004,7 @@ export type ConsultationCreateWithoutLabOrdersInput = {
   assessment?: string | null
   plan?: string | null
   notes?: string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ConsultationStatus
   finalizedAt?: Date | string | null
   correctionReason?: string | null
@@ -999,6 +1027,7 @@ export type ConsultationUncheckedCreateWithoutLabOrdersInput = {
   assessment?: string | null
   plan?: string | null
   notes?: string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ConsultationStatus
   finalizedAt?: Date | string | null
   correctionReason?: string | null
@@ -1033,6 +1062,7 @@ export type ConsultationUpdateWithoutLabOrdersInput = {
   assessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
   finalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   correctionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1055,6 +1085,7 @@ export type ConsultationUncheckedUpdateWithoutLabOrdersInput = {
   assessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
   finalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   correctionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1073,6 +1104,7 @@ export type ConsultationCreateWithoutPrescriptionsInput = {
   assessment?: string | null
   plan?: string | null
   notes?: string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ConsultationStatus
   finalizedAt?: Date | string | null
   correctionReason?: string | null
@@ -1095,6 +1127,7 @@ export type ConsultationUncheckedCreateWithoutPrescriptionsInput = {
   assessment?: string | null
   plan?: string | null
   notes?: string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ConsultationStatus
   finalizedAt?: Date | string | null
   correctionReason?: string | null
@@ -1129,6 +1162,7 @@ export type ConsultationUpdateWithoutPrescriptionsInput = {
   assessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
   finalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   correctionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1151,6 +1185,7 @@ export type ConsultationUncheckedUpdateWithoutPrescriptionsInput = {
   assessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
   finalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   correctionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1170,6 +1205,7 @@ export type ConsultationCreateManyDoctorInput = {
   assessment?: string | null
   plan?: string | null
   notes?: string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.ConsultationStatus
   finalizedAt?: Date | string | null
   correctionReason?: string | null
@@ -1186,6 +1222,7 @@ export type ConsultationUpdateWithoutDoctorInput = {
   assessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
   finalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   correctionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1207,6 +1244,7 @@ export type ConsultationUncheckedUpdateWithoutDoctorInput = {
   assessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
   finalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   correctionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1227,6 +1265,7 @@ export type ConsultationUncheckedUpdateManyWithoutDoctorInput = {
   assessment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   plan?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  referralSheet?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
   finalizedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   correctionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1294,6 +1333,7 @@ export type ConsultationSelect<ExtArgs extends runtime.Types.Extensions.Internal
   assessment?: boolean
   plan?: boolean
   notes?: boolean
+  referralSheet?: boolean
   status?: boolean
   finalizedAt?: boolean
   correctionReason?: boolean
@@ -1318,6 +1358,7 @@ export type ConsultationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   assessment?: boolean
   plan?: boolean
   notes?: boolean
+  referralSheet?: boolean
   status?: boolean
   finalizedAt?: boolean
   correctionReason?: boolean
@@ -1338,6 +1379,7 @@ export type ConsultationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   assessment?: boolean
   plan?: boolean
   notes?: boolean
+  referralSheet?: boolean
   status?: boolean
   finalizedAt?: boolean
   correctionReason?: boolean
@@ -1358,6 +1400,7 @@ export type ConsultationSelectScalar = {
   assessment?: boolean
   plan?: boolean
   notes?: boolean
+  referralSheet?: boolean
   status?: boolean
   finalizedAt?: boolean
   correctionReason?: boolean
@@ -1366,7 +1409,7 @@ export type ConsultationSelectScalar = {
   deletedAt?: boolean
 }
 
-export type ConsultationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "encounterId" | "doctorId" | "chiefComplaint" | "historyPresentIllness" | "physicalExam" | "assessment" | "plan" | "notes" | "status" | "finalizedAt" | "correctionReason" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["consultation"]>
+export type ConsultationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "encounterId" | "doctorId" | "chiefComplaint" | "historyPresentIllness" | "physicalExam" | "assessment" | "plan" | "notes" | "referralSheet" | "status" | "finalizedAt" | "correctionReason" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["consultation"]>
 export type ConsultationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   encounter?: boolean | Prisma.EncounterDefaultArgs<ExtArgs>
   doctor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1403,6 +1446,7 @@ export type $ConsultationPayload<ExtArgs extends runtime.Types.Extensions.Intern
     assessment: string | null
     plan: string | null
     notes: string | null
+    referralSheet: runtime.JsonValue | null
     status: $Enums.ConsultationStatus
     finalizedAt: Date | null
     correctionReason: string | null
@@ -1846,6 +1890,7 @@ export interface ConsultationFieldRefs {
   readonly assessment: Prisma.FieldRef<"Consultation", 'String'>
   readonly plan: Prisma.FieldRef<"Consultation", 'String'>
   readonly notes: Prisma.FieldRef<"Consultation", 'String'>
+  readonly referralSheet: Prisma.FieldRef<"Consultation", 'Json'>
   readonly status: Prisma.FieldRef<"Consultation", 'ConsultationStatus'>
   readonly finalizedAt: Prisma.FieldRef<"Consultation", 'DateTime'>
   readonly correctionReason: Prisma.FieldRef<"Consultation", 'String'>

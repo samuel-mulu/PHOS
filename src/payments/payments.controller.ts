@@ -4,6 +4,7 @@ import { CurrentUser } from "../common/decorators/current-user.decorator";
 import { Roles } from "../common/decorators/roles.decorator";
 import { AuthUser } from "../common/types/auth-user";
 import { DESK_PAY_ROLES } from "../common/constants/desk-roles";
+import { Role } from "../generated/prisma/client";
 import { CreatePaymentDto, CreateRefundDto } from "./dto/payment.dto";
 import { PaymentsService } from "./payments.service";
 
@@ -19,7 +20,7 @@ export class PaymentsController {
     return this.service.create(dto, user.id);
   }
 
-  @Roles(...DESK_PAY_ROLES)
+  @Roles(...DESK_PAY_ROLES, Role.REPORTING_OFFICER)
   @Get("report")
   report(@Query("from") from: string, @Query("to") to: string) {
     const start = from

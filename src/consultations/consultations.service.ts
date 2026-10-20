@@ -11,6 +11,25 @@ import {
   CorrectConsultationDto,
   SaveConsultationDto,
 } from "./dto/consultation.dto";
+import { Prisma } from "../generated/prisma/client";
+
+function consultationWriteData(dto: SaveConsultationDto): {
+  chiefComplaint?: string;
+  historyPresentIllness?: string;
+  physicalExam?: string;
+  assessment?: string;
+  plan?: string;
+  notes?: string;
+  referralSheet?: Prisma.InputJsonValue;
+} {
+  const { referralSheet, ...rest } = dto;
+  if (referralSheet === undefined) return rest;
+  return {
+    ...rest,
+    referralSheet: referralSheet as Prisma.InputJsonValue,
+  };
+}
+
 @Injectable()
 export class ConsultationsService {
   constructor(
@@ -48,10 +67,11 @@ export class ConsultationsService {
         throw new ConflictException(
           "Finalized consultation requires correction endpoint",
         );
+      const writeData = consultationWriteData(dto);
       const item = await tx.consultation.upsert({
         where: { encounterId },
-        create: { ...dto, encounterId, doctorId },
-        update: dto,
+        create: { ...writeData, encounterId, doctorId },
+        update: writeData,
       });
       if (
         encounter.status === "WAITING_DOCTOR" ||
@@ -275,10 +295,15 @@ export class ConsultationsService {
         "Only a finalized consultation can be corrected",
       );
     const { correctionReason, ...changes } = dto;
+    const writeData = consultationWriteData(changes);
     return this.prisma.$transaction(async (tx) => {
       const updated = await tx.consultation.update({
         where: { id },
-        data: { ...changes, correctionReason, status: "CORRECTED" },
+        data: {
+          ...writeData,
+          correctionReason,
+          status: "CORRECTED",
+        },
       });
       await this.audit.create(
         {

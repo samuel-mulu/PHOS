@@ -1,6 +1,7 @@
 import {
   IsBoolean,
   IsEnum,
+  IsObject,
   IsOptional,
   IsString,
   MinLength,
@@ -13,6 +14,7 @@ export class SaveConsultationDto {
   @IsOptional() @IsString() assessment?: string;
   @IsOptional() @IsString() plan?: string;
   @IsOptional() @IsString() notes?: string;
+  @IsOptional() @IsObject() referralSheet?: Record<string, unknown>;
 }
 export class AddDiagnosisDto {
   @IsOptional() @IsString() code?: string;

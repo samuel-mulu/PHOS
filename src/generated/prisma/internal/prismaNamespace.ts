@@ -2974,6 +2974,7 @@ export const ConsultationScalarFieldEnum = {
   assessment: 'assessment',
   plan: 'plan',
   notes: 'notes',
+  referralSheet: 'referralSheet',
   status: 'status',
   finalizedAt: 'finalizedAt',
   correctionReason: 'correctionReason',
@@ -3532,6 +3533,20 @@ export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMo
 
 
 /**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
  * Reference to a field of type 'ConsultationStatus'
  */
 export type EnumConsultationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConsultationStatus'>
@@ -3556,20 +3571,6 @@ export type EnumDiagnosisTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
  * Reference to a field of type 'DiagnosisType[]'
  */
 export type ListEnumDiagnosisTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DiagnosisType[]'>
-    
-
-
-/**
- * Reference to a field of type 'Json'
- */
-export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-/**
- * Reference to a field of type 'QueryMode'
- */
-export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 

@@ -294,6 +294,7 @@ export const ConsultationScalarFieldEnum = {
   assessment: 'assessment',
   plan: 'plan',
   notes: 'notes',
+  referralSheet: 'referralSheet',
   status: 'status',
   finalizedAt: 'finalizedAt',
   correctionReason: 'correctionReason',

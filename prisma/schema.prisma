@@ -448,6 +448,7 @@ model Consultation {
   assessment            String?
   plan                  String?
   notes                 String?
+  referralSheet         Json?              @map("referral_sheet") @db.JsonB
   status                ConsultationStatus @default(DRAFT)
   finalizedAt           DateTime?          @map("finalized_at")
   correctionReason      String?            @map("correction_reason")
