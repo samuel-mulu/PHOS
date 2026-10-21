@@ -58,7 +58,7 @@ export class LaboratoryService {
     const amountCents = tests.reduce((sum, test) => sum + test.priceCents, 0);
     if (billFirst && amountCents < 1)
       throw new BadRequestException(
-        "Selected lab tests have no price — send to lab directly or set prices first",
+        "Selected lab tests have no price - send to lab directly or set prices first",
       );
 
     const order = await this.prisma.$transaction(async (tx) => {
@@ -508,7 +508,7 @@ export class LaboratoryService {
         {
           recipientId: order.doctorId,
           type: "LAB_RESULT_VERIFIED",
-          title: "Lab result ready — patient sent to you",
+          title: "Lab result ready - patient sent to you",
           message: `Order ${order.orderNumber} verified and returned to doctor queue for review`,
           entityType: "LabOrder",
           entityId: order.id,

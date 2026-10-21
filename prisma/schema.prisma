@@ -157,6 +157,11 @@ enum PaymentMethod {
   OTHER
 }
 
+enum ExpenseStatus {
+  RECORDED
+  VOIDED
+}
+
 enum PaymentStatus {
   COMPLETED
   PARTIALLY_REFUNDED
@@ -214,6 +219,8 @@ model User {
   issuedInvoices     Invoice[]           @relation("InvoiceIssuer")
   recordedPayments   Payment[]           @relation("PaymentRecorder")
   issuedRefunds      Refund[]            @relation("RefundIssuer")
+  recordedExpenses   Expense[]           @relation("ExpenseRecorder")
+  voidedExpenses     Expense[]           @relation("ExpenseVoider")
   cashSessions       CashSession[]
   notifications      Notification[]      @relation("NotificationRecipient")
   createdAppointments Appointment[]      @relation("AppointmentCreator")
@@ -799,6 +806,45 @@ model Refund {
 
   @@index([paymentId])
   @@map("refunds")
+}
+
+model ExpenseCategory {
+  id        String    @id @default(uuid()) @db.Uuid
+  code      String    @unique
+  name      String
+  sortOrder Int       @default(0) @map("sort_order")
+  active    Boolean   @default(true)
+  expenses  Expense[]
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  @@map("expense_categories")
+}
+
+model Expense {
+  id               String          @id @default(uuid()) @db.Uuid
+  expenseNumber    String          @unique @map("expense_number")
+  categoryId       String          @map("category_id") @db.Uuid
+  amountCents      Int             @map("amount_cents")
+  expenseDate      DateTime        @map("expense_date") @db.Date
+  paymentMethod    PaymentMethod   @map("payment_method")
+  vendor           String?
+  description      String?
+  receiptReference String?         @map("receipt_reference")
+  status           ExpenseStatus   @default(RECORDED)
+  recordedById     String          @map("recorded_by_id") @db.Uuid
+  voidedAt         DateTime?       @map("voided_at")
+  voidedById       String?         @map("voided_by_id") @db.Uuid
+  voidReason       String?         @map("void_reason")
+  category         ExpenseCategory @relation(fields: [categoryId], references: [id])
+  recordedBy       User            @relation("ExpenseRecorder", fields: [recordedById], references: [id])
+  voidedBy         User?           @relation("ExpenseVoider", fields: [voidedById], references: [id])
+  createdAt        DateTime        @default(now()) @map("created_at")
+  updatedAt        DateTime        @updatedAt @map("updated_at")
+
+  @@index([expenseDate, status])
+  @@index([categoryId])
+  @@map("expenses")
 }
 
 model CashSession {

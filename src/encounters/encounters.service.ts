@@ -89,7 +89,7 @@ export class EncountersService {
         active.invoice.status === "PAID" ||
         unpaid <= 0;
 
-      // Stuck at cashier after fee already collected — close so a new return can start.
+      // Stuck at cashier after fee already collected - close so a new return can start.
       if (active.status === "WAITING_PAYMENT" && paidOff) {
         await this.closePaidVisit(active.id);
       } else {
@@ -434,7 +434,7 @@ export class EncountersService {
           {
             type: "SYSTEM",
             title: "Patient sent to cashier",
-            message: `${encounter.encounterNumber} — collect payment`,
+            message: `${encounter.encounterNumber} - collect payment`,
             entityType: "Encounter",
             entityId: id,
           },
@@ -667,7 +667,7 @@ export class EncountersService {
     await this.notifications.createForRoles(DESK_NOTIFY_ROLES, {
       type: "SYSTEM",
       title: "Payment request",
-      message: `${label} (${encounter.encounterNumber}): ${dto.description.trim()} — ETB ${amountEtb}. Collect, then returns to ${returnLabel}.`,
+      message: `${label} (${encounter.encounterNumber}): ${dto.description.trim()} - ETB ${amountEtb}. Collect, then returns to ${returnLabel}.`,
       entityType: "Encounter",
       entityId: encounterId,
     });

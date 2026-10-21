@@ -8,6 +8,7 @@ function optionalString(value: unknown): string | undefined {
 }
 
 const OPTIONAL_STRING_KEYS = [
+  "patientNumber",
   "middleName",
   "phone",
   "email",

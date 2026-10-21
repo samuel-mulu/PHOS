@@ -213,6 +213,14 @@ export const PaymentMethod = {
 export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
 
 
+export const ExpenseStatus = {
+  RECORDED: 'RECORDED',
+  VOIDED: 'VOIDED'
+} as const
+
+export type ExpenseStatus = (typeof ExpenseStatus)[keyof typeof ExpenseStatus]
+
+
 export const PaymentStatus = {
   COMPLETED: 'COMPLETED',
   PARTIALLY_REFUNDED: 'PARTIALLY_REFUNDED',

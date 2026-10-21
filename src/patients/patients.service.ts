@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   NotFoundException,
@@ -15,6 +16,11 @@ import {
   sanitizeCreatePatientDto,
   sanitizeUpdatePatientDto,
 } from "./patient-payload.util";
+import {
+  formatAutoPatientNumber,
+  normalizePatientNumber,
+  parsePatientNumberNumeric,
+} from "./patient-number.util";
 @Injectable()
 export class PatientsService {
   constructor(
@@ -23,6 +29,39 @@ export class PatientsService {
   ) {}
   async create(dto: CreatePatientDto, actorId: string) {
     dto = sanitizeCreatePatientDto(dto);
+    const { patientNumber: rawNumber, ...patientFields } = dto;
+
+    let patientNumber: string | undefined;
+    if (rawNumber) {
+      const normalized = normalizePatientNumber(rawNumber);
+      if (!normalized) {
+        throw new BadRequestException(
+          "Invalid clinic patient number (expected HC followed by digits)",
+        );
+      }
+      const existing = await this.prisma.patient.findFirst({
+        where: {
+          patientNumber: { equals: normalized, mode: "insensitive" },
+          deletedAt: null,
+        },
+        select: {
+          id: true,
+          patientNumber: true,
+          firstName: true,
+          lastName: true,
+          phone: true,
+          dateOfBirth: true,
+        },
+      });
+      if (existing) {
+        throw new ConflictException({
+          message: "Patient number already registered",
+          matches: [existing],
+        });
+      }
+      patientNumber = normalized;
+    }
+
     const duplicate = await this.detectDuplicate(dto);
     if (duplicate.length)
       throw new ConflictException({
@@ -30,12 +69,25 @@ export class PatientsService {
         matches: duplicate,
       });
     return this.prisma.$transaction(async (tx) => {
-      const seq = await tx.$queryRaw<
-        Array<{ nextval: bigint }>
-      >`SELECT nextval('patient_number_seq')`;
-      const patientNumber = `PHOS-${seq[0].nextval.toString().padStart(6, "0")}`;
+      if (!patientNumber) {
+        const seq = await tx.$queryRaw<
+          Array<{ nextval: bigint }>
+        >`SELECT nextval('patient_number_seq')`;
+        patientNumber = formatAutoPatientNumber(seq[0]!.nextval);
+      } else {
+        const numeric = parsePatientNumberNumeric(patientNumber);
+        if (numeric != null) {
+          await tx.$executeRawUnsafe(
+            `SELECT setval('patient_number_seq', GREATEST((SELECT last_value FROM patient_number_seq), ${numeric}), true)`,
+          );
+        }
+      }
       const patient = await tx.patient.create({
-        data: { ...dto, patientNumber, createdById: actorId },
+        data: {
+          ...patientFields,
+          patientNumber,
+          createdById: actorId,
+        },
       });
       await this.audit.create(
         {
@@ -94,9 +146,11 @@ export class PatientsService {
     return { items, total, page: query.page, limit: query.limit };
   }
   async findByPatientNumber(patientNumber: string) {
+    const normalized =
+      normalizePatientNumber(patientNumber) ?? patientNumber.trim();
     const patient = await this.prisma.patient.findFirst({
       where: {
-        patientNumber: { equals: patientNumber, mode: "insensitive" },
+        patientNumber: { equals: normalized, mode: "insensitive" },
         deletedAt: null,
       },
     });

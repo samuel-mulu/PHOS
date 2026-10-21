@@ -20,12 +20,12 @@ export class CreateEncounterDto {
   @IsUUID() patientId!: string;
   @IsUUID() facilityId!: string;
   @IsUUID() departmentId!: string;
-  /** Optional clinic service / fee — not required for every visit. */
+  /** Optional clinic service / fee - not required for every visit. */
   @IsOptional() @IsUUID() serviceId?: string;
   @IsOptional() @IsEnum(EncounterType) type?: EncounterType;
   @IsOptional() @IsEnum(EncounterPriority) priority?: EncounterPriority;
   @IsOptional() @IsString() reason?: string;
-  /** TRIAGE or DOCTOR — defaults to DOCTOR. */
+  /** TRIAGE or DOCTOR - defaults to DOCTOR. */
   @IsOptional()
   @IsIn(["TRIAGE", "DOCTOR"])
   initialStation?: "TRIAGE" | "DOCTOR";

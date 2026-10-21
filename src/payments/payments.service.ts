@@ -232,7 +232,7 @@ export class PaymentsService {
             title: "Payment received",
             message:
               originReturnStation === "DOCTOR" || !originReturnStation
-                ? `${payment.paymentNumber} recorded — patient is returning to your queue`
+                ? `${payment.paymentNumber} recorded - patient is returning to your queue`
                 : `${payment.paymentNumber} recorded for this visit`,
             entityType: "Encounter",
             entityId: invoice.encounterId,
@@ -245,8 +245,8 @@ export class PaymentsService {
           [Role.LAB_TECH, Role.LAB_SUPERVISOR],
           {
             type: "PAYMENT_COMPLETED",
-            title: "Payment received — return to lab",
-            message: `${payment.paymentNumber} recorded — patient is returning to lab`,
+            title: "Payment received - return to lab",
+            message: `${payment.paymentNumber} recorded - patient is returning to lab`,
             entityType: "Encounter",
             entityId: invoice.encounterId,
           },
@@ -258,8 +258,8 @@ export class PaymentsService {
           [Role.PHARMACIST],
           {
             type: "PAYMENT_COMPLETED",
-            title: "Payment received — return to pharmacy",
-            message: `${payment.paymentNumber} recorded — patient is returning to pharmacy`,
+            title: "Payment received - return to pharmacy",
+            message: `${payment.paymentNumber} recorded - patient is returning to pharmacy`,
             entityType: "Encounter",
             entityId: invoice.encounterId,
           },
@@ -271,8 +271,8 @@ export class PaymentsService {
           [Role.NURSE, Role.RECEPTIONIST, Role.FRONT_DESK],
           {
             type: "PAYMENT_COMPLETED",
-            title: "Payment received — return to triage",
-            message: `${payment.paymentNumber} recorded — patient is returning to triage`,
+            title: "Payment received - return to triage",
+            message: `${payment.paymentNumber} recorded - patient is returning to triage`,
             entityType: "Encounter",
             entityId: invoice.encounterId,
           },

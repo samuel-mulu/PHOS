@@ -83,7 +83,7 @@ export class BillingService {
     ];
     if (items.length === 0)
       throw new BadRequestException(
-        "Nothing to bill — pick a clinic service or add line items",
+        "Nothing to bill - pick a clinic service or add line items",
       );
     let totals: { subtotalCents: number; totalCents: number };
     try {
@@ -193,7 +193,7 @@ export class BillingService {
         {
           type: "SYSTEM",
           title: "Invoice ready for payment",
-          message: `${invoice.invoiceNumber} — collect payment at cashier`,
+          message: `${invoice.invoiceNumber} - collect payment at cashier`,
           entityType: "Invoice",
           entityId: id,
         },
@@ -263,7 +263,7 @@ export class BillingService {
     });
 
     if (existing?.status === "VOID")
-      throw new ConflictException("Invoice is void — cannot add charges");
+      throw new ConflictException("Invoice is void - cannot add charges");
     // PAID is allowed: mid-visit lab/ultrasound adds a new unpaid balance.
 
     if (!existing) {

@@ -219,7 +219,7 @@ export class ConsultationsService {
         },
         data: { status: "COMPLETED", completedAt: new Date() },
       });
-      // Already paid — never leave (or re-open) a cashier waiting row.
+      // Already paid - never leave (or re-open) a cashier waiting row.
       await tx.queueEntry.updateMany({
         where: {
           encounterId: item.encounterId,

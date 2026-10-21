@@ -24,6 +24,7 @@ import { CashSessionsModule } from "./cash-sessions/cash-sessions.module";
 import { NotificationsModule } from "./notifications/notifications.module";
 import { AppointmentsModule } from "./appointments/appointments.module";
 import { ReportsModule } from "./reports/reports.module";
+import { ExpensesModule } from "./expenses/expenses.module";
 import { JwtAuthGuard } from "./auth/guards/jwt-auth.guard";
 import { RolesGuard } from "./auth/guards/roles.guard";
 
@@ -52,6 +53,7 @@ import { RolesGuard } from "./auth/guards/roles.guard";
     CashSessionsModule,
     AppointmentsModule,
     ReportsModule,
+    ExpensesModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: ThrottlerGuard },

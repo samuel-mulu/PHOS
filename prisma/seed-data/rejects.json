@@ -1,0 +1,310 @@
+[
+  {
+    "firebaseKey": "-OouE1dbZJWwdk4H4UWD",
+    "reason": "unparseable_idNumber",
+    "idNumber": "Hc",
+    "fullName": "Selam Gerlase",
+    "phone": "0983150706"
+  },
+  {
+    "firebaseKey": "-P0CKy8xIiHZl0GiHw2D",
+    "reason": "unparseable_idNumber",
+    "idNumber": "HC1672O",
+    "fullName": "mebrhit Tesfay",
+    "phone": "0978050882"
+  },
+  {
+    "firebaseKey": "-OoZYNiB2c2A-MW4_Jzv",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "Hcm15306",
+    "fullName": "fire mersa",
+    "phone": "0906092768"
+  },
+  {
+    "firebaseKey": "-Ood4luydi9dJzpu3SBF",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "Hc13986",
+    "fullName": "Tega Asefa",
+    "phone": "0943684545"
+  },
+  {
+    "firebaseKey": "-Oodx7zovMm9m_D1yoas",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC15314",
+    "fullName": "Birkti Asefa",
+    "phone": "0937097337"
+  },
+  {
+    "firebaseKey": "-Oody-LHZ1lwTKgYOnuS",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC15063",
+    "fullName": "Helen Tsehaye",
+    "phone": "0977164615"
+  },
+  {
+    "firebaseKey": "-OoiGieP4IohAbn99wTD",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC15321",
+    "fullName": "Azeb g/medhen",
+    "phone": "0923305710"
+  },
+  {
+    "firebaseKey": "-OojYc3sqbM_aL2UOePx",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC14742",
+    "fullName": "zufan G/wahid",
+    "phone": "0904487782"
+  },
+  {
+    "firebaseKey": "-Oomwwhl7xQjfp-9_eNG",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC15322",
+    "fullName": "Bereket Hagos",
+    "phone": "0955824395"
+  },
+  {
+    "firebaseKey": "-OoxkmYKgK9wPXRjHQe5",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "hc14020",
+    "fullName": "mebrhitkefyalew",
+    "phone": "0992313330"
+  },
+  {
+    "firebaseKey": "-OpBnbkIolcX21lDbsue",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "Hc14497",
+    "fullName": "Tsega Arefayen",
+    "phone": "0902543570"
+  },
+  {
+    "firebaseKey": "-OpBorjFW_IBEQs8pbz3",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "Hc14275",
+    "fullName": "Sololme Asmelash",
+    "phone": "0985543303"
+  },
+  {
+    "firebaseKey": "-OpBtq1_iT1oF90JpEgp",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "Hc 13625",
+    "fullName": "Flimawit Kifley",
+    "phone": "0946989502"
+  },
+  {
+    "firebaseKey": "-OpCAaorrQNEm0aJ7IVB",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "Hc15361",
+    "fullName": "Rihmet Beshr",
+    "phone": "0932348202"
+  },
+  {
+    "firebaseKey": "-OplA44jvDj1RYmEZdkO",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "Hc14793",
+    "fullName": "Nema Mehamed",
+    "phone": "0914503636"
+  },
+  {
+    "firebaseKey": "-OpN933hd7rbZ8-Se5RA",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC14793",
+    "fullName": "Nima Mohamed",
+    "phone": "0914503636"
+  },
+  {
+    "firebaseKey": "-OpOBHEsYqynKu6sh0jB",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC13915",
+    "fullName": "Selam Koben",
+    "phone": "0969582560"
+  },
+  {
+    "firebaseKey": "-OpqZHzS9L_UHbIjecAU",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "Hc15431",
+    "fullName": "Hiwet Kahsay",
+    "phone": "0975085902"
+  },
+  {
+    "firebaseKey": "-Opqh_3wobMoE0Qvz_2I",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "Hc15432",
+    "fullName": "Nobel Fikadu",
+    "phone": "0914474542"
+  },
+  {
+    "firebaseKey": "-Oq6RWBab11orNZDaJv7",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC14515",
+    "fullName": "Mebrhit Berihu",
+    "phone": "0984982515"
+  },
+  {
+    "firebaseKey": "-OqBjCeI1pB-4wMQ-I7d",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "hc15463",
+    "fullName": "+Roza Birhane",
+    "phone": "0985282656"
+  },
+  {
+    "firebaseKey": "-OqPE-ytI05JiKnedcq3",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "Hc15486",
+    "fullName": "Tige Tlahon",
+    "phone": "0919016086"
+  },
+  {
+    "firebaseKey": "-OqtwF4CPop4Ow9tFhrH",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC15547",
+    "fullName": "Zameni Welu",
+    "phone": "0983710769"
+  },
+  {
+    "firebaseKey": "-OquML1zTku-i7vjccsQ",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC15556",
+    "fullName": "seyef Mulaw",
+    "phone": "0945511889"
+  },
+  {
+    "firebaseKey": "-OrNCw2OjNHgVPRobPh7",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC15534",
+    "fullName": "Azeb mebrahtom",
+    "phone": "0990604028"
+  },
+  {
+    "firebaseKey": "-OrXHXCloEkN_zdQs2A6",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC14098",
+    "fullName": "Milyen Abrahaley",
+    "phone": "0914686527"
+  },
+  {
+    "firebaseKey": "-OtOP6YbEP-AOirZ3eij",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC14247",
+    "fullName": "Abrhet Meresa",
+    "phone": "0927714919"
+  },
+  {
+    "firebaseKey": "-OuQSo_BvBpCvJz0KQRX",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC15796",
+    "fullName": "kdsan ftwi",
+    "phone": "0914770388"
+  },
+  {
+    "firebaseKey": "-OuQUB2qg4tQvAQ-uk8h",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC15965",
+    "fullName": "semira shef",
+    "phone": "0956982011"
+  },
+  {
+    "firebaseKey": "-OuQ_Fgf6D5AtT5PuHO8",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC15584",
+    "fullName": "tlahun",
+    "phone": "09"
+  },
+  {
+    "firebaseKey": "-OuQ_Ue0KU_eY2sbmkKq",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC15585",
+    "fullName": "abrha",
+    "phone": "09"
+  },
+  {
+    "firebaseKey": "-OuW7NPx3niiyFY6MF2P",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC15885",
+    "fullName": "rahwa mehamed",
+    "phone": "0951126414"
+  },
+  {
+    "firebaseKey": "-OukdIZFeqAsmZKehrxK",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC16100",
+    "fullName": "meselesh guesh",
+    "phone": "0924464164"
+  },
+  {
+    "firebaseKey": "-Ov0V2A_6QEJC0L8dgrB",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC16036",
+    "fullName": "teame abrhaley",
+    "phone": "0985522302"
+  },
+  {
+    "firebaseKey": "-OvVFgodFzrRmcns_xK1",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC14505",
+    "fullName": "brkti g/hawerya",
+    "phone": "0974575593"
+  },
+  {
+    "firebaseKey": "-OwHjvxlVIGlQcAI5xGS",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC16177",
+    "fullName": "frey g/hiwot",
+    "phone": "0914805045"
+  },
+  {
+    "firebaseKey": "-Owb-Az-1cUBC2kYYizD",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC15658",
+    "fullName": "selemun shferaw",
+    "phone": "0919006307"
+  },
+  {
+    "firebaseKey": "-Oxynirpmd2Gnd5lfILR",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC16283",
+    "fullName": "azeb ftwi",
+    "phone": "0966215800"
+  },
+  {
+    "firebaseKey": "-Oy8nZtTs6cJKC5i7iVa",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC16566",
+    "fullName": "Rigbey g/her",
+    "phone": "0991040300"
+  },
+  {
+    "firebaseKey": "-Oy9NLVaVl-fSDiFBi2R",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC16367",
+    "fullName": "Rigbey g/her",
+    "phone": "0951534254"
+  },
+  {
+    "firebaseKey": "-OyE7Wj8sH5eL5Nfq6s8",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC15881",
+    "fullName": "Kbra Shebet",
+    "phone": "0992285130"
+  },
+  {
+    "firebaseKey": "-OyxCqJeZ04-9Inaq4Qi",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC16457",
+    "fullName": "Birity Samson",
+    "phone": "0723278190"
+  },
+  {
+    "firebaseKey": "-P0l13hTaZSeov7c6DsZ",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC16792",
+    "fullName": "Tekle T/haymanot",
+    "phone": "0902025706"
+  },
+  {
+    "firebaseKey": "-P1K2lm0KJsKBajHcb4c",
+    "reason": "duplicate_idNumber_aliased",
+    "idNumber": "HC16837",
+    "fullName": "Arsema G/georgis",
+    "phone": "0919226337"
+  }
+]

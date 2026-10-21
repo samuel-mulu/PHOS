@@ -163,6 +163,16 @@ export type Payment = Prisma.PaymentModel
  */
 export type Refund = Prisma.RefundModel
 /**
+ * Model ExpenseCategory
+ * 
+ */
+export type ExpenseCategory = Prisma.ExpenseCategoryModel
+/**
+ * Model Expense
+ * 
+ */
+export type Expense = Prisma.ExpenseModel
+/**
  * Model CashSession
  * 
  */

@@ -4,3 +4,6 @@ coverage/
 .env
 *.log
 .DS_Store
+# Raw Firebase RTDB dumps (transform with npm run firebase:to-seed)
+*rtdb-export.json
+hiwetclinicshire-*.json

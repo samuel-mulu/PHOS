@@ -44,7 +44,7 @@ export class LaboratoryController {
     return this.service.listTests();
   }
 
-  /** Full catalog including inactive — admin management. */
+  /** Full catalog including inactive - admin management. */
   @Roles(Role.CEO, Role.ADMIN)
   @Get("lab/tests/admin")
   adminTests() {

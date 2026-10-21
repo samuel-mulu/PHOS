@@ -294,8 +294,27 @@ async function main() {
       departmentId: opd.id,
     },
   });
+  const EXPENSE_CATEGORIES = [
+    { code: "SUPPLIES", name: "Supplies & consumables", sortOrder: 10 },
+    { code: "UTILITIES", name: "Utilities", sortOrder: 20 },
+    { code: "MAINTENANCE", name: "Maintenance & repairs", sortOrder: 30 },
+    { code: "TRANSPORT", name: "Transport & fuel", sortOrder: 40 },
+    { code: "LAB_REAGENTS", name: "Lab reagents", sortOrder: 50 },
+    { code: "PHARMACY_STOCK", name: "Pharmacy stock purchase", sortOrder: 60 },
+    { code: "OFFICE", name: "Office & admin", sortOrder: 70 },
+    { code: "STAFF", name: "Staff / allowances", sortOrder: 80 },
+    { code: "OTHER", name: "Other", sortOrder: 99 },
+  ];
+  for (const cat of EXPENSE_CATEGORIES) {
+    await prisma.expenseCategory.upsert({
+      where: { code: cat.code },
+      update: { name: cat.name, sortOrder: cat.sortOrder, active: true },
+      create: cat,
+    });
+  }
+
   console.log(
-    `Seeded Hiwet Clinic. Services: ${CLINIC_SERVICES.length}. Lab tests: ${LAB_TESTS.length}. Admin: ${email} · Front desk: ${deskEmail}`,
+    `Seeded Hiwet Clinic. Services: ${CLINIC_SERVICES.length}. Lab tests: ${LAB_TESTS.length}. Expense categories: ${EXPENSE_CATEGORIES.length}. Admin: ${email} · Front desk: ${deskEmail}`,
   );
 }
 void main().finally(() => prisma.$disconnect());

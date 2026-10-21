@@ -80,6 +80,8 @@ export const ModelName = {
   InvoiceItem: 'InvoiceItem',
   Payment: 'Payment',
   Refund: 'Refund',
+  ExpenseCategory: 'ExpenseCategory',
+  Expense: 'Expense',
   CashSession: 'CashSession',
   Notification: 'Notification'
 } as const
@@ -583,6 +585,41 @@ export const RefundScalarFieldEnum = {
 } as const
 
 export type RefundScalarFieldEnum = (typeof RefundScalarFieldEnum)[keyof typeof RefundScalarFieldEnum]
+
+
+export const ExpenseCategoryScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  sortOrder: 'sortOrder',
+  active: 'active',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ExpenseCategoryScalarFieldEnum = (typeof ExpenseCategoryScalarFieldEnum)[keyof typeof ExpenseCategoryScalarFieldEnum]
+
+
+export const ExpenseScalarFieldEnum = {
+  id: 'id',
+  expenseNumber: 'expenseNumber',
+  categoryId: 'categoryId',
+  amountCents: 'amountCents',
+  expenseDate: 'expenseDate',
+  paymentMethod: 'paymentMethod',
+  vendor: 'vendor',
+  description: 'description',
+  receiptReference: 'receiptReference',
+  status: 'status',
+  recordedById: 'recordedById',
+  voidedAt: 'voidedAt',
+  voidedById: 'voidedById',
+  voidReason: 'voidReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ExpenseScalarFieldEnum = (typeof ExpenseScalarFieldEnum)[keyof typeof ExpenseScalarFieldEnum]
 
 
 export const CashSessionScalarFieldEnum = {
