@@ -7,8 +7,20 @@ function optionalString(value: unknown): string | undefined {
   return trimmed === "" ? undefined : trimmed;
 }
 
-const OPTIONAL_STRING_KEYS = [
+const CREATE_OPTIONAL_STRING_KEYS = [
   "patientNumber",
+  "middleName",
+  "phone",
+  "email",
+  "address",
+  "governmentId",
+  "emergencyContactName",
+  "emergencyContactPhone",
+  "allergies",
+] as const;
+
+/** Update DTO omits patientNumber (clinic ID is immutable after create). */
+const UPDATE_OPTIONAL_STRING_KEYS = [
   "middleName",
   "phone",
   "email",
@@ -21,7 +33,7 @@ const OPTIONAL_STRING_KEYS = [
 
 export function sanitizeCreatePatientDto(dto: CreatePatientDto): CreatePatientDto {
   const out = { ...dto };
-  for (const key of OPTIONAL_STRING_KEYS) {
+  for (const key of CREATE_OPTIONAL_STRING_KEYS) {
     const value = optionalString(out[key]);
     if (value === undefined) {
       delete out[key];
@@ -34,7 +46,7 @@ export function sanitizeCreatePatientDto(dto: CreatePatientDto): CreatePatientDt
 
 export function sanitizeUpdatePatientDto(dto: UpdatePatientDto): UpdatePatientDto {
   const out = { ...dto };
-  for (const key of OPTIONAL_STRING_KEYS) {
+  for (const key of UPDATE_OPTIONAL_STRING_KEYS) {
     if (!(key in out)) continue;
     const value = optionalString(out[key]);
     if (value === undefined) {
