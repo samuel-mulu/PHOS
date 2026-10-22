@@ -20,7 +20,10 @@ async function bootstrap() {
     .filter(Boolean);
   const allowLan = config.get<string>("CORS_ALLOW_LAN") === "true";
   app.enableCors({
-    origin: (origin, callback) => {
+    origin: (
+      origin: string | undefined,
+      callback: (err: Error | null, allow?: boolean) => void,
+    ) => {
       // Non-browser or same-origin requests may omit Origin.
       if (!origin) {
         callback(null, true);
