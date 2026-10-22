@@ -1,3 +1,8 @@
+# Dev/API-only stack (postgres + api).
+# For full clinic offline (frontend + nginx LAN gateway), use the parent compose:
+#   cd .. && docker compose --env-file .env.offline up -d --build
+# See ../OFFLINE-SETUP.md
+
 services:
   postgres:
     image: postgres:17-alpine

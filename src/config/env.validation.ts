@@ -24,6 +24,8 @@ class EnvironmentVariables {
   @Min(1)
   JWT_REFRESH_TTL_DAYS = 7;
   @IsString() CORS_ORIGINS = "http://localhost:3000";
+  /** When "true", also allow private LAN origins (clinic offline / Docker). */
+  @IsBooleanString() CORS_ALLOW_LAN = "false";
   @IsBooleanString() COOKIE_SECURE = "false";
 }
 export function validateEnvironment(config: Record<string, unknown>) {

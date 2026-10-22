@@ -1,0 +1,5077 @@
+[
+  {
+    "code": "MIG-PREGMAMUMX",
+    "name": "PREGMAMUM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NGASX",
+    "name": "NGAS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYGS6W5DX",
+    "name": "GA BY GS6W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SIGALIVEINTRX",
+    "name": "sig alive intra ux px",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BREECHX",
+    "name": "breech",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA26WEEKX",
+    "name": "AGA26 WEEK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-FEFOLX",
+    "name": "Fefol",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA33WEEKX",
+    "name": "AGA33 WEEK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ALIVEX",
+    "name": "alive",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA262X",
+    "name": "AGA26+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-COTRIMOXAZOL5",
+    "name": "cotrimoxazole syrup",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ORS3SACKSX",
+    "name": "ORS3SACKS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGNAMUMCONX",
+    "name": "pregnamum conceptionpo daily",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOMFENCTRAT50",
+    "name": "clomfenctrate",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ONPREGMAMUMX",
+    "name": "ON PREGMAMUM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA26W6DX",
+    "name": "AGA26W6D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BREACHX",
+    "name": "BREACH",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA275X",
+    "name": "AGA27+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NOGROSSCONGEX",
+    "name": "NO GROSS CONGENTAL ANOMALY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA40WKX",
+    "name": "AGA40WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SLIGHTLYINCRX",
+    "name": "SLIGHTLY INCREASED AF",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFE3800G3800",
+    "name": "EFE3800G",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA52X",
+    "name": "GA5+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA16251018X",
+    "name": "AGA16 251018",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SIGALIVEX",
+    "name": "sig alive",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFTRIAXONE1",
+    "name": "ceftriaxone",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-METRONIDAZOL500",
+    "name": "metronidazole",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-IBUPROFEN400",
+    "name": "ibuprofen",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-THENINCISIONX",
+    "name": "then incision and drainage",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PRGNAMUMPLUSX",
+    "name": "prgna mum plus",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOMFENECITRX",
+    "name": "clomfenecitrate",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGAX",
+    "name": "AGA",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGMAMAMPLUX",
+    "name": "PREGMAMAM PLUS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SIUAFX",
+    "name": "SIUAF",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GSBYGSX",
+    "name": "GS BY GS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGMAMUMPLUX",
+    "name": "PREGMAMUM PLUS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA16W5DX",
+    "name": "AGA16W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ACAGFBMSX",
+    "name": "ACA GFBMS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ONFEFOLX",
+    "name": "ON FEFOL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEPHALICX",
+    "name": "cephalic",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA286X",
+    "name": "AGA28+6",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA36W4DX",
+    "name": "AGA36W+4d",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADEQUATEAFX",
+    "name": "ADEQUATE AF",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA212WKX",
+    "name": "AGA21+2 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGMAMOMPLUX",
+    "name": "PREGMAMOM PLUS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA102X",
+    "name": "AGA10+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA31WX",
+    "name": "AGA31W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL12WKX",
+    "name": "crl12wk",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SIGX",
+    "name": "SIG",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA352DAYX",
+    "name": "AGA35+2 DAY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA20WX",
+    "name": "AGA20W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEPHALX",
+    "name": "CEPHAL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA35WWX",
+    "name": "AGA35WW",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-METRINDAZOLE500",
+    "name": "METRINDAZOLE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NOGROSSCOGENX",
+    "name": "no gross cogental anomaly",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PLACENTAFUNDX",
+    "name": "placenta fundal",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA345X",
+    "name": "AGA34+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AFI5CMX",
+    "name": "AFI5CM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEX3RDTRIPX",
+    "name": "INDEX3rd tri px +oligohydramnious",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA282X",
+    "name": "AGA28+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA19W2DX",
+    "name": "AGA19W2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-WKX",
+    "name": "WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEX1STTRIPX",
+    "name": "INDEX1ST TRI PX",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA13WX",
+    "name": "AGA13W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOTRIMAZOL100",
+    "name": "CLOTRIMAZOL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA36W6DX",
+    "name": "AGA36W6D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADEQUETEAFX",
+    "name": "ADEQUETE AF",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NOGROSSANOMAX",
+    "name": "no gross anomaly",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFALEXINE5",
+    "name": "cefalexine",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MIFANDMISOX",
+    "name": "mif and miso",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MESOX",
+    "name": "MESO",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA25W4DX",
+    "name": "AGA25W4D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA30W4DX",
+    "name": "AGA30W4D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-FOLICACIDX",
+    "name": "folic acid",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-THENX",
+    "name": "then",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PRIMOLUTE5",
+    "name": "primolute",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL102X",
+    "name": "CRL10+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGNAMUMPLUX",
+    "name": "PREGNAMUM PLUS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEPHHALICX",
+    "name": "CEPHHALIC",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA27WKX",
+    "name": "AGA27 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA32WKX",
+    "name": "AGA32 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA39WKX",
+    "name": "AGA39 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA36X",
+    "name": "AGA36",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-RBPPX",
+    "name": "RBPP",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SIGALIVEAGAX",
+    "name": "SIG ALIVE AGA",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-FEFOLEX",
+    "name": "FEFOLE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA39X",
+    "name": "aga39",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SIGALIVEIUPXX",
+    "name": "sig alive iupx",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADUQUETEAMNIX",
+    "name": "aduquete amniotic fluid",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFWX",
+    "name": "EFW",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEXX",
+    "name": "INDEX",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-HXPRESENTEDWX",
+    "name": "hx presented with gush of fluid per vagina",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PVTIPOFFINGEX",
+    "name": "pv tip of finger",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DXLFSOLROMX",
+    "name": "DX LFSOL+ ROM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PLANX",
+    "name": "PLAN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-REFERALX",
+    "name": "REFERAL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-REMOVALX",
+    "name": "removal",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MIFIMISOX",
+    "name": "MIFI+MISO",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-WKSBYGSX",
+    "name": "WKS BY GS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRLX",
+    "name": "CRL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-APPONTMENTAFX",
+    "name": "appontment after one after one month",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW22X",
+    "name": "EFW22",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-RBBPX",
+    "name": "RBBP",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-USREPORTX",
+    "name": "US REPORT",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA29WKSX",
+    "name": "AGA29WKS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ACAGFBMSEENX",
+    "name": "ACAGFBM SEEN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA37W5DX",
+    "name": "AGA37W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PARACETAMOL1",
+    "name": "PARACETAMOL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NGAX",
+    "name": "NGA",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADMITTOMATERX",
+    "name": "ADMIT TO MATERNTY WARD",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-STARTCERVICAX",
+    "name": "Start cervical ripeing",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADUQUETEAFX",
+    "name": "aduquete AF",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA385X",
+    "name": "AGA38+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW32X",
+    "name": "EFW32",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NOVISBLEGROSX",
+    "name": "NO visble gross cogental anpmaly",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MISOPROSTOLEX",
+    "name": "MISOPROSTOLE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA15W5DX",
+    "name": "AGA15W+5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA1X",
+    "name": "AGA1",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-W5DX",
+    "name": "W+5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA17WX",
+    "name": "AGA17W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFTRIAXONEX",
+    "name": "CEFTRIAXONE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CIMETIDINEX",
+    "name": "CIMETIDINE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFTRIA250",
+    "name": "CEFTRIA",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AZITHROMYCIN1",
+    "name": "azithromycine",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFALEXINEX",
+    "name": "cefalexine",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-METRONDAZOLE500",
+    "name": "metrondazole",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NOGASX",
+    "name": "NO GAS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SINGX",
+    "name": "SING",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA322X",
+    "name": "AGA32+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEPHALICPRESX",
+    "name": "CEPHALIC PRES",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-REFUSEDFEFOLX",
+    "name": "REFUSED FEFOL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA14WX",
+    "name": "AGA14W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFALEX",
+    "name": "cefale",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA273X",
+    "name": "AGA27+3",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA40X",
+    "name": "AGA40",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFEW36KGX",
+    "name": "EFEW36 KG",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA39WX",
+    "name": "AGA39W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DELIVERYSAMMX",
+    "name": "DELIVERY SAMMERY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GIVEBIRTHX",
+    "name": "Give birth",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-FEMALEALIVENX",
+    "name": "female alive neonate",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-APGARSCORE78X",
+    "name": "APGAR Score78",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AMTSOLDONEX",
+    "name": "AMTSOL done",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-STDEGREETEARX",
+    "name": "st degree tear sutured",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-UXCONTRACTEDX",
+    "name": "ux contracted",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NOACTIVEBLEEX",
+    "name": "no active bleeding",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA18WKSX",
+    "name": "AGA18WKS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NGASEENX",
+    "name": "NGA SEEN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA33W3DX",
+    "name": "AGA33W+3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NOGASEENX",
+    "name": "NO GA seen",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ACTIVECAACTIX",
+    "name": "active ca activity ang GFBM seen",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA36WKSX",
+    "name": "AGA 36WKS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEXTERMRBPX",
+    "name": "INDEXTERM + rbpp",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA15WKX",
+    "name": "AGA15 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA31WKX",
+    "name": "AGA31 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA36WX",
+    "name": "AGA36W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DICLOFENAC75",
+    "name": "DICLOFENAC",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-IBUPROFIN400",
+    "name": "IBUPROFIN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SHEISONCEFALX",
+    "name": "SHE IS on cefalexine from HC",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYFL29WKX",
+    "name": "GA BY FL29WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-COLAPSEDFETAX",
+    "name": "Colapsed fetal head",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA31X",
+    "name": "AGA31",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYGSX",
+    "name": "GA BY GS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREPAREX",
+    "name": "prepare",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AMNIOTICFLUIX",
+    "name": "amniotic fluid no measureable pocket",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA365X",
+    "name": "AGA36+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW3KGX",
+    "name": "EFW3KG",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GBMFTFBSEENX",
+    "name": "GBMFTFB seen",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA34W1DX",
+    "name": "AGA34W1D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA28W6DX",
+    "name": "AGA28W+6D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SIUANGASAGA3X",
+    "name": "SIUA NGAS AGA38W+5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEXTERMSCAX",
+    "name": "INDEXTERM+ SCAR",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BY59CMOVARIAX",
+    "name": "BY59CM OVARIAN CYST",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-WKGAX",
+    "name": "WK GA",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BYX",
+    "name": "BY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CMBYX",
+    "name": "CM BY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-REASURANCEX",
+    "name": "REASURANCE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-FOLICACID5",
+    "name": "FOLIC ACID",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-METRONDAZOLEX",
+    "name": "metrondazole",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AZITHROMYCINX",
+    "name": "Azithromycine",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA26WKX",
+    "name": "AGA26 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA33WKX",
+    "name": "AGA33 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA25WX",
+    "name": "AGA25W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA362X",
+    "name": "AGA36+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA22WKX",
+    "name": "AGA22 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-APPOINTATX",
+    "name": "APPOINT AT",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA38WKX",
+    "name": "AGA38WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ONPERGAMUMPLX",
+    "name": "on Pergamum plus",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA26W5DX",
+    "name": "AGA26W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEHALICX",
+    "name": "cehalic",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-28X",
+    "name": "28",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFALEXIN500",
+    "name": "cefalexin",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-APGARSCORE8X",
+    "name": "apgar score 8",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EPISIOTOMYSUX",
+    "name": "episiotomy sutured",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AMTSLCONDUCTX",
+    "name": "AMTSL conducted",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA36W3DX",
+    "name": "AGA36W3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA383X",
+    "name": "AGA38+3",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW34KGX",
+    "name": "EFW34KG",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA40WKX",
+    "name": "ga40wk",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW3900G3900",
+    "name": "Efw3900g",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-RDTRIPXRBBPX",
+    "name": "rd tri px+RBBP",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA25X",
+    "name": "AGA25",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MISOX",
+    "name": "miso",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA32WX",
+    "name": "AGA32W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA403DWX",
+    "name": "AGA403DW",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA28WX",
+    "name": "Aga28w",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SIGAGAX",
+    "name": "SIG aga",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ACAGFBMSEEMX",
+    "name": "ACA GFBM SEEM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA232X",
+    "name": "AGA23+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-1118X",
+    "name": "1118",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA28WKX",
+    "name": "AGA28WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-5X",
+    "name": "+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA34X",
+    "name": "aga34",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW21X",
+    "name": "efw21",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA20W6DX",
+    "name": "AGA20W+6D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA38W6DX",
+    "name": "AGA38W6D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-COC1",
+    "name": "COC",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-RESCANAFTERX",
+    "name": "RE SCAN AFTER",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW3650X",
+    "name": "EFW3650",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EARLYUSONX",
+    "name": "Early US ON",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-WKCEPHALICX",
+    "name": "wk cephalic",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-COTRIMOXAZOL25",
+    "name": "cotrimoxazole syrup",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ONPREGMAMAMX",
+    "name": "ON PREGMAMAM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA29W3DX",
+    "name": "AGA29W+3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DELIVERYSUMMX",
+    "name": "delivery summery",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SHEGAVEBRITHX",
+    "name": "she gave brith to",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA341X",
+    "name": "AGA34+1",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA37W4DX",
+    "name": "AGA37W+4D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGATA32WKTB3X",
+    "name": "AGA TA32WK TB31WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BOTHCEPHALICX",
+    "name": "BOTH CEPHALIC",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ACA7GFBMS7",
+    "name": "ACA7gfbms",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGMAMAMX",
+    "name": "PREGMAMAM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYCRL11W2DX",
+    "name": "GA BY CRL11W2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NOANOMALYX",
+    "name": "NO ANOMALY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SINGLTONEX",
+    "name": "singltone",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW34X",
+    "name": "EFW34",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PLACENTAX",
+    "name": "placenta",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADUQUTEAFX",
+    "name": "aduqute af",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA33WKNOGROX",
+    "name": "AGA33 WK nogross congental",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NGASAGA34X",
+    "name": "NGASAGA34",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEPALICX",
+    "name": "CEPALIC",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW31KGX",
+    "name": "EFW31 KG",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA30WKX",
+    "name": "AGA30 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA37WKSX",
+    "name": "AGA37WKS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ACAGFBMSEENMX",
+    "name": "ACAGFBM SEENMP",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-LACENTAFUNDAX",
+    "name": "LACENTAFUNDAL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEXEARLYTEX",
+    "name": "INDEXEARLY TERM+ RBPP",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-OBSUSREPORTX",
+    "name": "OBS US REPORT",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEPHALICPREX",
+    "name": "Cephalic pre",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEXSECONDTX",
+    "name": "Index second tri px",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGUMENTATN625",
+    "name": "Agumentatn",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-REASSUREX",
+    "name": "reassure",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-HEMATOLOGYCOX",
+    "name": "HEMATOLOGY Complete Blood Count",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-HEMOGLOBINHGX",
+    "name": "Hemoglobin Hgb     121 gdL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MALEX",
+    "name": "Male",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-HEMATOCRITHCX",
+    "name": "Hematocrit Hct     416             Male",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-RBCCOUNT58X1X",
+    "name": "RBC Count            58 x10L      45-59",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-WBCCOUNT57X1X",
+    "name": "WBC Count            57 x10L      40-110",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PLATELETS260X",
+    "name": "Platelets            260 x10L      150-450",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA33W2DX",
+    "name": "AGA33W+2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL14WKX",
+    "name": "CRL14 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ONX",
+    "name": "On",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-LNMP24418X",
+    "name": "LNMP24418",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA352X",
+    "name": "GA35+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-1318USREPORTX",
+    "name": "1318 US Report",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA36WKEFW26X",
+    "name": "AGA36 WK EFW26Kg",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA342X",
+    "name": "AGA34+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA39W5DX",
+    "name": "AGA39W+5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL123X",
+    "name": "CRL12+3",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-1218X",
+    "name": "1218",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA36W2DX",
+    "name": "AGA36W+2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ANTIPAINX",
+    "name": "antipain",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGMAMUMFOLX",
+    "name": "PREGMAMUM + FOLIC ACID",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYGS6W4DX",
+    "name": "GA BY GS6W4D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA315DAYX",
+    "name": "AGA31+5 day",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA386X",
+    "name": "AGA38+6",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA20W5DX",
+    "name": "AGA20W+5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ACAANDGFBMSEX",
+    "name": "aca and GFBM seen",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA221X",
+    "name": "AGA22+1",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA35X",
+    "name": "AGA35",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DOCBCX",
+    "name": "DO CBC",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA17W5X",
+    "name": "AGA17W+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA17W3DX",
+    "name": "AGA17W+3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA21W3DX",
+    "name": "AGA21W+3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA35W3DX",
+    "name": "AGA35W+3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA38W4DX",
+    "name": "AGA38W+4D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BREECHPREX",
+    "name": "breech pre",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA315X",
+    "name": "AGA31+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA24X",
+    "name": "AGA24",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA353X",
+    "name": "AGA35+3",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA35W5DX",
+    "name": "AGA35W+5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ACAGBMSX",
+    "name": "ACAGBMS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA281X",
+    "name": "AGA28+1",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADUQUTEAMNIOX",
+    "name": "aduqute amniotic fluid",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEXERLYX",
+    "name": "index erly",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DXERLYX",
+    "name": "Dx erly",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ANTIDX",
+    "name": "anti D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BREECHPRESENX",
+    "name": "breech presentation",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EXCESSIVEAMNX",
+    "name": "excessive amniotic fluid SDP11",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA396X",
+    "name": "AGA39+6",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW4KGX",
+    "name": "EFW4KG",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA29W2DX",
+    "name": "AGA29W+2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW23X",
+    "name": "EFW23",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-COTRIX",
+    "name": "COTRI",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA30X",
+    "name": "AGA30",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-APPONTMENTX",
+    "name": "appontment",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADEQUATEAMNIX",
+    "name": "adequate amniotic fluid",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA371DAYX",
+    "name": "AGA37+1day",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NOVISIBLEGROX",
+    "name": "no visible gross congenital anomaly",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-REEVALUATEAFX",
+    "name": "REEVALUATE AFTER",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA381X",
+    "name": "AGA38+1",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDOMETHASIN1",
+    "name": "INDOMETHASIN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CONSERVATIVEX",
+    "name": "CONSERVATIVE MGT",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PLACENTAFUNAX",
+    "name": "PLACENTA FUNAL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA22W3DX",
+    "name": "AGA22W3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ACTIVECARDIAX",
+    "name": "ACTIVE CARDIAC ACTIVITY  GROSS FETAL BODY MOVEMENT SEEN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-TRANSVERSELIX",
+    "name": "TRANSVERSE LIE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CFTRIAXONE500",
+    "name": "cftriaxone",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA30WKSX",
+    "name": "AGA30WKS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA28W5DX",
+    "name": "AGA28W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGMAMUPPLUX",
+    "name": "pregmamup plus",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA366X",
+    "name": "AGA36+6",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PVTIPFINGER60",
+    "name": "pv tip finger",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ASSITLFSOLROX",
+    "name": "ASSIT LFSOL RO FALSE LABOR",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PLANREFERALTX",
+    "name": "PLAN REFERAL TO HOSPITAL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA372X",
+    "name": "AGA-37+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW32KGX",
+    "name": "EFW32kg",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NOVISIBLEANOX",
+    "name": "no visible anomaly",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL132X",
+    "name": "crl13+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-4DAYX",
+    "name": "+4 day",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NORMALUXX",
+    "name": "normal ux",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOMFENCTIRA50",
+    "name": "CLOMFENCTIRATE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-THENCLOMFENC100",
+    "name": "THEN CLOMFENCTRATE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA283X",
+    "name": "AGA28+3",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW1150GRAM1150",
+    "name": "EFW1150 gram",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEXEARLYX",
+    "name": "indexearly",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CONTINUEANCFX",
+    "name": "continue ANC followup",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA21WX",
+    "name": "AGA21W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA34WX",
+    "name": "AGA34W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGMUMPLUSX",
+    "name": "PREG MUM PLUS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA30WX",
+    "name": "AGA30W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA24W2DX",
+    "name": "AGA24W2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW4051GIRAM4051",
+    "name": "EFW4051 GIRAM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA32X",
+    "name": "AGA32",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA26WX",
+    "name": "AGA26W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA32W5DX",
+    "name": "AGA32w5d",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW33KGX",
+    "name": "EFW33 KG",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA28W2DX",
+    "name": "AGA28W2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ONPREGMAMOMPX",
+    "name": "on pregmamom plus",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA38W5DX",
+    "name": "AGA38W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-REFEREDX",
+    "name": "REFERED",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ONPREGMAMAMPX",
+    "name": "ON pregma mam plus",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA12WX",
+    "name": "AGA12W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOMIFINX",
+    "name": "CLOMIFIN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA32W6DX",
+    "name": "AGA32W6d",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA35WKX",
+    "name": "AGA35 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ONPREGMUMUMX",
+    "name": "ON PREGMUMUM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA393X",
+    "name": "AGA39+3",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEX395X",
+    "name": "INDEX39+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SIUPXX",
+    "name": "SIUPX",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA38X",
+    "name": "AGA38",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GROSSBODYMOVX",
+    "name": "gross body movement fetal beething and fetal movement seen",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEXBIGBREEX",
+    "name": "index  BIG BREECH",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PLANPREPAREX",
+    "name": "PLAN prepare",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-FOLICACIDCLOX",
+    "name": "folic acid +clomfenctirate",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-APPOINTAFTERX",
+    "name": "appointafter2wk",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-2X",
+    "name": "+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DATEX",
+    "name": "date",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA35W4DX",
+    "name": "AGA35W4D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA18W3DX",
+    "name": "AGA18W3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA38W3DX",
+    "name": "AGA38W+3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW26X",
+    "name": "EFW26",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW3500X",
+    "name": "EFW3500",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA395X",
+    "name": "AGA39+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADFEQUATEAFX",
+    "name": "ADFEQUATE AF",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA17W2DX",
+    "name": "AGA17W2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA26X",
+    "name": "AGA26",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ONPREGMAMOMX",
+    "name": "ON PREGMAMOM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA11W6DX",
+    "name": "AGA11W+6D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA214X",
+    "name": "AGA21+4",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA25W2DX",
+    "name": "AGA25W2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA31W2DX",
+    "name": "AGA31W2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NOCARDIACACTX",
+    "name": "NO CARDIAC ACTIVITY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGMAMOMX",
+    "name": "PREGMAMOM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA16WX",
+    "name": "AGA16W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA27W6DWX",
+    "name": "AGA27W6DW",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA36WKX",
+    "name": "AGA36 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA38WX",
+    "name": "AGA38W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFTRAXONE250",
+    "name": "ceftraxone",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AZTHROMYCINE1",
+    "name": "azthromycine",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-RPRNRX",
+    "name": "RPR NR",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-HCNRX",
+    "name": "HC NR",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-HBNRX",
+    "name": "HB NR",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-UANEGX",
+    "name": "UA NEG",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA19WKS5DX",
+    "name": "AGA19WKS+5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-REASUREX",
+    "name": "REASURE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA15WX",
+    "name": "AGA15W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PELVCRESTX",
+    "name": "PELVC REST",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFALEXINE500",
+    "name": "CEFALEXINE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA29W5DX",
+    "name": "AGA29W+5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ANTIDPRISCRIX",
+    "name": "ANTID PRISCRIBED BUT REFUSED",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEX2NDTRIPX",
+    "name": "index2nd tri px",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-3X",
+    "name": "+3",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA301X",
+    "name": "aga30+1",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-APP0INTATX",
+    "name": "APP0INT AT",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-TRANSVESELIEX",
+    "name": "TRANSVESE LIE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA25WKX",
+    "name": "AGA25WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA332WKX",
+    "name": "AGA33+2WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-HETOOKCEFALEX",
+    "name": "he took cefalexine",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ABDOMINALUSFX",
+    "name": "Abdominal US from DCUMER",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MULTIPLEMESEX",
+    "name": "Multiple mesenteric lymphadenopathies reactive",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA305X",
+    "name": "AGA30+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-REFERALGIVENX",
+    "name": "referal given to hospital",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-USX",
+    "name": "US",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AUGMENTIN625",
+    "name": "Augmentin",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ONMEGABITX",
+    "name": "ON MEGABIT",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL13WKX",
+    "name": "CRL13 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA38W3DWX",
+    "name": "AGA38w3dW",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA365DAYX",
+    "name": "AGA36+5 DAY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA40WX",
+    "name": "AGA40W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFTRIAXONE500",
+    "name": "ceftriaxone",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AZITOMYCIN1",
+    "name": "azitomycin",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-TESTSYSTEMRXX",
+    "name": "Test System RX",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFTRIAXONE250",
+    "name": "CEFTRIAXONE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOTRIMAZOLE100",
+    "name": "CLOTRIMAZOLE VAGINAL TAB",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MIFX",
+    "name": "mif",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYGS7WKSX",
+    "name": "GA by GS7WKS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EMPTYSACX",
+    "name": "EMPTY SAC",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EARLYPXBLIGHX",
+    "name": "early px + blightend ovem",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GACRL111DAYX",
+    "name": "GA crl11+1day",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NOVISBLEANOMX",
+    "name": "no visble anomaly",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-REAPTUSX",
+    "name": "REAPT US",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-LABIXNX",
+    "name": "lab ixn",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BGBX",
+    "name": "BG B+",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA203X",
+    "name": "AGA+20+3",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-IBUPROFINE400",
+    "name": "IBUPROFINE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL145X",
+    "name": "crl14+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW22KGX",
+    "name": "EFW22KG",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AMOXAX",
+    "name": "amoxa",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-OMEPRAZOLX",
+    "name": "omeprazol",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-USCVVGDSVX",
+    "name": "uscvvgdsv",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-FEADSNEDAGNVX",
+    "name": "feadsnedagnv",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-VIODAVAAHIVX",
+    "name": "viodavaaHIv",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SADFCVAVBNLSX",
+    "name": "sadfcvavbnlsab",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-IXNX",
+    "name": "ixn",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-COCX",
+    "name": "coc",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EMPTYUXX",
+    "name": "EMPTY UX",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ALIVEIUPXX",
+    "name": "alive iupx",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA245X",
+    "name": "AGA24+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-METRONDAZOELX",
+    "name": "METRONDAZOEL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CIPROX",
+    "name": "CIPRO",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-FEFOL1",
+    "name": "Fefol",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA22WX",
+    "name": "AGA22W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-COTRIMOXAZOLX",
+    "name": "cotrimoxazole",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA27X",
+    "name": "AGA 27",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA21WKX",
+    "name": "AGA21WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA14WKX",
+    "name": "AGA14 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MIFTHNMISOPRX",
+    "name": "MIF thn misoprostole",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-THEREISX",
+    "name": "there is",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EMPTYUTERUSX",
+    "name": "empty uterus",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW4300G4300",
+    "name": "EFW4300 G",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BIGBABYX",
+    "name": "BIG BABY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-HEMUPSYRUPX",
+    "name": "hem up syrup",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PRIMULUTE5",
+    "name": "primulute",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AUGMENTINEX",
+    "name": "augmentine",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AUGMENTING625",
+    "name": "augmenting",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ALIVESIGIUXPX",
+    "name": "alive sig iuxpx",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL13WEEKX",
+    "name": "crl+13 week",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA18WKX",
+    "name": "AGA18 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA30WEKX",
+    "name": "AGA30 WEK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ACTIVECAGFBMX",
+    "name": "ACTIVE CA GFB MOVT SEEN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEXTERMPXRX",
+    "name": "INDEXTERM Px+ RBPP",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA9WKSX",
+    "name": "GA9 WKS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MIFIMESOX",
+    "name": "MIFI + MESO",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA7WKS6DX",
+    "name": "GA7 WKS +6D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DEPOX",
+    "name": "depo",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ALBENDAZOL400",
+    "name": "albendazol",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-METRIX",
+    "name": "metri",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYGS7W2DX",
+    "name": "ga by gs7w+2d",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL152X",
+    "name": "crl15+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NAVIDOXINE10",
+    "name": "navidoxine",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ALBENDAZOLX",
+    "name": "ALBENDAZOL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA24WKX",
+    "name": "AGA24 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-RBBPPX",
+    "name": "RBBPP",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-REAPTSEXX",
+    "name": "reapt sex",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-OMEPRAZOLEX",
+    "name": "omeprazole",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PLASILX",
+    "name": "PLASIL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AMOXA25",
+    "name": "AMOXA",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL11WKX",
+    "name": "crl11wk",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ENDOMETHASIN25",
+    "name": "ENDOMETHASIN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA29WX",
+    "name": "AGA29W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-APPOINATX",
+    "name": "APPOIN AT",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA37W1DX",
+    "name": "AGA37W+1D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-FOLICACID5MG5",
+    "name": "folic acid5mg",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BPD22WKX",
+    "name": "bpd22 wk",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYCRL11WKSX",
+    "name": "GA BY CRL11 WKS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYCRL15WKSX",
+    "name": "GA BY CRL15 WKS+3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA7W4DX",
+    "name": "aga7w+4d",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BREECHEFW26X",
+    "name": "breech efw26",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA36EFW26X",
+    "name": "AGA36 efw26",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEXBREECH3X",
+    "name": "index breech+3r tri px",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-FOLLOWUPX",
+    "name": "FOLLOW UP",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOMFENCITRA50",
+    "name": "CLOMFENCITRATE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BPD185X",
+    "name": "BPD18+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGUMENTINESYX",
+    "name": "AGUMENTINE SYRUP",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PARACETAMOLEX",
+    "name": "PARACETAMOLE SYRUP",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ACAGFBNSX",
+    "name": "ACA GFBNS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CIMETIDINE400",
+    "name": "Cimetidine",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ANTIACIDSYRUX",
+    "name": "Anti acid syrup",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADVICEONAGGRX",
+    "name": "advice on aggravating factors",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADVICEONCONTX",
+    "name": "Advice on contraceptive SE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW3670G3670",
+    "name": "EFW3670 G",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADVISETOSEEOX",
+    "name": "advise to see ophthalmic clinic",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADVICETOTAKEX",
+    "name": "ADVICE TO TAKE WATER",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA23WKX",
+    "name": "AGA23 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-119X",
+    "name": "119",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA37WKX",
+    "name": "AGA37 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-LETROZOLEX",
+    "name": "LETROZOLE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW3800G3800",
+    "name": "EFW3800G",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CIPRO500",
+    "name": "CIPRO",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA31W1DX",
+    "name": "AGA31W+1D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-COARTUM4",
+    "name": "COARTUM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-STBREECHPRESX",
+    "name": "st breech presentation",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA19W5DX",
+    "name": "AGA19W+5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA20WEEKX",
+    "name": "AGA20WEEK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA265X",
+    "name": "AGA26+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-G2P1X",
+    "name": "G2P1",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AMOXACILLINS5",
+    "name": "AMOXACILLIN SYRUP",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CETIRIZINE10",
+    "name": "CETIRIZINE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AUGMENTHINE625",
+    "name": "AUGMENTHINE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFALEXINE1WX",
+    "name": "cefalexine1wk",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA385EFW32KX",
+    "name": "AGA38+5 EFW32KG",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-IUPXX",
+    "name": "IUPX",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NGFBMSX",
+    "name": "ngfbms",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA25W3DX",
+    "name": "aga25w+3d",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA375X",
+    "name": "AGA37+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW39X",
+    "name": "EFW39",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA11WKX",
+    "name": "AGA11WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NBX",
+    "name": "NB",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ASSHEX",
+    "name": "as  she",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PV2CMDILATED70",
+    "name": "pv2cm dilated60-70 efacced",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DXLFSOROFALSX",
+    "name": "DX LFSO ro false labor",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-REFERREDX",
+    "name": "referred",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SDP2CMX",
+    "name": "SDP2cm",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NOVISIBLEX",
+    "name": "no visible",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEXBREECHPX",
+    "name": "indexbreech presentation+oligohydramnious",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DXFULLTERMPXX",
+    "name": "DXFULL TERM PX+BREECH PRESENTATION+OLIGO",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFTRIAXON1",
+    "name": "CEFTRIAXON",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA33WX",
+    "name": "AGA33W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-COARTEMX",
+    "name": "COARTEM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA253X",
+    "name": "AGA25+3",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA28X",
+    "name": "AGA28",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADEQUATAFX",
+    "name": "ADEQUAT AF",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW3600X",
+    "name": "EFW3600",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA38W5WX",
+    "name": "AGA38W5W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADVICETOCOMEX",
+    "name": "advice to come at mensus",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-THENCOMEBACKX",
+    "name": "then come back after menses",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGATWINA35X",
+    "name": "AGATWIN A35",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-B34SEVERVENTX",
+    "name": "B34SEVERVENTRCULOMAGALY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA17WKX",
+    "name": "AGA17 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-TREATEDWITHC1",
+    "name": "Treated with ceftraxone",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADIVISEONCTSX",
+    "name": "adivise on CTScan",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MEBENDAZOLESX",
+    "name": "Mebendazole syrup",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA192X",
+    "name": "AGA19+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NOVISBLECONGX",
+    "name": "no visble congental anomaly",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-APPOINTATNEXX",
+    "name": "APPOINT AT NEXT MENSUS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PARACETAMOLS5",
+    "name": "PARACETAMOL SYRUP",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CONTINOUTHEOX",
+    "name": "CONTINOU THE ORDERED DRUG",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA39W2DX",
+    "name": "AGA39W+2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CATHATERIZEHX",
+    "name": "cathaterize her",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SECUREX",
+    "name": "secure",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CONSULTDUTYSX",
+    "name": "consult duty senior",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA39W2X",
+    "name": "AGA39W+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA7WKX",
+    "name": "AGA7WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA16W6DWKX",
+    "name": "AGA16w6dWK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA28W2DWKX",
+    "name": "AGA28w2dWK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DADCX",
+    "name": "DADC",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGATWINA285E900",
+    "name": "AGA twin A28+5 EFW900 gram",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-TWINB850",
+    "name": "TWIN B",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-RECOMMENDATIX",
+    "name": "recommendation",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOTRIMAZOLEX",
+    "name": "clotrimazole cream apply",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BREECHPRESNX",
+    "name": "BREECH PRESN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA32BYVUSX",
+    "name": "AGA32 byvUS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA30W5DX",
+    "name": "AGA30W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA21WKX",
+    "name": "GA21 wk",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA18WX",
+    "name": "AGA18W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA215X",
+    "name": "AGA21+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ONABEXAMX",
+    "name": "ON AB EXAM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CIPROFLOXZCL500",
+    "name": "CIPROFLOXZCLLIN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA30W1DX",
+    "name": "AGA30W1D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA35W1DX",
+    "name": "AGA35W1D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA34W5DX",
+    "name": "AGA34W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ONCLOMEFINX",
+    "name": "ON CLOMEFIN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOMEFINECIT100",
+    "name": "CLOMEFINE CITRATE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ONCLOMEFINSEX",
+    "name": "ON CLOMEFIN SECOND ROUD",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA333X",
+    "name": "AGA33+3",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA383DAYX",
+    "name": "AGA38+3 day",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GBFBFBSEENX",
+    "name": "GBFBFB seen",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA265DAYX",
+    "name": "AGA26+5 day",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA35W3DWX",
+    "name": "AGA35W3DW",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA21W5DX",
+    "name": "AGA21W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AMOXACILLINSX",
+    "name": "amoxacillin syrup",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEPHALIX",
+    "name": "CEPHALI",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA36W5DX",
+    "name": "AGA36W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-OMFEFOLX",
+    "name": "OM FEFOL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA31W3DX",
+    "name": "AGA31W3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ACAGEBMSX",
+    "name": "ACAGEBMS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DOLABINVESTIX",
+    "name": "do lab investigation",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-COUNSELX",
+    "name": "counsel",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PROCEDURENOTX",
+    "name": "procedure note",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AFTERHEGETWR30",
+    "name": "After he get written informed consent incision and drainage was done to evacuate around",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-COMEBACKAFTEX",
+    "name": "come back after",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA385DAYX",
+    "name": "AGA38+5 DAY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGMAMUCONCX",
+    "name": "PREGMAMU CONCEPTION",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA211X",
+    "name": "AGA21+1",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA261X",
+    "name": "AGA26+1",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA19W2DWX",
+    "name": "aga19W2Dw",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL24WKX",
+    "name": "CRL24 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA163X",
+    "name": "AGA16+3",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ONPRTEGMAMUMX",
+    "name": "ON PRTEGMAMUM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA27W3DX",
+    "name": "AGA27W3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ALBENDAZOLE400",
+    "name": "albendazole",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL125X",
+    "name": "CRL12+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-TOOKPREGMAUMX",
+    "name": "TOOK PREGMAUM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA35WX",
+    "name": "AGA35W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA39W3DWX",
+    "name": "AGA39w3dW",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW3750G3750",
+    "name": "efw3750g",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA363X",
+    "name": "AGA36+3",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYGAX",
+    "name": "GA BY GA",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DOXYX",
+    "name": "DOXY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-HEGRMGTX",
+    "name": "HEGR MGT",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-WKSX",
+    "name": "WKS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA35WK3DX",
+    "name": "AGA35WK3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DELIVEREDBYCX",
+    "name": "DELIVERED BY CD IN PRIVATE clinic",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-REFEREDOUTX",
+    "name": "REFERED OUT",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ACAGFBMX",
+    "name": "ACA GFBM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADEQUATEX",
+    "name": "ADEQUATE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DOEMERGENCYCX",
+    "name": "DO EMERGENCY CD",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA395EFW32KX",
+    "name": "AGA39+5 EFW32 KG",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-2WKX",
+    "name": "+2 wk",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-TERMINATIONDX",
+    "name": "termination decided",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ASGA35X",
+    "name": "asga-35",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA17W5DX",
+    "name": "AGA17W+5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SHEHASMIX",
+    "name": "she has mi",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SHEHASMISOINX",
+    "name": "she has miso in her hand",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-REFERX",
+    "name": "REFER",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGAS31WKX",
+    "name": "AGAS31 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-COTRIMOXAZOL960",
+    "name": "COTRIMOXAZOLE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA305DAYX",
+    "name": "AGA30+5 DAY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MIFMISOGIVENX",
+    "name": "MIF MISO GIVEN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INCREASEDAFX",
+    "name": "increased AF",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA39W3DX",
+    "name": "AGA39W3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADMITTOWARDRX",
+    "name": "ADMIT to ward  reevaluate",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SHEHASTRXDX",
+    "name": "SHE HAS TRXD",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BPD192X",
+    "name": "bpd19+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADQUATEAFX",
+    "name": "ADQUATE AF",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADVICEPELVISX",
+    "name": "ADVICE PELVIS REST",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PLACENTALOWLX",
+    "name": "PLACENTA LOWLYING",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL105X",
+    "name": "crl10+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-HYDROXYPOROGX",
+    "name": "HYDROXY POROGESTRONE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MISSOX",
+    "name": "MISSO",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGMACONCEP1",
+    "name": "PREGMA CONCEPTION",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOMEFINECIT150",
+    "name": "clomefine citrate",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA235WKX",
+    "name": "AGA23+5 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-THENONX",
+    "name": "then on",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA305WKX",
+    "name": "AGA30+5 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ONPREGMAMUMPX",
+    "name": "ON PREGMAMUM PLUS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-APPOINTMENYTX",
+    "name": "appointmenyt",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA405DAYX",
+    "name": "AGA40+5 day",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL101X",
+    "name": "CRL10+1",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADEQUATECAFX",
+    "name": "adequatec AF",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA40W5DX",
+    "name": "aga40w5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA4WX",
+    "name": "GA4W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SHEHASX",
+    "name": "SHE has",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA361X",
+    "name": "AGA36+1",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-TEMINATIONWAX",
+    "name": "temination was done",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADMITTOOBSWAX",
+    "name": "Admit to obs ward",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SCHEDULEX",
+    "name": "schedule",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA385X",
+    "name": "GA38+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEXRBPP3RDX",
+    "name": "INDEXRBPP+3rd tri px",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SUTUREDX",
+    "name": "SUTURED",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA24WX",
+    "name": "AGA24W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEPHALICINDEX",
+    "name": "cephalic index",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL104X",
+    "name": "CRL10+4",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA23WX",
+    "name": "AGA23W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA235X",
+    "name": "AGA23+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYGS11W2DX",
+    "name": "GA by GS11W2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL81WKX",
+    "name": "CRL8+1 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-APPOONTMENTAX",
+    "name": "appoontment after one month",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOXACILLIN500",
+    "name": "CLOXACILLIN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-IDX",
+    "name": "I  D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-THENCEFTRIAX1",
+    "name": "then ceftriaxone",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MIFIX",
+    "name": "MIFI",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-COTRI960",
+    "name": "COTRI",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL9WKX",
+    "name": "crl9 wk",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BGOFHUSBANEDX",
+    "name": "bg of husbaned o+",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-OVARIANCYSTX",
+    "name": "OVARIAN CYST",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CONTINOUECOCX",
+    "name": "continoue COC",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-APPOINTATMENX",
+    "name": "APPOINT AT MENSUS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA9WX",
+    "name": "GA9W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA22W1DX",
+    "name": "AGA22W1D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MX",
+    "name": "(M)",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA325X",
+    "name": "GA32+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AUGMENTINE625",
+    "name": "augmentine",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PCM1",
+    "name": "PCM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA32W1DX",
+    "name": "AGA32W1D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL8WKX",
+    "name": "crl8wk",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NAVIDOXINEX",
+    "name": "navidoxine",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MILDFETALHYDX",
+    "name": "MILD FETAL HYDRONEPHROSIS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MEBENDAZOLE4400",
+    "name": "MEBENDAZOLE400 MG",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA23W5DX",
+    "name": "AGA23W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA22WKSX",
+    "name": "AGA22WKS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA7W2DX",
+    "name": "GA7W+2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DOCBCUAX",
+    "name": "DO CBCUA",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL81X",
+    "name": "CRL8+1",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOXACILLIN5500",
+    "name": "CLOXACILLIN500 MG",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-WOUNDDRESSEDX",
+    "name": "WOUND DRESSEDREFUSED",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA8WKSX",
+    "name": "GA8WKS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA7W5DX",
+    "name": "AGA7W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-RESUCITATEX",
+    "name": "RESUCITATE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-TRAMADOL50",
+    "name": "TRAMADOL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PCMX",
+    "name": "PCM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DICLOFENAC50",
+    "name": "DICLOFENAC",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEPHALICPRX",
+    "name": "CEPHALIC PR",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DOMVAX",
+    "name": "do MVA",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PACX",
+    "name": "PAC",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA19WX",
+    "name": "AGA19W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ONCOTRIMOXAZX",
+    "name": "ON COTRIMOXAZOLE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGMAMUM1",
+    "name": "PREGMAMUM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MULTIVITSYRU10",
+    "name": "MULTI VIT SYRUP",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GAGS7W3DX",
+    "name": "GA GS7W3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PEREGMAMUMPLX",
+    "name": "PEREGMAMUM PLUS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW2800X",
+    "name": "EFW2800",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-METRONDAZLOE50",
+    "name": "metrondazloe",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGMAMUMCON1",
+    "name": "pregma mum concepion",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDOMETHACIN25",
+    "name": "Indomethacine",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGMAMUMPLU1",
+    "name": "PREGMA MUM PLUS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PRAZIQUANTEL1200",
+    "name": "PRAZIQUANTEL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEPHALICPX",
+    "name": "CEPHALIC P",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA34WKX",
+    "name": "AGA34WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA7W6DX",
+    "name": "AGA7W6D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AMOXACILINE500",
+    "name": "AMOXACILINE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-RECOMMENNDATX",
+    "name": "recommenndation",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MONTHLYFOLLOX",
+    "name": "monthly follow up",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGATA20WCEPHX",
+    "name": "AGATA20WCEPHALIC",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-TB19W5DBREECX",
+    "name": "TB19W5DBREECH",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL141DAYX",
+    "name": "CRL14+1 DAY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DOMVAREFUSEDX",
+    "name": "do MVAREFUSED",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW3400G3400",
+    "name": "EFW3400G",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADMITTOLABOUX",
+    "name": "Admit to Laboure ward",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-REEVALUATEX",
+    "name": "reevaluate",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CIMITIDINE400",
+    "name": "CIMITIDINE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BREECHPRESX",
+    "name": "BREECH PRES",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA23W3DX",
+    "name": "AGA23W3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-REASSUREHERX",
+    "name": "reassure her",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA16WKSX",
+    "name": "aga16wks",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADVISETIGHTWX",
+    "name": "advise tight wear",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA27W6DX",
+    "name": "AGA27W6D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA272X",
+    "name": "AGA27+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA35225KGX",
+    "name": "AGA35+2 25 kg",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-36KG24KGX",
+    "name": "36 kg 24 kg",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEXTWINPXOX",
+    "name": "indextwin px+oligohydramnious",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA262DAYX",
+    "name": "AGA26+2day",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NEEDSTOHOSX",
+    "name": "NEEDS TO HOS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SCANTYAFX",
+    "name": "SCANTY AF",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFTRIAXONE300",
+    "name": "ceftriaxone",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA345DAYX",
+    "name": "aga34+5 day",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYGS6WKX",
+    "name": "GA BY GS6WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADVICETOSEEAX",
+    "name": "ADVICE TO SEE AN OPHTALMIC CLINIC",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA16WKX",
+    "name": "AGA16 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGMAMUPLUSX",
+    "name": "PREGMAMU PLUS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA12W5DX",
+    "name": "AGA12W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA13W2DX",
+    "name": "AGA13W2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AMOXASYRUP25",
+    "name": "AMOXA SYRUP",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA9WX",
+    "name": "AGA9W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MIFIANDMISOX",
+    "name": "MIFI AND MISO",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEXNORMALLX",
+    "name": "indexnormal late",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYGS6W1DX",
+    "name": "GA BY GS6W1D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA11W3DX",
+    "name": "AGA11W3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CHLOROQUINEPX",
+    "name": "CHLOROQUINE PHOSPHATE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DAY300",
+    "name": "DAY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DAY2300MG300",
+    "name": "DAY2300MG",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DAY3150MG150",
+    "name": "DAY3150 MG",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-OMEPRAZOLE400",
+    "name": "OMEPRAZOLE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PRIMULUTEDEP5",
+    "name": "PRIMULUTE DEPOT",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADVISEX",
+    "name": "ADVISE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA30W3DX",
+    "name": "AGA30W3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-REFERTOSGHX",
+    "name": "REFER TO SGH",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-N0ANOMALYX",
+    "name": "N0 ANOMALY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOMFENCTRATX",
+    "name": "CLOMFENCTRATE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOMFENCTRAT100",
+    "name": "CLOMFENCTRATE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA22W5DX",
+    "name": "AGA22W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYGS6WX",
+    "name": "GA BY GS6W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA10WX",
+    "name": "GA10W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGMAMUMCONX",
+    "name": "pregmamum conception",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-APPOINTATHERX",
+    "name": "appoint at her menses",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYGS9WKX",
+    "name": "GA BY GS9WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NOCARDIACAX",
+    "name": "NO CARDIAC A",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA295X",
+    "name": "AGA29+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFTRAXONE1",
+    "name": "ceftraxone",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NOFHBSEENX",
+    "name": "no FHB seen",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MIFTHENMISOX",
+    "name": "MIF THEN MISO",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA31W5DWKX",
+    "name": "AGA31W5D WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ACAGROSSFETAX",
+    "name": "ACA gross fetal body movt SEEN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA7WKX",
+    "name": "GA7WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NOCADIACACTIX",
+    "name": "no cadiac activity",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOXA500",
+    "name": "CLOXA",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SHENEEDTOSEEX",
+    "name": "SHE NEED TO SEE AFTER",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA6W5DX",
+    "name": "GA6W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-3DAYX",
+    "name": "+3 day",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA311DAYX",
+    "name": "AGA31+1day",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGATA27WX",
+    "name": "AGATA27W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-TB26W5DX",
+    "name": "TB26W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BOTTBREECHX",
+    "name": "BOTT BREECH",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA303X",
+    "name": "AGA30+3",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA27WX",
+    "name": "AGA27W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOXACILLINE500",
+    "name": "cloxacilline",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA35WK6DX",
+    "name": "AGA35WK6D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA212X",
+    "name": "AGA21+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA302X",
+    "name": "AGA30+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INTRAUTRINEPX",
+    "name": "INTRAUTRINE PX GS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-IBUPROFENEX",
+    "name": "ibuprofene",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL112X",
+    "name": "CRL11+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BISOCODYL10",
+    "name": "BISOCODYL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEXNORMALX",
+    "name": "index Normal",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW28KGX",
+    "name": "EFW28 kg",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREPAPAREX",
+    "name": "prepapare",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREPARERX",
+    "name": "preparer",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA25W6DX",
+    "name": "AGA25W6D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA23W6DX",
+    "name": "AGA23W6D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYGS13W5DX",
+    "name": "GA BY GS13W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-FSHX",
+    "name": "FSH",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL105DAYX",
+    "name": "CRL10+5day",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOMFENCITRAX",
+    "name": "clomfencitrate",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADVICEIMMUNIX",
+    "name": "ADVICE IMMUNIZATION",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA15W3DX",
+    "name": "AGA15W3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ONPREGNAMUMX",
+    "name": "ON PREGNAMUM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA181X",
+    "name": "AGA18+1",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-TURNTOLABINVX",
+    "name": "TURN TO LAB INVESTIGATION WITH MONEY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA266DAYX",
+    "name": "AGA26+6 DAY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGATA23WTB21X",
+    "name": "AGATA23WTB-21W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-TACEPHALICX",
+    "name": "TACEPHALIC",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA12W1DX",
+    "name": "AGA12W1D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-FORPREGMAMUP1",
+    "name": "FOR PREGMAMU PLUS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYGS5W6DX",
+    "name": "GA BY GS5W6D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA13W3DX",
+    "name": "AGA13W3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYGS7WKX",
+    "name": "GA BY GS7WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA23W1DX",
+    "name": "AGA23W1D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA17W6DX",
+    "name": "AGA17W6D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BGAX",
+    "name": "BGA+",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-HGB131X",
+    "name": "HGB131",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ALLNRX",
+    "name": "ALL NR",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-5DAYX",
+    "name": "+5 day",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA223X",
+    "name": "aga22+3",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-TERMINATEDPXX",
+    "name": "TERMINATED PX",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PROGESTRONEIX",
+    "name": "progestrone injection",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL115X",
+    "name": "crl 11+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA37W2DX",
+    "name": "AGA37W2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA25W5WX",
+    "name": "AGA25W5W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFEXIMEX",
+    "name": "cefexime",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA405X",
+    "name": "AGA40+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA16X",
+    "name": "AGA16",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA15WKSX",
+    "name": "AGA15WKS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-WITHANECEPHYX",
+    "name": "WITH ANECEPHY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYFL24WKSX",
+    "name": "GA BY FL24WKS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PLACENTALEFTX",
+    "name": "PLACENTA LEFT LATERAL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA173X",
+    "name": "aga17+3",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-STRATX",
+    "name": "STRAT",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA6W2DX",
+    "name": "GA6W2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-TIUPXX",
+    "name": "TIU PX",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA13W5DX",
+    "name": "GA13W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEXTWINPXX",
+    "name": "INDEXTWIN PX",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MEBENDAZOLE400",
+    "name": "MEBENDAZOLE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA255X",
+    "name": "AGA25+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFTRAX",
+    "name": "CEFTRA",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA30X",
+    "name": "GA30",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BPD155X",
+    "name": "BPD15+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFTRA250",
+    "name": "CEFTRA",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA8W5DX",
+    "name": "GA8W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SUTUREX",
+    "name": "SUTURE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOXAX",
+    "name": "CLOXA",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL95X",
+    "name": "crl95",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CARDIACACTIVX",
+    "name": "CARDIAC ACTIVITY SEEN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NBREFUSEDTODX",
+    "name": "NB REFUSED TO DO LAB",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PLASIL10",
+    "name": "PLASIL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CIPROFLOXACLX",
+    "name": "ciprofloxaclin",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEPHAX",
+    "name": "cepha",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGUMEMNTINEX",
+    "name": "AGUMEMNTINE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CIPROEARDROPX",
+    "name": "CIPRO EAR DROP",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA22W4DX",
+    "name": "AGA22W4D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-BILATERALDILX",
+    "name": "BILATERAL DILATED VENTRICLS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOTRIMAZOL1200",
+    "name": "CLOTRIMAZOL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-COC1TABPOIDA1",
+    "name": "COC1TAB POI DAYLY15 DAYS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA30W2DX",
+    "name": "AGA30W2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SHEWILLTURNWX",
+    "name": "SHE WILL TURN WITH MONEY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MEDROXYPROGE10",
+    "name": "MEDROXYPROGESTRONE ACETATE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NOANYMASSX",
+    "name": "NO ANY MASS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA37W3DX",
+    "name": "AGA37W3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA21W2DX",
+    "name": "AGA21W2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA29WKX",
+    "name": "AGA29WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA11W1DX",
+    "name": "AGA11W1D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA132W2DX",
+    "name": "AGA132W2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NAVIDOXINX",
+    "name": "NAVIDOXIN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYGS9WX",
+    "name": "GA BY GS9W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ACASEENX",
+    "name": "ACA SEEN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA15WX",
+    "name": "GA 15W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA26W3DX",
+    "name": "AGA26W3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYCRL11W5DX",
+    "name": "GA BY CRL11W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA164X",
+    "name": "AGA16+4",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ARTUSUNATE60",
+    "name": "artusunate",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MISO600",
+    "name": "MISO",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGUMENTINESY228",
+    "name": "AGUMENTINE SYRUP",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-APPOITMENTAFX",
+    "name": "APPOITMENT AFTER MENSS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA21X",
+    "name": "AGA21",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADMITX",
+    "name": "ADMIT",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA32W3DX",
+    "name": "AGA32W3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ALIVEAISX",
+    "name": "ALIVE AIS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA20WKX",
+    "name": "AGA20 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA312X",
+    "name": "AGA31+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA351X",
+    "name": "AGA35+1",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-REPEATUSAFTEX",
+    "name": "REPEAT US AFTER",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA20WK4DX",
+    "name": "AGA20WK4D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-IMPLANONX",
+    "name": "IMPLANON",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOMFENCITRA100",
+    "name": "Clomfencitrate",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA9WKSX",
+    "name": "AGA9WKS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SHEHAVEBEENTX",
+    "name": "she have been treated by clomefine fo",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA373X",
+    "name": "AGA37+3",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-NOFETALPARTSX",
+    "name": "NO FETAL PART SEEN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA37W6DX",
+    "name": "AGA37W6D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-APPOINTX",
+    "name": "APPOINT",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-APPOINT50",
+    "name": "APPOINT",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA12119X",
+    "name": "AGA12119",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEPHALEXINX",
+    "name": "CEPHALEXIN",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFTRIAXON250",
+    "name": "CEFTRIAXON",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-METRINDAZOL500",
+    "name": "METRINDAZOL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DILOXANIDEFU500",
+    "name": "DILOXANIDE FURATE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AFTERSUTURINX",
+    "name": "AFTER SUTURING",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA19WKX",
+    "name": "AGA19WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA20WK5DX",
+    "name": "AGA20WK5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CIMITIDINE200",
+    "name": "CIMITIDINE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA31WKSX",
+    "name": "AGA31WKS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA23W2DX",
+    "name": "AGA23W2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA302DAYX",
+    "name": "aga30+2 day",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ONPREGNAMAMX",
+    "name": "ON PREGNA MAM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA312DAYX",
+    "name": "aga31+2 day",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADVICETOSTARX",
+    "name": "ADVICE TO START ANTI HIV",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA31W5DAYX",
+    "name": "AGA31W5DAY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MVAX",
+    "name": "MVA",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MVADONEX",
+    "name": "MVA DONE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA23W6DAYSX",
+    "name": "AGA23W+6DAYS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEX2NDTRPXX",
+    "name": "INDEX2nd tr px",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYGS5WX",
+    "name": "GA BY GS5W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-WX",
+    "name": "W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-THEREISFETALX",
+    "name": "there is fetal pole with cardiac activity",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AZIMTHROMYCIX",
+    "name": "AZIMTHROMYCINE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGNAMUMMUMX",
+    "name": "pregnamum mum conception",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA173DAYX",
+    "name": "AGA17+3 DAY",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOMEFINECIT50",
+    "name": "CLOMEFINE CITRATE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA402X",
+    "name": "AGA40+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AFTERONEWKX",
+    "name": "after one wk",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA242X",
+    "name": "AGA24+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYGS6W6DX",
+    "name": "GA BY GS6W6D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFTRIAXONE400",
+    "name": "CEFTRIAXONE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYGS5W5DX",
+    "name": "GA BY GS5W5D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-COTRISYRUP5",
+    "name": "COTRI SYRUP",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW3650GRAM3650",
+    "name": "EFW3650 GRAM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADUQUENTX",
+    "name": "aduquent",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA355X",
+    "name": "AGA35+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA6WX",
+    "name": "GA6W",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA38WKSX",
+    "name": "AGA38WKS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFALEXINESY125",
+    "name": "Cefalexine syrup",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-FORCIRCUMCSIX",
+    "name": "for circumcsion",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AZITHRONYCINX",
+    "name": "Azithronycine",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA175DAYX",
+    "name": "AGA17+5 day",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ASPRINE81",
+    "name": "ASPRINE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGNAMAMCONX",
+    "name": "PREGNAMAM CONCEPTION",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGMASMUAX",
+    "name": "PREGMASMUA",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA10WKX",
+    "name": "AGA10WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-MESOPROSTOLX",
+    "name": "MESOPROSTOL",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA19W3DX",
+    "name": "AGA19W3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA355EFW24X",
+    "name": "aga35+5 EFW24",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-DIMNSHEDX",
+    "name": "dimnshed",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-INDEXSEVEROLX",
+    "name": "INDEXSeveroligo",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADVICEONPARTX",
+    "name": "ADVICE ON PARTNER FOLLOW UP",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-FOLICACID50",
+    "name": "FOLIC ACID",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CIPROFLOXACI500",
+    "name": "CIPROFLOXACILLINE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AZITHROCINE1",
+    "name": "AZITHROCINE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA54DAYX",
+    "name": "GA5+4 day",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SUTUREANDSTOX",
+    "name": "suture and stop bleeding",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-TATX",
+    "name": "TAT",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GS6WKX",
+    "name": "GS6WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-COARTUMX",
+    "name": "COARTUM",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYGS8W3DX",
+    "name": "GA BY GS8W3D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-ADVICEONIMMUX",
+    "name": "ADVICE ON IMMUNIZATION",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-EFW29KGX",
+    "name": "efw29kg",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA145X",
+    "name": "aga14+5",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA362DAYX",
+    "name": "AGA36+2 day",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CRL10WKX",
+    "name": "crl10 wk",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA225DAYX",
+    "name": "AGA22+5 day",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GA16WKSX",
+    "name": "GA16WKS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-REMOVEDX",
+    "name": "REMOVED",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CLOMEFINEX",
+    "name": "CLOMEFINE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PREGMAMUMCOMX",
+    "name": "PREGMAMUM COMCEPTION",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SEVEROLIGOX",
+    "name": "SEVER OLIGO",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-FLUIDRESUCITX",
+    "name": "FLUID RESUCITATION",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-SEVEROLIGOSEX",
+    "name": "SEVER OLIGOSEEN BY TEME LATTER",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-CEFTRA5DAYSX",
+    "name": "CEFTRA5DAYS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-GABYSAC6WKSX",
+    "name": "GA BY SAC6WKS",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-PRIMOLUT5",
+    "name": "PRIMOLUT",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-LITROZOLEX",
+    "name": "LITROZOLE",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA222X",
+    "name": "AGA22+2",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-WILLCOMEX",
+    "name": "WILL COME",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA21W1DX",
+    "name": "AGA21W1D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA27W2DX",
+    "name": "AGA27W2D",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA232WKX",
+    "name": "AGA23+2 WK",
+    "sellingPriceCents": 0
+  },
+  {
+    "code": "MIG-AGA37WX",
+    "name": "AGA37W",
+    "sellingPriceCents": 0
+  }
+]

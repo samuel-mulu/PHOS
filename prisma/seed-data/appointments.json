@@ -1,0 +1,56 @@
+[
+  {
+    "id": "c47d53a7-9004-413b-bca2-1a2b355a95e3",
+    "patientId": "ff3919cf-20d9-4442-9d44-542d085a1e28",
+    "scheduledAt": "2026-07-02T08:00:00.000Z",
+    "status": "COMPLETED",
+    "serviceCode": "OPD",
+    "notes": "For System Check | Name: Trhas Gebre",
+    "firebaseKey": "-OwWqRnPmOnypP9uD5_q"
+  },
+  {
+    "id": "a18267dd-52dd-42db-809b-c23799b23525",
+    "patientId": "265d420e-fac0-4d16-8e2f-de5461d27497",
+    "scheduledAt": "2026-07-02T08:00:00.000Z",
+    "status": "SCHEDULED",
+    "serviceCode": "OPD",
+    "notes": "New OPD | Name: Trhas Hailu",
+    "firebaseKey": "-OwWuvqkppOtGcyzlTBV"
+  },
+  {
+    "id": "f36fdddf-c2d8-4c0d-af18-80457de61da7",
+    "patientId": "4e759c30-1a64-497b-ad39-819e6c419b2d",
+    "scheduledAt": "2026-07-02T08:30:00.000Z",
+    "status": "SCHEDULED",
+    "serviceCode": "USG",
+    "notes": "Test System | Name: Rahel Desale",
+    "firebaseKey": "-OwX-aFpkKDb6uyoii1a"
+  },
+  {
+    "id": "ed17a6f5-ce5b-4c24-86b4-73590266782b",
+    "patientId": "47834132-c738-4fb7-9bcd-4b849daeb58a",
+    "scheduledAt": "2026-07-03T08:00:00.000Z",
+    "status": "SCHEDULED",
+    "serviceCode": "OPD",
+    "notes": "323 | Name: Trhase araya",
+    "firebaseKey": "-OwX6lkpTmdOj7JUHBaP"
+  },
+  {
+    "id": "ca3c7b66-63c9-4743-bd94-f0f783f61034",
+    "patientId": "ff3919cf-20d9-4442-9d44-542d085a1e28",
+    "scheduledAt": "2026-07-02T10:00:00.000Z",
+    "status": "SCHEDULED",
+    "serviceCode": "OPD",
+    "notes": "Ssytem Book test | Name: Trhas Gebre",
+    "firebaseKey": "-OwZQNfRBd68oo4QnXjS"
+  },
+  {
+    "id": "1a1f6f21-901e-48ac-ab45-f704eee9975a",
+    "patientId": "ccd18dd9-715c-43d2-9b46-f06daeea6755",
+    "scheduledAt": "2026-07-16T08:30:00.000Z",
+    "status": "CHECKED_IN",
+    "serviceCode": "OPD",
+    "notes": "Name: Marta Hadush",
+    "firebaseKey": "-OwcMMK9wgQNeB7dCchR"
+  }
+]
