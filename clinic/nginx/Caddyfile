@@ -1,0 +1,18 @@
+# PHOS clinic gateway — staff open http://<LAN-IP>/
+# API 127.0.0.1:4001 | Web 127.0.0.1:3000 | caddy run --config Caddyfile
+
+:80 {
+	@api path /api/*
+	handle @api {
+		reverse_proxy 127.0.0.1:4001
+	}
+
+	@ws path /socket.io/*
+	handle @ws {
+		reverse_proxy 127.0.0.1:4001
+	}
+
+	handle {
+		reverse_proxy 127.0.0.1:3000
+	}
+}
