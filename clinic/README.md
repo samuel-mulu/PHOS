@@ -16,19 +16,34 @@ Copy-Item "E:\PHOS\PHOS\clinic\scripts\*.ps1" "E:\PHOS\scripts\"
 Copy-Item "E:\PHOS\PHOS\clinic\nginx\Caddyfile" "E:\PHOS\nginx\"
 ```
 
-If backend lives elsewhere, copy from `clinic\scripts\` in the repo you pulled.
+Edit paths at the top of **`E:\PHOS\scripts\phos-clinic.ps1`** if folders differ.
 
-## Every update
+## Every day or after update
+
+**One file (build + start):**
 
 ```powershell
-cd E:\PHOS\PHOS
-git pull
+powershell -ExecutionPolicy Bypass -File "E:\PHOS\scripts\phos-clinic.ps1"
+```
 
-cd E:\PHOS\PHOS-frontend
-git pull
+**Start only** (no rebuild, faster morning start):
 
-powershell -ExecutionPolicy Bypass -File "E:\PHOS\scripts\build-clinic.ps1"
-powershell -ExecutionPolicy Bypass -File "E:\PHOS\scripts\start-clinic.ps1"
+```powershell
+powershell -ExecutionPolicy Bypass -File "E:\PHOS\scripts\phos-clinic.ps1" -StartOnly
+```
+
+**Build only** (after `git pull`, before restart):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File "E:\PHOS\scripts\phos-clinic.ps1" -BuildOnly
+```
+
+Then pull + start:
+
+```powershell
+cd E:\PHOS\PHOS; git pull
+cd E:\PHOS\PHOS-frontend; git pull
+powershell -ExecutionPolicy Bypass -File "E:\PHOS\scripts\phos-clinic.ps1"
 ```
 
 Frontend polyfill (payments on LAN): pull **PHOS-Frontend** and rebuild.
