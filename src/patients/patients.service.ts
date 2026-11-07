@@ -6,6 +6,7 @@ import {
 } from "@nestjs/common";
 import { AuditService } from "../audit/audit.service";
 import { Prisma } from "../generated/prisma/client";
+import { invoiceBalance, invoiceDueNow } from "../common/domain/finance";
 import { PrismaService } from "../prisma/prisma.service";
 import {
   CreatePatientDto,
@@ -162,82 +163,169 @@ export class PatientsService {
       where: { id, deletedAt: null },
     });
     if (!patient) throw new NotFoundException("Patient not found");
-    const [encounters, labOrders, prescriptions, invoices, appointments] =
-      await Promise.all([
-        this.prisma.encounter.findMany({
-          where: { patientId: id, deletedAt: null },
-          orderBy: { startedAt: "desc" },
-          take: 30,
-          include: {
-            triage: true,
-            assignedDoctor: {
-              select: { id: true, firstName: true, lastName: true },
-            },
-            consultation: {
-              include: {
-                doctor: {
-                  select: { id: true, firstName: true, lastName: true },
-                },
-                diagnoses: { where: { deletedAt: null } },
-              },
-            },
-            service: { select: { id: true, name: true, code: true } },
-            department: { select: { id: true, name: true } },
-          },
-        }),
-        this.prisma.labOrder.findMany({
-          where: { patientId: id },
-          orderBy: { createdAt: "desc" },
-          take: 40,
-          include: {
-            items: { include: { labTest: true, result: true } },
-            doctor: {
-              select: { id: true, firstName: true, lastName: true },
-            },
-          },
-        }),
-        this.prisma.prescription.findMany({
-          where: { patientId: id },
-          orderBy: { createdAt: "desc" },
-          take: 40,
-          include: {
-            doctor: {
-              select: { id: true, firstName: true, lastName: true },
-            },
-            items: {
-              include: {
-                medicine: {
-                  select: {
-                    id: true,
-                    name: true,
-                    code: true,
-                    strength: true,
-                    form: true,
-                  },
-                },
-              },
-            },
-          },
-        }),
-        this.prisma.invoice.findMany({
-          where: { patientId: id },
-          orderBy: { createdAt: "desc" },
-          take: 20,
-          include: { items: true, payments: true },
-        }),
-        this.prisma.appointment.findMany({
-          where: { patientId: id },
-          orderBy: { scheduledAt: "desc" },
-          take: 15,
-        }),
-      ]);
-    return {
-      patient,
+    const [
       encounters,
       labOrders,
       prescriptions,
       invoices,
       appointments,
+      obstetricHistory,
+      ancVisits,
+      familyPlanningRecords,
+    ] = await Promise.all([
+      this.prisma.encounter.findMany({
+        where: { patientId: id, deletedAt: null },
+        orderBy: { startedAt: "desc" },
+        take: 30,
+        include: {
+          triage: true,
+          assignedDoctor: {
+            select: { id: true, firstName: true, lastName: true },
+          },
+          consultation: {
+            include: {
+              doctor: {
+                select: { id: true, firstName: true, lastName: true },
+              },
+              diagnoses: { where: { deletedAt: null } },
+            },
+          },
+          service: { select: { id: true, name: true, code: true } },
+          department: { select: { id: true, name: true } },
+          laborAdmission: {
+            include: {
+              monitoringEntries: { orderBy: { recordedAt: "asc" } },
+            },
+          },
+          deliverySummary: {
+            include: { newborns: { orderBy: { birthOrder: "asc" } } },
+          },
+        },
+      }),
+      this.prisma.labOrder.findMany({
+        where: { patientId: id },
+        orderBy: { createdAt: "desc" },
+        take: 40,
+        include: {
+          items: { include: { labTest: true, result: true } },
+          doctor: {
+            select: { id: true, firstName: true, lastName: true },
+          },
+        },
+      }),
+      this.prisma.prescription.findMany({
+        where: { patientId: id },
+        orderBy: { createdAt: "desc" },
+        take: 40,
+        include: {
+          doctor: {
+            select: { id: true, firstName: true, lastName: true },
+          },
+          items: {
+            include: {
+              medicine: {
+                select: {
+                  id: true,
+                  name: true,
+                  code: true,
+                  strength: true,
+                  form: true,
+                },
+              },
+            },
+          },
+        },
+      }),
+      this.prisma.invoice.findMany({
+        where: { patientId: id },
+        orderBy: { createdAt: "desc" },
+        take: 20,
+        include: { items: true, payments: true, adjustments: true },
+      }),
+      this.prisma.appointment.findMany({
+        where: { patientId: id },
+        orderBy: { scheduledAt: "desc" },
+        take: 15,
+      }),
+      this.prisma.obstetricHistory.findFirst({
+        where: { patientId: id, deletedAt: null },
+      }),
+      this.prisma.ancVisit.findMany({
+        where: { patientId: id, deletedAt: null },
+        orderBy: { visitNumber: "asc" },
+        take: 20,
+      }),
+      this.prisma.familyPlanningRecord.findMany({
+        where: { patientId: id, deletedAt: null },
+        orderBy: { createdAt: "desc" },
+        take: 20,
+      }),
+    ]);
+    const invoicesWithBalance = invoices.map((inv) => ({
+      ...inv,
+      balanceCents: inv.status === "VOID" ? 0 : invoiceBalance(inv),
+    }));
+    return {
+      patient,
+      encounters,
+      labOrders,
+      prescriptions,
+      invoices: invoicesWithBalance,
+      appointments,
+      maternal: { obstetricHistory, ancVisits, familyPlanningRecords },
+    };
+  }
+
+  /** Everything the patient still owes across all visits (pay later, partial). */
+  async balance(id: string) {
+    const patient = await this.prisma.patient.findFirst({
+      where: { id, deletedAt: null },
+      select: { id: true },
+    });
+    if (!patient) throw new NotFoundException("Patient not found");
+    const invoices = await this.prisma.invoice.findMany({
+      where: { patientId: id, status: { in: ["ISSUED", "PARTIALLY_PAID"] } },
+      orderBy: { createdAt: "asc" },
+      include: {
+        encounter: {
+          select: {
+            id: true,
+            encounterNumber: true,
+            visitNumber: true,
+            status: true,
+            startedAt: true,
+          },
+        },
+      },
+    });
+    const rows = invoices
+      .map((inv) => ({
+        id: inv.id,
+        invoiceNumber: inv.invoiceNumber,
+        status: inv.status,
+        createdAt: inv.createdAt,
+        encounter: inv.encounter,
+        totalCents: inv.totalCents,
+        paidCents: inv.paidCents,
+        waivedCents: inv.waivedCents,
+        deferredCents: inv.deferredCents,
+        balanceCents: invoiceBalance(inv),
+        dueNowCents: invoiceDueNow(inv),
+      }))
+      .filter((r) => r.balanceCents > 0);
+    return {
+      patientId: id,
+      outstandingCents: rows.reduce((sum, r) => sum + r.balanceCents, 0),
+      /** Debt from visits that already left the cashier (pay later). */
+      payLaterCents: rows.reduce(
+        (sum, r) =>
+          sum +
+          (r.encounter.status === "WAITING_PAYMENT"
+            ? Math.min(r.deferredCents, r.balanceCents)
+            : r.balanceCents),
+        0,
+      ),
+      invoices: rows,
     };
   }
   async findOne(id: string) {

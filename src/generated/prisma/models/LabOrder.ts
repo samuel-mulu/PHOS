@@ -34,6 +34,8 @@ export type LabOrderMinAggregateOutputType = {
   status: $Enums.LabOrderStatus | null
   priority: $Enums.EncounterPriority | null
   clinicalNotes: string | null
+  doctorReviewNotes: string | null
+  doctorReviewedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
   cancelledAt: Date | null
@@ -49,6 +51,8 @@ export type LabOrderMaxAggregateOutputType = {
   status: $Enums.LabOrderStatus | null
   priority: $Enums.EncounterPriority | null
   clinicalNotes: string | null
+  doctorReviewNotes: string | null
+  doctorReviewedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
   cancelledAt: Date | null
@@ -64,6 +68,8 @@ export type LabOrderCountAggregateOutputType = {
   status: number
   priority: number
   clinicalNotes: number
+  doctorReviewNotes: number
+  doctorReviewedAt: number
   createdAt: number
   updatedAt: number
   cancelledAt: number
@@ -81,6 +87,8 @@ export type LabOrderMinAggregateInputType = {
   status?: true
   priority?: true
   clinicalNotes?: true
+  doctorReviewNotes?: true
+  doctorReviewedAt?: true
   createdAt?: true
   updatedAt?: true
   cancelledAt?: true
@@ -96,6 +104,8 @@ export type LabOrderMaxAggregateInputType = {
   status?: true
   priority?: true
   clinicalNotes?: true
+  doctorReviewNotes?: true
+  doctorReviewedAt?: true
   createdAt?: true
   updatedAt?: true
   cancelledAt?: true
@@ -111,6 +121,8 @@ export type LabOrderCountAggregateInputType = {
   status?: true
   priority?: true
   clinicalNotes?: true
+  doctorReviewNotes?: true
+  doctorReviewedAt?: true
   createdAt?: true
   updatedAt?: true
   cancelledAt?: true
@@ -199,6 +211,8 @@ export type LabOrderGroupByOutputType = {
   status: $Enums.LabOrderStatus
   priority: $Enums.EncounterPriority
   clinicalNotes: string | null
+  doctorReviewNotes: string | null
+  doctorReviewedAt: Date | null
   createdAt: Date
   updatedAt: Date
   cancelledAt: Date | null
@@ -235,6 +249,8 @@ export type LabOrderWhereInput = {
   status?: Prisma.EnumLabOrderStatusFilter<"LabOrder"> | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFilter<"LabOrder"> | $Enums.EncounterPriority
   clinicalNotes?: Prisma.StringNullableFilter<"LabOrder"> | string | null
+  doctorReviewNotes?: Prisma.StringNullableFilter<"LabOrder"> | string | null
+  doctorReviewedAt?: Prisma.DateTimeNullableFilter<"LabOrder"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"LabOrder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"LabOrder"> | Date | string
   cancelledAt?: Prisma.DateTimeNullableFilter<"LabOrder"> | Date | string | null
@@ -255,6 +271,8 @@ export type LabOrderOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   priority?: Prisma.SortOrder
   clinicalNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  doctorReviewNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  doctorReviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -278,6 +296,8 @@ export type LabOrderWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumLabOrderStatusFilter<"LabOrder"> | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFilter<"LabOrder"> | $Enums.EncounterPriority
   clinicalNotes?: Prisma.StringNullableFilter<"LabOrder"> | string | null
+  doctorReviewNotes?: Prisma.StringNullableFilter<"LabOrder"> | string | null
+  doctorReviewedAt?: Prisma.DateTimeNullableFilter<"LabOrder"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"LabOrder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"LabOrder"> | Date | string
   cancelledAt?: Prisma.DateTimeNullableFilter<"LabOrder"> | Date | string | null
@@ -298,6 +318,8 @@ export type LabOrderOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   priority?: Prisma.SortOrder
   clinicalNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  doctorReviewNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  doctorReviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -319,6 +341,8 @@ export type LabOrderScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumLabOrderStatusWithAggregatesFilter<"LabOrder"> | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityWithAggregatesFilter<"LabOrder"> | $Enums.EncounterPriority
   clinicalNotes?: Prisma.StringNullableWithAggregatesFilter<"LabOrder"> | string | null
+  doctorReviewNotes?: Prisma.StringNullableWithAggregatesFilter<"LabOrder"> | string | null
+  doctorReviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"LabOrder"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"LabOrder"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"LabOrder"> | Date | string
   cancelledAt?: Prisma.DateTimeNullableWithAggregatesFilter<"LabOrder"> | Date | string | null
@@ -330,6 +354,8 @@ export type LabOrderCreateInput = {
   status?: $Enums.LabOrderStatus
   priority?: $Enums.EncounterPriority
   clinicalNotes?: string | null
+  doctorReviewNotes?: string | null
+  doctorReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
@@ -350,6 +376,8 @@ export type LabOrderUncheckedCreateInput = {
   status?: $Enums.LabOrderStatus
   priority?: $Enums.EncounterPriority
   clinicalNotes?: string | null
+  doctorReviewNotes?: string | null
+  doctorReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
@@ -362,6 +390,8 @@ export type LabOrderUpdateInput = {
   status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
   clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -382,6 +412,8 @@ export type LabOrderUncheckedUpdateInput = {
   status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
   clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -398,6 +430,8 @@ export type LabOrderCreateManyInput = {
   status?: $Enums.LabOrderStatus
   priority?: $Enums.EncounterPriority
   clinicalNotes?: string | null
+  doctorReviewNotes?: string | null
+  doctorReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
@@ -409,6 +443,8 @@ export type LabOrderUpdateManyMutationInput = {
   status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
   clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -424,6 +460,8 @@ export type LabOrderUncheckedUpdateManyInput = {
   status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
   clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -449,6 +487,8 @@ export type LabOrderCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   priority?: Prisma.SortOrder
   clinicalNotes?: Prisma.SortOrder
+  doctorReviewNotes?: Prisma.SortOrder
+  doctorReviewedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrder
@@ -464,6 +504,8 @@ export type LabOrderMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   priority?: Prisma.SortOrder
   clinicalNotes?: Prisma.SortOrder
+  doctorReviewNotes?: Prisma.SortOrder
+  doctorReviewedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrder
@@ -479,6 +521,8 @@ export type LabOrderMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   priority?: Prisma.SortOrder
   clinicalNotes?: Prisma.SortOrder
+  doctorReviewNotes?: Prisma.SortOrder
+  doctorReviewedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrder
@@ -681,6 +725,8 @@ export type LabOrderCreateWithoutDoctorInput = {
   status?: $Enums.LabOrderStatus
   priority?: $Enums.EncounterPriority
   clinicalNotes?: string | null
+  doctorReviewNotes?: string | null
+  doctorReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
@@ -699,6 +745,8 @@ export type LabOrderUncheckedCreateWithoutDoctorInput = {
   status?: $Enums.LabOrderStatus
   priority?: $Enums.EncounterPriority
   clinicalNotes?: string | null
+  doctorReviewNotes?: string | null
+  doctorReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
@@ -744,6 +792,8 @@ export type LabOrderScalarWhereInput = {
   status?: Prisma.EnumLabOrderStatusFilter<"LabOrder"> | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFilter<"LabOrder"> | $Enums.EncounterPriority
   clinicalNotes?: Prisma.StringNullableFilter<"LabOrder"> | string | null
+  doctorReviewNotes?: Prisma.StringNullableFilter<"LabOrder"> | string | null
+  doctorReviewedAt?: Prisma.DateTimeNullableFilter<"LabOrder"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"LabOrder"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"LabOrder"> | Date | string
   cancelledAt?: Prisma.DateTimeNullableFilter<"LabOrder"> | Date | string | null
@@ -755,6 +805,8 @@ export type LabOrderCreateWithoutPatientInput = {
   status?: $Enums.LabOrderStatus
   priority?: $Enums.EncounterPriority
   clinicalNotes?: string | null
+  doctorReviewNotes?: string | null
+  doctorReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
@@ -773,6 +825,8 @@ export type LabOrderUncheckedCreateWithoutPatientInput = {
   status?: $Enums.LabOrderStatus
   priority?: $Enums.EncounterPriority
   clinicalNotes?: string | null
+  doctorReviewNotes?: string | null
+  doctorReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
@@ -811,6 +865,8 @@ export type LabOrderCreateWithoutEncounterInput = {
   status?: $Enums.LabOrderStatus
   priority?: $Enums.EncounterPriority
   clinicalNotes?: string | null
+  doctorReviewNotes?: string | null
+  doctorReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
@@ -829,6 +885,8 @@ export type LabOrderUncheckedCreateWithoutEncounterInput = {
   status?: $Enums.LabOrderStatus
   priority?: $Enums.EncounterPriority
   clinicalNotes?: string | null
+  doctorReviewNotes?: string | null
+  doctorReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
@@ -867,6 +925,8 @@ export type LabOrderCreateWithoutConsultationInput = {
   status?: $Enums.LabOrderStatus
   priority?: $Enums.EncounterPriority
   clinicalNotes?: string | null
+  doctorReviewNotes?: string | null
+  doctorReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
@@ -885,6 +945,8 @@ export type LabOrderUncheckedCreateWithoutConsultationInput = {
   status?: $Enums.LabOrderStatus
   priority?: $Enums.EncounterPriority
   clinicalNotes?: string | null
+  doctorReviewNotes?: string | null
+  doctorReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
@@ -923,6 +985,8 @@ export type LabOrderCreateWithoutItemsInput = {
   status?: $Enums.LabOrderStatus
   priority?: $Enums.EncounterPriority
   clinicalNotes?: string | null
+  doctorReviewNotes?: string | null
+  doctorReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
@@ -942,6 +1006,8 @@ export type LabOrderUncheckedCreateWithoutItemsInput = {
   status?: $Enums.LabOrderStatus
   priority?: $Enums.EncounterPriority
   clinicalNotes?: string | null
+  doctorReviewNotes?: string | null
+  doctorReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
@@ -969,6 +1035,8 @@ export type LabOrderUpdateWithoutItemsInput = {
   status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
   clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -988,6 +1056,8 @@ export type LabOrderUncheckedUpdateWithoutItemsInput = {
   status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
   clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1002,6 +1072,8 @@ export type LabOrderCreateManyDoctorInput = {
   status?: $Enums.LabOrderStatus
   priority?: $Enums.EncounterPriority
   clinicalNotes?: string | null
+  doctorReviewNotes?: string | null
+  doctorReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
@@ -1013,6 +1085,8 @@ export type LabOrderUpdateWithoutDoctorInput = {
   status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
   clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1031,6 +1105,8 @@ export type LabOrderUncheckedUpdateWithoutDoctorInput = {
   status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
   clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1046,6 +1122,8 @@ export type LabOrderUncheckedUpdateManyWithoutDoctorInput = {
   status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
   clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1060,6 +1138,8 @@ export type LabOrderCreateManyPatientInput = {
   status?: $Enums.LabOrderStatus
   priority?: $Enums.EncounterPriority
   clinicalNotes?: string | null
+  doctorReviewNotes?: string | null
+  doctorReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
@@ -1071,6 +1151,8 @@ export type LabOrderUpdateWithoutPatientInput = {
   status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
   clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1089,6 +1171,8 @@ export type LabOrderUncheckedUpdateWithoutPatientInput = {
   status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
   clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1104,6 +1188,8 @@ export type LabOrderUncheckedUpdateManyWithoutPatientInput = {
   status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
   clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1118,6 +1204,8 @@ export type LabOrderCreateManyEncounterInput = {
   status?: $Enums.LabOrderStatus
   priority?: $Enums.EncounterPriority
   clinicalNotes?: string | null
+  doctorReviewNotes?: string | null
+  doctorReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
@@ -1129,6 +1217,8 @@ export type LabOrderUpdateWithoutEncounterInput = {
   status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
   clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1147,6 +1237,8 @@ export type LabOrderUncheckedUpdateWithoutEncounterInput = {
   status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
   clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1162,6 +1254,8 @@ export type LabOrderUncheckedUpdateManyWithoutEncounterInput = {
   status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
   clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1176,6 +1270,8 @@ export type LabOrderCreateManyConsultationInput = {
   status?: $Enums.LabOrderStatus
   priority?: $Enums.EncounterPriority
   clinicalNotes?: string | null
+  doctorReviewNotes?: string | null
+  doctorReviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
@@ -1187,6 +1283,8 @@ export type LabOrderUpdateWithoutConsultationInput = {
   status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
   clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1205,6 +1303,8 @@ export type LabOrderUncheckedUpdateWithoutConsultationInput = {
   status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
   clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1220,6 +1320,8 @@ export type LabOrderUncheckedUpdateManyWithoutConsultationInput = {
   status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
   priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
   clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1266,6 +1368,8 @@ export type LabOrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   status?: boolean
   priority?: boolean
   clinicalNotes?: boolean
+  doctorReviewNotes?: boolean
+  doctorReviewedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   cancelledAt?: boolean
@@ -1287,6 +1391,8 @@ export type LabOrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   status?: boolean
   priority?: boolean
   clinicalNotes?: boolean
+  doctorReviewNotes?: boolean
+  doctorReviewedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   cancelledAt?: boolean
@@ -1306,6 +1412,8 @@ export type LabOrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   status?: boolean
   priority?: boolean
   clinicalNotes?: boolean
+  doctorReviewNotes?: boolean
+  doctorReviewedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   cancelledAt?: boolean
@@ -1325,12 +1433,14 @@ export type LabOrderSelectScalar = {
   status?: boolean
   priority?: boolean
   clinicalNotes?: boolean
+  doctorReviewNotes?: boolean
+  doctorReviewedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   cancelledAt?: boolean
 }
 
-export type LabOrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderNumber" | "consultationId" | "encounterId" | "patientId" | "doctorId" | "status" | "priority" | "clinicalNotes" | "createdAt" | "updatedAt" | "cancelledAt", ExtArgs["result"]["labOrder"]>
+export type LabOrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderNumber" | "consultationId" | "encounterId" | "patientId" | "doctorId" | "status" | "priority" | "clinicalNotes" | "doctorReviewNotes" | "doctorReviewedAt" | "createdAt" | "updatedAt" | "cancelledAt", ExtArgs["result"]["labOrder"]>
 export type LabOrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   consultation?: boolean | Prisma.ConsultationDefaultArgs<ExtArgs>
   encounter?: boolean | Prisma.EncounterDefaultArgs<ExtArgs>
@@ -1371,6 +1481,11 @@ export type $LabOrderPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     status: $Enums.LabOrderStatus
     priority: $Enums.EncounterPriority
     clinicalNotes: string | null
+    /**
+     * Doctor interpretation / notes after reviewing verified results
+     */
+    doctorReviewNotes: string | null
+    doctorReviewedAt: Date | null
     createdAt: Date
     updatedAt: Date
     cancelledAt: Date | null
@@ -1811,6 +1926,8 @@ export interface LabOrderFieldRefs {
   readonly status: Prisma.FieldRef<"LabOrder", 'LabOrderStatus'>
   readonly priority: Prisma.FieldRef<"LabOrder", 'EncounterPriority'>
   readonly clinicalNotes: Prisma.FieldRef<"LabOrder", 'String'>
+  readonly doctorReviewNotes: Prisma.FieldRef<"LabOrder", 'String'>
+  readonly doctorReviewedAt: Prisma.FieldRef<"LabOrder", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"LabOrder", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"LabOrder", 'DateTime'>
   readonly cancelledAt: Prisma.FieldRef<"LabOrder", 'DateTime'>

@@ -1,5 +1,6 @@
 import { Type } from "class-transformer";
 import {
+  IsBoolean,
   IsInt,
   IsNumber,
   IsOptional,
@@ -33,5 +34,8 @@ export class RecordTriageDto {
   heightCm?: number;
   @IsOptional() @IsInt() @Min(0) @Max(10) painScore?: number;
   @IsOptional() @IsInt() @Min(20) @Max(600) bloodGlucoseMgDl?: number;
+  @IsOptional() @IsBoolean() pregnancySuspected?: boolean;
+  @IsOptional() @IsBoolean() mchNeeded?: boolean;
+  @IsOptional() @IsBoolean() fpNeeded?: boolean;
   @IsOptional() @IsString() notes?: string;
 }

@@ -77,13 +77,21 @@ export const ModelName = {
   Dispensing: 'Dispensing',
   DispensingItem: 'DispensingItem',
   Invoice: 'Invoice',
+  InvoiceAdjustment: 'InvoiceAdjustment',
   InvoiceItem: 'InvoiceItem',
   Payment: 'Payment',
   Refund: 'Refund',
   ExpenseCategory: 'ExpenseCategory',
   Expense: 'Expense',
   CashSession: 'CashSession',
-  Notification: 'Notification'
+  Notification: 'Notification',
+  ObstetricHistory: 'ObstetricHistory',
+  AncVisit: 'AncVisit',
+  LaborAdmission: 'LaborAdmission',
+  LaborMonitoringEntry: 'LaborMonitoringEntry',
+  DeliverySummary: 'DeliverySummary',
+  NewbornRecord: 'NewbornRecord',
+  FamilyPlanningRecord: 'FamilyPlanningRecord'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -276,6 +284,9 @@ export const TriageScalarFieldEnum = {
   heightCm: 'heightCm',
   painScore: 'painScore',
   bloodGlucoseMgDl: 'bloodGlucoseMgDl',
+  pregnancySuspected: 'pregnancySuspected',
+  mchNeeded: 'mchNeeded',
+  fpNeeded: 'fpNeeded',
   notes: 'notes',
   recordedById: 'recordedById',
   recordedAt: 'recordedAt',
@@ -296,6 +307,7 @@ export const ConsultationScalarFieldEnum = {
   assessment: 'assessment',
   plan: 'plan',
   notes: 'notes',
+  labNotes: 'labNotes',
   referralSheet: 'referralSheet',
   status: 'status',
   finalizedAt: 'finalizedAt',
@@ -369,6 +381,8 @@ export const LabOrderScalarFieldEnum = {
   status: 'status',
   priority: 'priority',
   clinicalNotes: 'clinicalNotes',
+  doctorReviewNotes: 'doctorReviewNotes',
+  doctorReviewedAt: 'doctorReviewedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   cancelledAt: 'cancelledAt'
@@ -530,6 +544,8 @@ export const InvoiceScalarFieldEnum = {
   discountCents: 'discountCents',
   totalCents: 'totalCents',
   paidCents: 'paidCents',
+  waivedCents: 'waivedCents',
+  deferredCents: 'deferredCents',
   issuedById: 'issuedById',
   issuedAt: 'issuedAt',
   createdAt: 'createdAt',
@@ -537,6 +553,21 @@ export const InvoiceScalarFieldEnum = {
 } as const
 
 export type InvoiceScalarFieldEnum = (typeof InvoiceScalarFieldEnum)[keyof typeof InvoiceScalarFieldEnum]
+
+
+export const InvoiceAdjustmentScalarFieldEnum = {
+  id: 'id',
+  invoiceId: 'invoiceId',
+  patientId: 'patientId',
+  type: 'type',
+  amountCents: 'amountCents',
+  reason: 'reason',
+  idempotencyKey: 'idempotencyKey',
+  recordedById: 'recordedById',
+  createdAt: 'createdAt'
+} as const
+
+export type InvoiceAdjustmentScalarFieldEnum = (typeof InvoiceAdjustmentScalarFieldEnum)[keyof typeof InvoiceAdjustmentScalarFieldEnum]
 
 
 export const InvoiceItemScalarFieldEnum = {
@@ -566,6 +597,7 @@ export const PaymentScalarFieldEnum = {
   idempotencyKey: 'idempotencyKey',
   recordedById: 'recordedById',
   cashSessionId: 'cashSessionId',
+  isDebtPayment: 'isDebtPayment',
   createdAt: 'createdAt'
 } as const
 
@@ -651,6 +683,195 @@ export const NotificationScalarFieldEnum = {
 } as const
 
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const ObstetricHistoryScalarFieldEnum = {
+  id: 'id',
+  patientId: 'patientId',
+  gravidity: 'gravidity',
+  term: 'term',
+  preterm: 'preterm',
+  abortion: 'abortion',
+  living: 'living',
+  lmp: 'lmp',
+  edd: 'edd',
+  previousDelivery: 'previousDelivery',
+  previousCs: 'previousCs',
+  previousPph: 'previousPph',
+  previousPetEclampsia: 'previousPetEclampsia',
+  stillbirth: 'stillbirth',
+  otherComplications: 'otherComplications',
+  bloodGroupRh: 'bloodGroupRh',
+  hivStatus: 'hivStatus',
+  syphilisStatus: 'syphilisStatus',
+  hepatitisBStatus: 'hepatitisBStatus',
+  tetanusStatus: 'tetanusStatus',
+  recordedById: 'recordedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ObstetricHistoryScalarFieldEnum = (typeof ObstetricHistoryScalarFieldEnum)[keyof typeof ObstetricHistoryScalarFieldEnum]
+
+
+export const AncVisitScalarFieldEnum = {
+  id: 'id',
+  patientId: 'patientId',
+  encounterId: 'encounterId',
+  visitNumber: 'visitNumber',
+  visitDate: 'visitDate',
+  gaWeeks: 'gaWeeks',
+  gaDays: 'gaDays',
+  weightKg: 'weightKg',
+  systolic: 'systolic',
+  diastolic: 'diastolic',
+  pulseRate: 'pulseRate',
+  fundalHeightCm: 'fundalHeightCm',
+  fetalHeartRate: 'fetalHeartRate',
+  fetalPresentation: 'fetalPresentation',
+  fetalMovement: 'fetalMovement',
+  urineProtein: 'urineProtein',
+  urineGlucose: 'urineGlucose',
+  hemoglobinGdl: 'hemoglobinGdl',
+  bloodGlucose: 'bloodGlucose',
+  riskAssessment: 'riskAssessment',
+  treatment: 'treatment',
+  ultrasoundFindings: 'ultrasoundFindings',
+  nextAppointment: 'nextAppointment',
+  recordedById: 'recordedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type AncVisitScalarFieldEnum = (typeof AncVisitScalarFieldEnum)[keyof typeof AncVisitScalarFieldEnum]
+
+
+export const LaborAdmissionScalarFieldEnum = {
+  id: 'id',
+  encounterId: 'encounterId',
+  admittedAt: 'admittedAt',
+  gaWeeks: 'gaWeeks',
+  onsetOfLabor: 'onsetOfLabor',
+  cervicalDilatationCm: 'cervicalDilatationCm',
+  cervicalEffacementPct: 'cervicalEffacementPct',
+  membraneStatus: 'membraneStatus',
+  liquor: 'liquor',
+  fetalPresentation: 'fetalPresentation',
+  fetalHeartRate: 'fetalHeartRate',
+  contractionsNote: 'contractionsNote',
+  systolic: 'systolic',
+  diastolic: 'diastolic',
+  pulseRate: 'pulseRate',
+  temperatureC: 'temperatureC',
+  recordedById: 'recordedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type LaborAdmissionScalarFieldEnum = (typeof LaborAdmissionScalarFieldEnum)[keyof typeof LaborAdmissionScalarFieldEnum]
+
+
+export const LaborMonitoringEntryScalarFieldEnum = {
+  id: 'id',
+  laborAdmissionId: 'laborAdmissionId',
+  recordedAt: 'recordedAt',
+  cervicalDilatationCm: 'cervicalDilatationCm',
+  fetalHeartRate: 'fetalHeartRate',
+  contractionsPer10Min: 'contractionsPer10Min',
+  contractionDurationSec: 'contractionDurationSec',
+  membraneLiquorNote: 'membraneLiquorNote',
+  descentFifths: 'descentFifths',
+  systolic: 'systolic',
+  diastolic: 'diastolic',
+  pulseRate: 'pulseRate',
+  urineOutputMl: 'urineOutputMl',
+  medicationNote: 'medicationNote',
+  recordedById: 'recordedById',
+  createdAt: 'createdAt'
+} as const
+
+export type LaborMonitoringEntryScalarFieldEnum = (typeof LaborMonitoringEntryScalarFieldEnum)[keyof typeof LaborMonitoringEntryScalarFieldEnum]
+
+
+export const DeliverySummaryScalarFieldEnum = {
+  id: 'id',
+  encounterId: 'encounterId',
+  deliveredAt: 'deliveredAt',
+  modeOfDelivery: 'modeOfDelivery',
+  csIndication: 'csIndication',
+  placeOfDelivery: 'placeOfDelivery',
+  presentation: 'presentation',
+  episiotomy: 'episiotomy',
+  perinealTearDegree: 'perinealTearDegree',
+  placenta: 'placenta',
+  thirdStageManagement: 'thirdStageManagement',
+  estimatedBloodLossMl: 'estimatedBloodLossMl',
+  complications: 'complications',
+  maternalCondition: 'maternalCondition',
+  pph: 'pph',
+  bloodTransfusion: 'bloodTransfusion',
+  additionalIntervention: 'additionalIntervention',
+  postDeliverySystolic: 'postDeliverySystolic',
+  postDeliveryDiastolic: 'postDeliveryDiastolic',
+  disposition: 'disposition',
+  recordedById: 'recordedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type DeliverySummaryScalarFieldEnum = (typeof DeliverySummaryScalarFieldEnum)[keyof typeof DeliverySummaryScalarFieldEnum]
+
+
+export const NewbornRecordScalarFieldEnum = {
+  id: 'id',
+  deliverySummaryId: 'deliverySummaryId',
+  birthOrder: 'birthOrder',
+  sex: 'sex',
+  birthWeightGrams: 'birthWeightGrams',
+  apgar1: 'apgar1',
+  apgar5: 'apgar5',
+  gaWeeks: 'gaWeeks',
+  status: 'status',
+  resuscitation: 'resuscitation',
+  nicuAdmission: 'nicuAdmission',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NewbornRecordScalarFieldEnum = (typeof NewbornRecordScalarFieldEnum)[keyof typeof NewbornRecordScalarFieldEnum]
+
+
+export const FamilyPlanningRecordScalarFieldEnum = {
+  id: 'id',
+  patientId: 'patientId',
+  encounterId: 'encounterId',
+  visitType: 'visitType',
+  gravidity: 'gravidity',
+  parity: 'parity',
+  livingChildren: 'livingChildren',
+  previousMethod: 'previousMethod',
+  currentMethod: 'currentMethod',
+  pregnancyStatus: 'pregnancyStatus',
+  systolic: 'systolic',
+  diastolic: 'diastolic',
+  contraindications: 'contraindications',
+  counselingDone: 'counselingDone',
+  counselingNotes: 'counselingNotes',
+  procedureDate: 'procedureDate',
+  sideEffects: 'sideEffects',
+  nextAppointment: 'nextAppointment',
+  outcome: 'outcome',
+  recordedById: 'recordedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type FamilyPlanningRecordScalarFieldEnum = (typeof FamilyPlanningRecordScalarFieldEnum)[keyof typeof FamilyPlanningRecordScalarFieldEnum]
 
 
 export const SortOrder = {

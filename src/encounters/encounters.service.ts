@@ -19,6 +19,7 @@ import { PrismaService } from "../prisma/prisma.service";
 import { CreateEncounterDto, PaymentRequestDto } from "./dto/encounter.dto";
 import { ENCOUNTER_TRANSITIONS, STATION_STATUS } from "./encounter-state";
 import { nextVisitNumber } from "./visit-number";
+import { invoiceDueNow } from "../common/domain/finance";
 
 @Injectable()
 export class EncountersService {
@@ -75,19 +76,20 @@ export class EncountersService {
           select: { firstName: true, lastName: true },
         },
         invoice: {
-          select: { status: true, totalCents: true, paidCents: true },
+          select: {
+            status: true,
+            totalCents: true,
+            paidCents: true,
+            waivedCents: true,
+            deferredCents: true,
+          },
         },
         consultation: { select: { id: true, status: true } },
       },
     });
     if (active) {
-      const unpaid = active.invoice
-        ? Math.max(0, active.invoice.totalCents - active.invoice.paidCents)
-        : 0;
-      const paidOff =
-        !active.invoice ||
-        active.invoice.status === "PAID" ||
-        unpaid <= 0;
+      const unpaid = active.invoice ? invoiceDueNow(active.invoice) : 0;
+      const paidOff = unpaid <= 0;
 
       // Stuck at cashier after fee already collected - close so a new return can start.
       if (active.status === "WAITING_PAYMENT" && paidOff) {
@@ -205,7 +207,13 @@ export class EncountersService {
         service: true,
         department: true,
         invoice: {
-          select: { status: true, totalCents: true, paidCents: true },
+          select: {
+            status: true,
+            totalCents: true,
+            paidCents: true,
+            waivedCents: true,
+            deferredCents: true,
+          },
         },
         assignedDoctor: {
           select: { id: true, firstName: true, lastName: true },
@@ -241,11 +249,8 @@ export class EncountersService {
 
     const open: typeof rows = [];
     for (const row of rows) {
-      const unpaid = row.invoice
-        ? Math.max(0, row.invoice.totalCents - row.invoice.paidCents)
-        : 0;
-      const paidOff =
-        !row.invoice || row.invoice.status === "PAID" || unpaid <= 0;
+      const unpaid = row.invoice ? invoiceDueNow(row.invoice) : 0;
+      const paidOff = unpaid <= 0;
       if (paidOff && row.status === "WAITING_PAYMENT") {
         await this.closePaidVisit(row.id);
         continue;

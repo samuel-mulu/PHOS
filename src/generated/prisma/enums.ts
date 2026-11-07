@@ -259,3 +259,175 @@ export const NotificationType = {
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
+
+
+export const PreviousDeliveryMode = {
+  SVD: 'SVD',
+  CS: 'CS',
+  INSTRUMENTAL: 'INSTRUMENTAL'
+} as const
+
+export type PreviousDeliveryMode = (typeof PreviousDeliveryMode)[keyof typeof PreviousDeliveryMode]
+
+
+export const FetalPresentation = {
+  CEPHALIC: 'CEPHALIC',
+  BREECH: 'BREECH',
+  TRANSVERSE: 'TRANSVERSE'
+} as const
+
+export type FetalPresentation = (typeof FetalPresentation)[keyof typeof FetalPresentation]
+
+
+export const FetalMovement = {
+  PRESENT: 'PRESENT',
+  ABSENT: 'ABSENT'
+} as const
+
+export type FetalMovement = (typeof FetalMovement)[keyof typeof FetalMovement]
+
+
+export const AncRiskLevel = {
+  LOW: 'LOW',
+  HIGH: 'HIGH'
+} as const
+
+export type AncRiskLevel = (typeof AncRiskLevel)[keyof typeof AncRiskLevel]
+
+
+export const LaborOnset = {
+  SPONTANEOUS: 'SPONTANEOUS',
+  INDUCED: 'INDUCED'
+} as const
+
+export type LaborOnset = (typeof LaborOnset)[keyof typeof LaborOnset]
+
+
+export const MembraneStatus = {
+  INTACT: 'INTACT',
+  RUPTURED: 'RUPTURED'
+} as const
+
+export type MembraneStatus = (typeof MembraneStatus)[keyof typeof MembraneStatus]
+
+
+export const LiquorStatus = {
+  CLEAR: 'CLEAR',
+  MECONIUM: 'MECONIUM',
+  BLOOD_STAINED: 'BLOOD_STAINED'
+} as const
+
+export type LiquorStatus = (typeof LiquorStatus)[keyof typeof LiquorStatus]
+
+
+export const DeliveryMode = {
+  SVD: 'SVD',
+  CS: 'CS',
+  ASSISTED_VAGINAL: 'ASSISTED_VAGINAL'
+} as const
+
+export type DeliveryMode = (typeof DeliveryMode)[keyof typeof DeliveryMode]
+
+
+export const DeliveryPlace = {
+  CLINIC: 'CLINIC',
+  REFERRAL: 'REFERRAL'
+} as const
+
+export type DeliveryPlace = (typeof DeliveryPlace)[keyof typeof DeliveryPlace]
+
+
+export const PlacentaStatus = {
+  COMPLETE: 'COMPLETE',
+  INCOMPLETE: 'INCOMPLETE'
+} as const
+
+export type PlacentaStatus = (typeof PlacentaStatus)[keyof typeof PlacentaStatus]
+
+
+export const ThirdStageManagement = {
+  ACTIVE: 'ACTIVE',
+  PHYSIOLOGICAL: 'PHYSIOLOGICAL'
+} as const
+
+export type ThirdStageManagement = (typeof ThirdStageManagement)[keyof typeof ThirdStageManagement]
+
+
+export const BabySex = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE'
+} as const
+
+export type BabySex = (typeof BabySex)[keyof typeof BabySex]
+
+
+export const BabyStatus = {
+  ALIVE: 'ALIVE',
+  STILLBIRTH: 'STILLBIRTH'
+} as const
+
+export type BabyStatus = (typeof BabyStatus)[keyof typeof BabyStatus]
+
+
+export const MaternalCondition = {
+  STABLE: 'STABLE',
+  UNSTABLE: 'UNSTABLE'
+} as const
+
+export type MaternalCondition = (typeof MaternalCondition)[keyof typeof MaternalCondition]
+
+
+export const PostDeliveryDisposition = {
+  POSTNATAL_WARD: 'POSTNATAL_WARD',
+  REFERRAL: 'REFERRAL',
+  OTHER: 'OTHER'
+} as const
+
+export type PostDeliveryDisposition = (typeof PostDeliveryDisposition)[keyof typeof PostDeliveryDisposition]
+
+
+export const FpVisitType = {
+  NEW: 'NEW',
+  RETURNING: 'RETURNING',
+  SWITCHING: 'SWITCHING',
+  FOLLOW_UP: 'FOLLOW_UP'
+} as const
+
+export type FpVisitType = (typeof FpVisitType)[keyof typeof FpVisitType]
+
+
+export const ContraceptiveMethod = {
+  IUCD: 'IUCD',
+  IMPLANT: 'IMPLANT',
+  INJECTABLE_DMPA: 'INJECTABLE_DMPA',
+  COC: 'COC',
+  POP: 'POP',
+  CONDOM_MALE: 'CONDOM_MALE',
+  CONDOM_FEMALE: 'CONDOM_FEMALE',
+  EMERGENCY: 'EMERGENCY',
+  NATURAL: 'NATURAL',
+  LAM: 'LAM',
+  TUBAL_LIGATION: 'TUBAL_LIGATION',
+  VASECTOMY: 'VASECTOMY',
+  OTHER: 'OTHER'
+} as const
+
+export type ContraceptiveMethod = (typeof ContraceptiveMethod)[keyof typeof ContraceptiveMethod]
+
+
+export const FpOutcome = {
+  CONTINUE: 'CONTINUE',
+  DISCONTINUE: 'DISCONTINUE',
+  REMOVE: 'REMOVE',
+  SWITCH: 'SWITCH'
+} as const
+
+export type FpOutcome = (typeof FpOutcome)[keyof typeof FpOutcome]
+
+
+export const InvoiceAdjustmentType = {
+  DEFER: 'DEFER',
+  WAIVE: 'WAIVE'
+} as const
+
+export type InvoiceAdjustmentType = (typeof InvoiceAdjustmentType)[keyof typeof InvoiceAdjustmentType]

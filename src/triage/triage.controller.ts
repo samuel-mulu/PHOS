@@ -14,7 +14,16 @@ export class TriageController {
   @Get() find(@Param("encounterId") id: string) {
     return this.service.find(id);
   }
-  @Roles(Role.CEO, Role.ADMIN, Role.NURSE) @Put() record(
+  @Roles(
+    Role.CEO,
+    Role.ADMIN,
+    Role.NURSE,
+    Role.FRONT_DESK,
+    Role.RECEPTIONIST,
+    Role.CASHIER,
+  )
+  @Put()
+  record(
     @Param("encounterId") id: string,
     @Body() dto: RecordTriageDto,
     @CurrentUser() user: AuthUser,

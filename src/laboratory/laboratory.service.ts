@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   ConflictException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from "@nestjs/common";
@@ -14,6 +15,7 @@ import {
   CreateLabOrderDto,
   CreateLabTestDto,
   EnterLabResultsDto,
+  SaveDoctorLabNotesDto,
   UpdateLabTestDto,
 } from "./dto/laboratory.dto";
 @Injectable()
@@ -408,11 +410,11 @@ export class LaboratoryService {
       const count = await tx.labResult.count({
         where: { labOrderItemId: { in: order.items.map((item) => item.id) } },
       });
+      // Partial results are allowed: any recorded value unlocks send-to-doctor.
       await tx.labOrder.update({
         where: { id },
         data: {
-          status:
-            count === order.items.length ? "RESULT_ENTERED" : "PROCESSING",
+          status: count > 0 ? "RESULT_ENTERED" : "PROCESSING",
         },
       });
       await this.audit.create(
@@ -436,17 +438,26 @@ export class LaboratoryService {
         where: { id },
         include: { items: { include: { result: true } } },
       });
+      const enteredCount =
+        order?.items.filter((item) => item.result).length ?? 0;
       if (
         !order ||
-        order.status !== "RESULT_ENTERED" ||
-        order.items.some((item) => !item.result)
+        !["RESULT_ENTERED", "PROCESSING"].includes(order.status) ||
+        enteredCount < 1
       )
         throw new ConflictException(
-          "All results must be entered before verification",
+          "At least one result must be entered before sending to the doctor",
         );
       const now = new Date();
+      // Only verify rows that exist — missing tests stay blank / "Not added".
       await tx.labResult.updateMany({
-        where: { labOrderItemId: { in: order.items.map((item) => item.id) } },
+        where: {
+          labOrderItemId: {
+            in: order.items
+              .filter((item) => item.result)
+              .map((item) => item.id),
+          },
+        },
         data: { verifiedById: supervisorId, verifiedAt: now },
       });
       const updated = await tx.labOrder.update({
@@ -526,5 +537,52 @@ export class LaboratoryService {
       );
       return updated;
     });
+  }
+
+  async saveDoctorReviewNotes(
+    id: string,
+    dto: SaveDoctorLabNotesDto,
+    actorId: string,
+    actorRole: Role,
+  ) {
+    const order = await this.prisma.labOrder.findUnique({
+      where: { id },
+      include: {
+        patient: true,
+        doctor: { select: { id: true, firstName: true, lastName: true } },
+        items: { include: { labTest: true, result: true } },
+      },
+    });
+    if (!order) throw new NotFoundException("Lab order not found");
+    if (order.status !== "VERIFIED")
+      throw new ConflictException(
+        "Doctor notes can only be saved after lab results are verified",
+      );
+    const elevated = actorRole === Role.ADMIN || actorRole === Role.CEO;
+    if (!elevated && order.doctorId !== actorId)
+      throw new ForbiddenException(
+        "Only the ordering doctor can save review notes on this order",
+      );
+
+    const notes = dto.doctorReviewNotes.trim();
+    const updated = await this.prisma.labOrder.update({
+      where: { id },
+      data: {
+        doctorReviewNotes: notes || null,
+        doctorReviewedAt: notes ? new Date() : null,
+      },
+      include: {
+        patient: true,
+        doctor: { select: { id: true, firstName: true, lastName: true } },
+        items: { include: { labTest: true, result: true } },
+      },
+    });
+    await this.audit.create({
+      actorId,
+      action: "lab.doctor_notes_saved",
+      entityType: "LabOrder",
+      entityId: id,
+    });
+    return updated;
   }
 }

@@ -423,13 +423,21 @@ export const ModelName = {
   Dispensing: 'Dispensing',
   DispensingItem: 'DispensingItem',
   Invoice: 'Invoice',
+  InvoiceAdjustment: 'InvoiceAdjustment',
   InvoiceItem: 'InvoiceItem',
   Payment: 'Payment',
   Refund: 'Refund',
   ExpenseCategory: 'ExpenseCategory',
   Expense: 'Expense',
   CashSession: 'CashSession',
-  Notification: 'Notification'
+  Notification: 'Notification',
+  ObstetricHistory: 'ObstetricHistory',
+  AncVisit: 'AncVisit',
+  LaborAdmission: 'LaborAdmission',
+  LaborMonitoringEntry: 'LaborMonitoringEntry',
+  DeliverySummary: 'DeliverySummary',
+  NewbornRecord: 'NewbornRecord',
+  FamilyPlanningRecord: 'FamilyPlanningRecord'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -445,7 +453,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshSession" | "facility" | "department" | "service" | "patient" | "encounter" | "appointment" | "queueEntry" | "triage" | "consultation" | "diagnosis" | "auditLog" | "labTest" | "labOrder" | "labOrderItem" | "labResult" | "prescription" | "prescriptionItem" | "medicine" | "supplier" | "inventoryBatch" | "inventoryMovement" | "dispensing" | "dispensingItem" | "invoice" | "invoiceItem" | "payment" | "refund" | "expenseCategory" | "expense" | "cashSession" | "notification"
+    modelProps: "user" | "refreshSession" | "facility" | "department" | "service" | "patient" | "encounter" | "appointment" | "queueEntry" | "triage" | "consultation" | "diagnosis" | "auditLog" | "labTest" | "labOrder" | "labOrderItem" | "labResult" | "prescription" | "prescriptionItem" | "medicine" | "supplier" | "inventoryBatch" | "inventoryMovement" | "dispensing" | "dispensingItem" | "invoice" | "invoiceAdjustment" | "invoiceItem" | "payment" | "refund" | "expenseCategory" | "expense" | "cashSession" | "notification" | "obstetricHistory" | "ancVisit" | "laborAdmission" | "laborMonitoringEntry" | "deliverySummary" | "newbornRecord" | "familyPlanningRecord"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2373,6 +2381,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    InvoiceAdjustment: {
+      payload: Prisma.$InvoiceAdjustmentPayload<ExtArgs>
+      fields: Prisma.InvoiceAdjustmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.InvoiceAdjustmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvoiceAdjustmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.InvoiceAdjustmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvoiceAdjustmentPayload>
+        }
+        findFirst: {
+          args: Prisma.InvoiceAdjustmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvoiceAdjustmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.InvoiceAdjustmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvoiceAdjustmentPayload>
+        }
+        findMany: {
+          args: Prisma.InvoiceAdjustmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvoiceAdjustmentPayload>[]
+        }
+        create: {
+          args: Prisma.InvoiceAdjustmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvoiceAdjustmentPayload>
+        }
+        createMany: {
+          args: Prisma.InvoiceAdjustmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.InvoiceAdjustmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvoiceAdjustmentPayload>[]
+        }
+        delete: {
+          args: Prisma.InvoiceAdjustmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvoiceAdjustmentPayload>
+        }
+        update: {
+          args: Prisma.InvoiceAdjustmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvoiceAdjustmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.InvoiceAdjustmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.InvoiceAdjustmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.InvoiceAdjustmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvoiceAdjustmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.InvoiceAdjustmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InvoiceAdjustmentPayload>
+        }
+        aggregate: {
+          args: Prisma.InvoiceAdjustmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInvoiceAdjustment>
+        }
+        groupBy: {
+          args: Prisma.InvoiceAdjustmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InvoiceAdjustmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.InvoiceAdjustmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InvoiceAdjustmentCountAggregateOutputType> | number
+        }
+      }
+    }
     InvoiceItem: {
       payload: Prisma.$InvoiceItemPayload<ExtArgs>
       fields: Prisma.InvoiceItemFieldRefs
@@ -2891,6 +2973,524 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ObstetricHistory: {
+      payload: Prisma.$ObstetricHistoryPayload<ExtArgs>
+      fields: Prisma.ObstetricHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ObstetricHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ObstetricHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ObstetricHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ObstetricHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.ObstetricHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ObstetricHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ObstetricHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ObstetricHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.ObstetricHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ObstetricHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.ObstetricHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ObstetricHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.ObstetricHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ObstetricHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ObstetricHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.ObstetricHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ObstetricHistoryPayload>
+        }
+        update: {
+          args: Prisma.ObstetricHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ObstetricHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.ObstetricHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ObstetricHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ObstetricHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ObstetricHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.ObstetricHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ObstetricHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.ObstetricHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateObstetricHistory>
+        }
+        groupBy: {
+          args: Prisma.ObstetricHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ObstetricHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ObstetricHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ObstetricHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
+    AncVisit: {
+      payload: Prisma.$AncVisitPayload<ExtArgs>
+      fields: Prisma.AncVisitFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AncVisitFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AncVisitPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AncVisitFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AncVisitPayload>
+        }
+        findFirst: {
+          args: Prisma.AncVisitFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AncVisitPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AncVisitFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AncVisitPayload>
+        }
+        findMany: {
+          args: Prisma.AncVisitFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AncVisitPayload>[]
+        }
+        create: {
+          args: Prisma.AncVisitCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AncVisitPayload>
+        }
+        createMany: {
+          args: Prisma.AncVisitCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AncVisitCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AncVisitPayload>[]
+        }
+        delete: {
+          args: Prisma.AncVisitDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AncVisitPayload>
+        }
+        update: {
+          args: Prisma.AncVisitUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AncVisitPayload>
+        }
+        deleteMany: {
+          args: Prisma.AncVisitDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AncVisitUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AncVisitUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AncVisitPayload>[]
+        }
+        upsert: {
+          args: Prisma.AncVisitUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AncVisitPayload>
+        }
+        aggregate: {
+          args: Prisma.AncVisitAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAncVisit>
+        }
+        groupBy: {
+          args: Prisma.AncVisitGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AncVisitGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AncVisitCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AncVisitCountAggregateOutputType> | number
+        }
+      }
+    }
+    LaborAdmission: {
+      payload: Prisma.$LaborAdmissionPayload<ExtArgs>
+      fields: Prisma.LaborAdmissionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LaborAdmissionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborAdmissionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LaborAdmissionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborAdmissionPayload>
+        }
+        findFirst: {
+          args: Prisma.LaborAdmissionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborAdmissionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LaborAdmissionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborAdmissionPayload>
+        }
+        findMany: {
+          args: Prisma.LaborAdmissionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborAdmissionPayload>[]
+        }
+        create: {
+          args: Prisma.LaborAdmissionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborAdmissionPayload>
+        }
+        createMany: {
+          args: Prisma.LaborAdmissionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LaborAdmissionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborAdmissionPayload>[]
+        }
+        delete: {
+          args: Prisma.LaborAdmissionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborAdmissionPayload>
+        }
+        update: {
+          args: Prisma.LaborAdmissionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborAdmissionPayload>
+        }
+        deleteMany: {
+          args: Prisma.LaborAdmissionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LaborAdmissionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LaborAdmissionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborAdmissionPayload>[]
+        }
+        upsert: {
+          args: Prisma.LaborAdmissionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborAdmissionPayload>
+        }
+        aggregate: {
+          args: Prisma.LaborAdmissionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLaborAdmission>
+        }
+        groupBy: {
+          args: Prisma.LaborAdmissionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LaborAdmissionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LaborAdmissionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LaborAdmissionCountAggregateOutputType> | number
+        }
+      }
+    }
+    LaborMonitoringEntry: {
+      payload: Prisma.$LaborMonitoringEntryPayload<ExtArgs>
+      fields: Prisma.LaborMonitoringEntryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LaborMonitoringEntryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborMonitoringEntryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LaborMonitoringEntryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborMonitoringEntryPayload>
+        }
+        findFirst: {
+          args: Prisma.LaborMonitoringEntryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborMonitoringEntryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LaborMonitoringEntryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborMonitoringEntryPayload>
+        }
+        findMany: {
+          args: Prisma.LaborMonitoringEntryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborMonitoringEntryPayload>[]
+        }
+        create: {
+          args: Prisma.LaborMonitoringEntryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborMonitoringEntryPayload>
+        }
+        createMany: {
+          args: Prisma.LaborMonitoringEntryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LaborMonitoringEntryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborMonitoringEntryPayload>[]
+        }
+        delete: {
+          args: Prisma.LaborMonitoringEntryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborMonitoringEntryPayload>
+        }
+        update: {
+          args: Prisma.LaborMonitoringEntryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborMonitoringEntryPayload>
+        }
+        deleteMany: {
+          args: Prisma.LaborMonitoringEntryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LaborMonitoringEntryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LaborMonitoringEntryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborMonitoringEntryPayload>[]
+        }
+        upsert: {
+          args: Prisma.LaborMonitoringEntryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LaborMonitoringEntryPayload>
+        }
+        aggregate: {
+          args: Prisma.LaborMonitoringEntryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLaborMonitoringEntry>
+        }
+        groupBy: {
+          args: Prisma.LaborMonitoringEntryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LaborMonitoringEntryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LaborMonitoringEntryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LaborMonitoringEntryCountAggregateOutputType> | number
+        }
+      }
+    }
+    DeliverySummary: {
+      payload: Prisma.$DeliverySummaryPayload<ExtArgs>
+      fields: Prisma.DeliverySummaryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DeliverySummaryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliverySummaryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DeliverySummaryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliverySummaryPayload>
+        }
+        findFirst: {
+          args: Prisma.DeliverySummaryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliverySummaryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DeliverySummaryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliverySummaryPayload>
+        }
+        findMany: {
+          args: Prisma.DeliverySummaryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliverySummaryPayload>[]
+        }
+        create: {
+          args: Prisma.DeliverySummaryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliverySummaryPayload>
+        }
+        createMany: {
+          args: Prisma.DeliverySummaryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DeliverySummaryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliverySummaryPayload>[]
+        }
+        delete: {
+          args: Prisma.DeliverySummaryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliverySummaryPayload>
+        }
+        update: {
+          args: Prisma.DeliverySummaryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliverySummaryPayload>
+        }
+        deleteMany: {
+          args: Prisma.DeliverySummaryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DeliverySummaryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DeliverySummaryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliverySummaryPayload>[]
+        }
+        upsert: {
+          args: Prisma.DeliverySummaryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliverySummaryPayload>
+        }
+        aggregate: {
+          args: Prisma.DeliverySummaryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDeliverySummary>
+        }
+        groupBy: {
+          args: Prisma.DeliverySummaryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DeliverySummaryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DeliverySummaryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DeliverySummaryCountAggregateOutputType> | number
+        }
+      }
+    }
+    NewbornRecord: {
+      payload: Prisma.$NewbornRecordPayload<ExtArgs>
+      fields: Prisma.NewbornRecordFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.NewbornRecordFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewbornRecordPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.NewbornRecordFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewbornRecordPayload>
+        }
+        findFirst: {
+          args: Prisma.NewbornRecordFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewbornRecordPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.NewbornRecordFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewbornRecordPayload>
+        }
+        findMany: {
+          args: Prisma.NewbornRecordFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewbornRecordPayload>[]
+        }
+        create: {
+          args: Prisma.NewbornRecordCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewbornRecordPayload>
+        }
+        createMany: {
+          args: Prisma.NewbornRecordCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.NewbornRecordCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewbornRecordPayload>[]
+        }
+        delete: {
+          args: Prisma.NewbornRecordDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewbornRecordPayload>
+        }
+        update: {
+          args: Prisma.NewbornRecordUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewbornRecordPayload>
+        }
+        deleteMany: {
+          args: Prisma.NewbornRecordDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.NewbornRecordUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.NewbornRecordUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewbornRecordPayload>[]
+        }
+        upsert: {
+          args: Prisma.NewbornRecordUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NewbornRecordPayload>
+        }
+        aggregate: {
+          args: Prisma.NewbornRecordAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateNewbornRecord>
+        }
+        groupBy: {
+          args: Prisma.NewbornRecordGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NewbornRecordGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.NewbornRecordCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NewbornRecordCountAggregateOutputType> | number
+        }
+      }
+    }
+    FamilyPlanningRecord: {
+      payload: Prisma.$FamilyPlanningRecordPayload<ExtArgs>
+      fields: Prisma.FamilyPlanningRecordFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FamilyPlanningRecordFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FamilyPlanningRecordPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FamilyPlanningRecordFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FamilyPlanningRecordPayload>
+        }
+        findFirst: {
+          args: Prisma.FamilyPlanningRecordFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FamilyPlanningRecordPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FamilyPlanningRecordFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FamilyPlanningRecordPayload>
+        }
+        findMany: {
+          args: Prisma.FamilyPlanningRecordFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FamilyPlanningRecordPayload>[]
+        }
+        create: {
+          args: Prisma.FamilyPlanningRecordCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FamilyPlanningRecordPayload>
+        }
+        createMany: {
+          args: Prisma.FamilyPlanningRecordCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FamilyPlanningRecordCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FamilyPlanningRecordPayload>[]
+        }
+        delete: {
+          args: Prisma.FamilyPlanningRecordDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FamilyPlanningRecordPayload>
+        }
+        update: {
+          args: Prisma.FamilyPlanningRecordUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FamilyPlanningRecordPayload>
+        }
+        deleteMany: {
+          args: Prisma.FamilyPlanningRecordDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FamilyPlanningRecordUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FamilyPlanningRecordUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FamilyPlanningRecordPayload>[]
+        }
+        upsert: {
+          args: Prisma.FamilyPlanningRecordUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FamilyPlanningRecordPayload>
+        }
+        aggregate: {
+          args: Prisma.FamilyPlanningRecordAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFamilyPlanningRecord>
+        }
+        groupBy: {
+          args: Prisma.FamilyPlanningRecordGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FamilyPlanningRecordGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FamilyPlanningRecordCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FamilyPlanningRecordCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3104,6 +3704,9 @@ export const TriageScalarFieldEnum = {
   heightCm: 'heightCm',
   painScore: 'painScore',
   bloodGlucoseMgDl: 'bloodGlucoseMgDl',
+  pregnancySuspected: 'pregnancySuspected',
+  mchNeeded: 'mchNeeded',
+  fpNeeded: 'fpNeeded',
   notes: 'notes',
   recordedById: 'recordedById',
   recordedAt: 'recordedAt',
@@ -3124,6 +3727,7 @@ export const ConsultationScalarFieldEnum = {
   assessment: 'assessment',
   plan: 'plan',
   notes: 'notes',
+  labNotes: 'labNotes',
   referralSheet: 'referralSheet',
   status: 'status',
   finalizedAt: 'finalizedAt',
@@ -3197,6 +3801,8 @@ export const LabOrderScalarFieldEnum = {
   status: 'status',
   priority: 'priority',
   clinicalNotes: 'clinicalNotes',
+  doctorReviewNotes: 'doctorReviewNotes',
+  doctorReviewedAt: 'doctorReviewedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   cancelledAt: 'cancelledAt'
@@ -3358,6 +3964,8 @@ export const InvoiceScalarFieldEnum = {
   discountCents: 'discountCents',
   totalCents: 'totalCents',
   paidCents: 'paidCents',
+  waivedCents: 'waivedCents',
+  deferredCents: 'deferredCents',
   issuedById: 'issuedById',
   issuedAt: 'issuedAt',
   createdAt: 'createdAt',
@@ -3365,6 +3973,21 @@ export const InvoiceScalarFieldEnum = {
 } as const
 
 export type InvoiceScalarFieldEnum = (typeof InvoiceScalarFieldEnum)[keyof typeof InvoiceScalarFieldEnum]
+
+
+export const InvoiceAdjustmentScalarFieldEnum = {
+  id: 'id',
+  invoiceId: 'invoiceId',
+  patientId: 'patientId',
+  type: 'type',
+  amountCents: 'amountCents',
+  reason: 'reason',
+  idempotencyKey: 'idempotencyKey',
+  recordedById: 'recordedById',
+  createdAt: 'createdAt'
+} as const
+
+export type InvoiceAdjustmentScalarFieldEnum = (typeof InvoiceAdjustmentScalarFieldEnum)[keyof typeof InvoiceAdjustmentScalarFieldEnum]
 
 
 export const InvoiceItemScalarFieldEnum = {
@@ -3394,6 +4017,7 @@ export const PaymentScalarFieldEnum = {
   idempotencyKey: 'idempotencyKey',
   recordedById: 'recordedById',
   cashSessionId: 'cashSessionId',
+  isDebtPayment: 'isDebtPayment',
   createdAt: 'createdAt'
 } as const
 
@@ -3479,6 +4103,195 @@ export const NotificationScalarFieldEnum = {
 } as const
 
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const ObstetricHistoryScalarFieldEnum = {
+  id: 'id',
+  patientId: 'patientId',
+  gravidity: 'gravidity',
+  term: 'term',
+  preterm: 'preterm',
+  abortion: 'abortion',
+  living: 'living',
+  lmp: 'lmp',
+  edd: 'edd',
+  previousDelivery: 'previousDelivery',
+  previousCs: 'previousCs',
+  previousPph: 'previousPph',
+  previousPetEclampsia: 'previousPetEclampsia',
+  stillbirth: 'stillbirth',
+  otherComplications: 'otherComplications',
+  bloodGroupRh: 'bloodGroupRh',
+  hivStatus: 'hivStatus',
+  syphilisStatus: 'syphilisStatus',
+  hepatitisBStatus: 'hepatitisBStatus',
+  tetanusStatus: 'tetanusStatus',
+  recordedById: 'recordedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type ObstetricHistoryScalarFieldEnum = (typeof ObstetricHistoryScalarFieldEnum)[keyof typeof ObstetricHistoryScalarFieldEnum]
+
+
+export const AncVisitScalarFieldEnum = {
+  id: 'id',
+  patientId: 'patientId',
+  encounterId: 'encounterId',
+  visitNumber: 'visitNumber',
+  visitDate: 'visitDate',
+  gaWeeks: 'gaWeeks',
+  gaDays: 'gaDays',
+  weightKg: 'weightKg',
+  systolic: 'systolic',
+  diastolic: 'diastolic',
+  pulseRate: 'pulseRate',
+  fundalHeightCm: 'fundalHeightCm',
+  fetalHeartRate: 'fetalHeartRate',
+  fetalPresentation: 'fetalPresentation',
+  fetalMovement: 'fetalMovement',
+  urineProtein: 'urineProtein',
+  urineGlucose: 'urineGlucose',
+  hemoglobinGdl: 'hemoglobinGdl',
+  bloodGlucose: 'bloodGlucose',
+  riskAssessment: 'riskAssessment',
+  treatment: 'treatment',
+  ultrasoundFindings: 'ultrasoundFindings',
+  nextAppointment: 'nextAppointment',
+  recordedById: 'recordedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type AncVisitScalarFieldEnum = (typeof AncVisitScalarFieldEnum)[keyof typeof AncVisitScalarFieldEnum]
+
+
+export const LaborAdmissionScalarFieldEnum = {
+  id: 'id',
+  encounterId: 'encounterId',
+  admittedAt: 'admittedAt',
+  gaWeeks: 'gaWeeks',
+  onsetOfLabor: 'onsetOfLabor',
+  cervicalDilatationCm: 'cervicalDilatationCm',
+  cervicalEffacementPct: 'cervicalEffacementPct',
+  membraneStatus: 'membraneStatus',
+  liquor: 'liquor',
+  fetalPresentation: 'fetalPresentation',
+  fetalHeartRate: 'fetalHeartRate',
+  contractionsNote: 'contractionsNote',
+  systolic: 'systolic',
+  diastolic: 'diastolic',
+  pulseRate: 'pulseRate',
+  temperatureC: 'temperatureC',
+  recordedById: 'recordedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type LaborAdmissionScalarFieldEnum = (typeof LaborAdmissionScalarFieldEnum)[keyof typeof LaborAdmissionScalarFieldEnum]
+
+
+export const LaborMonitoringEntryScalarFieldEnum = {
+  id: 'id',
+  laborAdmissionId: 'laborAdmissionId',
+  recordedAt: 'recordedAt',
+  cervicalDilatationCm: 'cervicalDilatationCm',
+  fetalHeartRate: 'fetalHeartRate',
+  contractionsPer10Min: 'contractionsPer10Min',
+  contractionDurationSec: 'contractionDurationSec',
+  membraneLiquorNote: 'membraneLiquorNote',
+  descentFifths: 'descentFifths',
+  systolic: 'systolic',
+  diastolic: 'diastolic',
+  pulseRate: 'pulseRate',
+  urineOutputMl: 'urineOutputMl',
+  medicationNote: 'medicationNote',
+  recordedById: 'recordedById',
+  createdAt: 'createdAt'
+} as const
+
+export type LaborMonitoringEntryScalarFieldEnum = (typeof LaborMonitoringEntryScalarFieldEnum)[keyof typeof LaborMonitoringEntryScalarFieldEnum]
+
+
+export const DeliverySummaryScalarFieldEnum = {
+  id: 'id',
+  encounterId: 'encounterId',
+  deliveredAt: 'deliveredAt',
+  modeOfDelivery: 'modeOfDelivery',
+  csIndication: 'csIndication',
+  placeOfDelivery: 'placeOfDelivery',
+  presentation: 'presentation',
+  episiotomy: 'episiotomy',
+  perinealTearDegree: 'perinealTearDegree',
+  placenta: 'placenta',
+  thirdStageManagement: 'thirdStageManagement',
+  estimatedBloodLossMl: 'estimatedBloodLossMl',
+  complications: 'complications',
+  maternalCondition: 'maternalCondition',
+  pph: 'pph',
+  bloodTransfusion: 'bloodTransfusion',
+  additionalIntervention: 'additionalIntervention',
+  postDeliverySystolic: 'postDeliverySystolic',
+  postDeliveryDiastolic: 'postDeliveryDiastolic',
+  disposition: 'disposition',
+  recordedById: 'recordedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type DeliverySummaryScalarFieldEnum = (typeof DeliverySummaryScalarFieldEnum)[keyof typeof DeliverySummaryScalarFieldEnum]
+
+
+export const NewbornRecordScalarFieldEnum = {
+  id: 'id',
+  deliverySummaryId: 'deliverySummaryId',
+  birthOrder: 'birthOrder',
+  sex: 'sex',
+  birthWeightGrams: 'birthWeightGrams',
+  apgar1: 'apgar1',
+  apgar5: 'apgar5',
+  gaWeeks: 'gaWeeks',
+  status: 'status',
+  resuscitation: 'resuscitation',
+  nicuAdmission: 'nicuAdmission',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NewbornRecordScalarFieldEnum = (typeof NewbornRecordScalarFieldEnum)[keyof typeof NewbornRecordScalarFieldEnum]
+
+
+export const FamilyPlanningRecordScalarFieldEnum = {
+  id: 'id',
+  patientId: 'patientId',
+  encounterId: 'encounterId',
+  visitType: 'visitType',
+  gravidity: 'gravidity',
+  parity: 'parity',
+  livingChildren: 'livingChildren',
+  previousMethod: 'previousMethod',
+  currentMethod: 'currentMethod',
+  pregnancyStatus: 'pregnancyStatus',
+  systolic: 'systolic',
+  diastolic: 'diastolic',
+  contraindications: 'contraindications',
+  counselingDone: 'counselingDone',
+  counselingNotes: 'counselingNotes',
+  procedureDate: 'procedureDate',
+  sideEffects: 'sideEffects',
+  nextAppointment: 'nextAppointment',
+  outcome: 'outcome',
+  recordedById: 'recordedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type FamilyPlanningRecordScalarFieldEnum = (typeof FamilyPlanningRecordScalarFieldEnum)[keyof typeof FamilyPlanningRecordScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -3830,6 +4643,20 @@ export type ListEnumInvoiceStatusFieldRefInput<$PrismaModel> = FieldRefInputType
 
 
 /**
+ * Reference to a field of type 'InvoiceAdjustmentType'
+ */
+export type EnumInvoiceAdjustmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvoiceAdjustmentType'>
+    
+
+
+/**
+ * Reference to a field of type 'InvoiceAdjustmentType[]'
+ */
+export type ListEnumInvoiceAdjustmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvoiceAdjustmentType[]'>
+    
+
+
+/**
  * Reference to a field of type 'InvoiceItemType'
  */
 export type EnumInvoiceItemTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InvoiceItemType'>
@@ -3924,6 +4751,258 @@ export type EnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
  * Reference to a field of type 'NotificationType[]'
  */
 export type ListEnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PreviousDeliveryMode'
+ */
+export type EnumPreviousDeliveryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PreviousDeliveryMode'>
+    
+
+
+/**
+ * Reference to a field of type 'PreviousDeliveryMode[]'
+ */
+export type ListEnumPreviousDeliveryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PreviousDeliveryMode[]'>
+    
+
+
+/**
+ * Reference to a field of type 'FetalPresentation'
+ */
+export type EnumFetalPresentationFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FetalPresentation'>
+    
+
+
+/**
+ * Reference to a field of type 'FetalPresentation[]'
+ */
+export type ListEnumFetalPresentationFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FetalPresentation[]'>
+    
+
+
+/**
+ * Reference to a field of type 'FetalMovement'
+ */
+export type EnumFetalMovementFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FetalMovement'>
+    
+
+
+/**
+ * Reference to a field of type 'FetalMovement[]'
+ */
+export type ListEnumFetalMovementFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FetalMovement[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AncRiskLevel'
+ */
+export type EnumAncRiskLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AncRiskLevel'>
+    
+
+
+/**
+ * Reference to a field of type 'AncRiskLevel[]'
+ */
+export type ListEnumAncRiskLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AncRiskLevel[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LaborOnset'
+ */
+export type EnumLaborOnsetFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LaborOnset'>
+    
+
+
+/**
+ * Reference to a field of type 'LaborOnset[]'
+ */
+export type ListEnumLaborOnsetFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LaborOnset[]'>
+    
+
+
+/**
+ * Reference to a field of type 'MembraneStatus'
+ */
+export type EnumMembraneStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MembraneStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'MembraneStatus[]'
+ */
+export type ListEnumMembraneStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MembraneStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LiquorStatus'
+ */
+export type EnumLiquorStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LiquorStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'LiquorStatus[]'
+ */
+export type ListEnumLiquorStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LiquorStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DeliveryMode'
+ */
+export type EnumDeliveryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeliveryMode'>
+    
+
+
+/**
+ * Reference to a field of type 'DeliveryMode[]'
+ */
+export type ListEnumDeliveryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeliveryMode[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DeliveryPlace'
+ */
+export type EnumDeliveryPlaceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeliveryPlace'>
+    
+
+
+/**
+ * Reference to a field of type 'DeliveryPlace[]'
+ */
+export type ListEnumDeliveryPlaceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeliveryPlace[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PlacentaStatus'
+ */
+export type EnumPlacentaStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PlacentaStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'PlacentaStatus[]'
+ */
+export type ListEnumPlacentaStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PlacentaStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ThirdStageManagement'
+ */
+export type EnumThirdStageManagementFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ThirdStageManagement'>
+    
+
+
+/**
+ * Reference to a field of type 'ThirdStageManagement[]'
+ */
+export type ListEnumThirdStageManagementFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ThirdStageManagement[]'>
+    
+
+
+/**
+ * Reference to a field of type 'MaternalCondition'
+ */
+export type EnumMaternalConditionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaternalCondition'>
+    
+
+
+/**
+ * Reference to a field of type 'MaternalCondition[]'
+ */
+export type ListEnumMaternalConditionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MaternalCondition[]'>
+    
+
+
+/**
+ * Reference to a field of type 'PostDeliveryDisposition'
+ */
+export type EnumPostDeliveryDispositionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PostDeliveryDisposition'>
+    
+
+
+/**
+ * Reference to a field of type 'PostDeliveryDisposition[]'
+ */
+export type ListEnumPostDeliveryDispositionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PostDeliveryDisposition[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BabySex'
+ */
+export type EnumBabySexFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BabySex'>
+    
+
+
+/**
+ * Reference to a field of type 'BabySex[]'
+ */
+export type ListEnumBabySexFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BabySex[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BabyStatus'
+ */
+export type EnumBabyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BabyStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'BabyStatus[]'
+ */
+export type ListEnumBabyStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BabyStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'FpVisitType'
+ */
+export type EnumFpVisitTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FpVisitType'>
+    
+
+
+/**
+ * Reference to a field of type 'FpVisitType[]'
+ */
+export type ListEnumFpVisitTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FpVisitType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ContraceptiveMethod'
+ */
+export type EnumContraceptiveMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContraceptiveMethod'>
+    
+
+
+/**
+ * Reference to a field of type 'ContraceptiveMethod[]'
+ */
+export type ListEnumContraceptiveMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContraceptiveMethod[]'>
+    
+
+
+/**
+ * Reference to a field of type 'FpOutcome'
+ */
+export type EnumFpOutcomeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FpOutcome'>
+    
+
+
+/**
+ * Reference to a field of type 'FpOutcome[]'
+ */
+export type ListEnumFpOutcomeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FpOutcome[]'>
     
 
 
@@ -4117,6 +5196,7 @@ export type GlobalOmitConfig = {
   dispensing?: Prisma.DispensingOmit
   dispensingItem?: Prisma.DispensingItemOmit
   invoice?: Prisma.InvoiceOmit
+  invoiceAdjustment?: Prisma.InvoiceAdjustmentOmit
   invoiceItem?: Prisma.InvoiceItemOmit
   payment?: Prisma.PaymentOmit
   refund?: Prisma.RefundOmit
@@ -4124,6 +5204,13 @@ export type GlobalOmitConfig = {
   expense?: Prisma.ExpenseOmit
   cashSession?: Prisma.CashSessionOmit
   notification?: Prisma.NotificationOmit
+  obstetricHistory?: Prisma.ObstetricHistoryOmit
+  ancVisit?: Prisma.AncVisitOmit
+  laborAdmission?: Prisma.LaborAdmissionOmit
+  laborMonitoringEntry?: Prisma.LaborMonitoringEntryOmit
+  deliverySummary?: Prisma.DeliverySummaryOmit
+  newbornRecord?: Prisma.NewbornRecordOmit
+  familyPlanningRecord?: Prisma.FamilyPlanningRecordOmit
 }
 
 /* Types for Logging */

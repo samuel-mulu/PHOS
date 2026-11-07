@@ -190,6 +190,116 @@ enum NotificationType {
   SYSTEM
 }
 
+enum PreviousDeliveryMode {
+  SVD
+  CS
+  INSTRUMENTAL
+}
+
+enum FetalPresentation {
+  CEPHALIC
+  BREECH
+  TRANSVERSE
+}
+
+enum FetalMovement {
+  PRESENT
+  ABSENT
+}
+
+enum AncRiskLevel {
+  LOW
+  HIGH
+}
+
+enum LaborOnset {
+  SPONTANEOUS
+  INDUCED
+}
+
+enum MembraneStatus {
+  INTACT
+  RUPTURED
+}
+
+enum LiquorStatus {
+  CLEAR
+  MECONIUM
+  BLOOD_STAINED
+}
+
+enum DeliveryMode {
+  SVD
+  CS
+  ASSISTED_VAGINAL
+}
+
+enum DeliveryPlace {
+  CLINIC
+  REFERRAL
+}
+
+enum PlacentaStatus {
+  COMPLETE
+  INCOMPLETE
+}
+
+enum ThirdStageManagement {
+  ACTIVE
+  PHYSIOLOGICAL
+}
+
+enum BabySex {
+  MALE
+  FEMALE
+}
+
+enum BabyStatus {
+  ALIVE
+  STILLBIRTH
+}
+
+enum MaternalCondition {
+  STABLE
+  UNSTABLE
+}
+
+enum PostDeliveryDisposition {
+  POSTNATAL_WARD
+  REFERRAL
+  OTHER
+}
+
+enum FpVisitType {
+  NEW
+  RETURNING
+  SWITCHING
+  FOLLOW_UP
+}
+
+enum ContraceptiveMethod {
+  IUCD
+  IMPLANT
+  INJECTABLE_DMPA
+  COC
+  POP
+  CONDOM_MALE
+  CONDOM_FEMALE
+  EMERGENCY
+  NATURAL
+  LAM
+  TUBAL_LIGATION
+  VASECTOMY
+  OTHER
+}
+
+enum FpOutcome {
+  CONTINUE
+  DISCONTINUE
+  REMOVE
+  SWITCH
+}
+
 model User {
   id                 String              @id @default(uuid()) @db.Uuid
   email              String              @unique
@@ -218,12 +328,19 @@ model User {
   inventoryMovements InventoryMovement[] @relation("InventoryMovementUser")
   issuedInvoices     Invoice[]           @relation("InvoiceIssuer")
   recordedPayments   Payment[]           @relation("PaymentRecorder")
+  invoiceAdjustments InvoiceAdjustment[] @relation("InvoiceAdjustmentRecorder")
   issuedRefunds      Refund[]            @relation("RefundIssuer")
   recordedExpenses   Expense[]           @relation("ExpenseRecorder")
   voidedExpenses     Expense[]           @relation("ExpenseVoider")
   cashSessions       CashSession[]
   notifications      Notification[]      @relation("NotificationRecipient")
   createdAppointments Appointment[]      @relation("AppointmentCreator")
+  obstetricHistories ObstetricHistory[]  @relation("ObstetricHistoryRecorder")
+  ancVisits          AncVisit[]          @relation("AncVisitRecorder")
+  laborAdmissions    LaborAdmission[]    @relation("LaborAdmissionRecorder")
+  laborMonitoring    LaborMonitoringEntry[] @relation("LaborMonitoringRecorder")
+  deliverySummaries  DeliverySummary[]   @relation("DeliverySummaryRecorder")
+  familyPlanningRecords FamilyPlanningRecord[] @relation("FamilyPlanningRecorder")
   createdAt          DateTime            @default(now()) @map("created_at")
   updatedAt          DateTime            @updatedAt @map("updated_at")
   deletedAt          DateTime?           @map("deleted_at")
@@ -325,7 +442,11 @@ model Patient {
   prescriptions         Prescription[]
   invoices              Invoice[]
   payments              Payment[]
+  invoiceAdjustments    InvoiceAdjustment[]
   appointments          Appointment[]
+  obstetricHistory      ObstetricHistory?
+  ancVisits             AncVisit[]
+  familyPlanningRecords FamilyPlanningRecord[]
   createdAt             DateTime       @default(now()) @map("created_at")
   updatedAt             DateTime       @updatedAt @map("updated_at")
   deletedAt             DateTime?      @map("deleted_at")
@@ -367,6 +488,10 @@ model Encounter {
   prescriptions   Prescription[]
   invoice         Invoice?
   appointment     Appointment?
+  ancVisits       AncVisit[]
+  laborAdmission  LaborAdmission?
+  deliverySummary DeliverySummary?
+  familyPlanningRecords FamilyPlanningRecord[]
   createdAt       DateTime          @default(now()) @map("created_at")
   updatedAt       DateTime          @updatedAt @map("updated_at")
   deletedAt       DateTime?         @map("deleted_at")
@@ -434,6 +559,10 @@ model Triage {
   heightCm        Decimal?  @map("height_cm") @db.Decimal(5, 2)
   painScore       Int?      @map("pain_score")
   bloodGlucoseMgDl Int?     @map("blood_glucose_mg_dl")
+  /// Triage flags for MCH / FP routing (doctor completes full forms).
+  pregnancySuspected Boolean? @map("pregnancy_suspected")
+  mchNeeded       Boolean?  @map("mch_needed")
+  fpNeeded        Boolean?  @map("fp_needed")
   notes           String?
   recordedById    String    @map("recorded_by_id") @db.Uuid
   recordedAt      DateTime  @default(now()) @map("recorded_at")
@@ -455,6 +584,8 @@ model Consultation {
   assessment            String?
   plan                  String?
   notes                 String?
+  /// Doctor lab notes for this visit (saved with visit notes; no lab send required)
+  labNotes              String?            @map("lab_notes")
   referralSheet         Json?              @map("referral_sheet") @db.JsonB
   status                ConsultationStatus @default(DRAFT)
   finalizedAt           DateTime?          @map("finalized_at")
@@ -536,17 +667,20 @@ model LabOrder {
   encounterId    String            @map("encounter_id") @db.Uuid
   patientId      String            @map("patient_id") @db.Uuid
   doctorId       String            @map("doctor_id") @db.Uuid
-  status         LabOrderStatus    @default(ORDERED)
-  priority       EncounterPriority @default(ROUTINE)
-  clinicalNotes  String?           @map("clinical_notes")
-  consultation   Consultation      @relation(fields: [consultationId], references: [id])
-  encounter      Encounter         @relation(fields: [encounterId], references: [id])
-  patient        Patient           @relation(fields: [patientId], references: [id])
-  doctor         User              @relation("LabOrderDoctor", fields: [doctorId], references: [id])
-  items          LabOrderItem[]
-  createdAt      DateTime          @default(now()) @map("created_at")
-  updatedAt      DateTime          @updatedAt @map("updated_at")
-  cancelledAt    DateTime?         @map("cancelled_at")
+  status             LabOrderStatus    @default(ORDERED)
+  priority           EncounterPriority @default(ROUTINE)
+  clinicalNotes      String?           @map("clinical_notes")
+  /// Doctor interpretation / notes after reviewing verified results
+  doctorReviewNotes  String?           @map("doctor_review_notes")
+  doctorReviewedAt   DateTime?         @map("doctor_reviewed_at")
+  consultation       Consultation      @relation(fields: [consultationId], references: [id])
+  encounter          Encounter         @relation(fields: [encounterId], references: [id])
+  patient            Patient           @relation(fields: [patientId], references: [id])
+  doctor             User              @relation("LabOrderDoctor", fields: [doctorId], references: [id])
+  items              LabOrderItem[]
+  createdAt          DateTime          @default(now()) @map("created_at")
+  updatedAt          DateTime          @updatedAt @map("updated_at")
+  cancelledAt        DateTime?         @map("cancelled_at")
 
   @@index([status, priority, createdAt])
   @@index([encounterId])
@@ -737,6 +871,10 @@ model Invoice {
   discountCents Int           @default(0) @map("discount_cents")
   totalCents    Int           @map("total_cents")
   paidCents     Int           @default(0) @map("paid_cents")
+  /** Forgiven by cashier (free / waive); not owed. */
+  waivedCents   Int           @default(0) @map("waived_cents")
+  /** Approved "pay later" amount; patient may leave the cashier owing it. */
+  deferredCents Int           @default(0) @map("deferred_cents")
   issuedById    String        @map("issued_by_id") @db.Uuid
   issuedAt      DateTime?     @map("issued_at")
   encounter     Encounter     @relation(fields: [encounterId], references: [id])
@@ -744,11 +882,39 @@ model Invoice {
   issuedBy      User          @relation("InvoiceIssuer", fields: [issuedById], references: [id])
   items         InvoiceItem[]
   payments      Payment[]
+  adjustments   InvoiceAdjustment[]
   createdAt     DateTime      @default(now()) @map("created_at")
   updatedAt     DateTime      @updatedAt @map("updated_at")
 
   @@index([status, createdAt])
+  @@index([patientId, status])
   @@map("invoices")
+}
+
+enum InvoiceAdjustmentType {
+  DEFER
+  WAIVE
+}
+
+/** Cashier decisions on an unpaid amount: pay later (debt) or waive (free). */
+model InvoiceAdjustment {
+  id             String                @id @default(uuid()) @db.Uuid
+  invoiceId      String                @map("invoice_id") @db.Uuid
+  patientId      String                @map("patient_id") @db.Uuid
+  type           InvoiceAdjustmentType
+  amountCents    Int                   @map("amount_cents")
+  reason         String
+  idempotencyKey String                @unique @map("idempotency_key")
+  recordedById   String                @map("recorded_by_id") @db.Uuid
+  invoice        Invoice               @relation(fields: [invoiceId], references: [id])
+  patient        Patient               @relation(fields: [patientId], references: [id])
+  recordedBy     User                  @relation("InvoiceAdjustmentRecorder", fields: [recordedById], references: [id])
+  createdAt      DateTime              @default(now()) @map("created_at")
+
+  @@index([invoiceId])
+  @@index([patientId])
+  @@index([type, createdAt])
+  @@map("invoice_adjustments")
 }
 
 model InvoiceItem {
@@ -779,6 +945,8 @@ model Payment {
   idempotencyKey  String        @unique @map("idempotency_key")
   recordedById    String        @map("recorded_by_id") @db.Uuid
   cashSessionId   String?       @map("cash_session_id") @db.Uuid
+  /** Collected against an approved pay-later debt. */
+  isDebtPayment   Boolean       @default(false) @map("is_debt_payment")
   invoice         Invoice       @relation(fields: [invoiceId], references: [id])
   patient         Patient       @relation(fields: [patientId], references: [id])
   recordedBy      User          @relation("PaymentRecorder", fields: [recordedById], references: [id])
@@ -879,4 +1047,212 @@ model Notification {
 
   @@index([recipientId, readAt, createdAt])
   @@map("notifications")
+}
+
+/// Patient-level obstetric history (GTPAL + prior complications). One per patient.
+model ObstetricHistory {
+  id                   String                @id @default(uuid()) @db.Uuid
+  patientId            String                @unique @map("patient_id") @db.Uuid
+  gravidity            Int?
+  term                 Int?
+  preterm              Int?
+  abortion             Int?
+  living               Int?
+  lmp                  DateTime?             @db.Date
+  edd                  DateTime?             @db.Date
+  previousDelivery     PreviousDeliveryMode? @map("previous_delivery")
+  previousCs           Boolean?              @map("previous_cs")
+  previousPph          Boolean?              @map("previous_pph")
+  previousPetEclampsia Boolean?              @map("previous_pet_eclampsia")
+  stillbirth           Boolean?
+  otherComplications   String?               @map("other_complications")
+  bloodGroupRh         String?               @map("blood_group_rh")
+  hivStatus            String?               @map("hiv_status")
+  syphilisStatus       String?               @map("syphilis_status")
+  hepatitisBStatus     String?               @map("hepatitis_b_status")
+  tetanusStatus        String?               @map("tetanus_status")
+  recordedById         String                @map("recorded_by_id") @db.Uuid
+  patient              Patient               @relation(fields: [patientId], references: [id])
+  recordedBy           User                  @relation("ObstetricHistoryRecorder", fields: [recordedById], references: [id])
+  createdAt            DateTime              @default(now()) @map("created_at")
+  updatedAt            DateTime              @updatedAt @map("updated_at")
+  deletedAt            DateTime?             @map("deleted_at")
+
+  @@map("obstetric_histories")
+}
+
+model AncVisit {
+  id                 String            @id @default(uuid()) @db.Uuid
+  patientId          String            @map("patient_id") @db.Uuid
+  encounterId        String?           @map("encounter_id") @db.Uuid
+  visitNumber        Int               @map("visit_number")
+  visitDate          DateTime          @map("visit_date") @db.Date
+  gaWeeks            Int?              @map("ga_weeks")
+  gaDays             Int?              @map("ga_days")
+  weightKg           Decimal?          @map("weight_kg") @db.Decimal(5, 2)
+  systolic           Int?
+  diastolic          Int?
+  pulseRate          Int?              @map("pulse_rate")
+  fundalHeightCm     Decimal?          @map("fundal_height_cm") @db.Decimal(4, 1)
+  fetalHeartRate     Int?              @map("fetal_heart_rate")
+  fetalPresentation  FetalPresentation? @map("fetal_presentation")
+  fetalMovement      FetalMovement?    @map("fetal_movement")
+  urineProtein       Boolean?          @map("urine_protein")
+  urineGlucose       Boolean?          @map("urine_glucose")
+  hemoglobinGdl      Decimal?          @map("hemoglobin_gdl") @db.Decimal(4, 1)
+  bloodGlucose       Decimal?          @map("blood_glucose") @db.Decimal(6, 1)
+  riskAssessment     AncRiskLevel?     @map("risk_assessment")
+  treatment          String?
+  ultrasoundFindings String?           @map("ultrasound_findings")
+  nextAppointment    DateTime?         @map("next_appointment") @db.Date
+  recordedById       String            @map("recorded_by_id") @db.Uuid
+  patient            Patient           @relation(fields: [patientId], references: [id])
+  encounter          Encounter?        @relation(fields: [encounterId], references: [id])
+  recordedBy         User              @relation("AncVisitRecorder", fields: [recordedById], references: [id])
+  createdAt          DateTime          @default(now()) @map("created_at")
+  updatedAt          DateTime          @updatedAt @map("updated_at")
+  deletedAt          DateTime?         @map("deleted_at")
+
+  @@unique([patientId, visitNumber])
+  @@index([patientId, visitDate])
+  @@index([encounterId])
+  @@map("anc_visits")
+}
+
+model LaborAdmission {
+  id                String           @id @default(uuid()) @db.Uuid
+  encounterId       String           @unique @map("encounter_id") @db.Uuid
+  admittedAt        DateTime         @map("admitted_at")
+  gaWeeks           Int?             @map("ga_weeks")
+  onsetOfLabor      LaborOnset?      @map("onset_of_labor")
+  cervicalDilatationCm Decimal?      @map("cervical_dilatation_cm") @db.Decimal(3, 1)
+  cervicalEffacementPct Int?         @map("cervical_effacement_pct")
+  membraneStatus    MembraneStatus?  @map("membrane_status")
+  liquor            LiquorStatus?
+  fetalPresentation FetalPresentation? @map("fetal_presentation")
+  fetalHeartRate    Int?             @map("fetal_heart_rate")
+  contractionsNote  String?          @map("contractions_note")
+  systolic          Int?
+  diastolic         Int?
+  pulseRate         Int?             @map("pulse_rate")
+  temperatureC      Decimal?         @map("temperature_c") @db.Decimal(4, 1)
+  recordedById      String           @map("recorded_by_id") @db.Uuid
+  encounter         Encounter        @relation(fields: [encounterId], references: [id])
+  recordedBy        User             @relation("LaborAdmissionRecorder", fields: [recordedById], references: [id])
+  monitoringEntries LaborMonitoringEntry[]
+  createdAt         DateTime         @default(now()) @map("created_at")
+  updatedAt         DateTime         @updatedAt @map("updated_at")
+  deletedAt         DateTime?        @map("deleted_at")
+
+  @@map("labor_admissions")
+}
+
+model LaborMonitoringEntry {
+  id                   String          @id @default(uuid()) @db.Uuid
+  laborAdmissionId     String          @map("labor_admission_id") @db.Uuid
+  recordedAt           DateTime        @map("recorded_at")
+  cervicalDilatationCm Decimal?        @map("cervical_dilatation_cm") @db.Decimal(3, 1)
+  fetalHeartRate       Int?            @map("fetal_heart_rate")
+  contractionsPer10Min Int?            @map("contractions_per_10_min")
+  contractionDurationSec Int?          @map("contraction_duration_sec")
+  membraneLiquorNote   String?         @map("membrane_liquor_note")
+  descentFifths        Int?            @map("descent_fifths")
+  systolic             Int?
+  diastolic            Int?
+  pulseRate            Int?            @map("pulse_rate")
+  urineOutputMl        Int?            @map("urine_output_ml")
+  medicationNote       String?         @map("medication_note")
+  recordedById         String          @map("recorded_by_id") @db.Uuid
+  laborAdmission       LaborAdmission  @relation(fields: [laborAdmissionId], references: [id], onDelete: Cascade)
+  recordedBy           User            @relation("LaborMonitoringRecorder", fields: [recordedById], references: [id])
+  createdAt            DateTime        @default(now()) @map("created_at")
+
+  @@index([laborAdmissionId, recordedAt])
+  @@map("labor_monitoring_entries")
+}
+
+model DeliverySummary {
+  id                    String                  @id @default(uuid()) @db.Uuid
+  encounterId           String                  @unique @map("encounter_id") @db.Uuid
+  deliveredAt           DateTime?               @map("delivered_at")
+  modeOfDelivery        DeliveryMode?           @map("mode_of_delivery")
+  csIndication          String?                 @map("cs_indication")
+  placeOfDelivery       DeliveryPlace?          @map("place_of_delivery")
+  presentation          FetalPresentation?
+  episiotomy            Boolean?
+  perinealTearDegree    String?                 @map("perineal_tear_degree")
+  placenta              PlacentaStatus?
+  thirdStageManagement  ThirdStageManagement?   @map("third_stage_management")
+  estimatedBloodLossMl  Int?                    @map("estimated_blood_loss_ml")
+  complications         String?
+  maternalCondition     MaternalCondition?      @map("maternal_condition")
+  pph                   Boolean?
+  bloodTransfusion      Boolean?                @map("blood_transfusion")
+  additionalIntervention String?                @map("additional_intervention")
+  postDeliverySystolic  Int?                    @map("post_delivery_systolic")
+  postDeliveryDiastolic Int?                    @map("post_delivery_diastolic")
+  disposition           PostDeliveryDisposition?
+  recordedById          String                  @map("recorded_by_id") @db.Uuid
+  encounter             Encounter               @relation(fields: [encounterId], references: [id])
+  recordedBy            User                    @relation("DeliverySummaryRecorder", fields: [recordedById], references: [id])
+  newborns              NewbornRecord[]
+  createdAt             DateTime                @default(now()) @map("created_at")
+  updatedAt             DateTime                @updatedAt @map("updated_at")
+  deletedAt             DateTime?               @map("deleted_at")
+
+  @@map("delivery_summaries")
+}
+
+model NewbornRecord {
+  id                 String          @id @default(uuid()) @db.Uuid
+  deliverySummaryId  String          @map("delivery_summary_id") @db.Uuid
+  birthOrder         Int             @default(1) @map("birth_order")
+  sex                BabySex?
+  birthWeightGrams   Int?            @map("birth_weight_grams")
+  apgar1             Int?            @map("apgar_1")
+  apgar5             Int?            @map("apgar_5")
+  gaWeeks            Int?            @map("ga_weeks")
+  status             BabyStatus?
+  resuscitation      Boolean?
+  nicuAdmission      Boolean?        @map("nicu_admission")
+  deliverySummary    DeliverySummary @relation(fields: [deliverySummaryId], references: [id], onDelete: Cascade)
+  createdAt          DateTime        @default(now()) @map("created_at")
+  updatedAt          DateTime        @updatedAt @map("updated_at")
+
+  @@index([deliverySummaryId])
+  @@map("newborn_records")
+}
+
+/// Separate family planning register (not mixed with ANC/labor).
+model FamilyPlanningRecord {
+  id                    String              @id @default(uuid()) @db.Uuid
+  patientId             String              @map("patient_id") @db.Uuid
+  encounterId           String?             @map("encounter_id") @db.Uuid
+  visitType             FpVisitType?        @map("visit_type")
+  gravidity             Int?
+  parity                Int?
+  livingChildren        Int?                @map("living_children")
+  previousMethod        ContraceptiveMethod? @map("previous_method")
+  currentMethod         ContraceptiveMethod? @map("current_method")
+  pregnancyStatus       String?             @map("pregnancy_status")
+  systolic              Int?
+  diastolic             Int?
+  contraindications     String?
+  counselingDone        Boolean?            @map("counseling_done")
+  counselingNotes       String?             @map("counseling_notes")
+  procedureDate         DateTime?           @map("procedure_date") @db.Date
+  sideEffects           String?             @map("side_effects")
+  nextAppointment       DateTime?           @map("next_appointment") @db.Date
+  outcome               FpOutcome?
+  recordedById          String              @map("recorded_by_id") @db.Uuid
+  patient               Patient             @relation(fields: [patientId], references: [id])
+  encounter             Encounter?          @relation(fields: [encounterId], references: [id])
+  recordedBy            User                @relation("FamilyPlanningRecorder", fields: [recordedById], references: [id])
+  createdAt             DateTime            @default(now()) @map("created_at")
+  updatedAt             DateTime            @updatedAt @map("updated_at")
+  deletedAt             DateTime?           @map("deleted_at")
+
+  @@index([patientId, createdAt])
+  @@index([encounterId])
+  @@map("family_planning_records")
 }

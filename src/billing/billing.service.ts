@@ -8,7 +8,10 @@ import { AuditService } from "../audit/audit.service";
 import { DESK_NOTIFY_ROLES } from "../common/constants/desk-roles";
 import { NotificationsService } from "../notifications/notifications.service";
 import { PrismaService } from "../prisma/prisma.service";
-import { calculateInvoiceTotals } from "../common/domain/finance";
+import {
+  calculateInvoiceTotals,
+  invoiceStatusFor,
+} from "../common/domain/finance";
 import { CreateInvoiceDto } from "./dto/billing.dto";
 @Injectable()
 export class BillingService {
@@ -312,12 +315,11 @@ export class BillingService {
           "New total would be less than amount already paid",
         );
 
-      const nextStatus =
-        totals.totalCents <= existing.paidCents
-          ? "PAID"
-          : existing.paidCents > 0
-            ? "PARTIALLY_PAID"
-            : "ISSUED";
+      const nextStatus = invoiceStatusFor({
+        totalCents: totals.totalCents,
+        paidCents: existing.paidCents,
+        waivedCents: existing.waivedCents,
+      });
 
       const invoice = await tx.invoice.update({
         where: { id: existing.id },

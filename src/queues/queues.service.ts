@@ -7,6 +7,7 @@ import { AuditService } from "../audit/audit.service";
 import { QueueStation } from "../generated/prisma/client";
 import { PrismaService } from "../prisma/prisma.service";
 import { CreateQueueEntryDto, UpdateQueueEntryDto } from "./dto/queue.dto";
+import { invoiceDueNow } from "../common/domain/finance";
 @Injectable()
 export class QueuesService {
   constructor(
@@ -41,6 +42,8 @@ export class QueuesService {
                 status: true,
                 totalCents: true,
                 paidCents: true,
+                waivedCents: true,
+                deferredCents: true,
               },
             },
             assignedDoctor: {
@@ -64,10 +67,8 @@ export class QueuesService {
     const active = rows.filter((row) => {
       const enc = row.encounter;
       const inv = enc.invoice;
-      const unpaid =
-        inv != null ? Math.max(0, inv.totalCents - inv.paidCents) : 0;
-      const paidOff =
-        inv != null && (inv.status === "PAID" || unpaid <= 0);
+      // Cleared = nothing due now (paid, waived, or approved pay later).
+      const paidOff = inv != null && invoiceDueNow(inv) <= 0;
       const done =
         enc.status === "COMPLETED" ||
         enc.status === "CANCELLED" ||

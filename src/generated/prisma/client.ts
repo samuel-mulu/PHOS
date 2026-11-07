@@ -170,6 +170,11 @@ export type DispensingItem = Prisma.DispensingItemModel
  */
 export type Invoice = Prisma.InvoiceModel
 /**
+ * Model InvoiceAdjustment
+ * * Cashier decisions on an unpaid amount: pay later (debt) or waive (free).
+ */
+export type InvoiceAdjustment = Prisma.InvoiceAdjustmentModel
+/**
  * Model InvoiceItem
  * 
  */
@@ -204,3 +209,38 @@ export type CashSession = Prisma.CashSessionModel
  * 
  */
 export type Notification = Prisma.NotificationModel
+/**
+ * Model ObstetricHistory
+ * Patient-level obstetric history (GTPAL + prior complications). One per patient.
+ */
+export type ObstetricHistory = Prisma.ObstetricHistoryModel
+/**
+ * Model AncVisit
+ * 
+ */
+export type AncVisit = Prisma.AncVisitModel
+/**
+ * Model LaborAdmission
+ * 
+ */
+export type LaborAdmission = Prisma.LaborAdmissionModel
+/**
+ * Model LaborMonitoringEntry
+ * 
+ */
+export type LaborMonitoringEntry = Prisma.LaborMonitoringEntryModel
+/**
+ * Model DeliverySummary
+ * 
+ */
+export type DeliverySummary = Prisma.DeliverySummaryModel
+/**
+ * Model NewbornRecord
+ * 
+ */
+export type NewbornRecord = Prisma.NewbornRecordModel
+/**
+ * Model FamilyPlanningRecord
+ * Separate family planning register (not mixed with ANC/labor).
+ */
+export type FamilyPlanningRecord = Prisma.FamilyPlanningRecordModel

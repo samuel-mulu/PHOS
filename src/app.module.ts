@@ -13,6 +13,8 @@ import { PatientsModule } from "./patients/patients.module";
 import { EncountersModule } from "./encounters/encounters.module";
 import { QueuesModule } from "./queues/queues.module";
 import { TriageModule } from "./triage/triage.module";
+import { MaternalModule } from "./maternal/maternal.module";
+import { FamilyPlanningModule } from "./family-planning/family-planning.module";
 import { ConsultationsModule } from "./consultations/consultations.module";
 import { LaboratoryModule } from "./laboratory/laboratory.module";
 import { PrescriptionsModule } from "./prescriptions/prescriptions.module";
@@ -42,6 +44,8 @@ import { RolesGuard } from "./auth/guards/roles.guard";
     EncountersModule,
     QueuesModule,
     TriageModule,
+    MaternalModule,
+    FamilyPlanningModule,
     ConsultationsModule,
     NotificationsModule,
     LaboratoryModule,

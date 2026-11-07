@@ -12,6 +12,7 @@ import {
   SaveConsultationDto,
 } from "./dto/consultation.dto";
 import { Prisma } from "../generated/prisma/client";
+import { invoiceDueNow } from "../common/domain/finance";
 
 function consultationWriteData(dto: SaveConsultationDto): {
   chiefComplaint?: string;
@@ -20,6 +21,7 @@ function consultationWriteData(dto: SaveConsultationDto): {
   assessment?: string;
   plan?: string;
   notes?: string;
+  labNotes?: string;
   referralSheet?: Prisma.InputJsonValue;
 } {
   const { referralSheet, ...rest } = dto;
@@ -155,6 +157,7 @@ export class ConsultationsService {
       const hasVisitNote = Boolean(
         item.physicalExam?.trim() ||
           item.notes?.trim() ||
+          item.labNotes?.trim() ||
           item.assessment?.trim() ||
           item.plan?.trim() ||
           item.historyPresentIllness?.trim() ||
@@ -162,7 +165,7 @@ export class ConsultationsService {
       );
       if (!hasVisitNote)
         throw new BadRequestException(
-          "Enter visit notes (vitals, medical notes, diagnosis, ultrasound, or prescription) before completing",
+          "Enter visit notes (vitals, medical notes, lab notes, diagnosis, ultrasound, or prescription) before completing",
         );
 
       const invoice = await tx.invoice.findFirst({
@@ -171,12 +174,11 @@ export class ConsultationsService {
           status: { not: "VOID" },
         },
       });
-      const unpaidCents = invoice
-        ? Math.max(0, invoice.totalCents - invoice.paidCents)
-        : 0;
+      // Approved "pay later" debt and waived amounts do not block completion.
+      const unpaidCents = invoice ? invoiceDueNow(invoice) : 0;
       if (unpaidCents > 0)
         throw new BadRequestException(
-          "Patient has not paid. Collect payment at cashier before completing this visit.",
+          "Patient has not paid. Collect payment at cashier (or approve pay later) before completing this visit.",
         );
 
       const updated = await tx.consultation.update({

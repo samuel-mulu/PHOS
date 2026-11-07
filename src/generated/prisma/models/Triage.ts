@@ -65,6 +65,9 @@ export type TriageMinAggregateOutputType = {
   heightCm: runtime.Decimal | null
   painScore: number | null
   bloodGlucoseMgDl: number | null
+  pregnancySuspected: boolean | null
+  mchNeeded: boolean | null
+  fpNeeded: boolean | null
   notes: string | null
   recordedById: string | null
   recordedAt: Date | null
@@ -85,6 +88,9 @@ export type TriageMaxAggregateOutputType = {
   heightCm: runtime.Decimal | null
   painScore: number | null
   bloodGlucoseMgDl: number | null
+  pregnancySuspected: boolean | null
+  mchNeeded: boolean | null
+  fpNeeded: boolean | null
   notes: string | null
   recordedById: string | null
   recordedAt: Date | null
@@ -105,6 +111,9 @@ export type TriageCountAggregateOutputType = {
   heightCm: number
   painScore: number
   bloodGlucoseMgDl: number
+  pregnancySuspected: number
+  mchNeeded: number
+  fpNeeded: number
   notes: number
   recordedById: number
   recordedAt: number
@@ -153,6 +162,9 @@ export type TriageMinAggregateInputType = {
   heightCm?: true
   painScore?: true
   bloodGlucoseMgDl?: true
+  pregnancySuspected?: true
+  mchNeeded?: true
+  fpNeeded?: true
   notes?: true
   recordedById?: true
   recordedAt?: true
@@ -173,6 +185,9 @@ export type TriageMaxAggregateInputType = {
   heightCm?: true
   painScore?: true
   bloodGlucoseMgDl?: true
+  pregnancySuspected?: true
+  mchNeeded?: true
+  fpNeeded?: true
   notes?: true
   recordedById?: true
   recordedAt?: true
@@ -193,6 +208,9 @@ export type TriageCountAggregateInputType = {
   heightCm?: true
   painScore?: true
   bloodGlucoseMgDl?: true
+  pregnancySuspected?: true
+  mchNeeded?: true
+  fpNeeded?: true
   notes?: true
   recordedById?: true
   recordedAt?: true
@@ -300,6 +318,9 @@ export type TriageGroupByOutputType = {
   heightCm: runtime.Decimal | null
   painScore: number | null
   bloodGlucoseMgDl: number | null
+  pregnancySuspected: boolean | null
+  mchNeeded: boolean | null
+  fpNeeded: boolean | null
   notes: string | null
   recordedById: string
   recordedAt: Date
@@ -343,6 +364,9 @@ export type TriageWhereInput = {
   heightCm?: Prisma.DecimalNullableFilter<"Triage"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: Prisma.IntNullableFilter<"Triage"> | number | null
   bloodGlucoseMgDl?: Prisma.IntNullableFilter<"Triage"> | number | null
+  pregnancySuspected?: Prisma.BoolNullableFilter<"Triage"> | boolean | null
+  mchNeeded?: Prisma.BoolNullableFilter<"Triage"> | boolean | null
+  fpNeeded?: Prisma.BoolNullableFilter<"Triage"> | boolean | null
   notes?: Prisma.StringNullableFilter<"Triage"> | string | null
   recordedById?: Prisma.UuidFilter<"Triage"> | string
   recordedAt?: Prisma.DateTimeFilter<"Triage"> | Date | string
@@ -365,6 +389,9 @@ export type TriageOrderByWithRelationInput = {
   heightCm?: Prisma.SortOrderInput | Prisma.SortOrder
   painScore?: Prisma.SortOrderInput | Prisma.SortOrder
   bloodGlucoseMgDl?: Prisma.SortOrderInput | Prisma.SortOrder
+  pregnancySuspected?: Prisma.SortOrderInput | Prisma.SortOrder
+  mchNeeded?: Prisma.SortOrderInput | Prisma.SortOrder
+  fpNeeded?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   recordedById?: Prisma.SortOrder
   recordedAt?: Prisma.SortOrder
@@ -390,6 +417,9 @@ export type TriageWhereUniqueInput = Prisma.AtLeast<{
   heightCm?: Prisma.DecimalNullableFilter<"Triage"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: Prisma.IntNullableFilter<"Triage"> | number | null
   bloodGlucoseMgDl?: Prisma.IntNullableFilter<"Triage"> | number | null
+  pregnancySuspected?: Prisma.BoolNullableFilter<"Triage"> | boolean | null
+  mchNeeded?: Prisma.BoolNullableFilter<"Triage"> | boolean | null
+  fpNeeded?: Prisma.BoolNullableFilter<"Triage"> | boolean | null
   notes?: Prisma.StringNullableFilter<"Triage"> | string | null
   recordedById?: Prisma.UuidFilter<"Triage"> | string
   recordedAt?: Prisma.DateTimeFilter<"Triage"> | Date | string
@@ -412,6 +442,9 @@ export type TriageOrderByWithAggregationInput = {
   heightCm?: Prisma.SortOrderInput | Prisma.SortOrder
   painScore?: Prisma.SortOrderInput | Prisma.SortOrder
   bloodGlucoseMgDl?: Prisma.SortOrderInput | Prisma.SortOrder
+  pregnancySuspected?: Prisma.SortOrderInput | Prisma.SortOrder
+  mchNeeded?: Prisma.SortOrderInput | Prisma.SortOrder
+  fpNeeded?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   recordedById?: Prisma.SortOrder
   recordedAt?: Prisma.SortOrder
@@ -440,6 +473,9 @@ export type TriageScalarWhereWithAggregatesInput = {
   heightCm?: Prisma.DecimalNullableWithAggregatesFilter<"Triage"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: Prisma.IntNullableWithAggregatesFilter<"Triage"> | number | null
   bloodGlucoseMgDl?: Prisma.IntNullableWithAggregatesFilter<"Triage"> | number | null
+  pregnancySuspected?: Prisma.BoolNullableWithAggregatesFilter<"Triage"> | boolean | null
+  mchNeeded?: Prisma.BoolNullableWithAggregatesFilter<"Triage"> | boolean | null
+  fpNeeded?: Prisma.BoolNullableWithAggregatesFilter<"Triage"> | boolean | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"Triage"> | string | null
   recordedById?: Prisma.UuidWithAggregatesFilter<"Triage"> | string
   recordedAt?: Prisma.DateTimeWithAggregatesFilter<"Triage"> | Date | string
@@ -459,6 +495,9 @@ export type TriageCreateInput = {
   heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: number | null
   bloodGlucoseMgDl?: number | null
+  pregnancySuspected?: boolean | null
+  mchNeeded?: boolean | null
+  fpNeeded?: boolean | null
   notes?: string | null
   recordedAt?: Date | string
   updatedAt?: Date | string
@@ -480,6 +519,9 @@ export type TriageUncheckedCreateInput = {
   heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: number | null
   bloodGlucoseMgDl?: number | null
+  pregnancySuspected?: boolean | null
+  mchNeeded?: boolean | null
+  fpNeeded?: boolean | null
   notes?: string | null
   recordedById: string
   recordedAt?: Date | string
@@ -499,6 +541,9 @@ export type TriageUpdateInput = {
   heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bloodGlucoseMgDl?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pregnancySuspected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mchNeeded?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  fpNeeded?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recordedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -520,6 +565,9 @@ export type TriageUncheckedUpdateInput = {
   heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bloodGlucoseMgDl?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pregnancySuspected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mchNeeded?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  fpNeeded?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
   recordedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -540,6 +588,9 @@ export type TriageCreateManyInput = {
   heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: number | null
   bloodGlucoseMgDl?: number | null
+  pregnancySuspected?: boolean | null
+  mchNeeded?: boolean | null
+  fpNeeded?: boolean | null
   notes?: string | null
   recordedById: string
   recordedAt?: Date | string
@@ -559,6 +610,9 @@ export type TriageUpdateManyMutationInput = {
   heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bloodGlucoseMgDl?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pregnancySuspected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mchNeeded?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  fpNeeded?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recordedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -578,6 +632,9 @@ export type TriageUncheckedUpdateManyInput = {
   heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bloodGlucoseMgDl?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pregnancySuspected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mchNeeded?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  fpNeeded?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
   recordedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -613,6 +670,9 @@ export type TriageCountOrderByAggregateInput = {
   heightCm?: Prisma.SortOrder
   painScore?: Prisma.SortOrder
   bloodGlucoseMgDl?: Prisma.SortOrder
+  pregnancySuspected?: Prisma.SortOrder
+  mchNeeded?: Prisma.SortOrder
+  fpNeeded?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   recordedById?: Prisma.SortOrder
   recordedAt?: Prisma.SortOrder
@@ -646,6 +706,9 @@ export type TriageMaxOrderByAggregateInput = {
   heightCm?: Prisma.SortOrder
   painScore?: Prisma.SortOrder
   bloodGlucoseMgDl?: Prisma.SortOrder
+  pregnancySuspected?: Prisma.SortOrder
+  mchNeeded?: Prisma.SortOrder
+  fpNeeded?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   recordedById?: Prisma.SortOrder
   recordedAt?: Prisma.SortOrder
@@ -666,6 +729,9 @@ export type TriageMinOrderByAggregateInput = {
   heightCm?: Prisma.SortOrder
   painScore?: Prisma.SortOrder
   bloodGlucoseMgDl?: Prisma.SortOrder
+  pregnancySuspected?: Prisma.SortOrder
+  mchNeeded?: Prisma.SortOrder
+  fpNeeded?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   recordedById?: Prisma.SortOrder
   recordedAt?: Prisma.SortOrder
@@ -768,6 +834,10 @@ export type NullableDecimalFieldUpdateOperationsInput = {
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
+export type NullableBoolFieldUpdateOperationsInput = {
+  set?: boolean | null
+}
+
 export type TriageCreateWithoutRecordedByInput = {
   id?: string
   temperature?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -780,6 +850,9 @@ export type TriageCreateWithoutRecordedByInput = {
   heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: number | null
   bloodGlucoseMgDl?: number | null
+  pregnancySuspected?: boolean | null
+  mchNeeded?: boolean | null
+  fpNeeded?: boolean | null
   notes?: string | null
   recordedAt?: Date | string
   updatedAt?: Date | string
@@ -800,6 +873,9 @@ export type TriageUncheckedCreateWithoutRecordedByInput = {
   heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: number | null
   bloodGlucoseMgDl?: number | null
+  pregnancySuspected?: boolean | null
+  mchNeeded?: boolean | null
+  fpNeeded?: boolean | null
   notes?: string | null
   recordedAt?: Date | string
   updatedAt?: Date | string
@@ -848,6 +924,9 @@ export type TriageScalarWhereInput = {
   heightCm?: Prisma.DecimalNullableFilter<"Triage"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: Prisma.IntNullableFilter<"Triage"> | number | null
   bloodGlucoseMgDl?: Prisma.IntNullableFilter<"Triage"> | number | null
+  pregnancySuspected?: Prisma.BoolNullableFilter<"Triage"> | boolean | null
+  mchNeeded?: Prisma.BoolNullableFilter<"Triage"> | boolean | null
+  fpNeeded?: Prisma.BoolNullableFilter<"Triage"> | boolean | null
   notes?: Prisma.StringNullableFilter<"Triage"> | string | null
   recordedById?: Prisma.UuidFilter<"Triage"> | string
   recordedAt?: Prisma.DateTimeFilter<"Triage"> | Date | string
@@ -867,6 +946,9 @@ export type TriageCreateWithoutEncounterInput = {
   heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: number | null
   bloodGlucoseMgDl?: number | null
+  pregnancySuspected?: boolean | null
+  mchNeeded?: boolean | null
+  fpNeeded?: boolean | null
   notes?: string | null
   recordedAt?: Date | string
   updatedAt?: Date | string
@@ -886,6 +968,9 @@ export type TriageUncheckedCreateWithoutEncounterInput = {
   heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: number | null
   bloodGlucoseMgDl?: number | null
+  pregnancySuspected?: boolean | null
+  mchNeeded?: boolean | null
+  fpNeeded?: boolean | null
   notes?: string | null
   recordedById: string
   recordedAt?: Date | string
@@ -921,6 +1006,9 @@ export type TriageUpdateWithoutEncounterInput = {
   heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bloodGlucoseMgDl?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pregnancySuspected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mchNeeded?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  fpNeeded?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recordedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -940,6 +1028,9 @@ export type TriageUncheckedUpdateWithoutEncounterInput = {
   heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bloodGlucoseMgDl?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pregnancySuspected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mchNeeded?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  fpNeeded?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
   recordedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -960,6 +1051,9 @@ export type TriageCreateManyRecordedByInput = {
   heightCm?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: number | null
   bloodGlucoseMgDl?: number | null
+  pregnancySuspected?: boolean | null
+  mchNeeded?: boolean | null
+  fpNeeded?: boolean | null
   notes?: string | null
   recordedAt?: Date | string
   updatedAt?: Date | string
@@ -978,6 +1072,9 @@ export type TriageUpdateWithoutRecordedByInput = {
   heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bloodGlucoseMgDl?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pregnancySuspected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mchNeeded?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  fpNeeded?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recordedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -998,6 +1095,9 @@ export type TriageUncheckedUpdateWithoutRecordedByInput = {
   heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bloodGlucoseMgDl?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pregnancySuspected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mchNeeded?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  fpNeeded?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recordedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1017,6 +1117,9 @@ export type TriageUncheckedUpdateManyWithoutRecordedByInput = {
   heightCm?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   painScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   bloodGlucoseMgDl?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pregnancySuspected?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  mchNeeded?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  fpNeeded?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recordedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1038,6 +1141,9 @@ export type TriageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   heightCm?: boolean
   painScore?: boolean
   bloodGlucoseMgDl?: boolean
+  pregnancySuspected?: boolean
+  mchNeeded?: boolean
+  fpNeeded?: boolean
   notes?: boolean
   recordedById?: boolean
   recordedAt?: boolean
@@ -1060,6 +1166,9 @@ export type TriageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   heightCm?: boolean
   painScore?: boolean
   bloodGlucoseMgDl?: boolean
+  pregnancySuspected?: boolean
+  mchNeeded?: boolean
+  fpNeeded?: boolean
   notes?: boolean
   recordedById?: boolean
   recordedAt?: boolean
@@ -1082,6 +1191,9 @@ export type TriageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   heightCm?: boolean
   painScore?: boolean
   bloodGlucoseMgDl?: boolean
+  pregnancySuspected?: boolean
+  mchNeeded?: boolean
+  fpNeeded?: boolean
   notes?: boolean
   recordedById?: boolean
   recordedAt?: boolean
@@ -1104,6 +1216,9 @@ export type TriageSelectScalar = {
   heightCm?: boolean
   painScore?: boolean
   bloodGlucoseMgDl?: boolean
+  pregnancySuspected?: boolean
+  mchNeeded?: boolean
+  fpNeeded?: boolean
   notes?: boolean
   recordedById?: boolean
   recordedAt?: boolean
@@ -1111,7 +1226,7 @@ export type TriageSelectScalar = {
   deletedAt?: boolean
 }
 
-export type TriageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "encounterId" | "temperature" | "systolic" | "diastolic" | "heartRate" | "respiratoryRate" | "spo2" | "weightKg" | "heightCm" | "painScore" | "bloodGlucoseMgDl" | "notes" | "recordedById" | "recordedAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["triage"]>
+export type TriageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "encounterId" | "temperature" | "systolic" | "diastolic" | "heartRate" | "respiratoryRate" | "spo2" | "weightKg" | "heightCm" | "painScore" | "bloodGlucoseMgDl" | "pregnancySuspected" | "mchNeeded" | "fpNeeded" | "notes" | "recordedById" | "recordedAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["triage"]>
 export type TriageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   encounter?: boolean | Prisma.EncounterDefaultArgs<ExtArgs>
   recordedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1144,6 +1259,12 @@ export type $TriagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     heightCm: runtime.Decimal | null
     painScore: number | null
     bloodGlucoseMgDl: number | null
+    /**
+     * Triage flags for MCH / FP routing (doctor completes full forms).
+     */
+    pregnancySuspected: boolean | null
+    mchNeeded: boolean | null
+    fpNeeded: boolean | null
     notes: string | null
     recordedById: string
     recordedAt: Date
@@ -1586,6 +1707,9 @@ export interface TriageFieldRefs {
   readonly heightCm: Prisma.FieldRef<"Triage", 'Decimal'>
   readonly painScore: Prisma.FieldRef<"Triage", 'Int'>
   readonly bloodGlucoseMgDl: Prisma.FieldRef<"Triage", 'Int'>
+  readonly pregnancySuspected: Prisma.FieldRef<"Triage", 'Boolean'>
+  readonly mchNeeded: Prisma.FieldRef<"Triage", 'Boolean'>
+  readonly fpNeeded: Prisma.FieldRef<"Triage", 'Boolean'>
   readonly notes: Prisma.FieldRef<"Triage", 'String'>
   readonly recordedById: Prisma.FieldRef<"Triage", 'String'>
   readonly recordedAt: Prisma.FieldRef<"Triage", 'DateTime'>

@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
+import { invoiceBalance } from "../common/domain/finance";
 import {
   ageBand,
   ageYearsAt,
@@ -48,6 +49,9 @@ export class ReportsService {
       activeLabOrders,
       pendingInvoices,
       appointmentsToday,
+      openInvoiceSums,
+      deferredTodayCount,
+      waivedToday,
     ] = await Promise.all([
       this.prisma.patient.count({
         where: { createdAt: { gte: today }, deletedAt: null },
@@ -81,7 +85,24 @@ export class ReportsService {
       this.prisma.appointment.count({
         where: { scheduledAt: { gte: today } },
       }),
+      this.prisma.invoice.aggregate({
+        where: { status: { in: ["ISSUED", "PARTIALLY_PAID"] } },
+        _sum: { totalCents: true, paidCents: true, waivedCents: true },
+      }),
+      this.prisma.invoiceAdjustment.count({
+        where: { type: "DEFER", createdAt: { gte: today } },
+      }),
+      this.prisma.invoiceAdjustment.aggregate({
+        where: { type: "WAIVE", createdAt: { gte: today } },
+        _sum: { amountCents: true },
+      }),
     ]);
+    const outstandingCents = Math.max(
+      0,
+      (openInvoiceSums._sum.totalCents ?? 0) -
+        (openInvoiceSums._sum.paidCents ?? 0) -
+        (openInvoiceSums._sum.waivedCents ?? 0),
+    );
 
     return {
       asOf: new Date().toISOString(),
@@ -94,6 +115,144 @@ export class ReportsService {
       activeLabOrders,
       pendingInvoices,
       appointmentsToday,
+      outstandingCents,
+      deferredTodayCount,
+      waivedTodayCents: waivedToday._sum.amountCents ?? 0,
+    };
+  }
+
+  /**
+   * Unpaid & debts: every invoice that still has a balance (as of now), plus
+   * billed / collected / pay later / waived totals for the selected period.
+   */
+  async receivables(from: Date, to: Date) {
+    const now = new Date();
+    const [open, billed, payments, adjustments] = await Promise.all([
+      this.prisma.invoice.findMany({
+        where: { status: { in: ["ISSUED", "PARTIALLY_PAID"] } },
+        orderBy: { createdAt: "asc" },
+        take: 5_000,
+        include: {
+          patient: {
+            select: {
+              id: true,
+              patientNumber: true,
+              firstName: true,
+              middleName: true,
+              lastName: true,
+              phone: true,
+            },
+          },
+          encounter: {
+            select: {
+              id: true,
+              encounterNumber: true,
+              visitNumber: true,
+              status: true,
+              startedAt: true,
+            },
+          },
+          adjustments: {
+            where: { type: "DEFER" },
+            orderBy: { createdAt: "desc" },
+            take: 1,
+            include: {
+              recordedBy: { select: { id: true, firstName: true, lastName: true } },
+            },
+          },
+        },
+      }),
+      this.prisma.invoice.aggregate({
+        where: {
+          status: { not: "VOID" },
+          issuedAt: { gte: from, lte: to },
+        },
+        _sum: { totalCents: true },
+        _count: { _all: true },
+      }),
+      this.prisma.payment.findMany({
+        where: {
+          createdAt: { gte: from, lte: to },
+          status: { in: ["COMPLETED", "PARTIALLY_REFUNDED", "REFUNDED"] },
+        },
+        select: { amountCents: true, refundedCents: true, isDebtPayment: true },
+      }),
+      this.prisma.invoiceAdjustment.groupBy({
+        by: ["type"],
+        where: { createdAt: { gte: from, lte: to } },
+        _sum: { amountCents: true },
+        _count: { _all: true },
+      }),
+    ]);
+
+    const aging = { days0to7: 0, days8to30: 0, days31plus: 0 };
+    const rows = open
+      .map((inv) => {
+        const balanceCents = invoiceBalance(inv);
+        const since = inv.issuedAt ?? inv.createdAt;
+        const ageDays = Math.max(
+          0,
+          Math.floor((now.getTime() - since.getTime()) / 86_400_000),
+        );
+        const lastDefer = inv.adjustments[0];
+        return {
+          id: inv.id,
+          invoiceNumber: inv.invoiceNumber,
+          status: inv.status,
+          issuedAt: since.toISOString(),
+          ageDays,
+          totalCents: inv.totalCents,
+          paidCents: inv.paidCents,
+          waivedCents: inv.waivedCents,
+          deferredCents: Math.min(inv.deferredCents, balanceCents),
+          balanceCents,
+          atCashier: inv.encounter.status === "WAITING_PAYMENT",
+          patient: inv.patient,
+          encounter: inv.encounter,
+          deferReason: lastDefer?.reason ?? null,
+          deferredAt: lastDefer?.createdAt.toISOString() ?? null,
+          deferredBy: lastDefer?.recordedBy ?? null,
+        };
+      })
+      .filter((r) => r.balanceCents > 0)
+      .sort((a, b) => b.ageDays - a.ageDays);
+
+    for (const r of rows) {
+      if (r.ageDays <= 7) aging.days0to7 += r.balanceCents;
+      else if (r.ageDays <= 30) aging.days8to30 += r.balanceCents;
+      else aging.days31plus += r.balanceCents;
+    }
+
+    let collectedCents = 0;
+    let debtCollectedCents = 0;
+    for (const p of payments) {
+      const net = p.amountCents - p.refundedCents;
+      collectedCents += net;
+      if (p.isDebtPayment) debtCollectedCents += net;
+    }
+    const adj = (type: "DEFER" | "WAIVE") =>
+      adjustments.find((a) => a.type === type);
+
+    return {
+      asOf: now.toISOString(),
+      period: { from: from.toISOString(), to: to.toISOString() },
+      totals: {
+        outstandingCents: rows.reduce((sum, r) => sum + r.balanceCents, 0),
+        outstandingCount: rows.length,
+        patientsOwing: new Set(rows.map((r) => r.patient.id)).size,
+        aging,
+      },
+      periodTotals: {
+        billedCents: billed._sum.totalCents ?? 0,
+        invoiceCount: billed._count._all,
+        collectedCents,
+        debtCollectedCents,
+        payLaterCents: adj("DEFER")?._sum.amountCents ?? 0,
+        payLaterCount: adj("DEFER")?._count._all ?? 0,
+        waivedCents: adj("WAIVE")?._sum.amountCents ?? 0,
+        waivedCount: adj("WAIVE")?._count._all ?? 0,
+      },
+      rows,
     };
   }
 

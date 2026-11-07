@@ -72,6 +72,23 @@ export class PatientsController {
   chart(@Param("id") id: string) {
     return this.service.getChart(id);
   }
+  @Roles(
+    Role.CEO,
+    Role.ADMIN,
+    Role.RECEPTIONIST,
+    Role.DOCTOR,
+    Role.NURSE,
+    Role.LAB_TECH,
+    Role.LAB_SUPERVISOR,
+    Role.PHARMACIST,
+    Role.CASHIER,
+    Role.FRONT_DESK,
+    Role.REPORTING_OFFICER,
+  )
+  @Get(":id/balance")
+  balance(@Param("id") id: string) {
+    return this.service.balance(id);
+  }
   @Roles(...DESK_REGISTER_ROLES) @Post() create(
     @Body() dto: CreatePatientDto,
     @CurrentUser() user: AuthUser,

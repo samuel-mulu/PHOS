@@ -5,7 +5,12 @@ import { Roles } from "../common/decorators/roles.decorator";
 import { AuthUser } from "../common/types/auth-user";
 import { DESK_PAY_ROLES } from "../common/constants/desk-roles";
 import { Role } from "../generated/prisma/client";
-import { CreatePaymentDto, CreateRefundDto } from "./dto/payment.dto";
+import {
+  CreatePaymentDto,
+  CreateRefundDto,
+  DeferInvoiceDto,
+  WaiveInvoiceDto,
+} from "./dto/payment.dto";
 import { PaymentsService } from "./payments.service";
 
 @ApiTags("Payments")
@@ -43,5 +48,33 @@ export class PaymentsController {
     @CurrentUser() user: AuthUser,
   ) {
     return this.service.refund(id, dto, user.id);
+  }
+}
+
+/** Cashier decisions on unpaid money: pay later (debt) or waive (free). */
+@ApiTags("Payments")
+@ApiBearerAuth()
+@Controller("invoices")
+export class InvoiceAdjustmentsController {
+  constructor(private readonly service: PaymentsService) {}
+
+  @Roles(...DESK_PAY_ROLES)
+  @Post(":id/defer")
+  defer(
+    @Param("id") id: string,
+    @Body() dto: DeferInvoiceDto,
+    @CurrentUser() user: AuthUser,
+  ) {
+    return this.service.defer(id, dto, user.id);
+  }
+
+  @Roles(...DESK_PAY_ROLES)
+  @Post(":id/waive")
+  waive(
+    @Param("id") id: string,
+    @Body() dto: WaiveInvoiceDto,
+    @CurrentUser() user: AuthUser,
+  ) {
+    return this.service.waive(id, dto, user.id);
   }
 }

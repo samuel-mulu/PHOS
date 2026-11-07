@@ -49,6 +49,7 @@ export type PaymentMinAggregateOutputType = {
   idempotencyKey: string | null
   recordedById: string | null
   cashSessionId: string | null
+  isDebtPayment: boolean | null
   createdAt: Date | null
 }
 
@@ -65,6 +66,7 @@ export type PaymentMaxAggregateOutputType = {
   idempotencyKey: string | null
   recordedById: string | null
   cashSessionId: string | null
+  isDebtPayment: boolean | null
   createdAt: Date | null
 }
 
@@ -81,6 +83,7 @@ export type PaymentCountAggregateOutputType = {
   idempotencyKey: number
   recordedById: number
   cashSessionId: number
+  isDebtPayment: number
   createdAt: number
   _all: number
 }
@@ -109,6 +112,7 @@ export type PaymentMinAggregateInputType = {
   idempotencyKey?: true
   recordedById?: true
   cashSessionId?: true
+  isDebtPayment?: true
   createdAt?: true
 }
 
@@ -125,6 +129,7 @@ export type PaymentMaxAggregateInputType = {
   idempotencyKey?: true
   recordedById?: true
   cashSessionId?: true
+  isDebtPayment?: true
   createdAt?: true
 }
 
@@ -141,6 +146,7 @@ export type PaymentCountAggregateInputType = {
   idempotencyKey?: true
   recordedById?: true
   cashSessionId?: true
+  isDebtPayment?: true
   createdAt?: true
   _all?: true
 }
@@ -244,6 +250,7 @@ export type PaymentGroupByOutputType = {
   idempotencyKey: string
   recordedById: string
   cashSessionId: string | null
+  isDebtPayment: boolean
   createdAt: Date
   _count: PaymentCountAggregateOutputType | null
   _avg: PaymentAvgAggregateOutputType | null
@@ -283,6 +290,7 @@ export type PaymentWhereInput = {
   idempotencyKey?: Prisma.StringFilter<"Payment"> | string
   recordedById?: Prisma.UuidFilter<"Payment"> | string
   cashSessionId?: Prisma.UuidNullableFilter<"Payment"> | string | null
+  isDebtPayment?: Prisma.BoolFilter<"Payment"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
   invoice?: Prisma.XOR<Prisma.InvoiceScalarRelationFilter, Prisma.InvoiceWhereInput>
   patient?: Prisma.XOR<Prisma.PatientScalarRelationFilter, Prisma.PatientWhereInput>
@@ -304,6 +312,7 @@ export type PaymentOrderByWithRelationInput = {
   idempotencyKey?: Prisma.SortOrder
   recordedById?: Prisma.SortOrder
   cashSessionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  isDebtPayment?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   invoice?: Prisma.InvoiceOrderByWithRelationInput
   patient?: Prisma.PatientOrderByWithRelationInput
@@ -328,6 +337,7 @@ export type PaymentWhereUniqueInput = Prisma.AtLeast<{
   referenceNumber?: Prisma.StringNullableFilter<"Payment"> | string | null
   recordedById?: Prisma.UuidFilter<"Payment"> | string
   cashSessionId?: Prisma.UuidNullableFilter<"Payment"> | string | null
+  isDebtPayment?: Prisma.BoolFilter<"Payment"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
   invoice?: Prisma.XOR<Prisma.InvoiceScalarRelationFilter, Prisma.InvoiceWhereInput>
   patient?: Prisma.XOR<Prisma.PatientScalarRelationFilter, Prisma.PatientWhereInput>
@@ -349,6 +359,7 @@ export type PaymentOrderByWithAggregationInput = {
   idempotencyKey?: Prisma.SortOrder
   recordedById?: Prisma.SortOrder
   cashSessionId?: Prisma.SortOrderInput | Prisma.SortOrder
+  isDebtPayment?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.PaymentCountOrderByAggregateInput
   _avg?: Prisma.PaymentAvgOrderByAggregateInput
@@ -373,6 +384,7 @@ export type PaymentScalarWhereWithAggregatesInput = {
   idempotencyKey?: Prisma.StringWithAggregatesFilter<"Payment"> | string
   recordedById?: Prisma.UuidWithAggregatesFilter<"Payment"> | string
   cashSessionId?: Prisma.UuidNullableWithAggregatesFilter<"Payment"> | string | null
+  isDebtPayment?: Prisma.BoolWithAggregatesFilter<"Payment"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Payment"> | Date | string
 }
 
@@ -385,6 +397,7 @@ export type PaymentCreateInput = {
   status?: $Enums.PaymentStatus
   referenceNumber?: string | null
   idempotencyKey: string
+  isDebtPayment?: boolean
   createdAt?: Date | string
   invoice: Prisma.InvoiceCreateNestedOneWithoutPaymentsInput
   patient: Prisma.PatientCreateNestedOneWithoutPaymentsInput
@@ -406,6 +419,7 @@ export type PaymentUncheckedCreateInput = {
   idempotencyKey: string
   recordedById: string
   cashSessionId?: string | null
+  isDebtPayment?: boolean
   createdAt?: Date | string
   refunds?: Prisma.RefundUncheckedCreateNestedManyWithoutPaymentInput
 }
@@ -419,6 +433,7 @@ export type PaymentUpdateInput = {
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   referenceNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
+  isDebtPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   invoice?: Prisma.InvoiceUpdateOneRequiredWithoutPaymentsNestedInput
   patient?: Prisma.PatientUpdateOneRequiredWithoutPaymentsNestedInput
@@ -440,6 +455,7 @@ export type PaymentUncheckedUpdateInput = {
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
   cashSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDebtPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refunds?: Prisma.RefundUncheckedUpdateManyWithoutPaymentNestedInput
 }
@@ -457,6 +473,7 @@ export type PaymentCreateManyInput = {
   idempotencyKey: string
   recordedById: string
   cashSessionId?: string | null
+  isDebtPayment?: boolean
   createdAt?: Date | string
 }
 
@@ -469,6 +486,7 @@ export type PaymentUpdateManyMutationInput = {
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   referenceNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
+  isDebtPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -485,6 +503,7 @@ export type PaymentUncheckedUpdateManyInput = {
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
   cashSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDebtPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -511,6 +530,7 @@ export type PaymentCountOrderByAggregateInput = {
   idempotencyKey?: Prisma.SortOrder
   recordedById?: Prisma.SortOrder
   cashSessionId?: Prisma.SortOrder
+  isDebtPayment?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -532,6 +552,7 @@ export type PaymentMaxOrderByAggregateInput = {
   idempotencyKey?: Prisma.SortOrder
   recordedById?: Prisma.SortOrder
   cashSessionId?: Prisma.SortOrder
+  isDebtPayment?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -548,6 +569,7 @@ export type PaymentMinOrderByAggregateInput = {
   idempotencyKey?: Prisma.SortOrder
   recordedById?: Prisma.SortOrder
   cashSessionId?: Prisma.SortOrder
+  isDebtPayment?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -760,6 +782,7 @@ export type PaymentCreateWithoutRecordedByInput = {
   status?: $Enums.PaymentStatus
   referenceNumber?: string | null
   idempotencyKey: string
+  isDebtPayment?: boolean
   createdAt?: Date | string
   invoice: Prisma.InvoiceCreateNestedOneWithoutPaymentsInput
   patient: Prisma.PatientCreateNestedOneWithoutPaymentsInput
@@ -779,6 +802,7 @@ export type PaymentUncheckedCreateWithoutRecordedByInput = {
   referenceNumber?: string | null
   idempotencyKey: string
   cashSessionId?: string | null
+  isDebtPayment?: boolean
   createdAt?: Date | string
   refunds?: Prisma.RefundUncheckedCreateNestedManyWithoutPaymentInput
 }
@@ -825,6 +849,7 @@ export type PaymentScalarWhereInput = {
   idempotencyKey?: Prisma.StringFilter<"Payment"> | string
   recordedById?: Prisma.UuidFilter<"Payment"> | string
   cashSessionId?: Prisma.UuidNullableFilter<"Payment"> | string | null
+  isDebtPayment?: Prisma.BoolFilter<"Payment"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Payment"> | Date | string
 }
 
@@ -837,6 +862,7 @@ export type PaymentCreateWithoutPatientInput = {
   status?: $Enums.PaymentStatus
   referenceNumber?: string | null
   idempotencyKey: string
+  isDebtPayment?: boolean
   createdAt?: Date | string
   invoice: Prisma.InvoiceCreateNestedOneWithoutPaymentsInput
   recordedBy: Prisma.UserCreateNestedOneWithoutRecordedPaymentsInput
@@ -856,6 +882,7 @@ export type PaymentUncheckedCreateWithoutPatientInput = {
   idempotencyKey: string
   recordedById: string
   cashSessionId?: string | null
+  isDebtPayment?: boolean
   createdAt?: Date | string
   refunds?: Prisma.RefundUncheckedCreateNestedManyWithoutPaymentInput
 }
@@ -895,6 +922,7 @@ export type PaymentCreateWithoutInvoiceInput = {
   status?: $Enums.PaymentStatus
   referenceNumber?: string | null
   idempotencyKey: string
+  isDebtPayment?: boolean
   createdAt?: Date | string
   patient: Prisma.PatientCreateNestedOneWithoutPaymentsInput
   recordedBy: Prisma.UserCreateNestedOneWithoutRecordedPaymentsInput
@@ -914,6 +942,7 @@ export type PaymentUncheckedCreateWithoutInvoiceInput = {
   idempotencyKey: string
   recordedById: string
   cashSessionId?: string | null
+  isDebtPayment?: boolean
   createdAt?: Date | string
   refunds?: Prisma.RefundUncheckedCreateNestedManyWithoutPaymentInput
 }
@@ -953,6 +982,7 @@ export type PaymentCreateWithoutRefundsInput = {
   status?: $Enums.PaymentStatus
   referenceNumber?: string | null
   idempotencyKey: string
+  isDebtPayment?: boolean
   createdAt?: Date | string
   invoice: Prisma.InvoiceCreateNestedOneWithoutPaymentsInput
   patient: Prisma.PatientCreateNestedOneWithoutPaymentsInput
@@ -973,6 +1003,7 @@ export type PaymentUncheckedCreateWithoutRefundsInput = {
   idempotencyKey: string
   recordedById: string
   cashSessionId?: string | null
+  isDebtPayment?: boolean
   createdAt?: Date | string
 }
 
@@ -1001,6 +1032,7 @@ export type PaymentUpdateWithoutRefundsInput = {
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   referenceNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
+  isDebtPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   invoice?: Prisma.InvoiceUpdateOneRequiredWithoutPaymentsNestedInput
   patient?: Prisma.PatientUpdateOneRequiredWithoutPaymentsNestedInput
@@ -1021,6 +1053,7 @@ export type PaymentUncheckedUpdateWithoutRefundsInput = {
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
   cashSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDebtPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1033,6 +1066,7 @@ export type PaymentCreateWithoutCashSessionInput = {
   status?: $Enums.PaymentStatus
   referenceNumber?: string | null
   idempotencyKey: string
+  isDebtPayment?: boolean
   createdAt?: Date | string
   invoice: Prisma.InvoiceCreateNestedOneWithoutPaymentsInput
   patient: Prisma.PatientCreateNestedOneWithoutPaymentsInput
@@ -1052,6 +1086,7 @@ export type PaymentUncheckedCreateWithoutCashSessionInput = {
   referenceNumber?: string | null
   idempotencyKey: string
   recordedById: string
+  isDebtPayment?: boolean
   createdAt?: Date | string
   refunds?: Prisma.RefundUncheckedCreateNestedManyWithoutPaymentInput
 }
@@ -1094,6 +1129,7 @@ export type PaymentCreateManyRecordedByInput = {
   referenceNumber?: string | null
   idempotencyKey: string
   cashSessionId?: string | null
+  isDebtPayment?: boolean
   createdAt?: Date | string
 }
 
@@ -1106,6 +1142,7 @@ export type PaymentUpdateWithoutRecordedByInput = {
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   referenceNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
+  isDebtPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   invoice?: Prisma.InvoiceUpdateOneRequiredWithoutPaymentsNestedInput
   patient?: Prisma.PatientUpdateOneRequiredWithoutPaymentsNestedInput
@@ -1125,6 +1162,7 @@ export type PaymentUncheckedUpdateWithoutRecordedByInput = {
   referenceNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   cashSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDebtPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refunds?: Prisma.RefundUncheckedUpdateManyWithoutPaymentNestedInput
 }
@@ -1141,6 +1179,7 @@ export type PaymentUncheckedUpdateManyWithoutRecordedByInput = {
   referenceNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   cashSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDebtPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1156,6 +1195,7 @@ export type PaymentCreateManyPatientInput = {
   idempotencyKey: string
   recordedById: string
   cashSessionId?: string | null
+  isDebtPayment?: boolean
   createdAt?: Date | string
 }
 
@@ -1168,6 +1208,7 @@ export type PaymentUpdateWithoutPatientInput = {
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   referenceNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
+  isDebtPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   invoice?: Prisma.InvoiceUpdateOneRequiredWithoutPaymentsNestedInput
   recordedBy?: Prisma.UserUpdateOneRequiredWithoutRecordedPaymentsNestedInput
@@ -1187,6 +1228,7 @@ export type PaymentUncheckedUpdateWithoutPatientInput = {
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
   cashSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDebtPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refunds?: Prisma.RefundUncheckedUpdateManyWithoutPaymentNestedInput
 }
@@ -1203,6 +1245,7 @@ export type PaymentUncheckedUpdateManyWithoutPatientInput = {
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
   cashSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDebtPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1218,6 +1261,7 @@ export type PaymentCreateManyInvoiceInput = {
   idempotencyKey: string
   recordedById: string
   cashSessionId?: string | null
+  isDebtPayment?: boolean
   createdAt?: Date | string
 }
 
@@ -1230,6 +1274,7 @@ export type PaymentUpdateWithoutInvoiceInput = {
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   referenceNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
+  isDebtPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   patient?: Prisma.PatientUpdateOneRequiredWithoutPaymentsNestedInput
   recordedBy?: Prisma.UserUpdateOneRequiredWithoutRecordedPaymentsNestedInput
@@ -1249,6 +1294,7 @@ export type PaymentUncheckedUpdateWithoutInvoiceInput = {
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
   cashSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDebtPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refunds?: Prisma.RefundUncheckedUpdateManyWithoutPaymentNestedInput
 }
@@ -1265,6 +1311,7 @@ export type PaymentUncheckedUpdateManyWithoutInvoiceInput = {
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
   cashSessionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDebtPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1280,6 +1327,7 @@ export type PaymentCreateManyCashSessionInput = {
   referenceNumber?: string | null
   idempotencyKey: string
   recordedById: string
+  isDebtPayment?: boolean
   createdAt?: Date | string
 }
 
@@ -1292,6 +1340,7 @@ export type PaymentUpdateWithoutCashSessionInput = {
   status?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   referenceNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
+  isDebtPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   invoice?: Prisma.InvoiceUpdateOneRequiredWithoutPaymentsNestedInput
   patient?: Prisma.PatientUpdateOneRequiredWithoutPaymentsNestedInput
@@ -1311,6 +1360,7 @@ export type PaymentUncheckedUpdateWithoutCashSessionInput = {
   referenceNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
+  isDebtPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   refunds?: Prisma.RefundUncheckedUpdateManyWithoutPaymentNestedInput
 }
@@ -1327,6 +1377,7 @@ export type PaymentUncheckedUpdateManyWithoutCashSessionInput = {
   referenceNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
+  isDebtPayment?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1374,6 +1425,7 @@ export type PaymentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   idempotencyKey?: boolean
   recordedById?: boolean
   cashSessionId?: boolean
+  isDebtPayment?: boolean
   createdAt?: boolean
   invoice?: boolean | Prisma.InvoiceDefaultArgs<ExtArgs>
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
@@ -1396,6 +1448,7 @@ export type PaymentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   idempotencyKey?: boolean
   recordedById?: boolean
   cashSessionId?: boolean
+  isDebtPayment?: boolean
   createdAt?: boolean
   invoice?: boolean | Prisma.InvoiceDefaultArgs<ExtArgs>
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
@@ -1416,6 +1469,7 @@ export type PaymentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   idempotencyKey?: boolean
   recordedById?: boolean
   cashSessionId?: boolean
+  isDebtPayment?: boolean
   createdAt?: boolean
   invoice?: boolean | Prisma.InvoiceDefaultArgs<ExtArgs>
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
@@ -1436,10 +1490,11 @@ export type PaymentSelectScalar = {
   idempotencyKey?: boolean
   recordedById?: boolean
   cashSessionId?: boolean
+  isDebtPayment?: boolean
   createdAt?: boolean
 }
 
-export type PaymentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "paymentNumber" | "invoiceId" | "patientId" | "amountCents" | "refundedCents" | "method" | "status" | "referenceNumber" | "idempotencyKey" | "recordedById" | "cashSessionId" | "createdAt", ExtArgs["result"]["payment"]>
+export type PaymentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "paymentNumber" | "invoiceId" | "patientId" | "amountCents" | "refundedCents" | "method" | "status" | "referenceNumber" | "idempotencyKey" | "recordedById" | "cashSessionId" | "isDebtPayment" | "createdAt", ExtArgs["result"]["payment"]>
 export type PaymentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   invoice?: boolean | Prisma.InvoiceDefaultArgs<ExtArgs>
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
@@ -1483,6 +1538,10 @@ export type $PaymentPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     idempotencyKey: string
     recordedById: string
     cashSessionId: string | null
+    /**
+     * * Collected against an approved pay-later debt.
+     */
+    isDebtPayment: boolean
     createdAt: Date
   }, ExtArgs["result"]["payment"]>
   composites: {}
@@ -1924,6 +1983,7 @@ export interface PaymentFieldRefs {
   readonly idempotencyKey: Prisma.FieldRef<"Payment", 'String'>
   readonly recordedById: Prisma.FieldRef<"Payment", 'String'>
   readonly cashSessionId: Prisma.FieldRef<"Payment", 'String'>
+  readonly isDebtPayment: Prisma.FieldRef<"Payment", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Payment", 'DateTime'>
 }
     

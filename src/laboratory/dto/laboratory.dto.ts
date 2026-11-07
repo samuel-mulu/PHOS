@@ -67,3 +67,8 @@ export class EnterLabResultsDto {
   @Type(() => ResultValueDto)
   results!: ResultValueDto[];
 }
+
+export class SaveDoctorLabNotesDto {
+  @IsString()
+  doctorReviewNotes!: string;
+}

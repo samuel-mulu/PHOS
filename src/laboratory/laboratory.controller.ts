@@ -16,6 +16,7 @@ import {
   CreateLabOrderDto,
   CreateLabTestDto,
   EnterLabResultsDto,
+  SaveDoctorLabNotesDto,
   UpdateLabTestDto,
   UpdateLabTestStatusDto,
 } from "./dto/laboratory.dto";
@@ -128,5 +129,16 @@ export class LaboratoryController {
   @Post("lab/orders/:id/verify")
   verify(@Param("id") id: string, @CurrentUser() user: AuthUser) {
     return this.service.verify(id, user.id);
+  }
+
+  /** Doctor saves interpretation notes after reviewing verified results. */
+  @Roles(Role.DOCTOR, Role.ADMIN, Role.CEO)
+  @Patch("lab/orders/:id/doctor-notes")
+  saveDoctorNotes(
+    @Param("id") id: string,
+    @Body() dto: SaveDoctorLabNotesDto,
+    @CurrentUser() user: AuthUser,
+  ) {
+    return this.service.saveDoctorReviewNotes(id, dto, user.id, user.role);
   }
 }

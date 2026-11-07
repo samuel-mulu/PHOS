@@ -1,6 +1,7 @@
 import { Controller, Get, Query } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { Roles } from "../common/decorators/roles.decorator";
+import { DESK_PAY_ROLES } from "../common/constants/desk-roles";
 import { Role } from "../generated/prisma/client";
 import { ReportsService } from "./reports.service";
 
@@ -14,6 +15,16 @@ export class ReportsController {
   @Get("dashboard")
   dashboard() {
     return this.service.dashboard();
+  }
+
+  @Roles(...DESK_PAY_ROLES, Role.REPORTING_OFFICER)
+  @Get("receivables")
+  receivables(@Query("from") from: string, @Query("to") to: string) {
+    const start = from
+      ? new Date(from)
+      : new Date(new Date().setHours(0, 0, 0, 0));
+    const end = to ? new Date(to) : new Date();
+    return this.service.receivables(start, end);
   }
 
   @Roles(
