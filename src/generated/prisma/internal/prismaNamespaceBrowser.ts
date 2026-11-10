@@ -66,6 +66,7 @@ export const ModelName = {
   AuditLog: 'AuditLog',
   LabTest: 'LabTest',
   LabOrder: 'LabOrder',
+  ClinicalMessage: 'ClinicalMessage',
   LabOrderItem: 'LabOrderItem',
   LabResult: 'LabResult',
   Prescription: 'Prescription',
@@ -389,6 +390,21 @@ export const LabOrderScalarFieldEnum = {
 } as const
 
 export type LabOrderScalarFieldEnum = (typeof LabOrderScalarFieldEnum)[keyof typeof LabOrderScalarFieldEnum]
+
+
+export const ClinicalMessageScalarFieldEnum = {
+  id: 'id',
+  encounterId: 'encounterId',
+  patientId: 'patientId',
+  authorId: 'authorId',
+  authorSide: 'authorSide',
+  kind: 'kind',
+  body: 'body',
+  labOrderId: 'labOrderId',
+  createdAt: 'createdAt'
+} as const
+
+export type ClinicalMessageScalarFieldEnum = (typeof ClinicalMessageScalarFieldEnum)[keyof typeof ClinicalMessageScalarFieldEnum]
 
 
 export const LabOrderItemScalarFieldEnum = {

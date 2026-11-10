@@ -568,6 +568,40 @@ export type EnumLabOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumLabOrderStatusFilter<$PrismaModel>
 }
 
+export type EnumClinicalMessageAuthorSideFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClinicalMessageAuthorSide | Prisma.EnumClinicalMessageAuthorSideFieldRefInput<$PrismaModel>
+  in?: $Enums.ClinicalMessageAuthorSide[] | Prisma.ListEnumClinicalMessageAuthorSideFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClinicalMessageAuthorSide[] | Prisma.ListEnumClinicalMessageAuthorSideFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClinicalMessageAuthorSideFilter<$PrismaModel> | $Enums.ClinicalMessageAuthorSide
+}
+
+export type EnumClinicalMessageKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClinicalMessageKind | Prisma.EnumClinicalMessageKindFieldRefInput<$PrismaModel>
+  in?: $Enums.ClinicalMessageKind[] | Prisma.ListEnumClinicalMessageKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClinicalMessageKind[] | Prisma.ListEnumClinicalMessageKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClinicalMessageKindFilter<$PrismaModel> | $Enums.ClinicalMessageKind
+}
+
+export type EnumClinicalMessageAuthorSideWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClinicalMessageAuthorSide | Prisma.EnumClinicalMessageAuthorSideFieldRefInput<$PrismaModel>
+  in?: $Enums.ClinicalMessageAuthorSide[] | Prisma.ListEnumClinicalMessageAuthorSideFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClinicalMessageAuthorSide[] | Prisma.ListEnumClinicalMessageAuthorSideFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClinicalMessageAuthorSideWithAggregatesFilter<$PrismaModel> | $Enums.ClinicalMessageAuthorSide
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumClinicalMessageAuthorSideFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumClinicalMessageAuthorSideFilter<$PrismaModel>
+}
+
+export type EnumClinicalMessageKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClinicalMessageKind | Prisma.EnumClinicalMessageKindFieldRefInput<$PrismaModel>
+  in?: $Enums.ClinicalMessageKind[] | Prisma.ListEnumClinicalMessageKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClinicalMessageKind[] | Prisma.ListEnumClinicalMessageKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClinicalMessageKindWithAggregatesFilter<$PrismaModel> | $Enums.ClinicalMessageKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumClinicalMessageKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumClinicalMessageKindFilter<$PrismaModel>
+}
+
 export type EnumLabResultFlagFilter<$PrismaModel = never> = {
   equals?: $Enums.LabResultFlag | Prisma.EnumLabResultFlagFieldRefInput<$PrismaModel>
   in?: $Enums.LabResultFlag[] | Prisma.ListEnumLabResultFlagFieldRefInput<$PrismaModel>
@@ -1612,6 +1646,40 @@ export type NestedEnumLabOrderStatusWithAggregatesFilter<$PrismaModel = never> =
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumLabOrderStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumLabOrderStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumClinicalMessageAuthorSideFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClinicalMessageAuthorSide | Prisma.EnumClinicalMessageAuthorSideFieldRefInput<$PrismaModel>
+  in?: $Enums.ClinicalMessageAuthorSide[] | Prisma.ListEnumClinicalMessageAuthorSideFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClinicalMessageAuthorSide[] | Prisma.ListEnumClinicalMessageAuthorSideFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClinicalMessageAuthorSideFilter<$PrismaModel> | $Enums.ClinicalMessageAuthorSide
+}
+
+export type NestedEnumClinicalMessageKindFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClinicalMessageKind | Prisma.EnumClinicalMessageKindFieldRefInput<$PrismaModel>
+  in?: $Enums.ClinicalMessageKind[] | Prisma.ListEnumClinicalMessageKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClinicalMessageKind[] | Prisma.ListEnumClinicalMessageKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClinicalMessageKindFilter<$PrismaModel> | $Enums.ClinicalMessageKind
+}
+
+export type NestedEnumClinicalMessageAuthorSideWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClinicalMessageAuthorSide | Prisma.EnumClinicalMessageAuthorSideFieldRefInput<$PrismaModel>
+  in?: $Enums.ClinicalMessageAuthorSide[] | Prisma.ListEnumClinicalMessageAuthorSideFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClinicalMessageAuthorSide[] | Prisma.ListEnumClinicalMessageAuthorSideFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClinicalMessageAuthorSideWithAggregatesFilter<$PrismaModel> | $Enums.ClinicalMessageAuthorSide
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumClinicalMessageAuthorSideFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumClinicalMessageAuthorSideFilter<$PrismaModel>
+}
+
+export type NestedEnumClinicalMessageKindWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClinicalMessageKind | Prisma.EnumClinicalMessageKindFieldRefInput<$PrismaModel>
+  in?: $Enums.ClinicalMessageKind[] | Prisma.ListEnumClinicalMessageKindFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClinicalMessageKind[] | Prisma.ListEnumClinicalMessageKindFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClinicalMessageKindWithAggregatesFilter<$PrismaModel> | $Enums.ClinicalMessageKind
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumClinicalMessageKindFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumClinicalMessageKindFilter<$PrismaModel>
 }
 
 export type NestedEnumLabResultFlagFilter<$PrismaModel = never> = {

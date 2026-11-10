@@ -116,6 +116,17 @@ enum LabResultFlag {
   ABNORMAL
 }
 
+enum ClinicalMessageKind {
+  NOTE
+  LAB_ORDER
+  LAB_RESULT
+}
+
+enum ClinicalMessageAuthorSide {
+  DOCTOR
+  LAB
+}
+
 enum PrescriptionStatus {
   ACTIVE
   PARTIAL
@@ -341,6 +352,7 @@ model User {
   laborMonitoring    LaborMonitoringEntry[] @relation("LaborMonitoringRecorder")
   deliverySummaries  DeliverySummary[]   @relation("DeliverySummaryRecorder")
   familyPlanningRecords FamilyPlanningRecord[] @relation("FamilyPlanningRecorder")
+  clinicalMessages   ClinicalMessage[]   @relation("ClinicalMessageAuthor")
   createdAt          DateTime            @default(now()) @map("created_at")
   updatedAt          DateTime            @updatedAt @map("updated_at")
   deletedAt          DateTime?           @map("deleted_at")
@@ -447,6 +459,7 @@ model Patient {
   obstetricHistory      ObstetricHistory?
   ancVisits             AncVisit[]
   familyPlanningRecords FamilyPlanningRecord[]
+  clinicalMessages      ClinicalMessage[]
   createdAt             DateTime       @default(now()) @map("created_at")
   updatedAt             DateTime       @updatedAt @map("updated_at")
   deletedAt             DateTime?      @map("deleted_at")
@@ -492,6 +505,7 @@ model Encounter {
   laborAdmission  LaborAdmission?
   deliverySummary DeliverySummary?
   familyPlanningRecords FamilyPlanningRecord[]
+  clinicalMessages ClinicalMessage[]
   createdAt       DateTime          @default(now()) @map("created_at")
   updatedAt       DateTime          @updatedAt @map("updated_at")
   deletedAt       DateTime?         @map("deleted_at")
@@ -678,6 +692,7 @@ model LabOrder {
   patient            Patient           @relation(fields: [patientId], references: [id])
   doctor             User              @relation("LabOrderDoctor", fields: [doctorId], references: [id])
   items              LabOrderItem[]
+  clinicalMessages   ClinicalMessage[]
   createdAt          DateTime          @default(now()) @map("created_at")
   updatedAt          DateTime          @updatedAt @map("updated_at")
   cancelledAt        DateTime?         @map("cancelled_at")
@@ -685,6 +700,26 @@ model LabOrder {
   @@index([status, priority, createdAt])
   @@index([encounterId])
   @@map("lab_orders")
+}
+
+model ClinicalMessage {
+  id          String                     @id @default(uuid()) @db.Uuid
+  encounterId String                     @map("encounter_id") @db.Uuid
+  patientId   String                     @map("patient_id") @db.Uuid
+  authorId    String                     @map("author_id") @db.Uuid
+  authorSide  ClinicalMessageAuthorSide  @map("author_side")
+  kind        ClinicalMessageKind        @default(NOTE)
+  body        String
+  labOrderId  String?                    @map("lab_order_id") @db.Uuid
+  encounter   Encounter                  @relation(fields: [encounterId], references: [id])
+  patient     Patient                    @relation(fields: [patientId], references: [id])
+  author      User                       @relation("ClinicalMessageAuthor", fields: [authorId], references: [id])
+  labOrder    LabOrder?                  @relation(fields: [labOrderId], references: [id])
+  createdAt   DateTime                   @default(now()) @map("created_at")
+
+  @@index([encounterId, createdAt])
+  @@index([patientId, createdAt])
+  @@map("clinical_messages")
 }
 
 model LabOrderItem {

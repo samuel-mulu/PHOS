@@ -297,6 +297,7 @@ export type PatientWhereInput = {
   obstetricHistory?: Prisma.XOR<Prisma.ObstetricHistoryNullableScalarRelationFilter, Prisma.ObstetricHistoryWhereInput> | null
   ancVisits?: Prisma.AncVisitListRelationFilter
   familyPlanningRecords?: Prisma.FamilyPlanningRecordListRelationFilter
+  clinicalMessages?: Prisma.ClinicalMessageListRelationFilter
 }
 
 export type PatientOrderByWithRelationInput = {
@@ -329,6 +330,7 @@ export type PatientOrderByWithRelationInput = {
   obstetricHistory?: Prisma.ObstetricHistoryOrderByWithRelationInput
   ancVisits?: Prisma.AncVisitOrderByRelationAggregateInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordOrderByRelationAggregateInput
+  clinicalMessages?: Prisma.ClinicalMessageOrderByRelationAggregateInput
 }
 
 export type PatientWhereUniqueInput = Prisma.AtLeast<{
@@ -364,6 +366,7 @@ export type PatientWhereUniqueInput = Prisma.AtLeast<{
   obstetricHistory?: Prisma.XOR<Prisma.ObstetricHistoryNullableScalarRelationFilter, Prisma.ObstetricHistoryWhereInput> | null
   ancVisits?: Prisma.AncVisitListRelationFilter
   familyPlanningRecords?: Prisma.FamilyPlanningRecordListRelationFilter
+  clinicalMessages?: Prisma.ClinicalMessageListRelationFilter
 }, "id" | "patientNumber" | "governmentId">
 
 export type PatientOrderByWithAggregationInput = {
@@ -443,6 +446,7 @@ export type PatientCreateInput = {
   obstetricHistory?: Prisma.ObstetricHistoryCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutPatientInput
 }
 
 export type PatientUncheckedCreateInput = {
@@ -474,6 +478,7 @@ export type PatientUncheckedCreateInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitUncheckedCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutPatientInput
 }
 
 export type PatientUpdateInput = {
@@ -505,6 +510,7 @@ export type PatientUpdateInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUpdateOneWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUpdateManyWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientUncheckedUpdateInput = {
@@ -536,6 +542,7 @@ export type PatientUncheckedUpdateInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedUpdateOneWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUncheckedUpdateManyWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientCreateManyInput = {
@@ -766,6 +773,20 @@ export type PatientUpdateOneRequiredWithoutLabOrdersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PatientUpdateToOneWithWhereWithoutLabOrdersInput, Prisma.PatientUpdateWithoutLabOrdersInput>, Prisma.PatientUncheckedUpdateWithoutLabOrdersInput>
 }
 
+export type PatientCreateNestedOneWithoutClinicalMessagesInput = {
+  create?: Prisma.XOR<Prisma.PatientCreateWithoutClinicalMessagesInput, Prisma.PatientUncheckedCreateWithoutClinicalMessagesInput>
+  connectOrCreate?: Prisma.PatientCreateOrConnectWithoutClinicalMessagesInput
+  connect?: Prisma.PatientWhereUniqueInput
+}
+
+export type PatientUpdateOneRequiredWithoutClinicalMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.PatientCreateWithoutClinicalMessagesInput, Prisma.PatientUncheckedCreateWithoutClinicalMessagesInput>
+  connectOrCreate?: Prisma.PatientCreateOrConnectWithoutClinicalMessagesInput
+  upsert?: Prisma.PatientUpsertWithoutClinicalMessagesInput
+  connect?: Prisma.PatientWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PatientUpdateToOneWithWhereWithoutClinicalMessagesInput, Prisma.PatientUpdateWithoutClinicalMessagesInput>, Prisma.PatientUncheckedUpdateWithoutClinicalMessagesInput>
+}
+
 export type PatientCreateNestedOneWithoutPrescriptionsInput = {
   create?: Prisma.XOR<Prisma.PatientCreateWithoutPrescriptionsInput, Prisma.PatientUncheckedCreateWithoutPrescriptionsInput>
   connectOrCreate?: Prisma.PatientCreateOrConnectWithoutPrescriptionsInput
@@ -892,6 +913,7 @@ export type PatientCreateWithoutCreatedByInput = {
   obstetricHistory?: Prisma.ObstetricHistoryCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutPatientInput
 }
 
 export type PatientUncheckedCreateWithoutCreatedByInput = {
@@ -922,6 +944,7 @@ export type PatientUncheckedCreateWithoutCreatedByInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitUncheckedCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutPatientInput
 }
 
 export type PatientCreateOrConnectWithoutCreatedByInput = {
@@ -1002,6 +1025,7 @@ export type PatientCreateWithoutEncountersInput = {
   obstetricHistory?: Prisma.ObstetricHistoryCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutPatientInput
 }
 
 export type PatientUncheckedCreateWithoutEncountersInput = {
@@ -1032,6 +1056,7 @@ export type PatientUncheckedCreateWithoutEncountersInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitUncheckedCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutPatientInput
 }
 
 export type PatientCreateOrConnectWithoutEncountersInput = {
@@ -1078,6 +1103,7 @@ export type PatientUpdateWithoutEncountersInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUpdateOneWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUpdateManyWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientUncheckedUpdateWithoutEncountersInput = {
@@ -1108,6 +1134,7 @@ export type PatientUncheckedUpdateWithoutEncountersInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedUpdateOneWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUncheckedUpdateManyWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientCreateWithoutAppointmentsInput = {
@@ -1138,6 +1165,7 @@ export type PatientCreateWithoutAppointmentsInput = {
   obstetricHistory?: Prisma.ObstetricHistoryCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutPatientInput
 }
 
 export type PatientUncheckedCreateWithoutAppointmentsInput = {
@@ -1168,6 +1196,7 @@ export type PatientUncheckedCreateWithoutAppointmentsInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitUncheckedCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutPatientInput
 }
 
 export type PatientCreateOrConnectWithoutAppointmentsInput = {
@@ -1214,6 +1243,7 @@ export type PatientUpdateWithoutAppointmentsInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUpdateOneWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUpdateManyWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientUncheckedUpdateWithoutAppointmentsInput = {
@@ -1244,6 +1274,7 @@ export type PatientUncheckedUpdateWithoutAppointmentsInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedUpdateOneWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUncheckedUpdateManyWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientCreateWithoutLabOrdersInput = {
@@ -1274,6 +1305,7 @@ export type PatientCreateWithoutLabOrdersInput = {
   obstetricHistory?: Prisma.ObstetricHistoryCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutPatientInput
 }
 
 export type PatientUncheckedCreateWithoutLabOrdersInput = {
@@ -1304,6 +1336,7 @@ export type PatientUncheckedCreateWithoutLabOrdersInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitUncheckedCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutPatientInput
 }
 
 export type PatientCreateOrConnectWithoutLabOrdersInput = {
@@ -1350,6 +1383,7 @@ export type PatientUpdateWithoutLabOrdersInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUpdateOneWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUpdateManyWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientUncheckedUpdateWithoutLabOrdersInput = {
@@ -1372,6 +1406,147 @@ export type PatientUncheckedUpdateWithoutLabOrdersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   encounters?: Prisma.EncounterUncheckedUpdateManyWithoutPatientNestedInput
+  prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutPatientNestedInput
+  invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutPatientNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutPatientNestedInput
+  invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutPatientNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutPatientNestedInput
+  obstetricHistory?: Prisma.ObstetricHistoryUncheckedUpdateOneWithoutPatientNestedInput
+  ancVisits?: Prisma.AncVisitUncheckedUpdateManyWithoutPatientNestedInput
+  familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutPatientNestedInput
+}
+
+export type PatientCreateWithoutClinicalMessagesInput = {
+  id?: string
+  patientNumber: string
+  firstName: string
+  middleName?: string | null
+  lastName: string
+  sex: $Enums.Sex
+  dateOfBirth?: Date | string | null
+  phone?: string | null
+  email?: string | null
+  address?: string | null
+  governmentId?: string | null
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  allergies?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy: Prisma.UserCreateNestedOneWithoutCreatedPatientsInput
+  encounters?: Prisma.EncounterCreateNestedManyWithoutPatientInput
+  labOrders?: Prisma.LabOrderCreateNestedManyWithoutPatientInput
+  prescriptions?: Prisma.PrescriptionCreateNestedManyWithoutPatientInput
+  invoices?: Prisma.InvoiceCreateNestedManyWithoutPatientInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutPatientInput
+  invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutPatientInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutPatientInput
+  obstetricHistory?: Prisma.ObstetricHistoryCreateNestedOneWithoutPatientInput
+  ancVisits?: Prisma.AncVisitCreateNestedManyWithoutPatientInput
+  familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutPatientInput
+}
+
+export type PatientUncheckedCreateWithoutClinicalMessagesInput = {
+  id?: string
+  patientNumber: string
+  firstName: string
+  middleName?: string | null
+  lastName: string
+  sex: $Enums.Sex
+  dateOfBirth?: Date | string | null
+  phone?: string | null
+  email?: string | null
+  address?: string | null
+  governmentId?: string | null
+  emergencyContactName?: string | null
+  emergencyContactPhone?: string | null
+  allergies?: string | null
+  createdById: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  encounters?: Prisma.EncounterUncheckedCreateNestedManyWithoutPatientInput
+  labOrders?: Prisma.LabOrderUncheckedCreateNestedManyWithoutPatientInput
+  prescriptions?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutPatientInput
+  invoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutPatientInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPatientInput
+  invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutPatientInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutPatientInput
+  obstetricHistory?: Prisma.ObstetricHistoryUncheckedCreateNestedOneWithoutPatientInput
+  ancVisits?: Prisma.AncVisitUncheckedCreateNestedManyWithoutPatientInput
+  familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutPatientInput
+}
+
+export type PatientCreateOrConnectWithoutClinicalMessagesInput = {
+  where: Prisma.PatientWhereUniqueInput
+  create: Prisma.XOR<Prisma.PatientCreateWithoutClinicalMessagesInput, Prisma.PatientUncheckedCreateWithoutClinicalMessagesInput>
+}
+
+export type PatientUpsertWithoutClinicalMessagesInput = {
+  update: Prisma.XOR<Prisma.PatientUpdateWithoutClinicalMessagesInput, Prisma.PatientUncheckedUpdateWithoutClinicalMessagesInput>
+  create: Prisma.XOR<Prisma.PatientCreateWithoutClinicalMessagesInput, Prisma.PatientUncheckedCreateWithoutClinicalMessagesInput>
+  where?: Prisma.PatientWhereInput
+}
+
+export type PatientUpdateToOneWithWhereWithoutClinicalMessagesInput = {
+  where?: Prisma.PatientWhereInput
+  data: Prisma.XOR<Prisma.PatientUpdateWithoutClinicalMessagesInput, Prisma.PatientUncheckedUpdateWithoutClinicalMessagesInput>
+}
+
+export type PatientUpdateWithoutClinicalMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  patientNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  middleName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  sex?: Prisma.EnumSexFieldUpdateOperationsInput | $Enums.Sex
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  governmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  allergies?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedPatientsNestedInput
+  encounters?: Prisma.EncounterUpdateManyWithoutPatientNestedInput
+  labOrders?: Prisma.LabOrderUpdateManyWithoutPatientNestedInput
+  prescriptions?: Prisma.PrescriptionUpdateManyWithoutPatientNestedInput
+  invoices?: Prisma.InvoiceUpdateManyWithoutPatientNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutPatientNestedInput
+  invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutPatientNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutPatientNestedInput
+  obstetricHistory?: Prisma.ObstetricHistoryUpdateOneWithoutPatientNestedInput
+  ancVisits?: Prisma.AncVisitUpdateManyWithoutPatientNestedInput
+  familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutPatientNestedInput
+}
+
+export type PatientUncheckedUpdateWithoutClinicalMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  patientNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  middleName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  sex?: Prisma.EnumSexFieldUpdateOperationsInput | $Enums.Sex
+  dateOfBirth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  governmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emergencyContactPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  allergies?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  encounters?: Prisma.EncounterUncheckedUpdateManyWithoutPatientNestedInput
+  labOrders?: Prisma.LabOrderUncheckedUpdateManyWithoutPatientNestedInput
   prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutPatientNestedInput
   invoices?: Prisma.InvoiceUncheckedUpdateManyWithoutPatientNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutPatientNestedInput
@@ -1410,6 +1585,7 @@ export type PatientCreateWithoutPrescriptionsInput = {
   obstetricHistory?: Prisma.ObstetricHistoryCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutPatientInput
 }
 
 export type PatientUncheckedCreateWithoutPrescriptionsInput = {
@@ -1440,6 +1616,7 @@ export type PatientUncheckedCreateWithoutPrescriptionsInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitUncheckedCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutPatientInput
 }
 
 export type PatientCreateOrConnectWithoutPrescriptionsInput = {
@@ -1486,6 +1663,7 @@ export type PatientUpdateWithoutPrescriptionsInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUpdateOneWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUpdateManyWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientUncheckedUpdateWithoutPrescriptionsInput = {
@@ -1516,6 +1694,7 @@ export type PatientUncheckedUpdateWithoutPrescriptionsInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedUpdateOneWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUncheckedUpdateManyWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientCreateWithoutInvoicesInput = {
@@ -1546,6 +1725,7 @@ export type PatientCreateWithoutInvoicesInput = {
   obstetricHistory?: Prisma.ObstetricHistoryCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutPatientInput
 }
 
 export type PatientUncheckedCreateWithoutInvoicesInput = {
@@ -1576,6 +1756,7 @@ export type PatientUncheckedCreateWithoutInvoicesInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitUncheckedCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutPatientInput
 }
 
 export type PatientCreateOrConnectWithoutInvoicesInput = {
@@ -1622,6 +1803,7 @@ export type PatientUpdateWithoutInvoicesInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUpdateOneWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUpdateManyWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientUncheckedUpdateWithoutInvoicesInput = {
@@ -1652,6 +1834,7 @@ export type PatientUncheckedUpdateWithoutInvoicesInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedUpdateOneWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUncheckedUpdateManyWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientCreateWithoutInvoiceAdjustmentsInput = {
@@ -1682,6 +1865,7 @@ export type PatientCreateWithoutInvoiceAdjustmentsInput = {
   obstetricHistory?: Prisma.ObstetricHistoryCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutPatientInput
 }
 
 export type PatientUncheckedCreateWithoutInvoiceAdjustmentsInput = {
@@ -1712,6 +1896,7 @@ export type PatientUncheckedCreateWithoutInvoiceAdjustmentsInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitUncheckedCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutPatientInput
 }
 
 export type PatientCreateOrConnectWithoutInvoiceAdjustmentsInput = {
@@ -1758,6 +1943,7 @@ export type PatientUpdateWithoutInvoiceAdjustmentsInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUpdateOneWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUpdateManyWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientUncheckedUpdateWithoutInvoiceAdjustmentsInput = {
@@ -1788,6 +1974,7 @@ export type PatientUncheckedUpdateWithoutInvoiceAdjustmentsInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedUpdateOneWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUncheckedUpdateManyWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientCreateWithoutPaymentsInput = {
@@ -1818,6 +2005,7 @@ export type PatientCreateWithoutPaymentsInput = {
   obstetricHistory?: Prisma.ObstetricHistoryCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutPatientInput
 }
 
 export type PatientUncheckedCreateWithoutPaymentsInput = {
@@ -1848,6 +2036,7 @@ export type PatientUncheckedCreateWithoutPaymentsInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitUncheckedCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutPatientInput
 }
 
 export type PatientCreateOrConnectWithoutPaymentsInput = {
@@ -1894,6 +2083,7 @@ export type PatientUpdateWithoutPaymentsInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUpdateOneWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUpdateManyWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientUncheckedUpdateWithoutPaymentsInput = {
@@ -1924,6 +2114,7 @@ export type PatientUncheckedUpdateWithoutPaymentsInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedUpdateOneWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUncheckedUpdateManyWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientCreateWithoutObstetricHistoryInput = {
@@ -1954,6 +2145,7 @@ export type PatientCreateWithoutObstetricHistoryInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutPatientInput
   ancVisits?: Prisma.AncVisitCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutPatientInput
 }
 
 export type PatientUncheckedCreateWithoutObstetricHistoryInput = {
@@ -1984,6 +2176,7 @@ export type PatientUncheckedCreateWithoutObstetricHistoryInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutPatientInput
   ancVisits?: Prisma.AncVisitUncheckedCreateNestedManyWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutPatientInput
 }
 
 export type PatientCreateOrConnectWithoutObstetricHistoryInput = {
@@ -2030,6 +2223,7 @@ export type PatientUpdateWithoutObstetricHistoryInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUpdateManyWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientUncheckedUpdateWithoutObstetricHistoryInput = {
@@ -2060,6 +2254,7 @@ export type PatientUncheckedUpdateWithoutObstetricHistoryInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUncheckedUpdateManyWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientCreateWithoutAncVisitsInput = {
@@ -2090,6 +2285,7 @@ export type PatientCreateWithoutAncVisitsInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutPatientInput
   obstetricHistory?: Prisma.ObstetricHistoryCreateNestedOneWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutPatientInput
 }
 
 export type PatientUncheckedCreateWithoutAncVisitsInput = {
@@ -2120,6 +2316,7 @@ export type PatientUncheckedCreateWithoutAncVisitsInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutPatientInput
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedCreateNestedOneWithoutPatientInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutPatientInput
 }
 
 export type PatientCreateOrConnectWithoutAncVisitsInput = {
@@ -2166,6 +2363,7 @@ export type PatientUpdateWithoutAncVisitsInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutPatientNestedInput
   obstetricHistory?: Prisma.ObstetricHistoryUpdateOneWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientUncheckedUpdateWithoutAncVisitsInput = {
@@ -2196,6 +2394,7 @@ export type PatientUncheckedUpdateWithoutAncVisitsInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutPatientNestedInput
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedUpdateOneWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientCreateWithoutFamilyPlanningRecordsInput = {
@@ -2226,6 +2425,7 @@ export type PatientCreateWithoutFamilyPlanningRecordsInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutPatientInput
   obstetricHistory?: Prisma.ObstetricHistoryCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutPatientInput
 }
 
 export type PatientUncheckedCreateWithoutFamilyPlanningRecordsInput = {
@@ -2256,6 +2456,7 @@ export type PatientUncheckedCreateWithoutFamilyPlanningRecordsInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutPatientInput
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedCreateNestedOneWithoutPatientInput
   ancVisits?: Prisma.AncVisitUncheckedCreateNestedManyWithoutPatientInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutPatientInput
 }
 
 export type PatientCreateOrConnectWithoutFamilyPlanningRecordsInput = {
@@ -2302,6 +2503,7 @@ export type PatientUpdateWithoutFamilyPlanningRecordsInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutPatientNestedInput
   obstetricHistory?: Prisma.ObstetricHistoryUpdateOneWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientUncheckedUpdateWithoutFamilyPlanningRecordsInput = {
@@ -2332,6 +2534,7 @@ export type PatientUncheckedUpdateWithoutFamilyPlanningRecordsInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutPatientNestedInput
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedUpdateOneWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUncheckedUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientCreateManyCreatedByInput = {
@@ -2382,6 +2585,7 @@ export type PatientUpdateWithoutCreatedByInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUpdateOneWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUpdateManyWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientUncheckedUpdateWithoutCreatedByInput = {
@@ -2412,6 +2616,7 @@ export type PatientUncheckedUpdateWithoutCreatedByInput = {
   obstetricHistory?: Prisma.ObstetricHistoryUncheckedUpdateOneWithoutPatientNestedInput
   ancVisits?: Prisma.AncVisitUncheckedUpdateManyWithoutPatientNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutPatientNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutPatientNestedInput
 }
 
 export type PatientUncheckedUpdateManyWithoutCreatedByInput = {
@@ -2449,6 +2654,7 @@ export type PatientCountOutputType = {
   appointments: number
   ancVisits: number
   familyPlanningRecords: number
+  clinicalMessages: number
 }
 
 export type PatientCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2461,6 +2667,7 @@ export type PatientCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   appointments?: boolean | PatientCountOutputTypeCountAppointmentsArgs
   ancVisits?: boolean | PatientCountOutputTypeCountAncVisitsArgs
   familyPlanningRecords?: boolean | PatientCountOutputTypeCountFamilyPlanningRecordsArgs
+  clinicalMessages?: boolean | PatientCountOutputTypeCountClinicalMessagesArgs
 }
 
 /**
@@ -2536,6 +2743,13 @@ export type PatientCountOutputTypeCountFamilyPlanningRecordsArgs<ExtArgs extends
   where?: Prisma.FamilyPlanningRecordWhereInput
 }
 
+/**
+ * PatientCountOutputType without action
+ */
+export type PatientCountOutputTypeCountClinicalMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClinicalMessageWhereInput
+}
+
 
 export type PatientSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2567,6 +2781,7 @@ export type PatientSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   obstetricHistory?: boolean | Prisma.Patient$obstetricHistoryArgs<ExtArgs>
   ancVisits?: boolean | Prisma.Patient$ancVisitsArgs<ExtArgs>
   familyPlanningRecords?: boolean | Prisma.Patient$familyPlanningRecordsArgs<ExtArgs>
+  clinicalMessages?: boolean | Prisma.Patient$clinicalMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.PatientCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["patient"]>
 
@@ -2648,6 +2863,7 @@ export type PatientInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   obstetricHistory?: boolean | Prisma.Patient$obstetricHistoryArgs<ExtArgs>
   ancVisits?: boolean | Prisma.Patient$ancVisitsArgs<ExtArgs>
   familyPlanningRecords?: boolean | Prisma.Patient$familyPlanningRecordsArgs<ExtArgs>
+  clinicalMessages?: boolean | Prisma.Patient$clinicalMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.PatientCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PatientIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2671,6 +2887,7 @@ export type $PatientPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     obstetricHistory: Prisma.$ObstetricHistoryPayload<ExtArgs> | null
     ancVisits: Prisma.$AncVisitPayload<ExtArgs>[]
     familyPlanningRecords: Prisma.$FamilyPlanningRecordPayload<ExtArgs>[]
+    clinicalMessages: Prisma.$ClinicalMessagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3096,6 +3313,7 @@ export interface Prisma__PatientClient<T, Null = never, ExtArgs extends runtime.
   obstetricHistory<T extends Prisma.Patient$obstetricHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Patient$obstetricHistoryArgs<ExtArgs>>): Prisma.Prisma__ObstetricHistoryClient<runtime.Types.Result.GetResult<Prisma.$ObstetricHistoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   ancVisits<T extends Prisma.Patient$ancVisitsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Patient$ancVisitsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AncVisitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   familyPlanningRecords<T extends Prisma.Patient$familyPlanningRecordsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Patient$familyPlanningRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FamilyPlanningRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clinicalMessages<T extends Prisma.Patient$clinicalMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Patient$clinicalMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClinicalMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3776,6 +3994,30 @@ export type Patient$familyPlanningRecordsArgs<ExtArgs extends runtime.Types.Exte
   take?: number
   skip?: number
   distinct?: Prisma.FamilyPlanningRecordScalarFieldEnum | Prisma.FamilyPlanningRecordScalarFieldEnum[]
+}
+
+/**
+ * Patient.clinicalMessages
+ */
+export type Patient$clinicalMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClinicalMessage
+   */
+  select?: Prisma.ClinicalMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClinicalMessage
+   */
+  omit?: Prisma.ClinicalMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClinicalMessageInclude<ExtArgs> | null
+  where?: Prisma.ClinicalMessageWhereInput
+  orderBy?: Prisma.ClinicalMessageOrderByWithRelationInput | Prisma.ClinicalMessageOrderByWithRelationInput[]
+  cursor?: Prisma.ClinicalMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClinicalMessageScalarFieldEnum | Prisma.ClinicalMessageScalarFieldEnum[]
 }
 
 /**

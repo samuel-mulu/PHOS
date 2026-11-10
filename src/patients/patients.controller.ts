@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -104,5 +105,11 @@ export class PatientsController {
     @CurrentUser() user: AuthUser,
   ) {
     return this.service.update(id, dto, user.id);
+  }
+
+  @Roles(Role.CEO, Role.ADMIN)
+  @Delete(":id")
+  softDelete(@Param("id") id: string, @CurrentUser() user: AuthUser) {
+    return this.service.softDelete(id, user.id);
   }
 }

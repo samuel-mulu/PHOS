@@ -259,6 +259,7 @@ export type LabOrderWhereInput = {
   patient?: Prisma.XOR<Prisma.PatientScalarRelationFilter, Prisma.PatientWhereInput>
   doctor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   items?: Prisma.LabOrderItemListRelationFilter
+  clinicalMessages?: Prisma.ClinicalMessageListRelationFilter
 }
 
 export type LabOrderOrderByWithRelationInput = {
@@ -281,6 +282,7 @@ export type LabOrderOrderByWithRelationInput = {
   patient?: Prisma.PatientOrderByWithRelationInput
   doctor?: Prisma.UserOrderByWithRelationInput
   items?: Prisma.LabOrderItemOrderByRelationAggregateInput
+  clinicalMessages?: Prisma.ClinicalMessageOrderByRelationAggregateInput
 }
 
 export type LabOrderWhereUniqueInput = Prisma.AtLeast<{
@@ -306,6 +308,7 @@ export type LabOrderWhereUniqueInput = Prisma.AtLeast<{
   patient?: Prisma.XOR<Prisma.PatientScalarRelationFilter, Prisma.PatientWhereInput>
   doctor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   items?: Prisma.LabOrderItemListRelationFilter
+  clinicalMessages?: Prisma.ClinicalMessageListRelationFilter
 }, "id" | "orderNumber">
 
 export type LabOrderOrderByWithAggregationInput = {
@@ -364,6 +367,7 @@ export type LabOrderCreateInput = {
   patient: Prisma.PatientCreateNestedOneWithoutLabOrdersInput
   doctor: Prisma.UserCreateNestedOneWithoutOrderedLabOrdersInput
   items?: Prisma.LabOrderItemCreateNestedManyWithoutLabOrderInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutLabOrderInput
 }
 
 export type LabOrderUncheckedCreateInput = {
@@ -382,6 +386,7 @@ export type LabOrderUncheckedCreateInput = {
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
   items?: Prisma.LabOrderItemUncheckedCreateNestedManyWithoutLabOrderInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutLabOrderInput
 }
 
 export type LabOrderUpdateInput = {
@@ -400,6 +405,7 @@ export type LabOrderUpdateInput = {
   patient?: Prisma.PatientUpdateOneRequiredWithoutLabOrdersNestedInput
   doctor?: Prisma.UserUpdateOneRequiredWithoutOrderedLabOrdersNestedInput
   items?: Prisma.LabOrderItemUpdateManyWithoutLabOrderNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutLabOrderNestedInput
 }
 
 export type LabOrderUncheckedUpdateInput = {
@@ -418,6 +424,7 @@ export type LabOrderUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   items?: Prisma.LabOrderItemUncheckedUpdateManyWithoutLabOrderNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutLabOrderNestedInput
 }
 
 export type LabOrderCreateManyInput = {
@@ -526,6 +533,11 @@ export type LabOrderMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   cancelledAt?: Prisma.SortOrder
+}
+
+export type LabOrderNullableScalarRelationFilter = {
+  is?: Prisma.LabOrderWhereInput | null
+  isNot?: Prisma.LabOrderWhereInput | null
 }
 
 export type LabOrderScalarRelationFilter = {
@@ -705,6 +717,22 @@ export type EnumLabOrderStatusFieldUpdateOperationsInput = {
   set?: $Enums.LabOrderStatus
 }
 
+export type LabOrderCreateNestedOneWithoutClinicalMessagesInput = {
+  create?: Prisma.XOR<Prisma.LabOrderCreateWithoutClinicalMessagesInput, Prisma.LabOrderUncheckedCreateWithoutClinicalMessagesInput>
+  connectOrCreate?: Prisma.LabOrderCreateOrConnectWithoutClinicalMessagesInput
+  connect?: Prisma.LabOrderWhereUniqueInput
+}
+
+export type LabOrderUpdateOneWithoutClinicalMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.LabOrderCreateWithoutClinicalMessagesInput, Prisma.LabOrderUncheckedCreateWithoutClinicalMessagesInput>
+  connectOrCreate?: Prisma.LabOrderCreateOrConnectWithoutClinicalMessagesInput
+  upsert?: Prisma.LabOrderUpsertWithoutClinicalMessagesInput
+  disconnect?: Prisma.LabOrderWhereInput | boolean
+  delete?: Prisma.LabOrderWhereInput | boolean
+  connect?: Prisma.LabOrderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.LabOrderUpdateToOneWithWhereWithoutClinicalMessagesInput, Prisma.LabOrderUpdateWithoutClinicalMessagesInput>, Prisma.LabOrderUncheckedUpdateWithoutClinicalMessagesInput>
+}
+
 export type LabOrderCreateNestedOneWithoutItemsInput = {
   create?: Prisma.XOR<Prisma.LabOrderCreateWithoutItemsInput, Prisma.LabOrderUncheckedCreateWithoutItemsInput>
   connectOrCreate?: Prisma.LabOrderCreateOrConnectWithoutItemsInput
@@ -734,6 +762,7 @@ export type LabOrderCreateWithoutDoctorInput = {
   encounter: Prisma.EncounterCreateNestedOneWithoutLabOrdersInput
   patient: Prisma.PatientCreateNestedOneWithoutLabOrdersInput
   items?: Prisma.LabOrderItemCreateNestedManyWithoutLabOrderInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutLabOrderInput
 }
 
 export type LabOrderUncheckedCreateWithoutDoctorInput = {
@@ -751,6 +780,7 @@ export type LabOrderUncheckedCreateWithoutDoctorInput = {
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
   items?: Prisma.LabOrderItemUncheckedCreateNestedManyWithoutLabOrderInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutLabOrderInput
 }
 
 export type LabOrderCreateOrConnectWithoutDoctorInput = {
@@ -814,6 +844,7 @@ export type LabOrderCreateWithoutPatientInput = {
   encounter: Prisma.EncounterCreateNestedOneWithoutLabOrdersInput
   doctor: Prisma.UserCreateNestedOneWithoutOrderedLabOrdersInput
   items?: Prisma.LabOrderItemCreateNestedManyWithoutLabOrderInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutLabOrderInput
 }
 
 export type LabOrderUncheckedCreateWithoutPatientInput = {
@@ -831,6 +862,7 @@ export type LabOrderUncheckedCreateWithoutPatientInput = {
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
   items?: Prisma.LabOrderItemUncheckedCreateNestedManyWithoutLabOrderInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutLabOrderInput
 }
 
 export type LabOrderCreateOrConnectWithoutPatientInput = {
@@ -874,6 +906,7 @@ export type LabOrderCreateWithoutEncounterInput = {
   patient: Prisma.PatientCreateNestedOneWithoutLabOrdersInput
   doctor: Prisma.UserCreateNestedOneWithoutOrderedLabOrdersInput
   items?: Prisma.LabOrderItemCreateNestedManyWithoutLabOrderInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutLabOrderInput
 }
 
 export type LabOrderUncheckedCreateWithoutEncounterInput = {
@@ -891,6 +924,7 @@ export type LabOrderUncheckedCreateWithoutEncounterInput = {
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
   items?: Prisma.LabOrderItemUncheckedCreateNestedManyWithoutLabOrderInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutLabOrderInput
 }
 
 export type LabOrderCreateOrConnectWithoutEncounterInput = {
@@ -934,6 +968,7 @@ export type LabOrderCreateWithoutConsultationInput = {
   patient: Prisma.PatientCreateNestedOneWithoutLabOrdersInput
   doctor: Prisma.UserCreateNestedOneWithoutOrderedLabOrdersInput
   items?: Prisma.LabOrderItemCreateNestedManyWithoutLabOrderInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutLabOrderInput
 }
 
 export type LabOrderUncheckedCreateWithoutConsultationInput = {
@@ -951,6 +986,7 @@ export type LabOrderUncheckedCreateWithoutConsultationInput = {
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
   items?: Prisma.LabOrderItemUncheckedCreateNestedManyWithoutLabOrderInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutLabOrderInput
 }
 
 export type LabOrderCreateOrConnectWithoutConsultationInput = {
@@ -979,6 +1015,94 @@ export type LabOrderUpdateManyWithWhereWithoutConsultationInput = {
   data: Prisma.XOR<Prisma.LabOrderUpdateManyMutationInput, Prisma.LabOrderUncheckedUpdateManyWithoutConsultationInput>
 }
 
+export type LabOrderCreateWithoutClinicalMessagesInput = {
+  id?: string
+  orderNumber: string
+  status?: $Enums.LabOrderStatus
+  priority?: $Enums.EncounterPriority
+  clinicalNotes?: string | null
+  doctorReviewNotes?: string | null
+  doctorReviewedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  cancelledAt?: Date | string | null
+  consultation: Prisma.ConsultationCreateNestedOneWithoutLabOrdersInput
+  encounter: Prisma.EncounterCreateNestedOneWithoutLabOrdersInput
+  patient: Prisma.PatientCreateNestedOneWithoutLabOrdersInput
+  doctor: Prisma.UserCreateNestedOneWithoutOrderedLabOrdersInput
+  items?: Prisma.LabOrderItemCreateNestedManyWithoutLabOrderInput
+}
+
+export type LabOrderUncheckedCreateWithoutClinicalMessagesInput = {
+  id?: string
+  orderNumber: string
+  consultationId: string
+  encounterId: string
+  patientId: string
+  doctorId: string
+  status?: $Enums.LabOrderStatus
+  priority?: $Enums.EncounterPriority
+  clinicalNotes?: string | null
+  doctorReviewNotes?: string | null
+  doctorReviewedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  cancelledAt?: Date | string | null
+  items?: Prisma.LabOrderItemUncheckedCreateNestedManyWithoutLabOrderInput
+}
+
+export type LabOrderCreateOrConnectWithoutClinicalMessagesInput = {
+  where: Prisma.LabOrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.LabOrderCreateWithoutClinicalMessagesInput, Prisma.LabOrderUncheckedCreateWithoutClinicalMessagesInput>
+}
+
+export type LabOrderUpsertWithoutClinicalMessagesInput = {
+  update: Prisma.XOR<Prisma.LabOrderUpdateWithoutClinicalMessagesInput, Prisma.LabOrderUncheckedUpdateWithoutClinicalMessagesInput>
+  create: Prisma.XOR<Prisma.LabOrderCreateWithoutClinicalMessagesInput, Prisma.LabOrderUncheckedCreateWithoutClinicalMessagesInput>
+  where?: Prisma.LabOrderWhereInput
+}
+
+export type LabOrderUpdateToOneWithWhereWithoutClinicalMessagesInput = {
+  where?: Prisma.LabOrderWhereInput
+  data: Prisma.XOR<Prisma.LabOrderUpdateWithoutClinicalMessagesInput, Prisma.LabOrderUncheckedUpdateWithoutClinicalMessagesInput>
+}
+
+export type LabOrderUpdateWithoutClinicalMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
+  priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
+  clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  consultation?: Prisma.ConsultationUpdateOneRequiredWithoutLabOrdersNestedInput
+  encounter?: Prisma.EncounterUpdateOneRequiredWithoutLabOrdersNestedInput
+  patient?: Prisma.PatientUpdateOneRequiredWithoutLabOrdersNestedInput
+  doctor?: Prisma.UserUpdateOneRequiredWithoutOrderedLabOrdersNestedInput
+  items?: Prisma.LabOrderItemUpdateManyWithoutLabOrderNestedInput
+}
+
+export type LabOrderUncheckedUpdateWithoutClinicalMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  consultationId?: Prisma.StringFieldUpdateOperationsInput | string
+  encounterId?: Prisma.StringFieldUpdateOperationsInput | string
+  patientId?: Prisma.StringFieldUpdateOperationsInput | string
+  doctorId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumLabOrderStatusFieldUpdateOperationsInput | $Enums.LabOrderStatus
+  priority?: Prisma.EnumEncounterPriorityFieldUpdateOperationsInput | $Enums.EncounterPriority
+  clinicalNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  doctorReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  items?: Prisma.LabOrderItemUncheckedUpdateManyWithoutLabOrderNestedInput
+}
+
 export type LabOrderCreateWithoutItemsInput = {
   id?: string
   orderNumber: string
@@ -994,6 +1118,7 @@ export type LabOrderCreateWithoutItemsInput = {
   encounter: Prisma.EncounterCreateNestedOneWithoutLabOrdersInput
   patient: Prisma.PatientCreateNestedOneWithoutLabOrdersInput
   doctor: Prisma.UserCreateNestedOneWithoutOrderedLabOrdersInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutLabOrderInput
 }
 
 export type LabOrderUncheckedCreateWithoutItemsInput = {
@@ -1011,6 +1136,7 @@ export type LabOrderUncheckedCreateWithoutItemsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   cancelledAt?: Date | string | null
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutLabOrderInput
 }
 
 export type LabOrderCreateOrConnectWithoutItemsInput = {
@@ -1044,6 +1170,7 @@ export type LabOrderUpdateWithoutItemsInput = {
   encounter?: Prisma.EncounterUpdateOneRequiredWithoutLabOrdersNestedInput
   patient?: Prisma.PatientUpdateOneRequiredWithoutLabOrdersNestedInput
   doctor?: Prisma.UserUpdateOneRequiredWithoutOrderedLabOrdersNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutLabOrderNestedInput
 }
 
 export type LabOrderUncheckedUpdateWithoutItemsInput = {
@@ -1061,6 +1188,7 @@ export type LabOrderUncheckedUpdateWithoutItemsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutLabOrderNestedInput
 }
 
 export type LabOrderCreateManyDoctorInput = {
@@ -1094,6 +1222,7 @@ export type LabOrderUpdateWithoutDoctorInput = {
   encounter?: Prisma.EncounterUpdateOneRequiredWithoutLabOrdersNestedInput
   patient?: Prisma.PatientUpdateOneRequiredWithoutLabOrdersNestedInput
   items?: Prisma.LabOrderItemUpdateManyWithoutLabOrderNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutLabOrderNestedInput
 }
 
 export type LabOrderUncheckedUpdateWithoutDoctorInput = {
@@ -1111,6 +1240,7 @@ export type LabOrderUncheckedUpdateWithoutDoctorInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   items?: Prisma.LabOrderItemUncheckedUpdateManyWithoutLabOrderNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutLabOrderNestedInput
 }
 
 export type LabOrderUncheckedUpdateManyWithoutDoctorInput = {
@@ -1160,6 +1290,7 @@ export type LabOrderUpdateWithoutPatientInput = {
   encounter?: Prisma.EncounterUpdateOneRequiredWithoutLabOrdersNestedInput
   doctor?: Prisma.UserUpdateOneRequiredWithoutOrderedLabOrdersNestedInput
   items?: Prisma.LabOrderItemUpdateManyWithoutLabOrderNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutLabOrderNestedInput
 }
 
 export type LabOrderUncheckedUpdateWithoutPatientInput = {
@@ -1177,6 +1308,7 @@ export type LabOrderUncheckedUpdateWithoutPatientInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   items?: Prisma.LabOrderItemUncheckedUpdateManyWithoutLabOrderNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutLabOrderNestedInput
 }
 
 export type LabOrderUncheckedUpdateManyWithoutPatientInput = {
@@ -1226,6 +1358,7 @@ export type LabOrderUpdateWithoutEncounterInput = {
   patient?: Prisma.PatientUpdateOneRequiredWithoutLabOrdersNestedInput
   doctor?: Prisma.UserUpdateOneRequiredWithoutOrderedLabOrdersNestedInput
   items?: Prisma.LabOrderItemUpdateManyWithoutLabOrderNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutLabOrderNestedInput
 }
 
 export type LabOrderUncheckedUpdateWithoutEncounterInput = {
@@ -1243,6 +1376,7 @@ export type LabOrderUncheckedUpdateWithoutEncounterInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   items?: Prisma.LabOrderItemUncheckedUpdateManyWithoutLabOrderNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutLabOrderNestedInput
 }
 
 export type LabOrderUncheckedUpdateManyWithoutEncounterInput = {
@@ -1292,6 +1426,7 @@ export type LabOrderUpdateWithoutConsultationInput = {
   patient?: Prisma.PatientUpdateOneRequiredWithoutLabOrdersNestedInput
   doctor?: Prisma.UserUpdateOneRequiredWithoutOrderedLabOrdersNestedInput
   items?: Prisma.LabOrderItemUpdateManyWithoutLabOrderNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutLabOrderNestedInput
 }
 
 export type LabOrderUncheckedUpdateWithoutConsultationInput = {
@@ -1309,6 +1444,7 @@ export type LabOrderUncheckedUpdateWithoutConsultationInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   items?: Prisma.LabOrderItemUncheckedUpdateManyWithoutLabOrderNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutLabOrderNestedInput
 }
 
 export type LabOrderUncheckedUpdateManyWithoutConsultationInput = {
@@ -1334,10 +1470,12 @@ export type LabOrderUncheckedUpdateManyWithoutConsultationInput = {
 
 export type LabOrderCountOutputType = {
   items: number
+  clinicalMessages: number
 }
 
 export type LabOrderCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   items?: boolean | LabOrderCountOutputTypeCountItemsArgs
+  clinicalMessages?: boolean | LabOrderCountOutputTypeCountClinicalMessagesArgs
 }
 
 /**
@@ -1355,6 +1493,13 @@ export type LabOrderCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ext
  */
 export type LabOrderCountOutputTypeCountItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.LabOrderItemWhereInput
+}
+
+/**
+ * LabOrderCountOutputType without action
+ */
+export type LabOrderCountOutputTypeCountClinicalMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClinicalMessageWhereInput
 }
 
 
@@ -1378,6 +1523,7 @@ export type LabOrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   doctor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   items?: boolean | Prisma.LabOrder$itemsArgs<ExtArgs>
+  clinicalMessages?: boolean | Prisma.LabOrder$clinicalMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.LabOrderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["labOrder"]>
 
@@ -1447,6 +1593,7 @@ export type LabOrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   doctor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   items?: boolean | Prisma.LabOrder$itemsArgs<ExtArgs>
+  clinicalMessages?: boolean | Prisma.LabOrder$clinicalMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.LabOrderCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type LabOrderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1470,6 +1617,7 @@ export type $LabOrderPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     patient: Prisma.$PatientPayload<ExtArgs>
     doctor: Prisma.$UserPayload<ExtArgs>
     items: Prisma.$LabOrderItemPayload<ExtArgs>[]
+    clinicalMessages: Prisma.$ClinicalMessagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1888,6 +2036,7 @@ export interface Prisma__LabOrderClient<T, Null = never, ExtArgs extends runtime
   patient<T extends Prisma.PatientDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PatientDefaultArgs<ExtArgs>>): Prisma.Prisma__PatientClient<runtime.Types.Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   doctor<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   items<T extends Prisma.LabOrder$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LabOrder$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LabOrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clinicalMessages<T extends Prisma.LabOrder$clinicalMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LabOrder$clinicalMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClinicalMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2353,6 +2502,30 @@ export type LabOrder$itemsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.LabOrderItemScalarFieldEnum | Prisma.LabOrderItemScalarFieldEnum[]
+}
+
+/**
+ * LabOrder.clinicalMessages
+ */
+export type LabOrder$clinicalMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClinicalMessage
+   */
+  select?: Prisma.ClinicalMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClinicalMessage
+   */
+  omit?: Prisma.ClinicalMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClinicalMessageInclude<ExtArgs> | null
+  where?: Prisma.ClinicalMessageWhereInput
+  orderBy?: Prisma.ClinicalMessageOrderByWithRelationInput | Prisma.ClinicalMessageOrderByWithRelationInput[]
+  cursor?: Prisma.ClinicalMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClinicalMessageScalarFieldEnum | Prisma.ClinicalMessageScalarFieldEnum[]
 }
 
 /**

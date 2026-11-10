@@ -157,6 +157,23 @@ export const LabResultFlag = {
 export type LabResultFlag = (typeof LabResultFlag)[keyof typeof LabResultFlag]
 
 
+export const ClinicalMessageKind = {
+  NOTE: 'NOTE',
+  LAB_ORDER: 'LAB_ORDER',
+  LAB_RESULT: 'LAB_RESULT'
+} as const
+
+export type ClinicalMessageKind = (typeof ClinicalMessageKind)[keyof typeof ClinicalMessageKind]
+
+
+export const ClinicalMessageAuthorSide = {
+  DOCTOR: 'DOCTOR',
+  LAB: 'LAB'
+} as const
+
+export type ClinicalMessageAuthorSide = (typeof ClinicalMessageAuthorSide)[keyof typeof ClinicalMessageAuthorSide]
+
+
 export const PrescriptionStatus = {
   ACTIVE: 'ACTIVE',
   PARTIAL: 'PARTIAL',

@@ -172,6 +172,7 @@ export class PatientsService {
       obstetricHistory,
       ancVisits,
       familyPlanningRecords,
+      clinicalMessages,
     ] = await Promise.all([
       this.prisma.encounter.findMany({
         where: { patientId: id, deletedAt: null },
@@ -260,6 +261,27 @@ export class PatientsService {
         orderBy: { createdAt: "desc" },
         take: 20,
       }),
+      this.prisma.clinicalMessage.findMany({
+        where: { patientId: id },
+        orderBy: { createdAt: "asc" },
+        take: 200,
+        include: {
+          author: {
+            select: { id: true, firstName: true, lastName: true, role: true },
+          },
+          labOrder: {
+            select: { id: true, orderNumber: true, status: true },
+          },
+          encounter: {
+            select: {
+              id: true,
+              encounterNumber: true,
+              visitNumber: true,
+              startedAt: true,
+            },
+          },
+        },
+      }),
     ]);
     const invoicesWithBalance = invoices.map((inv) => ({
       ...inv,
@@ -273,6 +295,7 @@ export class PatientsService {
       invoices: invoicesWithBalance,
       appointments,
       maternal: { obstetricHistory, ancVisits, familyPlanningRecords },
+      clinicalMessages,
     };
   }
 
@@ -359,6 +382,39 @@ export class PatientsService {
         tx,
       );
       return patient;
+    });
+  }
+
+  /** Soft-delete: hide from search/lists; keep visits, labs, invoices. */
+  async softDelete(id: string, actorId: string) {
+    const patient = await this.findOne(id);
+    return this.prisma.$transaction(async (tx) => {
+      const updated = await tx.patient.update({
+        where: { id },
+        data: { deletedAt: new Date() },
+      });
+      await this.audit.create(
+        {
+          actorId,
+          action: "patient.deleted",
+          entityType: "Patient",
+          entityId: id,
+          oldValues: {
+            id: patient.id,
+            patientNumber: patient.patientNumber,
+            firstName: patient.firstName,
+            lastName: patient.lastName,
+            deletedAt: patient.deletedAt,
+          },
+          newValues: {
+            id: updated.id,
+            patientNumber: updated.patientNumber,
+            deletedAt: updated.deletedAt,
+          },
+        },
+        tx,
+      );
+      return updated;
     });
   }
   private detectDuplicate(dto: CreatePatientDto) {

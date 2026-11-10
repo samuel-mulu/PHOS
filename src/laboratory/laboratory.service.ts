@@ -8,7 +8,13 @@ import {
 import { AuditService } from "../audit/audit.service";
 import { BillingService } from "../billing/billing.service";
 import { EncountersService } from "../encounters/encounters.service";
-import { LabOrderStatus, Role } from "../generated/prisma/client";
+import { ClinicalMessagesService } from "../clinical-messages/clinical-messages.service";
+import {
+  ClinicalMessageAuthorSide,
+  ClinicalMessageKind,
+  LabOrderStatus,
+  Role,
+} from "../generated/prisma/client";
 import { NotificationsService } from "../notifications/notifications.service";
 import { PrismaService } from "../prisma/prisma.service";
 import {
@@ -26,6 +32,7 @@ export class LaboratoryService {
     private readonly notifications: NotificationsService,
     private readonly billing: BillingService,
     private readonly encounters: EncountersService,
+    private readonly clinicalMessages: ClinicalMessagesService,
   ) {}
   async createOrder(
     consultationId: string,
@@ -139,6 +146,19 @@ export class LaboratoryService {
         },
         tx,
       );
+
+      if (dto.clinicalNotes?.trim()) {
+        await this.clinicalMessages.createLinked(tx, {
+          encounterId: consultation.encounterId,
+          patientId: consultation.encounter.patientId,
+          authorId: actorId,
+          authorSide: ClinicalMessageAuthorSide.DOCTOR,
+          kind: ClinicalMessageKind.LAB_ORDER,
+          body: dto.clinicalNotes,
+          labOrderId: created.id,
+        });
+      }
+
       return created;
     });
 
@@ -515,6 +535,16 @@ export class LaboratoryService {
           assignedToId: doctorAssignee,
         },
       });
+      await this.clinicalMessages.createLinked(tx, {
+        encounterId: order.encounterId,
+        patientId: order.patientId,
+        authorId: supervisorId,
+        authorSide: ClinicalMessageAuthorSide.LAB,
+        kind: ClinicalMessageKind.LAB_RESULT,
+        body: `Results verified for ${order.orderNumber} (${enteredCount} test${enteredCount === 1 ? "" : "s"}). Sent to doctor.`,
+        labOrderId: order.id,
+      });
+
       await this.notifications.createForUser(
         {
           recipientId: order.doctorId,
@@ -565,23 +595,40 @@ export class LaboratoryService {
       );
 
     const notes = dto.doctorReviewNotes.trim();
-    const updated = await this.prisma.labOrder.update({
-      where: { id },
-      data: {
-        doctorReviewNotes: notes || null,
-        doctorReviewedAt: notes ? new Date() : null,
-      },
-      include: {
-        patient: true,
-        doctor: { select: { id: true, firstName: true, lastName: true } },
-        items: { include: { labTest: true, result: true } },
-      },
-    });
-    await this.audit.create({
-      actorId,
-      action: "lab.doctor_notes_saved",
-      entityType: "LabOrder",
-      entityId: id,
+    const updated = await this.prisma.$transaction(async (tx) => {
+      const next = await tx.labOrder.update({
+        where: { id },
+        data: {
+          doctorReviewNotes: notes || null,
+          doctorReviewedAt: notes ? new Date() : null,
+        },
+        include: {
+          patient: true,
+          doctor: { select: { id: true, firstName: true, lastName: true } },
+          items: { include: { labTest: true, result: true } },
+        },
+      });
+      if (notes) {
+        await this.clinicalMessages.createLinked(tx, {
+          encounterId: order.encounterId,
+          patientId: order.patientId,
+          authorId: actorId,
+          authorSide: ClinicalMessageAuthorSide.DOCTOR,
+          kind: ClinicalMessageKind.NOTE,
+          body: notes,
+          labOrderId: order.id,
+        });
+      }
+      await this.audit.create(
+        {
+          actorId,
+          action: "lab.doctor_notes_saved",
+          entityType: "LabOrder",
+          entityId: id,
+        },
+        tx,
+      );
+      return next;
     });
     return updated;
   }

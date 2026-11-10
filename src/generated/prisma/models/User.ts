@@ -269,6 +269,7 @@ export type UserWhereInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryListRelationFilter
   deliverySummaries?: Prisma.DeliverySummaryListRelationFilter
   familyPlanningRecords?: Prisma.FamilyPlanningRecordListRelationFilter
+  clinicalMessages?: Prisma.ClinicalMessageListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -315,6 +316,7 @@ export type UserOrderByWithRelationInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryOrderByRelationAggregateInput
   deliverySummaries?: Prisma.DeliverySummaryOrderByRelationAggregateInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordOrderByRelationAggregateInput
+  clinicalMessages?: Prisma.ClinicalMessageOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -364,6 +366,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   laborMonitoring?: Prisma.LaborMonitoringEntryListRelationFilter
   deliverySummaries?: Prisma.DeliverySummaryListRelationFilter
   familyPlanningRecords?: Prisma.FamilyPlanningRecordListRelationFilter
+  clinicalMessages?: Prisma.ClinicalMessageListRelationFilter
 }, "id" | "email" | "phone">
 
 export type UserOrderByWithAggregationInput = {
@@ -445,6 +448,7 @@ export type UserCreateInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -490,6 +494,7 @@ export type UserUncheckedCreateInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUpdateInput = {
@@ -535,6 +540,7 @@ export type UserUpdateInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -580,6 +586,7 @@ export type UserUncheckedUpdateInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -917,6 +924,20 @@ export type UserUpdateOneRequiredWithoutOrderedLabOrdersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOrderedLabOrdersInput, Prisma.UserUpdateWithoutOrderedLabOrdersInput>, Prisma.UserUncheckedUpdateWithoutOrderedLabOrdersInput>
 }
 
+export type UserCreateNestedOneWithoutClinicalMessagesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutClinicalMessagesInput, Prisma.UserUncheckedCreateWithoutClinicalMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutClinicalMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutClinicalMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutClinicalMessagesInput, Prisma.UserUncheckedCreateWithoutClinicalMessagesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutClinicalMessagesInput
+  upsert?: Prisma.UserUpsertWithoutClinicalMessagesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutClinicalMessagesInput, Prisma.UserUpdateWithoutClinicalMessagesInput>, Prisma.UserUncheckedUpdateWithoutClinicalMessagesInput>
+}
+
 export type UserCreateNestedOneWithoutEnteredLabResultsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutEnteredLabResultsInput, Prisma.UserUncheckedCreateWithoutEnteredLabResultsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutEnteredLabResultsInput
@@ -1229,6 +1250,7 @@ export type UserCreateWithoutRefreshSessionsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutRefreshSessionsInput = {
@@ -1273,6 +1295,7 @@ export type UserUncheckedCreateWithoutRefreshSessionsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutRefreshSessionsInput = {
@@ -1333,6 +1356,7 @@ export type UserUpdateWithoutRefreshSessionsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshSessionsInput = {
@@ -1377,6 +1401,7 @@ export type UserUncheckedUpdateWithoutRefreshSessionsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutDepartmentInput = {
@@ -1421,6 +1446,7 @@ export type UserCreateWithoutDepartmentInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutDepartmentInput = {
@@ -1465,6 +1491,7 @@ export type UserUncheckedCreateWithoutDepartmentInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutDepartmentInput = {
@@ -1553,6 +1580,7 @@ export type UserCreateWithoutCreatedPatientsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutCreatedPatientsInput = {
@@ -1597,6 +1625,7 @@ export type UserUncheckedCreateWithoutCreatedPatientsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutCreatedPatientsInput = {
@@ -1657,6 +1686,7 @@ export type UserUpdateWithoutCreatedPatientsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedPatientsInput = {
@@ -1701,6 +1731,7 @@ export type UserUncheckedUpdateWithoutCreatedPatientsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutCreatedEncountersInput = {
@@ -1745,6 +1776,7 @@ export type UserCreateWithoutCreatedEncountersInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutCreatedEncountersInput = {
@@ -1789,6 +1821,7 @@ export type UserUncheckedCreateWithoutCreatedEncountersInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutCreatedEncountersInput = {
@@ -1838,6 +1871,7 @@ export type UserCreateWithoutAssignedEncountersInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutAssignedEncountersInput = {
@@ -1882,6 +1916,7 @@ export type UserUncheckedCreateWithoutAssignedEncountersInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutAssignedEncountersInput = {
@@ -1942,6 +1977,7 @@ export type UserUpdateWithoutCreatedEncountersInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedEncountersInput = {
@@ -1986,6 +2022,7 @@ export type UserUncheckedUpdateWithoutCreatedEncountersInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUpsertWithoutAssignedEncountersInput = {
@@ -2041,6 +2078,7 @@ export type UserUpdateWithoutAssignedEncountersInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedEncountersInput = {
@@ -2085,6 +2123,7 @@ export type UserUncheckedUpdateWithoutAssignedEncountersInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutCreatedAppointmentsInput = {
@@ -2129,6 +2168,7 @@ export type UserCreateWithoutCreatedAppointmentsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutCreatedAppointmentsInput = {
@@ -2173,6 +2213,7 @@ export type UserUncheckedCreateWithoutCreatedAppointmentsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutCreatedAppointmentsInput = {
@@ -2233,6 +2274,7 @@ export type UserUpdateWithoutCreatedAppointmentsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedAppointmentsInput = {
@@ -2277,6 +2319,7 @@ export type UserUncheckedUpdateWithoutCreatedAppointmentsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutAssignedQueuesInput = {
@@ -2321,6 +2364,7 @@ export type UserCreateWithoutAssignedQueuesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutAssignedQueuesInput = {
@@ -2365,6 +2409,7 @@ export type UserUncheckedCreateWithoutAssignedQueuesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutAssignedQueuesInput = {
@@ -2425,6 +2470,7 @@ export type UserUpdateWithoutAssignedQueuesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssignedQueuesInput = {
@@ -2469,6 +2515,7 @@ export type UserUncheckedUpdateWithoutAssignedQueuesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutRecordedTriagesInput = {
@@ -2513,6 +2560,7 @@ export type UserCreateWithoutRecordedTriagesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutRecordedTriagesInput = {
@@ -2557,6 +2605,7 @@ export type UserUncheckedCreateWithoutRecordedTriagesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutRecordedTriagesInput = {
@@ -2617,6 +2666,7 @@ export type UserUpdateWithoutRecordedTriagesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecordedTriagesInput = {
@@ -2661,6 +2711,7 @@ export type UserUncheckedUpdateWithoutRecordedTriagesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutConsultationsInput = {
@@ -2705,6 +2756,7 @@ export type UserCreateWithoutConsultationsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutConsultationsInput = {
@@ -2749,6 +2801,7 @@ export type UserUncheckedCreateWithoutConsultationsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutConsultationsInput = {
@@ -2809,6 +2862,7 @@ export type UserUpdateWithoutConsultationsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutConsultationsInput = {
@@ -2853,6 +2907,7 @@ export type UserUncheckedUpdateWithoutConsultationsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutDiagnosesInput = {
@@ -2897,6 +2952,7 @@ export type UserCreateWithoutDiagnosesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutDiagnosesInput = {
@@ -2941,6 +2997,7 @@ export type UserUncheckedCreateWithoutDiagnosesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutDiagnosesInput = {
@@ -3001,6 +3058,7 @@ export type UserUpdateWithoutDiagnosesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDiagnosesInput = {
@@ -3045,6 +3103,7 @@ export type UserUncheckedUpdateWithoutDiagnosesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -3089,6 +3148,7 @@ export type UserCreateWithoutAuditLogsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -3133,6 +3193,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -3193,6 +3254,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -3237,6 +3299,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutOrderedLabOrdersInput = {
@@ -3281,6 +3344,7 @@ export type UserCreateWithoutOrderedLabOrdersInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutOrderedLabOrdersInput = {
@@ -3325,6 +3389,7 @@ export type UserUncheckedCreateWithoutOrderedLabOrdersInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutOrderedLabOrdersInput = {
@@ -3385,6 +3450,7 @@ export type UserUpdateWithoutOrderedLabOrdersInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrderedLabOrdersInput = {
@@ -3409,6 +3475,203 @@ export type UserUncheckedUpdateWithoutOrderedLabOrdersInput = {
   consultations?: Prisma.ConsultationUncheckedUpdateManyWithoutDoctorNestedInput
   diagnoses?: Prisma.DiagnosisUncheckedUpdateManyWithoutCreatedByNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  enteredLabResults?: Prisma.LabResultUncheckedUpdateManyWithoutEnteredByNestedInput
+  verifiedLabResults?: Prisma.LabResultUncheckedUpdateManyWithoutVerifiedByNestedInput
+  prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutDoctorNestedInput
+  dispensings?: Prisma.DispensingUncheckedUpdateManyWithoutPharmacistNestedInput
+  inventoryMovements?: Prisma.InventoryMovementUncheckedUpdateManyWithoutPerformedByNestedInput
+  issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
+  recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
+  invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
+  recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
+  voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
+  cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  obstetricHistories?: Prisma.ObstetricHistoryUncheckedUpdateManyWithoutRecordedByNestedInput
+  ancVisits?: Prisma.AncVisitUncheckedUpdateManyWithoutRecordedByNestedInput
+  laborAdmissions?: Prisma.LaborAdmissionUncheckedUpdateManyWithoutRecordedByNestedInput
+  laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
+  familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserCreateWithoutClinicalMessagesInput = {
+  id?: string
+  email: string
+  phone?: string | null
+  passwordHash: string
+  firstName: string
+  lastName: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  department?: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  refreshSessions?: Prisma.RefreshSessionCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientCreateNestedManyWithoutCreatedByInput
+  createdEncounters?: Prisma.EncounterCreateNestedManyWithoutCreatedByInput
+  assignedEncounters?: Prisma.EncounterCreateNestedManyWithoutAssignedDoctorInput
+  assignedQueues?: Prisma.QueueEntryCreateNestedManyWithoutAssignedToInput
+  recordedTriages?: Prisma.TriageCreateNestedManyWithoutRecordedByInput
+  consultations?: Prisma.ConsultationCreateNestedManyWithoutDoctorInput
+  diagnoses?: Prisma.DiagnosisCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  orderedLabOrders?: Prisma.LabOrderCreateNestedManyWithoutDoctorInput
+  enteredLabResults?: Prisma.LabResultCreateNestedManyWithoutEnteredByInput
+  verifiedLabResults?: Prisma.LabResultCreateNestedManyWithoutVerifiedByInput
+  prescriptions?: Prisma.PrescriptionCreateNestedManyWithoutDoctorInput
+  dispensings?: Prisma.DispensingCreateNestedManyWithoutPharmacistInput
+  inventoryMovements?: Prisma.InventoryMovementCreateNestedManyWithoutPerformedByInput
+  issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
+  recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
+  invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
+  recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
+  voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
+  cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
+  obstetricHistories?: Prisma.ObstetricHistoryCreateNestedManyWithoutRecordedByInput
+  ancVisits?: Prisma.AncVisitCreateNestedManyWithoutRecordedByInput
+  laborAdmissions?: Prisma.LaborAdmissionCreateNestedManyWithoutRecordedByInput
+  laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
+  deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
+  familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+}
+
+export type UserUncheckedCreateWithoutClinicalMessagesInput = {
+  id?: string
+  email: string
+  phone?: string | null
+  passwordHash: string
+  firstName: string
+  lastName: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  departmentId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshSessions?: Prisma.RefreshSessionUncheckedCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientUncheckedCreateNestedManyWithoutCreatedByInput
+  createdEncounters?: Prisma.EncounterUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedEncounters?: Prisma.EncounterUncheckedCreateNestedManyWithoutAssignedDoctorInput
+  assignedQueues?: Prisma.QueueEntryUncheckedCreateNestedManyWithoutAssignedToInput
+  recordedTriages?: Prisma.TriageUncheckedCreateNestedManyWithoutRecordedByInput
+  consultations?: Prisma.ConsultationUncheckedCreateNestedManyWithoutDoctorInput
+  diagnoses?: Prisma.DiagnosisUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  orderedLabOrders?: Prisma.LabOrderUncheckedCreateNestedManyWithoutDoctorInput
+  enteredLabResults?: Prisma.LabResultUncheckedCreateNestedManyWithoutEnteredByInput
+  verifiedLabResults?: Prisma.LabResultUncheckedCreateNestedManyWithoutVerifiedByInput
+  prescriptions?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutDoctorInput
+  dispensings?: Prisma.DispensingUncheckedCreateNestedManyWithoutPharmacistInput
+  inventoryMovements?: Prisma.InventoryMovementUncheckedCreateNestedManyWithoutPerformedByInput
+  issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
+  recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
+  invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
+  recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
+  voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
+  cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
+  obstetricHistories?: Prisma.ObstetricHistoryUncheckedCreateNestedManyWithoutRecordedByInput
+  ancVisits?: Prisma.AncVisitUncheckedCreateNestedManyWithoutRecordedByInput
+  laborAdmissions?: Prisma.LaborAdmissionUncheckedCreateNestedManyWithoutRecordedByInput
+  laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
+  familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+}
+
+export type UserCreateOrConnectWithoutClinicalMessagesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutClinicalMessagesInput, Prisma.UserUncheckedCreateWithoutClinicalMessagesInput>
+}
+
+export type UserUpsertWithoutClinicalMessagesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutClinicalMessagesInput, Prisma.UserUncheckedUpdateWithoutClinicalMessagesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutClinicalMessagesInput, Prisma.UserUncheckedCreateWithoutClinicalMessagesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutClinicalMessagesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutClinicalMessagesInput, Prisma.UserUncheckedUpdateWithoutClinicalMessagesInput>
+}
+
+export type UserUpdateWithoutClinicalMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  department?: Prisma.DepartmentUpdateOneWithoutUsersNestedInput
+  refreshSessions?: Prisma.RefreshSessionUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUpdateManyWithoutCreatedByNestedInput
+  createdEncounters?: Prisma.EncounterUpdateManyWithoutCreatedByNestedInput
+  assignedEncounters?: Prisma.EncounterUpdateManyWithoutAssignedDoctorNestedInput
+  assignedQueues?: Prisma.QueueEntryUpdateManyWithoutAssignedToNestedInput
+  recordedTriages?: Prisma.TriageUpdateManyWithoutRecordedByNestedInput
+  consultations?: Prisma.ConsultationUpdateManyWithoutDoctorNestedInput
+  diagnoses?: Prisma.DiagnosisUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  orderedLabOrders?: Prisma.LabOrderUpdateManyWithoutDoctorNestedInput
+  enteredLabResults?: Prisma.LabResultUpdateManyWithoutEnteredByNestedInput
+  verifiedLabResults?: Prisma.LabResultUpdateManyWithoutVerifiedByNestedInput
+  prescriptions?: Prisma.PrescriptionUpdateManyWithoutDoctorNestedInput
+  dispensings?: Prisma.DispensingUpdateManyWithoutPharmacistNestedInput
+  inventoryMovements?: Prisma.InventoryMovementUpdateManyWithoutPerformedByNestedInput
+  issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
+  recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
+  invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
+  recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
+  voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
+  cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
+  obstetricHistories?: Prisma.ObstetricHistoryUpdateManyWithoutRecordedByNestedInput
+  ancVisits?: Prisma.AncVisitUpdateManyWithoutRecordedByNestedInput
+  laborAdmissions?: Prisma.LaborAdmissionUpdateManyWithoutRecordedByNestedInput
+  laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
+  deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
+  familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutClinicalMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshSessions?: Prisma.RefreshSessionUncheckedUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdEncounters?: Prisma.EncounterUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedEncounters?: Prisma.EncounterUncheckedUpdateManyWithoutAssignedDoctorNestedInput
+  assignedQueues?: Prisma.QueueEntryUncheckedUpdateManyWithoutAssignedToNestedInput
+  recordedTriages?: Prisma.TriageUncheckedUpdateManyWithoutRecordedByNestedInput
+  consultations?: Prisma.ConsultationUncheckedUpdateManyWithoutDoctorNestedInput
+  diagnoses?: Prisma.DiagnosisUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  orderedLabOrders?: Prisma.LabOrderUncheckedUpdateManyWithoutDoctorNestedInput
   enteredLabResults?: Prisma.LabResultUncheckedUpdateManyWithoutEnteredByNestedInput
   verifiedLabResults?: Prisma.LabResultUncheckedUpdateManyWithoutVerifiedByNestedInput
   prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutDoctorNestedInput
@@ -3473,6 +3736,7 @@ export type UserCreateWithoutEnteredLabResultsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutEnteredLabResultsInput = {
@@ -3517,6 +3781,7 @@ export type UserUncheckedCreateWithoutEnteredLabResultsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutEnteredLabResultsInput = {
@@ -3566,6 +3831,7 @@ export type UserCreateWithoutVerifiedLabResultsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutVerifiedLabResultsInput = {
@@ -3610,6 +3876,7 @@ export type UserUncheckedCreateWithoutVerifiedLabResultsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutVerifiedLabResultsInput = {
@@ -3670,6 +3937,7 @@ export type UserUpdateWithoutEnteredLabResultsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEnteredLabResultsInput = {
@@ -3714,6 +3982,7 @@ export type UserUncheckedUpdateWithoutEnteredLabResultsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUpsertWithoutVerifiedLabResultsInput = {
@@ -3769,6 +4038,7 @@ export type UserUpdateWithoutVerifiedLabResultsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVerifiedLabResultsInput = {
@@ -3813,6 +4083,7 @@ export type UserUncheckedUpdateWithoutVerifiedLabResultsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutPrescriptionsInput = {
@@ -3857,6 +4128,7 @@ export type UserCreateWithoutPrescriptionsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutPrescriptionsInput = {
@@ -3901,6 +4173,7 @@ export type UserUncheckedCreateWithoutPrescriptionsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutPrescriptionsInput = {
@@ -3961,6 +4234,7 @@ export type UserUpdateWithoutPrescriptionsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPrescriptionsInput = {
@@ -4005,6 +4279,7 @@ export type UserUncheckedUpdateWithoutPrescriptionsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutInventoryMovementsInput = {
@@ -4049,6 +4324,7 @@ export type UserCreateWithoutInventoryMovementsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutInventoryMovementsInput = {
@@ -4093,6 +4369,7 @@ export type UserUncheckedCreateWithoutInventoryMovementsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutInventoryMovementsInput = {
@@ -4153,6 +4430,7 @@ export type UserUpdateWithoutInventoryMovementsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInventoryMovementsInput = {
@@ -4197,6 +4475,7 @@ export type UserUncheckedUpdateWithoutInventoryMovementsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutDispensingsInput = {
@@ -4241,6 +4520,7 @@ export type UserCreateWithoutDispensingsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutDispensingsInput = {
@@ -4285,6 +4565,7 @@ export type UserUncheckedCreateWithoutDispensingsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutDispensingsInput = {
@@ -4345,6 +4626,7 @@ export type UserUpdateWithoutDispensingsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDispensingsInput = {
@@ -4389,6 +4671,7 @@ export type UserUncheckedUpdateWithoutDispensingsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutIssuedInvoicesInput = {
@@ -4433,6 +4716,7 @@ export type UserCreateWithoutIssuedInvoicesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutIssuedInvoicesInput = {
@@ -4477,6 +4761,7 @@ export type UserUncheckedCreateWithoutIssuedInvoicesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutIssuedInvoicesInput = {
@@ -4537,6 +4822,7 @@ export type UserUpdateWithoutIssuedInvoicesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIssuedInvoicesInput = {
@@ -4581,6 +4867,7 @@ export type UserUncheckedUpdateWithoutIssuedInvoicesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutInvoiceAdjustmentsInput = {
@@ -4625,6 +4912,7 @@ export type UserCreateWithoutInvoiceAdjustmentsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutInvoiceAdjustmentsInput = {
@@ -4669,6 +4957,7 @@ export type UserUncheckedCreateWithoutInvoiceAdjustmentsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutInvoiceAdjustmentsInput = {
@@ -4729,6 +5018,7 @@ export type UserUpdateWithoutInvoiceAdjustmentsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutInvoiceAdjustmentsInput = {
@@ -4773,6 +5063,7 @@ export type UserUncheckedUpdateWithoutInvoiceAdjustmentsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutRecordedPaymentsInput = {
@@ -4817,6 +5108,7 @@ export type UserCreateWithoutRecordedPaymentsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutRecordedPaymentsInput = {
@@ -4861,6 +5153,7 @@ export type UserUncheckedCreateWithoutRecordedPaymentsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutRecordedPaymentsInput = {
@@ -4921,6 +5214,7 @@ export type UserUpdateWithoutRecordedPaymentsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecordedPaymentsInput = {
@@ -4965,6 +5259,7 @@ export type UserUncheckedUpdateWithoutRecordedPaymentsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutIssuedRefundsInput = {
@@ -5009,6 +5304,7 @@ export type UserCreateWithoutIssuedRefundsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutIssuedRefundsInput = {
@@ -5053,6 +5349,7 @@ export type UserUncheckedCreateWithoutIssuedRefundsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutIssuedRefundsInput = {
@@ -5113,6 +5410,7 @@ export type UserUpdateWithoutIssuedRefundsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIssuedRefundsInput = {
@@ -5157,6 +5455,7 @@ export type UserUncheckedUpdateWithoutIssuedRefundsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutRecordedExpensesInput = {
@@ -5201,6 +5500,7 @@ export type UserCreateWithoutRecordedExpensesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutRecordedExpensesInput = {
@@ -5245,6 +5545,7 @@ export type UserUncheckedCreateWithoutRecordedExpensesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutRecordedExpensesInput = {
@@ -5294,6 +5595,7 @@ export type UserCreateWithoutVoidedExpensesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutVoidedExpensesInput = {
@@ -5338,6 +5640,7 @@ export type UserUncheckedCreateWithoutVoidedExpensesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutVoidedExpensesInput = {
@@ -5398,6 +5701,7 @@ export type UserUpdateWithoutRecordedExpensesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRecordedExpensesInput = {
@@ -5442,6 +5746,7 @@ export type UserUncheckedUpdateWithoutRecordedExpensesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUpsertWithoutVoidedExpensesInput = {
@@ -5497,6 +5802,7 @@ export type UserUpdateWithoutVoidedExpensesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutVoidedExpensesInput = {
@@ -5541,6 +5847,7 @@ export type UserUncheckedUpdateWithoutVoidedExpensesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutCashSessionsInput = {
@@ -5585,6 +5892,7 @@ export type UserCreateWithoutCashSessionsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutCashSessionsInput = {
@@ -5629,6 +5937,7 @@ export type UserUncheckedCreateWithoutCashSessionsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutCashSessionsInput = {
@@ -5689,6 +5998,7 @@ export type UserUpdateWithoutCashSessionsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCashSessionsInput = {
@@ -5733,6 +6043,7 @@ export type UserUncheckedUpdateWithoutCashSessionsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -5777,6 +6088,7 @@ export type UserCreateWithoutNotificationsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -5821,6 +6133,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -5881,6 +6194,7 @@ export type UserUpdateWithoutNotificationsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -5925,6 +6239,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutObstetricHistoriesInput = {
@@ -5969,6 +6284,7 @@ export type UserCreateWithoutObstetricHistoriesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutObstetricHistoriesInput = {
@@ -6013,6 +6329,7 @@ export type UserUncheckedCreateWithoutObstetricHistoriesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutObstetricHistoriesInput = {
@@ -6073,6 +6390,7 @@ export type UserUpdateWithoutObstetricHistoriesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutObstetricHistoriesInput = {
@@ -6117,6 +6435,7 @@ export type UserUncheckedUpdateWithoutObstetricHistoriesInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutAncVisitsInput = {
@@ -6161,6 +6480,7 @@ export type UserCreateWithoutAncVisitsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutAncVisitsInput = {
@@ -6205,6 +6525,7 @@ export type UserUncheckedCreateWithoutAncVisitsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutAncVisitsInput = {
@@ -6265,6 +6586,7 @@ export type UserUpdateWithoutAncVisitsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAncVisitsInput = {
@@ -6309,6 +6631,7 @@ export type UserUncheckedUpdateWithoutAncVisitsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutLaborAdmissionsInput = {
@@ -6353,6 +6676,7 @@ export type UserCreateWithoutLaborAdmissionsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutLaborAdmissionsInput = {
@@ -6397,6 +6721,7 @@ export type UserUncheckedCreateWithoutLaborAdmissionsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutLaborAdmissionsInput = {
@@ -6457,6 +6782,7 @@ export type UserUpdateWithoutLaborAdmissionsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLaborAdmissionsInput = {
@@ -6501,6 +6827,7 @@ export type UserUncheckedUpdateWithoutLaborAdmissionsInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutLaborMonitoringInput = {
@@ -6545,6 +6872,7 @@ export type UserCreateWithoutLaborMonitoringInput = {
   laborAdmissions?: Prisma.LaborAdmissionCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutLaborMonitoringInput = {
@@ -6589,6 +6917,7 @@ export type UserUncheckedCreateWithoutLaborMonitoringInput = {
   laborAdmissions?: Prisma.LaborAdmissionUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutLaborMonitoringInput = {
@@ -6649,6 +6978,7 @@ export type UserUpdateWithoutLaborMonitoringInput = {
   laborAdmissions?: Prisma.LaborAdmissionUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLaborMonitoringInput = {
@@ -6693,6 +7023,7 @@ export type UserUncheckedUpdateWithoutLaborMonitoringInput = {
   laborAdmissions?: Prisma.LaborAdmissionUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutDeliverySummariesInput = {
@@ -6737,6 +7068,7 @@ export type UserCreateWithoutDeliverySummariesInput = {
   laborAdmissions?: Prisma.LaborAdmissionCreateNestedManyWithoutRecordedByInput
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutDeliverySummariesInput = {
@@ -6781,6 +7113,7 @@ export type UserUncheckedCreateWithoutDeliverySummariesInput = {
   laborAdmissions?: Prisma.LaborAdmissionUncheckedCreateNestedManyWithoutRecordedByInput
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutDeliverySummariesInput = {
@@ -6841,6 +7174,7 @@ export type UserUpdateWithoutDeliverySummariesInput = {
   laborAdmissions?: Prisma.LaborAdmissionUpdateManyWithoutRecordedByNestedInput
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDeliverySummariesInput = {
@@ -6885,6 +7219,7 @@ export type UserUncheckedUpdateWithoutDeliverySummariesInput = {
   laborAdmissions?: Prisma.LaborAdmissionUncheckedUpdateManyWithoutRecordedByNestedInput
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateWithoutFamilyPlanningRecordsInput = {
@@ -6929,6 +7264,7 @@ export type UserCreateWithoutFamilyPlanningRecordsInput = {
   laborAdmissions?: Prisma.LaborAdmissionCreateNestedManyWithoutRecordedByInput
   laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
 }
 
 export type UserUncheckedCreateWithoutFamilyPlanningRecordsInput = {
@@ -6973,6 +7309,7 @@ export type UserUncheckedCreateWithoutFamilyPlanningRecordsInput = {
   laborAdmissions?: Prisma.LaborAdmissionUncheckedCreateNestedManyWithoutRecordedByInput
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
 }
 
 export type UserCreateOrConnectWithoutFamilyPlanningRecordsInput = {
@@ -7033,6 +7370,7 @@ export type UserUpdateWithoutFamilyPlanningRecordsInput = {
   laborAdmissions?: Prisma.LaborAdmissionUpdateManyWithoutRecordedByNestedInput
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFamilyPlanningRecordsInput = {
@@ -7077,6 +7415,7 @@ export type UserUncheckedUpdateWithoutFamilyPlanningRecordsInput = {
   laborAdmissions?: Prisma.LaborAdmissionUncheckedUpdateManyWithoutRecordedByNestedInput
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserCreateManyDepartmentInput = {
@@ -7135,6 +7474,7 @@ export type UserUpdateWithoutDepartmentInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDepartmentInput = {
@@ -7179,6 +7519,7 @@ export type UserUncheckedUpdateWithoutDepartmentInput = {
   laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
   deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
   familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutDepartmentInput = {
@@ -7231,6 +7572,7 @@ export type UserCountOutputType = {
   laborMonitoring: number
   deliverySummaries: number
   familyPlanningRecords: number
+  clinicalMessages: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -7264,6 +7606,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   laborMonitoring?: boolean | UserCountOutputTypeCountLaborMonitoringArgs
   deliverySummaries?: boolean | UserCountOutputTypeCountDeliverySummariesArgs
   familyPlanningRecords?: boolean | UserCountOutputTypeCountFamilyPlanningRecordsArgs
+  clinicalMessages?: boolean | UserCountOutputTypeCountClinicalMessagesArgs
 }
 
 /**
@@ -7486,6 +7829,13 @@ export type UserCountOutputTypeCountFamilyPlanningRecordsArgs<ExtArgs extends ru
   where?: Prisma.FamilyPlanningRecordWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountClinicalMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClinicalMessageWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -7531,6 +7881,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   laborMonitoring?: boolean | Prisma.User$laborMonitoringArgs<ExtArgs>
   deliverySummaries?: boolean | Prisma.User$deliverySummariesArgs<ExtArgs>
   familyPlanningRecords?: boolean | Prisma.User$familyPlanningRecordsArgs<ExtArgs>
+  clinicalMessages?: boolean | Prisma.User$clinicalMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -7614,6 +7965,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   laborMonitoring?: boolean | Prisma.User$laborMonitoringArgs<ExtArgs>
   deliverySummaries?: boolean | Prisma.User$deliverySummariesArgs<ExtArgs>
   familyPlanningRecords?: boolean | Prisma.User$familyPlanningRecordsArgs<ExtArgs>
+  clinicalMessages?: boolean | Prisma.User$clinicalMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -7657,6 +8009,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     laborMonitoring: Prisma.$LaborMonitoringEntryPayload<ExtArgs>[]
     deliverySummaries: Prisma.$DeliverySummaryPayload<ExtArgs>[]
     familyPlanningRecords: Prisma.$FamilyPlanningRecordPayload<ExtArgs>[]
+    clinicalMessages: Prisma.$ClinicalMessagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -8096,6 +8449,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   laborMonitoring<T extends Prisma.User$laborMonitoringArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$laborMonitoringArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LaborMonitoringEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   deliverySummaries<T extends Prisma.User$deliverySummariesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$deliverySummariesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeliverySummaryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   familyPlanningRecords<T extends Prisma.User$familyPlanningRecordsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$familyPlanningRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FamilyPlanningRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clinicalMessages<T extends Prisma.User$clinicalMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$clinicalMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClinicalMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9274,6 +9628,30 @@ export type User$familyPlanningRecordsArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.FamilyPlanningRecordScalarFieldEnum | Prisma.FamilyPlanningRecordScalarFieldEnum[]
+}
+
+/**
+ * User.clinicalMessages
+ */
+export type User$clinicalMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClinicalMessage
+   */
+  select?: Prisma.ClinicalMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClinicalMessage
+   */
+  omit?: Prisma.ClinicalMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClinicalMessageInclude<ExtArgs> | null
+  where?: Prisma.ClinicalMessageWhereInput
+  orderBy?: Prisma.ClinicalMessageOrderByWithRelationInput | Prisma.ClinicalMessageOrderByWithRelationInput[]
+  cursor?: Prisma.ClinicalMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClinicalMessageScalarFieldEnum | Prisma.ClinicalMessageScalarFieldEnum[]
 }
 
 /**

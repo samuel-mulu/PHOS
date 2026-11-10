@@ -412,6 +412,7 @@ export const ModelName = {
   AuditLog: 'AuditLog',
   LabTest: 'LabTest',
   LabOrder: 'LabOrder',
+  ClinicalMessage: 'ClinicalMessage',
   LabOrderItem: 'LabOrderItem',
   LabResult: 'LabResult',
   Prescription: 'Prescription',
@@ -453,7 +454,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshSession" | "facility" | "department" | "service" | "patient" | "encounter" | "appointment" | "queueEntry" | "triage" | "consultation" | "diagnosis" | "auditLog" | "labTest" | "labOrder" | "labOrderItem" | "labResult" | "prescription" | "prescriptionItem" | "medicine" | "supplier" | "inventoryBatch" | "inventoryMovement" | "dispensing" | "dispensingItem" | "invoice" | "invoiceAdjustment" | "invoiceItem" | "payment" | "refund" | "expenseCategory" | "expense" | "cashSession" | "notification" | "obstetricHistory" | "ancVisit" | "laborAdmission" | "laborMonitoringEntry" | "deliverySummary" | "newbornRecord" | "familyPlanningRecord"
+    modelProps: "user" | "refreshSession" | "facility" | "department" | "service" | "patient" | "encounter" | "appointment" | "queueEntry" | "triage" | "consultation" | "diagnosis" | "auditLog" | "labTest" | "labOrder" | "clinicalMessage" | "labOrderItem" | "labResult" | "prescription" | "prescriptionItem" | "medicine" | "supplier" | "inventoryBatch" | "inventoryMovement" | "dispensing" | "dispensingItem" | "invoice" | "invoiceAdjustment" | "invoiceItem" | "payment" | "refund" | "expenseCategory" | "expense" | "cashSession" | "notification" | "obstetricHistory" | "ancVisit" | "laborAdmission" | "laborMonitoringEntry" | "deliverySummary" | "newbornRecord" | "familyPlanningRecord"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1564,6 +1565,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.LabOrderCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.LabOrderCountAggregateOutputType> | number
+        }
+      }
+    }
+    ClinicalMessage: {
+      payload: Prisma.$ClinicalMessagePayload<ExtArgs>
+      fields: Prisma.ClinicalMessageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ClinicalMessageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicalMessagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ClinicalMessageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicalMessagePayload>
+        }
+        findFirst: {
+          args: Prisma.ClinicalMessageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicalMessagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ClinicalMessageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicalMessagePayload>
+        }
+        findMany: {
+          args: Prisma.ClinicalMessageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicalMessagePayload>[]
+        }
+        create: {
+          args: Prisma.ClinicalMessageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicalMessagePayload>
+        }
+        createMany: {
+          args: Prisma.ClinicalMessageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ClinicalMessageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicalMessagePayload>[]
+        }
+        delete: {
+          args: Prisma.ClinicalMessageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicalMessagePayload>
+        }
+        update: {
+          args: Prisma.ClinicalMessageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicalMessagePayload>
+        }
+        deleteMany: {
+          args: Prisma.ClinicalMessageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ClinicalMessageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ClinicalMessageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicalMessagePayload>[]
+        }
+        upsert: {
+          args: Prisma.ClinicalMessageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClinicalMessagePayload>
+        }
+        aggregate: {
+          args: Prisma.ClinicalMessageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateClinicalMessage>
+        }
+        groupBy: {
+          args: Prisma.ClinicalMessageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ClinicalMessageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ClinicalMessageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ClinicalMessageCountAggregateOutputType> | number
         }
       }
     }
@@ -3811,6 +3886,21 @@ export const LabOrderScalarFieldEnum = {
 export type LabOrderScalarFieldEnum = (typeof LabOrderScalarFieldEnum)[keyof typeof LabOrderScalarFieldEnum]
 
 
+export const ClinicalMessageScalarFieldEnum = {
+  id: 'id',
+  encounterId: 'encounterId',
+  patientId: 'patientId',
+  authorId: 'authorId',
+  authorSide: 'authorSide',
+  kind: 'kind',
+  body: 'body',
+  labOrderId: 'labOrderId',
+  createdAt: 'createdAt'
+} as const
+
+export type ClinicalMessageScalarFieldEnum = (typeof ClinicalMessageScalarFieldEnum)[keyof typeof ClinicalMessageScalarFieldEnum]
+
+
 export const LabOrderItemScalarFieldEnum = {
   id: 'id',
   labOrderId: 'labOrderId',
@@ -4587,6 +4677,34 @@ export type ListEnumLabOrderStatusFieldRefInput<$PrismaModel> = FieldRefInputTyp
 
 
 /**
+ * Reference to a field of type 'ClinicalMessageAuthorSide'
+ */
+export type EnumClinicalMessageAuthorSideFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClinicalMessageAuthorSide'>
+    
+
+
+/**
+ * Reference to a field of type 'ClinicalMessageAuthorSide[]'
+ */
+export type ListEnumClinicalMessageAuthorSideFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClinicalMessageAuthorSide[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ClinicalMessageKind'
+ */
+export type EnumClinicalMessageKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClinicalMessageKind'>
+    
+
+
+/**
+ * Reference to a field of type 'ClinicalMessageKind[]'
+ */
+export type ListEnumClinicalMessageKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClinicalMessageKind[]'>
+    
+
+
+/**
  * Reference to a field of type 'LabResultFlag'
  */
 export type EnumLabResultFlagFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LabResultFlag'>
@@ -5185,6 +5303,7 @@ export type GlobalOmitConfig = {
   auditLog?: Prisma.AuditLogOmit
   labTest?: Prisma.LabTestOmit
   labOrder?: Prisma.LabOrderOmit
+  clinicalMessage?: Prisma.ClinicalMessageOmit
   labOrderItem?: Prisma.LabOrderItemOmit
   labResult?: Prisma.LabResultOmit
   prescription?: Prisma.PrescriptionOmit

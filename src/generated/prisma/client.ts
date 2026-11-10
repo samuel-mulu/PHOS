@@ -115,6 +115,11 @@ export type LabTest = Prisma.LabTestModel
  */
 export type LabOrder = Prisma.LabOrderModel
 /**
+ * Model ClinicalMessage
+ * 
+ */
+export type ClinicalMessage = Prisma.ClinicalMessageModel
+/**
  * Model LabOrderItem
  * 
  */
