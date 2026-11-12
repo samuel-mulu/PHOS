@@ -23,12 +23,17 @@ function consultationWriteData(dto: SaveConsultationDto): {
   notes?: string;
   labNotes?: string;
   referralSheet?: Prisma.InputJsonValue;
+  obstetricUsReport?: Prisma.InputJsonValue;
 } {
-  const { referralSheet, ...rest } = dto;
-  if (referralSheet === undefined) return rest;
+  const { referralSheet, obstetricUsReport, ...rest } = dto;
   return {
     ...rest,
-    referralSheet: referralSheet as Prisma.InputJsonValue,
+    ...(referralSheet !== undefined
+      ? { referralSheet: referralSheet as Prisma.InputJsonValue }
+      : {}),
+    ...(obstetricUsReport !== undefined
+      ? { obstetricUsReport: obstetricUsReport as Prisma.InputJsonValue }
+      : {}),
   };
 }
 

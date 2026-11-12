@@ -16,6 +16,7 @@ export class SaveConsultationDto {
   @IsOptional() @IsString() notes?: string;
   @IsOptional() @IsString() labNotes?: string;
   @IsOptional() @IsObject() referralSheet?: Record<string, unknown>;
+  @IsOptional() @IsObject() obstetricUsReport?: Record<string, unknown>;
 }
 export class AddDiagnosisDto {
   @IsOptional() @IsString() code?: string;

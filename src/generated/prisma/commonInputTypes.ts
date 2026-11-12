@@ -806,11 +806,45 @@ export type EnumNotificationTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumNotificationTypeFilter<$PrismaModel>
 }
 
+export type EnumLmpStatusNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.LmpStatus | Prisma.EnumLmpStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.LmpStatus[] | Prisma.ListEnumLmpStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.LmpStatus[] | Prisma.ListEnumLmpStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumLmpStatusNullableFilter<$PrismaModel> | $Enums.LmpStatus | null
+}
+
+export type EnumDatingSourceNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.DatingSource | Prisma.EnumDatingSourceFieldRefInput<$PrismaModel> | null
+  in?: $Enums.DatingSource[] | Prisma.ListEnumDatingSourceFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.DatingSource[] | Prisma.ListEnumDatingSourceFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumDatingSourceNullableFilter<$PrismaModel> | $Enums.DatingSource | null
+}
+
 export type EnumPreviousDeliveryModeNullableFilter<$PrismaModel = never> = {
   equals?: $Enums.PreviousDeliveryMode | Prisma.EnumPreviousDeliveryModeFieldRefInput<$PrismaModel> | null
   in?: $Enums.PreviousDeliveryMode[] | Prisma.ListEnumPreviousDeliveryModeFieldRefInput<$PrismaModel> | null
   notIn?: $Enums.PreviousDeliveryMode[] | Prisma.ListEnumPreviousDeliveryModeFieldRefInput<$PrismaModel> | null
   not?: Prisma.NestedEnumPreviousDeliveryModeNullableFilter<$PrismaModel> | $Enums.PreviousDeliveryMode | null
+}
+
+export type EnumLmpStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LmpStatus | Prisma.EnumLmpStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.LmpStatus[] | Prisma.ListEnumLmpStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.LmpStatus[] | Prisma.ListEnumLmpStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumLmpStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.LmpStatus | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLmpStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLmpStatusNullableFilter<$PrismaModel>
+}
+
+export type EnumDatingSourceNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DatingSource | Prisma.EnumDatingSourceFieldRefInput<$PrismaModel> | null
+  in?: $Enums.DatingSource[] | Prisma.ListEnumDatingSourceFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.DatingSource[] | Prisma.ListEnumDatingSourceFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumDatingSourceNullableWithAggregatesFilter<$PrismaModel> | $Enums.DatingSource | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDatingSourceNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDatingSourceNullableFilter<$PrismaModel>
 }
 
 export type EnumPreviousDeliveryModeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -1886,11 +1920,45 @@ export type NestedEnumNotificationTypeWithAggregatesFilter<$PrismaModel = never>
   _max?: Prisma.NestedEnumNotificationTypeFilter<$PrismaModel>
 }
 
+export type NestedEnumLmpStatusNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.LmpStatus | Prisma.EnumLmpStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.LmpStatus[] | Prisma.ListEnumLmpStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.LmpStatus[] | Prisma.ListEnumLmpStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumLmpStatusNullableFilter<$PrismaModel> | $Enums.LmpStatus | null
+}
+
+export type NestedEnumDatingSourceNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.DatingSource | Prisma.EnumDatingSourceFieldRefInput<$PrismaModel> | null
+  in?: $Enums.DatingSource[] | Prisma.ListEnumDatingSourceFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.DatingSource[] | Prisma.ListEnumDatingSourceFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumDatingSourceNullableFilter<$PrismaModel> | $Enums.DatingSource | null
+}
+
 export type NestedEnumPreviousDeliveryModeNullableFilter<$PrismaModel = never> = {
   equals?: $Enums.PreviousDeliveryMode | Prisma.EnumPreviousDeliveryModeFieldRefInput<$PrismaModel> | null
   in?: $Enums.PreviousDeliveryMode[] | Prisma.ListEnumPreviousDeliveryModeFieldRefInput<$PrismaModel> | null
   notIn?: $Enums.PreviousDeliveryMode[] | Prisma.ListEnumPreviousDeliveryModeFieldRefInput<$PrismaModel> | null
   not?: Prisma.NestedEnumPreviousDeliveryModeNullableFilter<$PrismaModel> | $Enums.PreviousDeliveryMode | null
+}
+
+export type NestedEnumLmpStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.LmpStatus | Prisma.EnumLmpStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.LmpStatus[] | Prisma.ListEnumLmpStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.LmpStatus[] | Prisma.ListEnumLmpStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumLmpStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.LmpStatus | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumLmpStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumLmpStatusNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumDatingSourceNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DatingSource | Prisma.EnumDatingSourceFieldRefInput<$PrismaModel> | null
+  in?: $Enums.DatingSource[] | Prisma.ListEnumDatingSourceFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.DatingSource[] | Prisma.ListEnumDatingSourceFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumDatingSourceNullableWithAggregatesFilter<$PrismaModel> | $Enums.DatingSource | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDatingSourceNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDatingSourceNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumPreviousDeliveryModeNullableWithAggregatesFilter<$PrismaModel = never> = {

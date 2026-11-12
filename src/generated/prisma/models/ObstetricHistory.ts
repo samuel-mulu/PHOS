@@ -52,6 +52,9 @@ export type ObstetricHistoryMinAggregateOutputType = {
   living: number | null
   lmp: Date | null
   edd: Date | null
+  lmpStatus: $Enums.LmpStatus | null
+  datingSource: $Enums.DatingSource | null
+  datingEstablished: boolean | null
   previousDelivery: $Enums.PreviousDeliveryMode | null
   previousCs: boolean | null
   previousPph: boolean | null
@@ -79,6 +82,9 @@ export type ObstetricHistoryMaxAggregateOutputType = {
   living: number | null
   lmp: Date | null
   edd: Date | null
+  lmpStatus: $Enums.LmpStatus | null
+  datingSource: $Enums.DatingSource | null
+  datingEstablished: boolean | null
   previousDelivery: $Enums.PreviousDeliveryMode | null
   previousCs: boolean | null
   previousPph: boolean | null
@@ -106,6 +112,9 @@ export type ObstetricHistoryCountAggregateOutputType = {
   living: number
   lmp: number
   edd: number
+  lmpStatus: number
+  datingSource: number
+  datingEstablished: number
   previousDelivery: number
   previousCs: number
   previousPph: number
@@ -151,6 +160,9 @@ export type ObstetricHistoryMinAggregateInputType = {
   living?: true
   lmp?: true
   edd?: true
+  lmpStatus?: true
+  datingSource?: true
+  datingEstablished?: true
   previousDelivery?: true
   previousCs?: true
   previousPph?: true
@@ -178,6 +190,9 @@ export type ObstetricHistoryMaxAggregateInputType = {
   living?: true
   lmp?: true
   edd?: true
+  lmpStatus?: true
+  datingSource?: true
+  datingEstablished?: true
   previousDelivery?: true
   previousCs?: true
   previousPph?: true
@@ -205,6 +220,9 @@ export type ObstetricHistoryCountAggregateInputType = {
   living?: true
   lmp?: true
   edd?: true
+  lmpStatus?: true
+  datingSource?: true
+  datingEstablished?: true
   previousDelivery?: true
   previousCs?: true
   previousPph?: true
@@ -319,6 +337,9 @@ export type ObstetricHistoryGroupByOutputType = {
   living: number | null
   lmp: Date | null
   edd: Date | null
+  lmpStatus: $Enums.LmpStatus | null
+  datingSource: $Enums.DatingSource | null
+  datingEstablished: boolean | null
   previousDelivery: $Enums.PreviousDeliveryMode | null
   previousCs: boolean | null
   previousPph: boolean | null
@@ -369,6 +390,9 @@ export type ObstetricHistoryWhereInput = {
   living?: Prisma.IntNullableFilter<"ObstetricHistory"> | number | null
   lmp?: Prisma.DateTimeNullableFilter<"ObstetricHistory"> | Date | string | null
   edd?: Prisma.DateTimeNullableFilter<"ObstetricHistory"> | Date | string | null
+  lmpStatus?: Prisma.EnumLmpStatusNullableFilter<"ObstetricHistory"> | $Enums.LmpStatus | null
+  datingSource?: Prisma.EnumDatingSourceNullableFilter<"ObstetricHistory"> | $Enums.DatingSource | null
+  datingEstablished?: Prisma.BoolNullableFilter<"ObstetricHistory"> | boolean | null
   previousDelivery?: Prisma.EnumPreviousDeliveryModeNullableFilter<"ObstetricHistory"> | $Enums.PreviousDeliveryMode | null
   previousCs?: Prisma.BoolNullableFilter<"ObstetricHistory"> | boolean | null
   previousPph?: Prisma.BoolNullableFilter<"ObstetricHistory"> | boolean | null
@@ -398,6 +422,9 @@ export type ObstetricHistoryOrderByWithRelationInput = {
   living?: Prisma.SortOrderInput | Prisma.SortOrder
   lmp?: Prisma.SortOrderInput | Prisma.SortOrder
   edd?: Prisma.SortOrderInput | Prisma.SortOrder
+  lmpStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  datingSource?: Prisma.SortOrderInput | Prisma.SortOrder
+  datingEstablished?: Prisma.SortOrderInput | Prisma.SortOrder
   previousDelivery?: Prisma.SortOrderInput | Prisma.SortOrder
   previousCs?: Prisma.SortOrderInput | Prisma.SortOrder
   previousPph?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -430,6 +457,9 @@ export type ObstetricHistoryWhereUniqueInput = Prisma.AtLeast<{
   living?: Prisma.IntNullableFilter<"ObstetricHistory"> | number | null
   lmp?: Prisma.DateTimeNullableFilter<"ObstetricHistory"> | Date | string | null
   edd?: Prisma.DateTimeNullableFilter<"ObstetricHistory"> | Date | string | null
+  lmpStatus?: Prisma.EnumLmpStatusNullableFilter<"ObstetricHistory"> | $Enums.LmpStatus | null
+  datingSource?: Prisma.EnumDatingSourceNullableFilter<"ObstetricHistory"> | $Enums.DatingSource | null
+  datingEstablished?: Prisma.BoolNullableFilter<"ObstetricHistory"> | boolean | null
   previousDelivery?: Prisma.EnumPreviousDeliveryModeNullableFilter<"ObstetricHistory"> | $Enums.PreviousDeliveryMode | null
   previousCs?: Prisma.BoolNullableFilter<"ObstetricHistory"> | boolean | null
   previousPph?: Prisma.BoolNullableFilter<"ObstetricHistory"> | boolean | null
@@ -459,6 +489,9 @@ export type ObstetricHistoryOrderByWithAggregationInput = {
   living?: Prisma.SortOrderInput | Prisma.SortOrder
   lmp?: Prisma.SortOrderInput | Prisma.SortOrder
   edd?: Prisma.SortOrderInput | Prisma.SortOrder
+  lmpStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  datingSource?: Prisma.SortOrderInput | Prisma.SortOrder
+  datingEstablished?: Prisma.SortOrderInput | Prisma.SortOrder
   previousDelivery?: Prisma.SortOrderInput | Prisma.SortOrder
   previousCs?: Prisma.SortOrderInput | Prisma.SortOrder
   previousPph?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -494,6 +527,9 @@ export type ObstetricHistoryScalarWhereWithAggregatesInput = {
   living?: Prisma.IntNullableWithAggregatesFilter<"ObstetricHistory"> | number | null
   lmp?: Prisma.DateTimeNullableWithAggregatesFilter<"ObstetricHistory"> | Date | string | null
   edd?: Prisma.DateTimeNullableWithAggregatesFilter<"ObstetricHistory"> | Date | string | null
+  lmpStatus?: Prisma.EnumLmpStatusNullableWithAggregatesFilter<"ObstetricHistory"> | $Enums.LmpStatus | null
+  datingSource?: Prisma.EnumDatingSourceNullableWithAggregatesFilter<"ObstetricHistory"> | $Enums.DatingSource | null
+  datingEstablished?: Prisma.BoolNullableWithAggregatesFilter<"ObstetricHistory"> | boolean | null
   previousDelivery?: Prisma.EnumPreviousDeliveryModeNullableWithAggregatesFilter<"ObstetricHistory"> | $Enums.PreviousDeliveryMode | null
   previousCs?: Prisma.BoolNullableWithAggregatesFilter<"ObstetricHistory"> | boolean | null
   previousPph?: Prisma.BoolNullableWithAggregatesFilter<"ObstetricHistory"> | boolean | null
@@ -520,6 +556,9 @@ export type ObstetricHistoryCreateInput = {
   living?: number | null
   lmp?: Date | string | null
   edd?: Date | string | null
+  lmpStatus?: $Enums.LmpStatus | null
+  datingSource?: $Enums.DatingSource | null
+  datingEstablished?: boolean | null
   previousDelivery?: $Enums.PreviousDeliveryMode | null
   previousCs?: boolean | null
   previousPph?: boolean | null
@@ -548,6 +587,9 @@ export type ObstetricHistoryUncheckedCreateInput = {
   living?: number | null
   lmp?: Date | string | null
   edd?: Date | string | null
+  lmpStatus?: $Enums.LmpStatus | null
+  datingSource?: $Enums.DatingSource | null
+  datingEstablished?: boolean | null
   previousDelivery?: $Enums.PreviousDeliveryMode | null
   previousCs?: boolean | null
   previousPph?: boolean | null
@@ -574,6 +616,9 @@ export type ObstetricHistoryUpdateInput = {
   living?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   edd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lmpStatus?: Prisma.NullableEnumLmpStatusFieldUpdateOperationsInput | $Enums.LmpStatus | null
+  datingSource?: Prisma.NullableEnumDatingSourceFieldUpdateOperationsInput | $Enums.DatingSource | null
+  datingEstablished?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   previousDelivery?: Prisma.NullableEnumPreviousDeliveryModeFieldUpdateOperationsInput | $Enums.PreviousDeliveryMode | null
   previousCs?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   previousPph?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -602,6 +647,9 @@ export type ObstetricHistoryUncheckedUpdateInput = {
   living?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   edd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lmpStatus?: Prisma.NullableEnumLmpStatusFieldUpdateOperationsInput | $Enums.LmpStatus | null
+  datingSource?: Prisma.NullableEnumDatingSourceFieldUpdateOperationsInput | $Enums.DatingSource | null
+  datingEstablished?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   previousDelivery?: Prisma.NullableEnumPreviousDeliveryModeFieldUpdateOperationsInput | $Enums.PreviousDeliveryMode | null
   previousCs?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   previousPph?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -629,6 +677,9 @@ export type ObstetricHistoryCreateManyInput = {
   living?: number | null
   lmp?: Date | string | null
   edd?: Date | string | null
+  lmpStatus?: $Enums.LmpStatus | null
+  datingSource?: $Enums.DatingSource | null
+  datingEstablished?: boolean | null
   previousDelivery?: $Enums.PreviousDeliveryMode | null
   previousCs?: boolean | null
   previousPph?: boolean | null
@@ -655,6 +706,9 @@ export type ObstetricHistoryUpdateManyMutationInput = {
   living?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   edd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lmpStatus?: Prisma.NullableEnumLmpStatusFieldUpdateOperationsInput | $Enums.LmpStatus | null
+  datingSource?: Prisma.NullableEnumDatingSourceFieldUpdateOperationsInput | $Enums.DatingSource | null
+  datingEstablished?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   previousDelivery?: Prisma.NullableEnumPreviousDeliveryModeFieldUpdateOperationsInput | $Enums.PreviousDeliveryMode | null
   previousCs?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   previousPph?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -681,6 +735,9 @@ export type ObstetricHistoryUncheckedUpdateManyInput = {
   living?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   edd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lmpStatus?: Prisma.NullableEnumLmpStatusFieldUpdateOperationsInput | $Enums.LmpStatus | null
+  datingSource?: Prisma.NullableEnumDatingSourceFieldUpdateOperationsInput | $Enums.DatingSource | null
+  datingEstablished?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   previousDelivery?: Prisma.NullableEnumPreviousDeliveryModeFieldUpdateOperationsInput | $Enums.PreviousDeliveryMode | null
   previousCs?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   previousPph?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -723,6 +780,9 @@ export type ObstetricHistoryCountOrderByAggregateInput = {
   living?: Prisma.SortOrder
   lmp?: Prisma.SortOrder
   edd?: Prisma.SortOrder
+  lmpStatus?: Prisma.SortOrder
+  datingSource?: Prisma.SortOrder
+  datingEstablished?: Prisma.SortOrder
   previousDelivery?: Prisma.SortOrder
   previousCs?: Prisma.SortOrder
   previousPph?: Prisma.SortOrder
@@ -758,6 +818,9 @@ export type ObstetricHistoryMaxOrderByAggregateInput = {
   living?: Prisma.SortOrder
   lmp?: Prisma.SortOrder
   edd?: Prisma.SortOrder
+  lmpStatus?: Prisma.SortOrder
+  datingSource?: Prisma.SortOrder
+  datingEstablished?: Prisma.SortOrder
   previousDelivery?: Prisma.SortOrder
   previousCs?: Prisma.SortOrder
   previousPph?: Prisma.SortOrder
@@ -785,6 +848,9 @@ export type ObstetricHistoryMinOrderByAggregateInput = {
   living?: Prisma.SortOrder
   lmp?: Prisma.SortOrder
   edd?: Prisma.SortOrder
+  lmpStatus?: Prisma.SortOrder
+  datingSource?: Prisma.SortOrder
+  datingEstablished?: Prisma.SortOrder
   previousDelivery?: Prisma.SortOrder
   previousCs?: Prisma.SortOrder
   previousPph?: Prisma.SortOrder
@@ -884,6 +950,14 @@ export type ObstetricHistoryUncheckedUpdateOneWithoutPatientNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ObstetricHistoryUpdateToOneWithWhereWithoutPatientInput, Prisma.ObstetricHistoryUpdateWithoutPatientInput>, Prisma.ObstetricHistoryUncheckedUpdateWithoutPatientInput>
 }
 
+export type NullableEnumLmpStatusFieldUpdateOperationsInput = {
+  set?: $Enums.LmpStatus | null
+}
+
+export type NullableEnumDatingSourceFieldUpdateOperationsInput = {
+  set?: $Enums.DatingSource | null
+}
+
 export type NullableEnumPreviousDeliveryModeFieldUpdateOperationsInput = {
   set?: $Enums.PreviousDeliveryMode | null
 }
@@ -897,6 +971,9 @@ export type ObstetricHistoryCreateWithoutRecordedByInput = {
   living?: number | null
   lmp?: Date | string | null
   edd?: Date | string | null
+  lmpStatus?: $Enums.LmpStatus | null
+  datingSource?: $Enums.DatingSource | null
+  datingEstablished?: boolean | null
   previousDelivery?: $Enums.PreviousDeliveryMode | null
   previousCs?: boolean | null
   previousPph?: boolean | null
@@ -924,6 +1001,9 @@ export type ObstetricHistoryUncheckedCreateWithoutRecordedByInput = {
   living?: number | null
   lmp?: Date | string | null
   edd?: Date | string | null
+  lmpStatus?: $Enums.LmpStatus | null
+  datingSource?: $Enums.DatingSource | null
+  datingEstablished?: boolean | null
   previousDelivery?: $Enums.PreviousDeliveryMode | null
   previousCs?: boolean | null
   previousPph?: boolean | null
@@ -979,6 +1059,9 @@ export type ObstetricHistoryScalarWhereInput = {
   living?: Prisma.IntNullableFilter<"ObstetricHistory"> | number | null
   lmp?: Prisma.DateTimeNullableFilter<"ObstetricHistory"> | Date | string | null
   edd?: Prisma.DateTimeNullableFilter<"ObstetricHistory"> | Date | string | null
+  lmpStatus?: Prisma.EnumLmpStatusNullableFilter<"ObstetricHistory"> | $Enums.LmpStatus | null
+  datingSource?: Prisma.EnumDatingSourceNullableFilter<"ObstetricHistory"> | $Enums.DatingSource | null
+  datingEstablished?: Prisma.BoolNullableFilter<"ObstetricHistory"> | boolean | null
   previousDelivery?: Prisma.EnumPreviousDeliveryModeNullableFilter<"ObstetricHistory"> | $Enums.PreviousDeliveryMode | null
   previousCs?: Prisma.BoolNullableFilter<"ObstetricHistory"> | boolean | null
   previousPph?: Prisma.BoolNullableFilter<"ObstetricHistory"> | boolean | null
@@ -1005,6 +1088,9 @@ export type ObstetricHistoryCreateWithoutPatientInput = {
   living?: number | null
   lmp?: Date | string | null
   edd?: Date | string | null
+  lmpStatus?: $Enums.LmpStatus | null
+  datingSource?: $Enums.DatingSource | null
+  datingEstablished?: boolean | null
   previousDelivery?: $Enums.PreviousDeliveryMode | null
   previousCs?: boolean | null
   previousPph?: boolean | null
@@ -1031,6 +1117,9 @@ export type ObstetricHistoryUncheckedCreateWithoutPatientInput = {
   living?: number | null
   lmp?: Date | string | null
   edd?: Date | string | null
+  lmpStatus?: $Enums.LmpStatus | null
+  datingSource?: $Enums.DatingSource | null
+  datingEstablished?: boolean | null
   previousDelivery?: $Enums.PreviousDeliveryMode | null
   previousCs?: boolean | null
   previousPph?: boolean | null
@@ -1073,6 +1162,9 @@ export type ObstetricHistoryUpdateWithoutPatientInput = {
   living?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   edd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lmpStatus?: Prisma.NullableEnumLmpStatusFieldUpdateOperationsInput | $Enums.LmpStatus | null
+  datingSource?: Prisma.NullableEnumDatingSourceFieldUpdateOperationsInput | $Enums.DatingSource | null
+  datingEstablished?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   previousDelivery?: Prisma.NullableEnumPreviousDeliveryModeFieldUpdateOperationsInput | $Enums.PreviousDeliveryMode | null
   previousCs?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   previousPph?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1099,6 +1191,9 @@ export type ObstetricHistoryUncheckedUpdateWithoutPatientInput = {
   living?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   edd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lmpStatus?: Prisma.NullableEnumLmpStatusFieldUpdateOperationsInput | $Enums.LmpStatus | null
+  datingSource?: Prisma.NullableEnumDatingSourceFieldUpdateOperationsInput | $Enums.DatingSource | null
+  datingEstablished?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   previousDelivery?: Prisma.NullableEnumPreviousDeliveryModeFieldUpdateOperationsInput | $Enums.PreviousDeliveryMode | null
   previousCs?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   previousPph?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1126,6 +1221,9 @@ export type ObstetricHistoryCreateManyRecordedByInput = {
   living?: number | null
   lmp?: Date | string | null
   edd?: Date | string | null
+  lmpStatus?: $Enums.LmpStatus | null
+  datingSource?: $Enums.DatingSource | null
+  datingEstablished?: boolean | null
   previousDelivery?: $Enums.PreviousDeliveryMode | null
   previousCs?: boolean | null
   previousPph?: boolean | null
@@ -1151,6 +1249,9 @@ export type ObstetricHistoryUpdateWithoutRecordedByInput = {
   living?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   edd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lmpStatus?: Prisma.NullableEnumLmpStatusFieldUpdateOperationsInput | $Enums.LmpStatus | null
+  datingSource?: Prisma.NullableEnumDatingSourceFieldUpdateOperationsInput | $Enums.DatingSource | null
+  datingEstablished?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   previousDelivery?: Prisma.NullableEnumPreviousDeliveryModeFieldUpdateOperationsInput | $Enums.PreviousDeliveryMode | null
   previousCs?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   previousPph?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1178,6 +1279,9 @@ export type ObstetricHistoryUncheckedUpdateWithoutRecordedByInput = {
   living?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   edd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lmpStatus?: Prisma.NullableEnumLmpStatusFieldUpdateOperationsInput | $Enums.LmpStatus | null
+  datingSource?: Prisma.NullableEnumDatingSourceFieldUpdateOperationsInput | $Enums.DatingSource | null
+  datingEstablished?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   previousDelivery?: Prisma.NullableEnumPreviousDeliveryModeFieldUpdateOperationsInput | $Enums.PreviousDeliveryMode | null
   previousCs?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   previousPph?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1204,6 +1308,9 @@ export type ObstetricHistoryUncheckedUpdateManyWithoutRecordedByInput = {
   living?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lmp?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   edd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lmpStatus?: Prisma.NullableEnumLmpStatusFieldUpdateOperationsInput | $Enums.LmpStatus | null
+  datingSource?: Prisma.NullableEnumDatingSourceFieldUpdateOperationsInput | $Enums.DatingSource | null
+  datingEstablished?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   previousDelivery?: Prisma.NullableEnumPreviousDeliveryModeFieldUpdateOperationsInput | $Enums.PreviousDeliveryMode | null
   previousCs?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   previousPph?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
@@ -1232,6 +1339,9 @@ export type ObstetricHistorySelect<ExtArgs extends runtime.Types.Extensions.Inte
   living?: boolean
   lmp?: boolean
   edd?: boolean
+  lmpStatus?: boolean
+  datingSource?: boolean
+  datingEstablished?: boolean
   previousDelivery?: boolean
   previousCs?: boolean
   previousPph?: boolean
@@ -1261,6 +1371,9 @@ export type ObstetricHistorySelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   living?: boolean
   lmp?: boolean
   edd?: boolean
+  lmpStatus?: boolean
+  datingSource?: boolean
+  datingEstablished?: boolean
   previousDelivery?: boolean
   previousCs?: boolean
   previousPph?: boolean
@@ -1290,6 +1403,9 @@ export type ObstetricHistorySelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   living?: boolean
   lmp?: boolean
   edd?: boolean
+  lmpStatus?: boolean
+  datingSource?: boolean
+  datingEstablished?: boolean
   previousDelivery?: boolean
   previousCs?: boolean
   previousPph?: boolean
@@ -1319,6 +1435,9 @@ export type ObstetricHistorySelectScalar = {
   living?: boolean
   lmp?: boolean
   edd?: boolean
+  lmpStatus?: boolean
+  datingSource?: boolean
+  datingEstablished?: boolean
   previousDelivery?: boolean
   previousCs?: boolean
   previousPph?: boolean
@@ -1336,7 +1455,7 @@ export type ObstetricHistorySelectScalar = {
   deletedAt?: boolean
 }
 
-export type ObstetricHistoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "patientId" | "gravidity" | "term" | "preterm" | "abortion" | "living" | "lmp" | "edd" | "previousDelivery" | "previousCs" | "previousPph" | "previousPetEclampsia" | "stillbirth" | "otherComplications" | "bloodGroupRh" | "hivStatus" | "syphilisStatus" | "hepatitisBStatus" | "tetanusStatus" | "recordedById" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["obstetricHistory"]>
+export type ObstetricHistoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "patientId" | "gravidity" | "term" | "preterm" | "abortion" | "living" | "lmp" | "edd" | "lmpStatus" | "datingSource" | "datingEstablished" | "previousDelivery" | "previousCs" | "previousPph" | "previousPetEclampsia" | "stillbirth" | "otherComplications" | "bloodGroupRh" | "hivStatus" | "syphilisStatus" | "hepatitisBStatus" | "tetanusStatus" | "recordedById" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["obstetricHistory"]>
 export type ObstetricHistoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   recordedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1366,6 +1485,9 @@ export type $ObstetricHistoryPayload<ExtArgs extends runtime.Types.Extensions.In
     living: number | null
     lmp: Date | null
     edd: Date | null
+    lmpStatus: $Enums.LmpStatus | null
+    datingSource: $Enums.DatingSource | null
+    datingEstablished: boolean | null
     previousDelivery: $Enums.PreviousDeliveryMode | null
     previousCs: boolean | null
     previousPph: boolean | null
@@ -1815,6 +1937,9 @@ export interface ObstetricHistoryFieldRefs {
   readonly living: Prisma.FieldRef<"ObstetricHistory", 'Int'>
   readonly lmp: Prisma.FieldRef<"ObstetricHistory", 'DateTime'>
   readonly edd: Prisma.FieldRef<"ObstetricHistory", 'DateTime'>
+  readonly lmpStatus: Prisma.FieldRef<"ObstetricHistory", 'LmpStatus'>
+  readonly datingSource: Prisma.FieldRef<"ObstetricHistory", 'DatingSource'>
+  readonly datingEstablished: Prisma.FieldRef<"ObstetricHistory", 'Boolean'>
   readonly previousDelivery: Prisma.FieldRef<"ObstetricHistory", 'PreviousDeliveryMode'>
   readonly previousCs: Prisma.FieldRef<"ObstetricHistory", 'Boolean'>
   readonly previousPph: Prisma.FieldRef<"ObstetricHistory", 'Boolean'>

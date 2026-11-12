@@ -43,6 +43,20 @@ export class RouteEncounterDto {
   @IsUUID()
   assignedDoctorId?: string;
 }
+
+/** Doctor → nurse/triage mid-visit request (maternal, FP, vitals, etc.). */
+export class NurseRequestDto {
+  @IsString()
+  @MinLength(1)
+  notes!: string;
+}
+
+/** Nurse completes a doctor referral and returns the patient. */
+export class NurseReturnDto {
+  @IsOptional()
+  @IsString()
+  notes?: string;
+}
 export class AssignDoctorDto {
   @IsUUID()
   assignedDoctorId!: string;

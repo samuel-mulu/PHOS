@@ -287,6 +287,24 @@ export const PreviousDeliveryMode = {
 export type PreviousDeliveryMode = (typeof PreviousDeliveryMode)[keyof typeof PreviousDeliveryMode]
 
 
+export const LmpStatus = {
+  KNOWN: 'KNOWN',
+  UNKNOWN: 'UNKNOWN'
+} as const
+
+export type LmpStatus = (typeof LmpStatus)[keyof typeof LmpStatus]
+
+
+export const DatingSource = {
+  LMP: 'LMP',
+  ULTRASOUND: 'ULTRASOUND',
+  CLINICAL: 'CLINICAL',
+  NONE: 'NONE'
+} as const
+
+export type DatingSource = (typeof DatingSource)[keyof typeof DatingSource]
+
+
 export const FetalPresentation = {
   CEPHALIC: 'CEPHALIC',
   BREECH: 'BREECH',

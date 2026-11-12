@@ -11,6 +11,7 @@ import {
   IsUUID,
   Max,
   Min,
+  ValidateIf,
   ValidateNested,
 } from "class-validator";
 import { PartialType } from "@nestjs/swagger";
@@ -22,8 +23,10 @@ import {
   DeliveryPlace,
   FetalMovement,
   FetalPresentation,
+  DatingSource,
   LaborOnset,
   LiquorStatus,
+  LmpStatus,
   MaternalCondition,
   MembraneStatus,
   PlacentaStatus,
@@ -38,8 +41,13 @@ export class UpsertObstetricHistoryDto {
   @IsOptional() @IsInt() @Min(0) preterm?: number;
   @IsOptional() @IsInt() @Min(0) abortion?: number;
   @IsOptional() @IsInt() @Min(0) living?: number;
-  @IsOptional() @IsDateString() lmp?: string;
-  @IsOptional() @IsDateString() edd?: string;
+  @IsOptional() @ValidateIf((_, value) => value != null && value !== "") @IsDateString()
+  lmp?: string | null;
+  @IsOptional() @ValidateIf((_, value) => value != null && value !== "") @IsDateString()
+  edd?: string | null;
+  @IsOptional() @IsEnum(LmpStatus) lmpStatus?: LmpStatus;
+  @IsOptional() @IsEnum(DatingSource) datingSource?: DatingSource;
+  @IsOptional() @IsBoolean() datingEstablished?: boolean;
   @IsOptional()
   @IsEnum(PreviousDeliveryMode)
   previousDelivery?: PreviousDeliveryMode;

@@ -3723,6 +3723,7 @@ export const EncounterScalarFieldEnum = {
   createdById: 'createdById',
   assignedDoctorId: 'assignedDoctorId',
   paymentReturnStation: 'paymentReturnStation',
+  nurseReferralActive: 'nurseReferralActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -3804,6 +3805,7 @@ export const ConsultationScalarFieldEnum = {
   notes: 'notes',
   labNotes: 'labNotes',
   referralSheet: 'referralSheet',
+  obstetricUsReport: 'obstetricUsReport',
   status: 'status',
   finalizedAt: 'finalizedAt',
   correctionReason: 'correctionReason',
@@ -4205,6 +4207,9 @@ export const ObstetricHistoryScalarFieldEnum = {
   living: 'living',
   lmp: 'lmp',
   edd: 'edd',
+  lmpStatus: 'lmpStatus',
+  datingSource: 'datingSource',
+  datingEstablished: 'datingEstablished',
   previousDelivery: 'previousDelivery',
   previousCs: 'previousCs',
   previousPph: 'previousPph',
@@ -4869,6 +4874,34 @@ export type EnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<
  * Reference to a field of type 'NotificationType[]'
  */
 export type ListEnumNotificationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LmpStatus'
+ */
+export type EnumLmpStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LmpStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'LmpStatus[]'
+ */
+export type ListEnumLmpStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LmpStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'DatingSource'
+ */
+export type EnumDatingSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DatingSource'>
+    
+
+
+/**
+ * Reference to a field of type 'DatingSource[]'
+ */
+export type ListEnumDatingSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DatingSource[]'>
     
 
 

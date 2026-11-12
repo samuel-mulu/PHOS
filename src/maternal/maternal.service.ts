@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { AuditService } from "../audit/audit.service";
 import { PrismaService } from "../prisma/prisma.service";
+import { DatingSource, LmpStatus } from "../generated/prisma/client";
 import {
   CreateAncVisitDto,
   CreateLaborMonitoringDto,
@@ -10,9 +11,68 @@ import {
   UpsertObstetricHistoryDto,
 } from "./dto/maternal.dto";
 
-function parseDate(value?: string): Date | undefined {
-  if (!value) return undefined;
+function parseDate(value?: string | null): Date | undefined {
+  if (value == null || value === "") return undefined;
   return new Date(`${value.slice(0, 10)}T12:00:00.000Z`);
+}
+
+function dateOrNull(value?: string | null): Date | null {
+  return parseDate(value) ?? null;
+}
+
+const NAEGELE_DAYS = 280;
+
+function resolvePregnancyDating(dto: UpsertObstetricHistoryDto) {
+  const lmp = dateOrNull(dto.lmp);
+  const enteredEdd = dateOrNull(dto.edd);
+
+  if (dto.lmpStatus == null && dto.datingSource == null) {
+    const keptLmp = parseDate(dto.lmp);
+    const edd =
+      keptLmp && !dto.edd ? addDays(keptLmp, NAEGELE_DAYS) : parseDate(dto.edd);
+    return {
+      ...(dto.lmp !== undefined ? { lmp: keptLmp ?? null } : {}),
+      ...(dto.edd !== undefined || (keptLmp && !dto.edd) ? { edd: edd ?? null } : {}),
+    };
+  }
+
+  if (dto.lmpStatus === LmpStatus.KNOWN) {
+    return {
+      lmp,
+      edd: lmp ? addDays(lmp, NAEGELE_DAYS) : null,
+      lmpStatus: LmpStatus.KNOWN,
+      datingSource: DatingSource.LMP,
+      datingEstablished: Boolean(lmp),
+    };
+  }
+
+  if (dto.datingSource === DatingSource.ULTRASOUND) {
+    return {
+      lmp: null,
+      edd: enteredEdd,
+      lmpStatus: LmpStatus.UNKNOWN,
+      datingSource: DatingSource.ULTRASOUND,
+      datingEstablished: Boolean(enteredEdd),
+    };
+  }
+
+  if (dto.datingSource === DatingSource.CLINICAL) {
+    return {
+      lmp: null,
+      edd: enteredEdd,
+      lmpStatus: LmpStatus.UNKNOWN,
+      datingSource: DatingSource.CLINICAL,
+      datingEstablished: dto.datingEstablished === true && Boolean(enteredEdd),
+    };
+  }
+
+  return {
+    lmp: null,
+    edd: null,
+    lmpStatus: LmpStatus.UNKNOWN,
+    datingSource: DatingSource.NONE,
+    datingEstablished: false,
+  };
 }
 
 function addDays(date: Date, days: number): Date {
@@ -64,24 +124,27 @@ export class MaternalService {
     actorId: string,
   ) {
     await this.ensurePatient(patientId);
-    const lmp = parseDate(dto.lmp);
-    let edd = parseDate(dto.edd);
-    if (lmp && !dto.edd) edd = addDays(lmp, 280);
-    const { lmp: _l, edd: _e, ...rest } = dto;
+    const {
+      lmp: _l,
+      edd: _e,
+      lmpStatus: _s,
+      datingSource: _d,
+      datingEstablished: _b,
+      ...rest
+    } = dto;
+    const dating = resolvePregnancyDating(dto);
     return this.prisma.$transaction(async (tx) => {
       const item = await tx.obstetricHistory.upsert({
         where: { patientId },
         create: {
           ...rest,
-          lmp,
-          edd,
+          ...dating,
           patientId,
           recordedById: actorId,
         },
         update: {
           ...rest,
-          ...(dto.lmp !== undefined ? { lmp } : {}),
-          ...(dto.edd !== undefined || (lmp && !dto.edd) ? { edd } : {}),
+          ...dating,
           recordedById: actorId,
         },
       });

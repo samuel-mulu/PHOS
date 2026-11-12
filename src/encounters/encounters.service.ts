@@ -6,8 +6,11 @@ import {
 } from "@nestjs/common";
 import { AuditService } from "../audit/audit.service";
 import { BillingService } from "../billing/billing.service";
+import { ClinicalMessagesService } from "../clinical-messages/clinical-messages.service";
 import { DESK_NOTIFY_ROLES } from "../common/constants/desk-roles";
 import {
+  ClinicalMessageAuthorSide,
+  ClinicalMessageKind,
   EncounterPriority,
   EncounterStatus,
   Prisma,
@@ -16,7 +19,12 @@ import {
 } from "../generated/prisma/client";
 import { NotificationsService } from "../notifications/notifications.service";
 import { PrismaService } from "../prisma/prisma.service";
-import { CreateEncounterDto, PaymentRequestDto } from "./dto/encounter.dto";
+import {
+  CreateEncounterDto,
+  NurseRequestDto,
+  NurseReturnDto,
+  PaymentRequestDto,
+} from "./dto/encounter.dto";
 import { ENCOUNTER_TRANSITIONS, STATION_STATUS } from "./encounter-state";
 import { nextVisitNumber } from "./visit-number";
 import { invoiceDueNow } from "../common/domain/finance";
@@ -28,6 +36,7 @@ export class EncountersService {
     private readonly audit: AuditService,
     private readonly notifications: NotificationsService,
     private readonly billing: BillingService,
+    private readonly clinicalMessages: ClinicalMessagesService,
   ) {}
 
   async create(dto: CreateEncounterDto, actorId: string) {
@@ -695,6 +704,186 @@ export class EncountersService {
       invoiceId: invoice.id,
       returnStation: dto.returnStation,
     };
+  }
+
+  /**
+   * Doctor mid-visit send to nurse/triage (Maternal, FP, vitals).
+   * Marks nurseReferralActive so intake triage queue stays distinct.
+   */
+  async requestNurse(
+    encounterId: string,
+    dto: NurseRequestDto,
+    actorId: string,
+    actorRole: Role = Role.DOCTOR,
+  ) {
+    const notes = dto.notes.trim();
+    if (!notes) throw new BadRequestException("Notes are required");
+
+    const encounter = await this.prisma.encounter.findFirst({
+      where: { id: encounterId, deletedAt: null },
+      include: { patient: { select: { firstName: true, lastName: true } } },
+    });
+    if (!encounter) throw new NotFoundException("Encounter not found");
+    if (["COMPLETED", "CANCELLED"].includes(encounter.status)) {
+      throw new ConflictException("Visit is already closed");
+    }
+
+    await this.prisma.encounter.update({
+      where: { id: encounterId },
+      data: { nurseReferralActive: true },
+    });
+
+    await this.clinicalMessages.create(
+      encounterId,
+      { body: notes, kind: ClinicalMessageKind.NOTE },
+      actorId,
+      actorRole,
+    );
+
+    const routed = await this.route(encounterId, "TRIAGE", actorId);
+
+    await this.notifications.createForRoles([Role.NURSE], {
+      type: "SYSTEM",
+      title: "Doctor sent patient to nurse",
+      message: `${encounter.encounterNumber} · ${encounter.patient.firstName} ${encounter.patient.lastName}`,
+      entityType: "Encounter",
+      entityId: encounterId,
+    });
+
+    await this.audit.create({
+      actorId,
+      action: "encounter.nurse_requested",
+      entityType: "Encounter",
+      entityId: encounterId,
+      metadata: { notesLength: notes.length },
+    });
+
+    return routed;
+  }
+
+  /**
+   * Nurse finishes a doctor referral and returns the patient to the doctor.
+   * Intake triage (nurseReferralActive=false) keeps using TriageService.record.
+   */
+  async returnFromNurse(
+    encounterId: string,
+    dto: NurseReturnDto,
+    actorId: string,
+  ) {
+    return this.prisma.$transaction(async (tx) => {
+      const encounter = await tx.encounter.findFirst({
+        where: {
+          id: encounterId,
+          deletedAt: null,
+          status: { in: ["WAITING_TRIAGE", "IN_TRIAGE"] },
+        },
+      });
+      if (!encounter) {
+        throw new ConflictException("Encounter is not with triage/nurse");
+      }
+      if (!encounter.nurseReferralActive) {
+        throw new ConflictException(
+          "This is intake triage — use Complete triage to send to the doctor",
+        );
+      }
+
+      const notes = dto.notes?.trim();
+      if (notes) {
+        await this.clinicalMessages.createLinked(tx, {
+          encounterId,
+          patientId: encounter.patientId,
+          authorId: actorId,
+          authorSide: ClinicalMessageAuthorSide.DOCTOR,
+          kind: ClinicalMessageKind.NOTE,
+          body: notes,
+        });
+      }
+
+      await tx.encounter.update({
+        where: { id: encounterId },
+        data: {
+          status: "WAITING_DOCTOR",
+          nurseReferralActive: false,
+          closedAt: null,
+        },
+      });
+
+      await tx.queueEntry.updateMany({
+        where: {
+          encounterId,
+          station: { not: "DOCTOR" },
+          status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
+        },
+        data: { status: "COMPLETED", completedAt: new Date() },
+      });
+
+      const openDoctor = await tx.queueEntry.findFirst({
+        where: {
+          encounterId,
+          station: "DOCTOR",
+          status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
+        },
+      });
+      if (!openDoctor) {
+        await tx.queueEntry.create({
+          data: {
+            encounterId,
+            station: "DOCTOR",
+            priority: encounter.priority,
+            assignedToId: encounter.assignedDoctorId,
+          },
+        });
+      } else {
+        await tx.queueEntry.update({
+          where: { id: openDoctor.id },
+          data: {
+            enteredAt: new Date(),
+            status: "WAITING",
+            calledAt: null,
+            serviceStartedAt: null,
+            assignedToId:
+              encounter.assignedDoctorId ?? openDoctor.assignedToId,
+          },
+        });
+      }
+
+      if (encounter.assignedDoctorId) {
+        await this.notifications.createForUser(
+          {
+            recipientId: encounter.assignedDoctorId,
+            type: "SYSTEM",
+            title: "Nurse returned patient",
+            message: `${encounter.encounterNumber} is back on your queue`,
+            entityType: "Encounter",
+            entityId: encounterId,
+          },
+          tx,
+        );
+      }
+
+      await this.audit.create(
+        {
+          actorId,
+          action: "encounter.nurse_returned",
+          entityType: "Encounter",
+          entityId: encounterId,
+        },
+        tx,
+      );
+
+      return tx.encounter.findUniqueOrThrow({
+        where: { id: encounterId },
+        include: {
+          patient: true,
+          assignedDoctor: {
+            select: { id: true, firstName: true, lastName: true },
+          },
+          queueEntries: {
+            where: { status: { in: ["WAITING", "CALLED", "IN_SERVICE"] } },
+          },
+        },
+      });
+    });
   }
 
   /** Close a visit that still looks open but has nothing left to collect. */

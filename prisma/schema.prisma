@@ -207,6 +207,18 @@ enum PreviousDeliveryMode {
   INSTRUMENTAL
 }
 
+enum LmpStatus {
+  KNOWN
+  UNKNOWN
+}
+
+enum DatingSource {
+  LMP
+  ULTRASOUND
+  CLINICAL
+  NONE
+}
+
 enum FetalPresentation {
   CEPHALIC
   BREECH
@@ -488,6 +500,8 @@ model Encounter {
   assignedDoctorId String?          @map("assigned_doctor_id") @db.Uuid
   /** After mid-visit cashier payment, auto-return patient to this station. */
   paymentReturnStation QueueStation? @map("payment_return_station")
+  /** Doctor sent patient to nurse/triage mid-visit (vs reception intake). */
+  nurseReferralActive Boolean @default(false) @map("nurse_referral_active")
   patient         Patient           @relation(fields: [patientId], references: [id])
   facility        Facility          @relation(fields: [facilityId], references: [id])
   department      Department        @relation(fields: [departmentId], references: [id])
@@ -601,6 +615,8 @@ model Consultation {
   /// Doctor lab notes for this visit (saved with visit notes; no lab send required)
   labNotes              String?            @map("lab_notes")
   referralSheet         Json?              @map("referral_sheet") @db.JsonB
+  /// Obstetric ultrasound report filled from the visit notes dialog
+  obstetricUsReport     Json?              @map("obstetric_us_report") @db.JsonB
   status                ConsultationStatus @default(DRAFT)
   finalizedAt           DateTime?          @map("finalized_at")
   correctionReason      String?            @map("correction_reason")
@@ -1095,6 +1111,9 @@ model ObstetricHistory {
   living               Int?
   lmp                  DateTime?             @db.Date
   edd                  DateTime?             @db.Date
+  lmpStatus            LmpStatus?            @map("lmp_status")
+  datingSource         DatingSource?         @map("dating_source")
+  datingEstablished    Boolean?              @map("dating_established")
   previousDelivery     PreviousDeliveryMode? @map("previous_delivery")
   previousCs           Boolean?              @map("previous_cs")
   previousPph          Boolean?              @map("previous_pph")
