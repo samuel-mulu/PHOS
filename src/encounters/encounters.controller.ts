@@ -91,6 +91,12 @@ export class EncountersController {
     );
   }
   @Roles(Role.CEO, Role.ADMIN, Role.DOCTOR)
+  @Post(":id/close")
+  closeVisit(@Param("id") id: string, @CurrentUser() user: AuthUser) {
+    return this.service.closeVisit(id, user.id);
+  }
+
+  @Roles(Role.CEO, Role.ADMIN, Role.DOCTOR)
   @Post(":id/nurse-request")
   nurseRequest(
     @Param("id") id: string,

@@ -707,6 +707,96 @@ export class EncountersService {
   }
 
   /**
+   * Close a visit after lab return when the consultation is already finalized.
+   * Unblocks front desk from starting a new return visit.
+   */
+  async closeVisit(encounterId: string, actorId: string) {
+    return this.prisma.$transaction(async (tx) => {
+      const encounter = await tx.encounter.findFirst({
+        where: { id: encounterId, deletedAt: null },
+        include: {
+          consultation: { select: { id: true, status: true } },
+          invoice: {
+            select: {
+              status: true,
+              totalCents: true,
+              paidCents: true,
+              waivedCents: true,
+              deferredCents: true,
+            },
+          },
+        },
+      });
+      if (!encounter) throw new NotFoundException("Encounter not found");
+      if (encounter.status !== "WAITING_REVIEW") {
+        throw new ConflictException(
+          "Only visits waiting for lab review can be closed this way",
+        );
+      }
+      const consultStatus = encounter.consultation?.status;
+      if (
+        !consultStatus ||
+        !["FINALIZED", "CORRECTED"].includes(consultStatus)
+      ) {
+        throw new ConflictException(
+          "Consultation must be finalized before closing the visit",
+        );
+      }
+      const invoice =
+        encounter.invoice && encounter.invoice.status !== "VOID"
+          ? encounter.invoice
+          : null;
+      if (invoice && invoiceDueNow(invoice) > 0) {
+        throw new BadRequestException(
+          "Collect payment at cashier before closing this visit",
+        );
+      }
+
+      const now = new Date();
+      await tx.encounter.update({
+        where: { id: encounterId },
+        data: {
+          status: "COMPLETED",
+          closedAt: now,
+          paymentReturnStation: null,
+          nurseReferralActive: false,
+        },
+      });
+      await tx.queueEntry.updateMany({
+        where: {
+          encounterId,
+          status: { in: ["WAITING", "CALLED", "IN_SERVICE"] },
+        },
+        data: { status: "COMPLETED", completedAt: now },
+      });
+      await this.audit.create(
+        {
+          actorId,
+          action: "encounter.closed_after_review",
+          entityType: "Encounter",
+          entityId: encounterId,
+          oldValues: { status: "WAITING_REVIEW" },
+          newValues: { status: "COMPLETED" },
+        },
+        tx,
+      );
+
+      return tx.encounter.findUniqueOrThrow({
+        where: { id: encounterId },
+        include: {
+          patient: true,
+          assignedDoctor: {
+            select: { id: true, firstName: true, lastName: true },
+          },
+          queueEntries: {
+            where: { status: { in: ["WAITING", "CALLED", "IN_SERVICE"] } },
+          },
+        },
+      });
+    });
+  }
+
+  /**
    * Doctor mid-visit send to nurse/triage (Maternal, FP, vitals).
    * Marks nurseReferralActive so intake triage queue stays distinct.
    */
