@@ -10,6 +10,7 @@ import { NotificationsService } from "../notifications/notifications.service";
 import { PrismaService } from "../prisma/prisma.service";
 import {
   calculateInvoiceTotals,
+  invoiceDueNow,
   invoiceStatusFor,
 } from "../common/domain/finance";
 import { CreateInvoiceDto } from "./dto/billing.dto";
@@ -136,6 +137,21 @@ export class BillingService {
         encounter: true,
         items: true,
         payments: { include: { refunds: true } },
+        freeRequestedBy: {
+          select: { id: true, firstName: true, lastName: true },
+        },
+        adjustments: {
+          orderBy: { createdAt: "desc" },
+          select: {
+            id: true,
+            type: true,
+            amountCents: true,
+            reason: true,
+            createdAt: true,
+            recordedBy: { select: { id: true, firstName: true, lastName: true } },
+            requestedBy: { select: { id: true, firstName: true, lastName: true } },
+          },
+        },
       },
     });
     if (!item) throw new NotFoundException("Invoice not found");
@@ -248,6 +264,7 @@ export class BillingService {
     description: string,
     amountCents: number,
     actorId: string,
+    sourceId?: string,
   ) {
     const trimmed = description.trim();
     if (!trimmed)
@@ -277,6 +294,7 @@ export class BillingService {
             {
               type: "OTHER",
               description: trimmed,
+              sourceId,
               quantity: 1,
               unitPriceCents: amountCents,
             },
@@ -294,6 +312,7 @@ export class BillingService {
           invoiceId: existing.id,
           type: "OTHER",
           description: trimmed,
+          sourceId,
           quantity: 1,
           unitPriceCents: amountCents,
           totalCents: amountCents,
@@ -349,6 +368,53 @@ export class BillingService {
       );
 
       return invoice;
+    });
+  }
+
+  /**
+   * Doctor asks the cashier to make part or all of a charge free. Stays pending
+   * on the invoice until the cashier confirms (waive) or the patient leaves.
+   */
+  async addFreeRequest(
+    invoiceId: string,
+    freeCents: number,
+    reason: string,
+    actorId: string,
+  ) {
+    const trimmed = reason.trim();
+    if (!Number.isInteger(freeCents) || freeCents < 1)
+      throw new BadRequestException("Free amount must be at least 1 cent");
+    if (trimmed.length < 3)
+      throw new BadRequestException("Give a reason for making it free");
+    return this.prisma.$transaction(async (tx) => {
+      const invoice = await tx.invoice.findUniqueOrThrow({
+        where: { id: invoiceId },
+      });
+      const requested = Math.min(
+        invoice.freeRequestCents + freeCents,
+        invoiceDueNow(invoice),
+      );
+      const reasonText = invoice.freeRequestReason
+        ? `${invoice.freeRequestReason}; ${trimmed}`
+        : trimmed;
+      await tx.invoice.update({
+        where: { id: invoiceId },
+        data: {
+          freeRequestCents: requested,
+          freeRequestReason: reasonText.slice(0, 500),
+          freeRequestedById: actorId,
+        },
+      });
+      await this.audit.create(
+        {
+          actorId,
+          action: "invoice.free_requested",
+          entityType: "Invoice",
+          entityId: invoiceId,
+          newValues: { freeCents, reason: trimmed },
+        },
+        tx,
+      );
     });
   }
 }

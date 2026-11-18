@@ -8,6 +8,7 @@ import {
   IsOptional,
   IsString,
   IsUUID,
+  MaxLength,
   Min,
   MinLength,
   ValidateNested,
@@ -51,6 +52,9 @@ export class CreateLabOrderDto {
   @IsOptional() @IsString() clinicalNotes?: string;
   /** Pay at cashier first; lab queue only after payment. */
   @IsOptional() @IsBoolean() billFirst?: boolean;
+  /** billFirst only: doctor asks the cashier to make this much free. */
+  @IsOptional() @IsInt() @Min(0) freeCents?: number;
+  @IsOptional() @IsString() @MaxLength(500) freeReason?: string;
 }
 export class ResultValueDto {
   @IsUUID() labOrderItemId!: string;

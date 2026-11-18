@@ -40,6 +40,9 @@ export type ReleaseOutcome = {
   owedCents: number;
   /** Waived in this cashier action. */
   waivedNowCents: number;
+  /** Cancelled in this cashier action (patient left without paying). */
+  cancelledNowCents?: number;
+  cancelReason?: string;
 };
 
 /**
@@ -87,6 +90,17 @@ export class CashierReleaseService {
       },
       data: { status: "COMPLETED", completedAt: now },
     });
+    // A doctor's pending "free" request ends when the patient leaves the cashier.
+    if (invoice.freeRequestCents > 0) {
+      await tx.invoice.update({
+        where: { id: invoice.id },
+        data: {
+          freeRequestCents: 0,
+          freeRequestReason: null,
+          freeRequestedById: null,
+        },
+      });
+    }
 
     const consultStatus = encounter.consultation?.status;
     const careFinished =
@@ -191,6 +205,12 @@ export class CashierReleaseService {
     if (outcome.paidNowCents > 0) parts.push(`paid ${etb(outcome.paidNowCents)}`);
     if (outcome.waivedNowCents > 0)
       parts.push(`waived ${etb(outcome.waivedNowCents)}`);
+    if ((outcome.cancelledNowCents ?? 0) > 0)
+      parts.push(
+        `cancelled ${etb(outcome.cancelledNowCents ?? 0)} - left without paying${
+          outcome.cancelReason ? ` (${outcome.cancelReason})` : ""
+        }`,
+      );
     if (outcome.owedCents > 0)
       parts.push(`owes ${etb(outcome.owedCents)} (pay later)`);
     return parts.length ? parts.join(", ") : "cleared";
@@ -208,8 +228,9 @@ export class CashierReleaseService {
   ) {
     const { encounterId, doctorId, origin, returnStation, outcome } = args;
     const summary = this.summary(outcome);
+    const cancelled = (outcome.cancelledNowCents ?? 0) > 0;
     const fullyPaid =
-      outcome.owedCents === 0 && outcome.waivedNowCents === 0;
+      outcome.owedCents === 0 && outcome.waivedNowCents === 0 && !cancelled;
     const base = {
       type: "PAYMENT_COMPLETED" as const,
       entityType: "Encounter",
@@ -223,7 +244,11 @@ export class CashierReleaseService {
         {
           ...base,
           recipientId: doctorId,
-          title: fullyPaid ? "Payment received" : "Returned from cashier",
+          title: cancelled
+            ? "Cashier cancelled - patient left"
+            : fullyPaid
+              ? "Payment received"
+              : "Returned from cashier",
           message:
             origin === "DOCTOR" || !origin
               ? returnStation === "DOCTOR"
@@ -267,7 +292,11 @@ export class CashierReleaseService {
       DESK_NOTIFY_ROLES,
       {
         ...base,
-        title: fullyPaid ? "Payment recorded" : "Cashier released patient",
+        title: cancelled
+          ? "Cashier cancelled charge"
+          : fullyPaid
+            ? "Payment recorded"
+            : "Cashier released patient",
         message: `${outcome.reference}: ${summary}`,
       },
       tx,

@@ -1539,7 +1539,8 @@ export type $PaymentPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     recordedById: string
     cashSessionId: string | null
     /**
-     * * Collected against an approved pay-later debt.
+     * *
+     *    * Collected against an approved pay-later debt.
      */
     isDebtPayment: boolean
     createdAt: Date

@@ -462,7 +462,8 @@ export type FpOutcome = (typeof FpOutcome)[keyof typeof FpOutcome]
 
 export const InvoiceAdjustmentType = {
   DEFER: 'DEFER',
-  WAIVE: 'WAIVE'
+  WAIVE: 'WAIVE',
+  CANCEL: 'CANCEL'
 } as const
 
 export type InvoiceAdjustmentType = (typeof InvoiceAdjustmentType)[keyof typeof InvoiceAdjustmentType]

@@ -244,7 +244,7 @@ export class ReportsService {
       collectedCents += net;
       if (p.isDebtPayment) debtCollectedCents += net;
     }
-    const adj = (type: "DEFER" | "WAIVE") =>
+    const adj = (type: "DEFER" | "WAIVE" | "CANCEL") =>
       adjustments.find((a) => a.type === type);
 
     return {
@@ -265,6 +265,8 @@ export class ReportsService {
         payLaterCount: adj("DEFER")?._count._all ?? 0,
         waivedCents: adj("WAIVE")?._sum.amountCents ?? 0,
         waivedCount: adj("WAIVE")?._count._all ?? 0,
+        cancelledCents: adj("CANCEL")?._sum.amountCents ?? 0,
+        cancelledCount: adj("CANCEL")?._count._all ?? 0,
       },
       rows,
     };

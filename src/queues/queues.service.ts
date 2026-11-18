@@ -44,6 +44,8 @@ export class QueuesService {
                 paidCents: true,
                 waivedCents: true,
                 deferredCents: true,
+                cancelledCents: true,
+                freeRequestCents: true,
               },
             },
             assignedDoctor: {

@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsEnum,
   IsIn,
   IsInt,
@@ -51,5 +52,13 @@ export class DeferInvoiceDto {
 export class WaiveInvoiceDto {
   @IsUUID() idempotencyKey!: string;
   @IsInt() @Min(1) amountCents!: number;
+  @IsString() @MinLength(3) @MaxLength(500) reason!: string;
+  /** Cashier confirms the doctor's pending "send as free" request. */
+  @IsOptional() @IsBoolean() fromFreeRequest?: boolean;
+}
+
+/** Patient left without paying: void what is due now and send them back. */
+export class CancelInvoiceDto {
+  @IsUUID() idempotencyKey!: string;
   @IsString() @MinLength(3) @MaxLength(500) reason!: string;
 }

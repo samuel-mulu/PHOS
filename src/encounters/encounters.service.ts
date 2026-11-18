@@ -652,12 +652,29 @@ export class EncountersService {
         );
     }
 
+    const freeCents = dto.freeCents ?? 0;
+    if (freeCents > 0) {
+      if (!isDoctor && !elevated)
+        throw new BadRequestException("Only a doctor can send a charge as free");
+      if (freeCents > dto.amountCents)
+        throw new BadRequestException("Free amount cannot exceed the charge");
+      if (!dto.freeReason || dto.freeReason.trim().length < 3)
+        throw new BadRequestException("Give a reason for making it free");
+    }
+
     const invoice = await this.billing.addChargeAndEnsurePayable(
       encounterId,
       dto.description,
       dto.amountCents,
       actorId,
     );
+    if (freeCents > 0)
+      await this.billing.addFreeRequest(
+        invoice.id,
+        freeCents,
+        dto.freeReason ?? "",
+        actorId,
+      );
 
     await this.prisma.encounter.update({
       where: { id: encounterId },
@@ -681,7 +698,10 @@ export class EncountersService {
     await this.notifications.createForRoles(DESK_NOTIFY_ROLES, {
       type: "SYSTEM",
       title: "Payment request",
-      message: `${label} (${encounter.encounterNumber}): ${dto.description.trim()} - ETB ${amountEtb}. Collect, then returns to ${returnLabel}.`,
+      message:
+        freeCents > 0
+          ? `${label} (${encounter.encounterNumber}): ${dto.description.trim()} - ETB ${amountEtb}. Doctor requested free ETB ${(freeCents / 100).toFixed(2)} - confirm at cashier, then returns to ${returnLabel}.`
+          : `${label} (${encounter.encounterNumber}): ${dto.description.trim()} - ETB ${amountEtb}. Collect, then returns to ${returnLabel}.`,
       entityType: "Encounter",
       entityId: encounterId,
     });
@@ -693,6 +713,7 @@ export class EncountersService {
       newValues: {
         description: dto.description.trim(),
         amountCents: dto.amountCents,
+        freeCents,
         returnStation: dto.returnStation,
         invoiceId: invoice.id,
       },

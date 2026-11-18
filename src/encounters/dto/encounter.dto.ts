@@ -5,8 +5,10 @@ import {
   IsOptional,
   IsString,
   IsUUID,
+  MaxLength,
   Min,
   MinLength,
+  ValidateIf,
 } from "class-validator";
 import {
   EncounterPriority,
@@ -74,4 +76,17 @@ export class PaymentRequestDto {
 
   @IsIn(["DOCTOR", "LAB", "PHARMACY", "TRIAGE"])
   returnStation!: "DOCTOR" | "LAB" | "PHARMACY" | "TRIAGE";
+
+  /** Doctor only: ask the cashier to make this much free (≤ amountCents). */
+  @IsOptional()
+  @IsInt()
+  @Min(0)
+  freeCents?: number;
+
+  /** Required when freeCents > 0. */
+  @ValidateIf((o: PaymentRequestDto) => (o.freeCents ?? 0) > 0)
+  @IsString()
+  @MinLength(3)
+  @MaxLength(500)
+  freeReason?: string;
 }

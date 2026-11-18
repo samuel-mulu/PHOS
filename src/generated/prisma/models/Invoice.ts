@@ -33,6 +33,8 @@ export type InvoiceAvgAggregateOutputType = {
   paidCents: number | null
   waivedCents: number | null
   deferredCents: number | null
+  cancelledCents: number | null
+  freeRequestCents: number | null
 }
 
 export type InvoiceSumAggregateOutputType = {
@@ -42,6 +44,8 @@ export type InvoiceSumAggregateOutputType = {
   paidCents: number | null
   waivedCents: number | null
   deferredCents: number | null
+  cancelledCents: number | null
+  freeRequestCents: number | null
 }
 
 export type InvoiceMinAggregateOutputType = {
@@ -56,6 +60,10 @@ export type InvoiceMinAggregateOutputType = {
   paidCents: number | null
   waivedCents: number | null
   deferredCents: number | null
+  cancelledCents: number | null
+  freeRequestCents: number | null
+  freeRequestReason: string | null
+  freeRequestedById: string | null
   issuedById: string | null
   issuedAt: Date | null
   createdAt: Date | null
@@ -74,6 +82,10 @@ export type InvoiceMaxAggregateOutputType = {
   paidCents: number | null
   waivedCents: number | null
   deferredCents: number | null
+  cancelledCents: number | null
+  freeRequestCents: number | null
+  freeRequestReason: string | null
+  freeRequestedById: string | null
   issuedById: string | null
   issuedAt: Date | null
   createdAt: Date | null
@@ -92,6 +104,10 @@ export type InvoiceCountAggregateOutputType = {
   paidCents: number
   waivedCents: number
   deferredCents: number
+  cancelledCents: number
+  freeRequestCents: number
+  freeRequestReason: number
+  freeRequestedById: number
   issuedById: number
   issuedAt: number
   createdAt: number
@@ -107,6 +123,8 @@ export type InvoiceAvgAggregateInputType = {
   paidCents?: true
   waivedCents?: true
   deferredCents?: true
+  cancelledCents?: true
+  freeRequestCents?: true
 }
 
 export type InvoiceSumAggregateInputType = {
@@ -116,6 +134,8 @@ export type InvoiceSumAggregateInputType = {
   paidCents?: true
   waivedCents?: true
   deferredCents?: true
+  cancelledCents?: true
+  freeRequestCents?: true
 }
 
 export type InvoiceMinAggregateInputType = {
@@ -130,6 +150,10 @@ export type InvoiceMinAggregateInputType = {
   paidCents?: true
   waivedCents?: true
   deferredCents?: true
+  cancelledCents?: true
+  freeRequestCents?: true
+  freeRequestReason?: true
+  freeRequestedById?: true
   issuedById?: true
   issuedAt?: true
   createdAt?: true
@@ -148,6 +172,10 @@ export type InvoiceMaxAggregateInputType = {
   paidCents?: true
   waivedCents?: true
   deferredCents?: true
+  cancelledCents?: true
+  freeRequestCents?: true
+  freeRequestReason?: true
+  freeRequestedById?: true
   issuedById?: true
   issuedAt?: true
   createdAt?: true
@@ -166,6 +194,10 @@ export type InvoiceCountAggregateInputType = {
   paidCents?: true
   waivedCents?: true
   deferredCents?: true
+  cancelledCents?: true
+  freeRequestCents?: true
+  freeRequestReason?: true
+  freeRequestedById?: true
   issuedById?: true
   issuedAt?: true
   createdAt?: true
@@ -271,6 +303,10 @@ export type InvoiceGroupByOutputType = {
   paidCents: number
   waivedCents: number
   deferredCents: number
+  cancelledCents: number
+  freeRequestCents: number
+  freeRequestReason: string | null
+  freeRequestedById: string | null
   issuedById: string
   issuedAt: Date | null
   createdAt: Date
@@ -312,6 +348,10 @@ export type InvoiceWhereInput = {
   paidCents?: Prisma.IntFilter<"Invoice"> | number
   waivedCents?: Prisma.IntFilter<"Invoice"> | number
   deferredCents?: Prisma.IntFilter<"Invoice"> | number
+  cancelledCents?: Prisma.IntFilter<"Invoice"> | number
+  freeRequestCents?: Prisma.IntFilter<"Invoice"> | number
+  freeRequestReason?: Prisma.StringNullableFilter<"Invoice"> | string | null
+  freeRequestedById?: Prisma.UuidNullableFilter<"Invoice"> | string | null
   issuedById?: Prisma.UuidFilter<"Invoice"> | string
   issuedAt?: Prisma.DateTimeNullableFilter<"Invoice"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Invoice"> | Date | string
@@ -319,6 +359,7 @@ export type InvoiceWhereInput = {
   encounter?: Prisma.XOR<Prisma.EncounterScalarRelationFilter, Prisma.EncounterWhereInput>
   patient?: Prisma.XOR<Prisma.PatientScalarRelationFilter, Prisma.PatientWhereInput>
   issuedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  freeRequestedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   items?: Prisma.InvoiceItemListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
   adjustments?: Prisma.InvoiceAdjustmentListRelationFilter
@@ -336,6 +377,10 @@ export type InvoiceOrderByWithRelationInput = {
   paidCents?: Prisma.SortOrder
   waivedCents?: Prisma.SortOrder
   deferredCents?: Prisma.SortOrder
+  cancelledCents?: Prisma.SortOrder
+  freeRequestCents?: Prisma.SortOrder
+  freeRequestReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  freeRequestedById?: Prisma.SortOrderInput | Prisma.SortOrder
   issuedById?: Prisma.SortOrder
   issuedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -343,6 +388,7 @@ export type InvoiceOrderByWithRelationInput = {
   encounter?: Prisma.EncounterOrderByWithRelationInput
   patient?: Prisma.PatientOrderByWithRelationInput
   issuedBy?: Prisma.UserOrderByWithRelationInput
+  freeRequestedBy?: Prisma.UserOrderByWithRelationInput
   items?: Prisma.InvoiceItemOrderByRelationAggregateInput
   payments?: Prisma.PaymentOrderByRelationAggregateInput
   adjustments?: Prisma.InvoiceAdjustmentOrderByRelationAggregateInput
@@ -363,6 +409,10 @@ export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
   paidCents?: Prisma.IntFilter<"Invoice"> | number
   waivedCents?: Prisma.IntFilter<"Invoice"> | number
   deferredCents?: Prisma.IntFilter<"Invoice"> | number
+  cancelledCents?: Prisma.IntFilter<"Invoice"> | number
+  freeRequestCents?: Prisma.IntFilter<"Invoice"> | number
+  freeRequestReason?: Prisma.StringNullableFilter<"Invoice"> | string | null
+  freeRequestedById?: Prisma.UuidNullableFilter<"Invoice"> | string | null
   issuedById?: Prisma.UuidFilter<"Invoice"> | string
   issuedAt?: Prisma.DateTimeNullableFilter<"Invoice"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Invoice"> | Date | string
@@ -370,6 +420,7 @@ export type InvoiceWhereUniqueInput = Prisma.AtLeast<{
   encounter?: Prisma.XOR<Prisma.EncounterScalarRelationFilter, Prisma.EncounterWhereInput>
   patient?: Prisma.XOR<Prisma.PatientScalarRelationFilter, Prisma.PatientWhereInput>
   issuedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  freeRequestedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   items?: Prisma.InvoiceItemListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
   adjustments?: Prisma.InvoiceAdjustmentListRelationFilter
@@ -387,6 +438,10 @@ export type InvoiceOrderByWithAggregationInput = {
   paidCents?: Prisma.SortOrder
   waivedCents?: Prisma.SortOrder
   deferredCents?: Prisma.SortOrder
+  cancelledCents?: Prisma.SortOrder
+  freeRequestCents?: Prisma.SortOrder
+  freeRequestReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  freeRequestedById?: Prisma.SortOrderInput | Prisma.SortOrder
   issuedById?: Prisma.SortOrder
   issuedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -413,6 +468,10 @@ export type InvoiceScalarWhereWithAggregatesInput = {
   paidCents?: Prisma.IntWithAggregatesFilter<"Invoice"> | number
   waivedCents?: Prisma.IntWithAggregatesFilter<"Invoice"> | number
   deferredCents?: Prisma.IntWithAggregatesFilter<"Invoice"> | number
+  cancelledCents?: Prisma.IntWithAggregatesFilter<"Invoice"> | number
+  freeRequestCents?: Prisma.IntWithAggregatesFilter<"Invoice"> | number
+  freeRequestReason?: Prisma.StringNullableWithAggregatesFilter<"Invoice"> | string | null
+  freeRequestedById?: Prisma.UuidNullableWithAggregatesFilter<"Invoice"> | string | null
   issuedById?: Prisma.UuidWithAggregatesFilter<"Invoice"> | string
   issuedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Invoice"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Invoice"> | Date | string
@@ -429,12 +488,16 @@ export type InvoiceCreateInput = {
   paidCents?: number
   waivedCents?: number
   deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
   issuedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   encounter: Prisma.EncounterCreateNestedOneWithoutInvoiceInput
   patient: Prisma.PatientCreateNestedOneWithoutInvoicesInput
   issuedBy: Prisma.UserCreateNestedOneWithoutIssuedInvoicesInput
+  freeRequestedBy?: Prisma.UserCreateNestedOneWithoutFreeRequestedInvoicesInput
   items?: Prisma.InvoiceItemCreateNestedManyWithoutInvoiceInput
   payments?: Prisma.PaymentCreateNestedManyWithoutInvoiceInput
   adjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutInvoiceInput
@@ -452,6 +515,10 @@ export type InvoiceUncheckedCreateInput = {
   paidCents?: number
   waivedCents?: number
   deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
+  freeRequestedById?: string | null
   issuedById: string
   issuedAt?: Date | string | null
   createdAt?: Date | string
@@ -471,12 +538,16 @@ export type InvoiceUpdateInput = {
   paidCents?: Prisma.IntFieldUpdateOperationsInput | number
   waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
   deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   encounter?: Prisma.EncounterUpdateOneRequiredWithoutInvoiceNestedInput
   patient?: Prisma.PatientUpdateOneRequiredWithoutInvoicesNestedInput
   issuedBy?: Prisma.UserUpdateOneRequiredWithoutIssuedInvoicesNestedInput
+  freeRequestedBy?: Prisma.UserUpdateOneWithoutFreeRequestedInvoicesNestedInput
   items?: Prisma.InvoiceItemUpdateManyWithoutInvoiceNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutInvoiceNestedInput
   adjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutInvoiceNestedInput
@@ -494,6 +565,10 @@ export type InvoiceUncheckedUpdateInput = {
   paidCents?: Prisma.IntFieldUpdateOperationsInput | number
   waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
   deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  freeRequestedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedById?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -515,6 +590,10 @@ export type InvoiceCreateManyInput = {
   paidCents?: number
   waivedCents?: number
   deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
+  freeRequestedById?: string | null
   issuedById: string
   issuedAt?: Date | string | null
   createdAt?: Date | string
@@ -531,6 +610,9 @@ export type InvoiceUpdateManyMutationInput = {
   paidCents?: Prisma.IntFieldUpdateOperationsInput | number
   waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
   deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -548,6 +630,10 @@ export type InvoiceUncheckedUpdateManyInput = {
   paidCents?: Prisma.IntFieldUpdateOperationsInput | number
   waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
   deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  freeRequestedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedById?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -581,6 +667,10 @@ export type InvoiceCountOrderByAggregateInput = {
   paidCents?: Prisma.SortOrder
   waivedCents?: Prisma.SortOrder
   deferredCents?: Prisma.SortOrder
+  cancelledCents?: Prisma.SortOrder
+  freeRequestCents?: Prisma.SortOrder
+  freeRequestReason?: Prisma.SortOrder
+  freeRequestedById?: Prisma.SortOrder
   issuedById?: Prisma.SortOrder
   issuedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -594,6 +684,8 @@ export type InvoiceAvgOrderByAggregateInput = {
   paidCents?: Prisma.SortOrder
   waivedCents?: Prisma.SortOrder
   deferredCents?: Prisma.SortOrder
+  cancelledCents?: Prisma.SortOrder
+  freeRequestCents?: Prisma.SortOrder
 }
 
 export type InvoiceMaxOrderByAggregateInput = {
@@ -608,6 +700,10 @@ export type InvoiceMaxOrderByAggregateInput = {
   paidCents?: Prisma.SortOrder
   waivedCents?: Prisma.SortOrder
   deferredCents?: Prisma.SortOrder
+  cancelledCents?: Prisma.SortOrder
+  freeRequestCents?: Prisma.SortOrder
+  freeRequestReason?: Prisma.SortOrder
+  freeRequestedById?: Prisma.SortOrder
   issuedById?: Prisma.SortOrder
   issuedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -626,6 +722,10 @@ export type InvoiceMinOrderByAggregateInput = {
   paidCents?: Prisma.SortOrder
   waivedCents?: Prisma.SortOrder
   deferredCents?: Prisma.SortOrder
+  cancelledCents?: Prisma.SortOrder
+  freeRequestCents?: Prisma.SortOrder
+  freeRequestReason?: Prisma.SortOrder
+  freeRequestedById?: Prisma.SortOrder
   issuedById?: Prisma.SortOrder
   issuedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -639,6 +739,8 @@ export type InvoiceSumOrderByAggregateInput = {
   paidCents?: Prisma.SortOrder
   waivedCents?: Prisma.SortOrder
   deferredCents?: Prisma.SortOrder
+  cancelledCents?: Prisma.SortOrder
+  freeRequestCents?: Prisma.SortOrder
 }
 
 export type InvoiceScalarRelationFilter = {
@@ -653,10 +755,24 @@ export type InvoiceCreateNestedManyWithoutIssuedByInput = {
   connect?: Prisma.InvoiceWhereUniqueInput | Prisma.InvoiceWhereUniqueInput[]
 }
 
+export type InvoiceCreateNestedManyWithoutFreeRequestedByInput = {
+  create?: Prisma.XOR<Prisma.InvoiceCreateWithoutFreeRequestedByInput, Prisma.InvoiceUncheckedCreateWithoutFreeRequestedByInput> | Prisma.InvoiceCreateWithoutFreeRequestedByInput[] | Prisma.InvoiceUncheckedCreateWithoutFreeRequestedByInput[]
+  connectOrCreate?: Prisma.InvoiceCreateOrConnectWithoutFreeRequestedByInput | Prisma.InvoiceCreateOrConnectWithoutFreeRequestedByInput[]
+  createMany?: Prisma.InvoiceCreateManyFreeRequestedByInputEnvelope
+  connect?: Prisma.InvoiceWhereUniqueInput | Prisma.InvoiceWhereUniqueInput[]
+}
+
 export type InvoiceUncheckedCreateNestedManyWithoutIssuedByInput = {
   create?: Prisma.XOR<Prisma.InvoiceCreateWithoutIssuedByInput, Prisma.InvoiceUncheckedCreateWithoutIssuedByInput> | Prisma.InvoiceCreateWithoutIssuedByInput[] | Prisma.InvoiceUncheckedCreateWithoutIssuedByInput[]
   connectOrCreate?: Prisma.InvoiceCreateOrConnectWithoutIssuedByInput | Prisma.InvoiceCreateOrConnectWithoutIssuedByInput[]
   createMany?: Prisma.InvoiceCreateManyIssuedByInputEnvelope
+  connect?: Prisma.InvoiceWhereUniqueInput | Prisma.InvoiceWhereUniqueInput[]
+}
+
+export type InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput = {
+  create?: Prisma.XOR<Prisma.InvoiceCreateWithoutFreeRequestedByInput, Prisma.InvoiceUncheckedCreateWithoutFreeRequestedByInput> | Prisma.InvoiceCreateWithoutFreeRequestedByInput[] | Prisma.InvoiceUncheckedCreateWithoutFreeRequestedByInput[]
+  connectOrCreate?: Prisma.InvoiceCreateOrConnectWithoutFreeRequestedByInput | Prisma.InvoiceCreateOrConnectWithoutFreeRequestedByInput[]
+  createMany?: Prisma.InvoiceCreateManyFreeRequestedByInputEnvelope
   connect?: Prisma.InvoiceWhereUniqueInput | Prisma.InvoiceWhereUniqueInput[]
 }
 
@@ -674,6 +790,20 @@ export type InvoiceUpdateManyWithoutIssuedByNestedInput = {
   deleteMany?: Prisma.InvoiceScalarWhereInput | Prisma.InvoiceScalarWhereInput[]
 }
 
+export type InvoiceUpdateManyWithoutFreeRequestedByNestedInput = {
+  create?: Prisma.XOR<Prisma.InvoiceCreateWithoutFreeRequestedByInput, Prisma.InvoiceUncheckedCreateWithoutFreeRequestedByInput> | Prisma.InvoiceCreateWithoutFreeRequestedByInput[] | Prisma.InvoiceUncheckedCreateWithoutFreeRequestedByInput[]
+  connectOrCreate?: Prisma.InvoiceCreateOrConnectWithoutFreeRequestedByInput | Prisma.InvoiceCreateOrConnectWithoutFreeRequestedByInput[]
+  upsert?: Prisma.InvoiceUpsertWithWhereUniqueWithoutFreeRequestedByInput | Prisma.InvoiceUpsertWithWhereUniqueWithoutFreeRequestedByInput[]
+  createMany?: Prisma.InvoiceCreateManyFreeRequestedByInputEnvelope
+  set?: Prisma.InvoiceWhereUniqueInput | Prisma.InvoiceWhereUniqueInput[]
+  disconnect?: Prisma.InvoiceWhereUniqueInput | Prisma.InvoiceWhereUniqueInput[]
+  delete?: Prisma.InvoiceWhereUniqueInput | Prisma.InvoiceWhereUniqueInput[]
+  connect?: Prisma.InvoiceWhereUniqueInput | Prisma.InvoiceWhereUniqueInput[]
+  update?: Prisma.InvoiceUpdateWithWhereUniqueWithoutFreeRequestedByInput | Prisma.InvoiceUpdateWithWhereUniqueWithoutFreeRequestedByInput[]
+  updateMany?: Prisma.InvoiceUpdateManyWithWhereWithoutFreeRequestedByInput | Prisma.InvoiceUpdateManyWithWhereWithoutFreeRequestedByInput[]
+  deleteMany?: Prisma.InvoiceScalarWhereInput | Prisma.InvoiceScalarWhereInput[]
+}
+
 export type InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput = {
   create?: Prisma.XOR<Prisma.InvoiceCreateWithoutIssuedByInput, Prisma.InvoiceUncheckedCreateWithoutIssuedByInput> | Prisma.InvoiceCreateWithoutIssuedByInput[] | Prisma.InvoiceUncheckedCreateWithoutIssuedByInput[]
   connectOrCreate?: Prisma.InvoiceCreateOrConnectWithoutIssuedByInput | Prisma.InvoiceCreateOrConnectWithoutIssuedByInput[]
@@ -685,6 +815,20 @@ export type InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput = {
   connect?: Prisma.InvoiceWhereUniqueInput | Prisma.InvoiceWhereUniqueInput[]
   update?: Prisma.InvoiceUpdateWithWhereUniqueWithoutIssuedByInput | Prisma.InvoiceUpdateWithWhereUniqueWithoutIssuedByInput[]
   updateMany?: Prisma.InvoiceUpdateManyWithWhereWithoutIssuedByInput | Prisma.InvoiceUpdateManyWithWhereWithoutIssuedByInput[]
+  deleteMany?: Prisma.InvoiceScalarWhereInput | Prisma.InvoiceScalarWhereInput[]
+}
+
+export type InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput = {
+  create?: Prisma.XOR<Prisma.InvoiceCreateWithoutFreeRequestedByInput, Prisma.InvoiceUncheckedCreateWithoutFreeRequestedByInput> | Prisma.InvoiceCreateWithoutFreeRequestedByInput[] | Prisma.InvoiceUncheckedCreateWithoutFreeRequestedByInput[]
+  connectOrCreate?: Prisma.InvoiceCreateOrConnectWithoutFreeRequestedByInput | Prisma.InvoiceCreateOrConnectWithoutFreeRequestedByInput[]
+  upsert?: Prisma.InvoiceUpsertWithWhereUniqueWithoutFreeRequestedByInput | Prisma.InvoiceUpsertWithWhereUniqueWithoutFreeRequestedByInput[]
+  createMany?: Prisma.InvoiceCreateManyFreeRequestedByInputEnvelope
+  set?: Prisma.InvoiceWhereUniqueInput | Prisma.InvoiceWhereUniqueInput[]
+  disconnect?: Prisma.InvoiceWhereUniqueInput | Prisma.InvoiceWhereUniqueInput[]
+  delete?: Prisma.InvoiceWhereUniqueInput | Prisma.InvoiceWhereUniqueInput[]
+  connect?: Prisma.InvoiceWhereUniqueInput | Prisma.InvoiceWhereUniqueInput[]
+  update?: Prisma.InvoiceUpdateWithWhereUniqueWithoutFreeRequestedByInput | Prisma.InvoiceUpdateWithWhereUniqueWithoutFreeRequestedByInput[]
+  updateMany?: Prisma.InvoiceUpdateManyWithWhereWithoutFreeRequestedByInput | Prisma.InvoiceUpdateManyWithWhereWithoutFreeRequestedByInput[]
   deleteMany?: Prisma.InvoiceScalarWhereInput | Prisma.InvoiceScalarWhereInput[]
 }
 
@@ -818,11 +962,15 @@ export type InvoiceCreateWithoutIssuedByInput = {
   paidCents?: number
   waivedCents?: number
   deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
   issuedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   encounter: Prisma.EncounterCreateNestedOneWithoutInvoiceInput
   patient: Prisma.PatientCreateNestedOneWithoutInvoicesInput
+  freeRequestedBy?: Prisma.UserCreateNestedOneWithoutFreeRequestedInvoicesInput
   items?: Prisma.InvoiceItemCreateNestedManyWithoutInvoiceInput
   payments?: Prisma.PaymentCreateNestedManyWithoutInvoiceInput
   adjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutInvoiceInput
@@ -840,6 +988,10 @@ export type InvoiceUncheckedCreateWithoutIssuedByInput = {
   paidCents?: number
   waivedCents?: number
   deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
+  freeRequestedById?: string | null
   issuedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -855,6 +1007,64 @@ export type InvoiceCreateOrConnectWithoutIssuedByInput = {
 
 export type InvoiceCreateManyIssuedByInputEnvelope = {
   data: Prisma.InvoiceCreateManyIssuedByInput | Prisma.InvoiceCreateManyIssuedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type InvoiceCreateWithoutFreeRequestedByInput = {
+  id?: string
+  invoiceNumber: string
+  status?: $Enums.InvoiceStatus
+  subtotalCents: number
+  discountCents?: number
+  totalCents: number
+  paidCents?: number
+  waivedCents?: number
+  deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
+  issuedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  encounter: Prisma.EncounterCreateNestedOneWithoutInvoiceInput
+  patient: Prisma.PatientCreateNestedOneWithoutInvoicesInput
+  issuedBy: Prisma.UserCreateNestedOneWithoutIssuedInvoicesInput
+  items?: Prisma.InvoiceItemCreateNestedManyWithoutInvoiceInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutInvoiceInput
+  adjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutInvoiceInput
+}
+
+export type InvoiceUncheckedCreateWithoutFreeRequestedByInput = {
+  id?: string
+  invoiceNumber: string
+  encounterId: string
+  patientId: string
+  status?: $Enums.InvoiceStatus
+  subtotalCents: number
+  discountCents?: number
+  totalCents: number
+  paidCents?: number
+  waivedCents?: number
+  deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
+  issuedById: string
+  issuedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutInvoiceInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutInvoiceInput
+  adjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutInvoiceInput
+}
+
+export type InvoiceCreateOrConnectWithoutFreeRequestedByInput = {
+  where: Prisma.InvoiceWhereUniqueInput
+  create: Prisma.XOR<Prisma.InvoiceCreateWithoutFreeRequestedByInput, Prisma.InvoiceUncheckedCreateWithoutFreeRequestedByInput>
+}
+
+export type InvoiceCreateManyFreeRequestedByInputEnvelope = {
+  data: Prisma.InvoiceCreateManyFreeRequestedByInput | Prisma.InvoiceCreateManyFreeRequestedByInput[]
   skipDuplicates?: boolean
 }
 
@@ -889,10 +1099,30 @@ export type InvoiceScalarWhereInput = {
   paidCents?: Prisma.IntFilter<"Invoice"> | number
   waivedCents?: Prisma.IntFilter<"Invoice"> | number
   deferredCents?: Prisma.IntFilter<"Invoice"> | number
+  cancelledCents?: Prisma.IntFilter<"Invoice"> | number
+  freeRequestCents?: Prisma.IntFilter<"Invoice"> | number
+  freeRequestReason?: Prisma.StringNullableFilter<"Invoice"> | string | null
+  freeRequestedById?: Prisma.UuidNullableFilter<"Invoice"> | string | null
   issuedById?: Prisma.UuidFilter<"Invoice"> | string
   issuedAt?: Prisma.DateTimeNullableFilter<"Invoice"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Invoice"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Invoice"> | Date | string
+}
+
+export type InvoiceUpsertWithWhereUniqueWithoutFreeRequestedByInput = {
+  where: Prisma.InvoiceWhereUniqueInput
+  update: Prisma.XOR<Prisma.InvoiceUpdateWithoutFreeRequestedByInput, Prisma.InvoiceUncheckedUpdateWithoutFreeRequestedByInput>
+  create: Prisma.XOR<Prisma.InvoiceCreateWithoutFreeRequestedByInput, Prisma.InvoiceUncheckedCreateWithoutFreeRequestedByInput>
+}
+
+export type InvoiceUpdateWithWhereUniqueWithoutFreeRequestedByInput = {
+  where: Prisma.InvoiceWhereUniqueInput
+  data: Prisma.XOR<Prisma.InvoiceUpdateWithoutFreeRequestedByInput, Prisma.InvoiceUncheckedUpdateWithoutFreeRequestedByInput>
+}
+
+export type InvoiceUpdateManyWithWhereWithoutFreeRequestedByInput = {
+  where: Prisma.InvoiceScalarWhereInput
+  data: Prisma.XOR<Prisma.InvoiceUpdateManyMutationInput, Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByInput>
 }
 
 export type InvoiceCreateWithoutPatientInput = {
@@ -905,11 +1135,15 @@ export type InvoiceCreateWithoutPatientInput = {
   paidCents?: number
   waivedCents?: number
   deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
   issuedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   encounter: Prisma.EncounterCreateNestedOneWithoutInvoiceInput
   issuedBy: Prisma.UserCreateNestedOneWithoutIssuedInvoicesInput
+  freeRequestedBy?: Prisma.UserCreateNestedOneWithoutFreeRequestedInvoicesInput
   items?: Prisma.InvoiceItemCreateNestedManyWithoutInvoiceInput
   payments?: Prisma.PaymentCreateNestedManyWithoutInvoiceInput
   adjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutInvoiceInput
@@ -926,6 +1160,10 @@ export type InvoiceUncheckedCreateWithoutPatientInput = {
   paidCents?: number
   waivedCents?: number
   deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
+  freeRequestedById?: string | null
   issuedById: string
   issuedAt?: Date | string | null
   createdAt?: Date | string
@@ -971,11 +1209,15 @@ export type InvoiceCreateWithoutEncounterInput = {
   paidCents?: number
   waivedCents?: number
   deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
   issuedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   patient: Prisma.PatientCreateNestedOneWithoutInvoicesInput
   issuedBy: Prisma.UserCreateNestedOneWithoutIssuedInvoicesInput
+  freeRequestedBy?: Prisma.UserCreateNestedOneWithoutFreeRequestedInvoicesInput
   items?: Prisma.InvoiceItemCreateNestedManyWithoutInvoiceInput
   payments?: Prisma.PaymentCreateNestedManyWithoutInvoiceInput
   adjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutInvoiceInput
@@ -992,6 +1234,10 @@ export type InvoiceUncheckedCreateWithoutEncounterInput = {
   paidCents?: number
   waivedCents?: number
   deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
+  freeRequestedById?: string | null
   issuedById: string
   issuedAt?: Date | string | null
   createdAt?: Date | string
@@ -1027,11 +1273,15 @@ export type InvoiceUpdateWithoutEncounterInput = {
   paidCents?: Prisma.IntFieldUpdateOperationsInput | number
   waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
   deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   patient?: Prisma.PatientUpdateOneRequiredWithoutInvoicesNestedInput
   issuedBy?: Prisma.UserUpdateOneRequiredWithoutIssuedInvoicesNestedInput
+  freeRequestedBy?: Prisma.UserUpdateOneWithoutFreeRequestedInvoicesNestedInput
   items?: Prisma.InvoiceItemUpdateManyWithoutInvoiceNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutInvoiceNestedInput
   adjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutInvoiceNestedInput
@@ -1048,6 +1298,10 @@ export type InvoiceUncheckedUpdateWithoutEncounterInput = {
   paidCents?: Prisma.IntFieldUpdateOperationsInput | number
   waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
   deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  freeRequestedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedById?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1067,12 +1321,16 @@ export type InvoiceCreateWithoutAdjustmentsInput = {
   paidCents?: number
   waivedCents?: number
   deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
   issuedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   encounter: Prisma.EncounterCreateNestedOneWithoutInvoiceInput
   patient: Prisma.PatientCreateNestedOneWithoutInvoicesInput
   issuedBy: Prisma.UserCreateNestedOneWithoutIssuedInvoicesInput
+  freeRequestedBy?: Prisma.UserCreateNestedOneWithoutFreeRequestedInvoicesInput
   items?: Prisma.InvoiceItemCreateNestedManyWithoutInvoiceInput
   payments?: Prisma.PaymentCreateNestedManyWithoutInvoiceInput
 }
@@ -1089,6 +1347,10 @@ export type InvoiceUncheckedCreateWithoutAdjustmentsInput = {
   paidCents?: number
   waivedCents?: number
   deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
+  freeRequestedById?: string | null
   issuedById: string
   issuedAt?: Date | string | null
   createdAt?: Date | string
@@ -1123,12 +1385,16 @@ export type InvoiceUpdateWithoutAdjustmentsInput = {
   paidCents?: Prisma.IntFieldUpdateOperationsInput | number
   waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
   deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   encounter?: Prisma.EncounterUpdateOneRequiredWithoutInvoiceNestedInput
   patient?: Prisma.PatientUpdateOneRequiredWithoutInvoicesNestedInput
   issuedBy?: Prisma.UserUpdateOneRequiredWithoutIssuedInvoicesNestedInput
+  freeRequestedBy?: Prisma.UserUpdateOneWithoutFreeRequestedInvoicesNestedInput
   items?: Prisma.InvoiceItemUpdateManyWithoutInvoiceNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutInvoiceNestedInput
 }
@@ -1145,6 +1411,10 @@ export type InvoiceUncheckedUpdateWithoutAdjustmentsInput = {
   paidCents?: Prisma.IntFieldUpdateOperationsInput | number
   waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
   deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  freeRequestedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedById?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1163,12 +1433,16 @@ export type InvoiceCreateWithoutItemsInput = {
   paidCents?: number
   waivedCents?: number
   deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
   issuedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   encounter: Prisma.EncounterCreateNestedOneWithoutInvoiceInput
   patient: Prisma.PatientCreateNestedOneWithoutInvoicesInput
   issuedBy: Prisma.UserCreateNestedOneWithoutIssuedInvoicesInput
+  freeRequestedBy?: Prisma.UserCreateNestedOneWithoutFreeRequestedInvoicesInput
   payments?: Prisma.PaymentCreateNestedManyWithoutInvoiceInput
   adjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutInvoiceInput
 }
@@ -1185,6 +1459,10 @@ export type InvoiceUncheckedCreateWithoutItemsInput = {
   paidCents?: number
   waivedCents?: number
   deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
+  freeRequestedById?: string | null
   issuedById: string
   issuedAt?: Date | string | null
   createdAt?: Date | string
@@ -1219,12 +1497,16 @@ export type InvoiceUpdateWithoutItemsInput = {
   paidCents?: Prisma.IntFieldUpdateOperationsInput | number
   waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
   deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   encounter?: Prisma.EncounterUpdateOneRequiredWithoutInvoiceNestedInput
   patient?: Prisma.PatientUpdateOneRequiredWithoutInvoicesNestedInput
   issuedBy?: Prisma.UserUpdateOneRequiredWithoutIssuedInvoicesNestedInput
+  freeRequestedBy?: Prisma.UserUpdateOneWithoutFreeRequestedInvoicesNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutInvoiceNestedInput
   adjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutInvoiceNestedInput
 }
@@ -1241,6 +1523,10 @@ export type InvoiceUncheckedUpdateWithoutItemsInput = {
   paidCents?: Prisma.IntFieldUpdateOperationsInput | number
   waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
   deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  freeRequestedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedById?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1259,12 +1545,16 @@ export type InvoiceCreateWithoutPaymentsInput = {
   paidCents?: number
   waivedCents?: number
   deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
   issuedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   encounter: Prisma.EncounterCreateNestedOneWithoutInvoiceInput
   patient: Prisma.PatientCreateNestedOneWithoutInvoicesInput
   issuedBy: Prisma.UserCreateNestedOneWithoutIssuedInvoicesInput
+  freeRequestedBy?: Prisma.UserCreateNestedOneWithoutFreeRequestedInvoicesInput
   items?: Prisma.InvoiceItemCreateNestedManyWithoutInvoiceInput
   adjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutInvoiceInput
 }
@@ -1281,6 +1571,10 @@ export type InvoiceUncheckedCreateWithoutPaymentsInput = {
   paidCents?: number
   waivedCents?: number
   deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
+  freeRequestedById?: string | null
   issuedById: string
   issuedAt?: Date | string | null
   createdAt?: Date | string
@@ -1315,12 +1609,16 @@ export type InvoiceUpdateWithoutPaymentsInput = {
   paidCents?: Prisma.IntFieldUpdateOperationsInput | number
   waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
   deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   encounter?: Prisma.EncounterUpdateOneRequiredWithoutInvoiceNestedInput
   patient?: Prisma.PatientUpdateOneRequiredWithoutInvoicesNestedInput
   issuedBy?: Prisma.UserUpdateOneRequiredWithoutIssuedInvoicesNestedInput
+  freeRequestedBy?: Prisma.UserUpdateOneWithoutFreeRequestedInvoicesNestedInput
   items?: Prisma.InvoiceItemUpdateManyWithoutInvoiceNestedInput
   adjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutInvoiceNestedInput
 }
@@ -1337,6 +1635,10 @@ export type InvoiceUncheckedUpdateWithoutPaymentsInput = {
   paidCents?: Prisma.IntFieldUpdateOperationsInput | number
   waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
   deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  freeRequestedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedById?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1357,6 +1659,31 @@ export type InvoiceCreateManyIssuedByInput = {
   paidCents?: number
   waivedCents?: number
   deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
+  freeRequestedById?: string | null
+  issuedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type InvoiceCreateManyFreeRequestedByInput = {
+  id?: string
+  invoiceNumber: string
+  encounterId: string
+  patientId: string
+  status?: $Enums.InvoiceStatus
+  subtotalCents: number
+  discountCents?: number
+  totalCents: number
+  paidCents?: number
+  waivedCents?: number
+  deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
+  issuedById: string
   issuedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1372,11 +1699,15 @@ export type InvoiceUpdateWithoutIssuedByInput = {
   paidCents?: Prisma.IntFieldUpdateOperationsInput | number
   waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
   deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   encounter?: Prisma.EncounterUpdateOneRequiredWithoutInvoiceNestedInput
   patient?: Prisma.PatientUpdateOneRequiredWithoutInvoicesNestedInput
+  freeRequestedBy?: Prisma.UserUpdateOneWithoutFreeRequestedInvoicesNestedInput
   items?: Prisma.InvoiceItemUpdateManyWithoutInvoiceNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutInvoiceNestedInput
   adjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutInvoiceNestedInput
@@ -1394,6 +1725,10 @@ export type InvoiceUncheckedUpdateWithoutIssuedByInput = {
   paidCents?: Prisma.IntFieldUpdateOperationsInput | number
   waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
   deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  freeRequestedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1414,6 +1749,79 @@ export type InvoiceUncheckedUpdateManyWithoutIssuedByInput = {
   paidCents?: Prisma.IntFieldUpdateOperationsInput | number
   waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
   deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  freeRequestedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type InvoiceUpdateWithoutFreeRequestedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  subtotalCents?: Prisma.IntFieldUpdateOperationsInput | number
+  discountCents?: Prisma.IntFieldUpdateOperationsInput | number
+  totalCents?: Prisma.IntFieldUpdateOperationsInput | number
+  paidCents?: Prisma.IntFieldUpdateOperationsInput | number
+  waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
+  deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  encounter?: Prisma.EncounterUpdateOneRequiredWithoutInvoiceNestedInput
+  patient?: Prisma.PatientUpdateOneRequiredWithoutInvoicesNestedInput
+  issuedBy?: Prisma.UserUpdateOneRequiredWithoutIssuedInvoicesNestedInput
+  items?: Prisma.InvoiceItemUpdateManyWithoutInvoiceNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutInvoiceNestedInput
+  adjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutInvoiceNestedInput
+}
+
+export type InvoiceUncheckedUpdateWithoutFreeRequestedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  encounterId?: Prisma.StringFieldUpdateOperationsInput | string
+  patientId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  subtotalCents?: Prisma.IntFieldUpdateOperationsInput | number
+  discountCents?: Prisma.IntFieldUpdateOperationsInput | number
+  totalCents?: Prisma.IntFieldUpdateOperationsInput | number
+  paidCents?: Prisma.IntFieldUpdateOperationsInput | number
+  waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
+  deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  issuedById?: Prisma.StringFieldUpdateOperationsInput | string
+  issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.InvoiceItemUncheckedUpdateManyWithoutInvoiceNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutInvoiceNestedInput
+  adjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutInvoiceNestedInput
+}
+
+export type InvoiceUncheckedUpdateManyWithoutFreeRequestedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  encounterId?: Prisma.StringFieldUpdateOperationsInput | string
+  patientId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumInvoiceStatusFieldUpdateOperationsInput | $Enums.InvoiceStatus
+  subtotalCents?: Prisma.IntFieldUpdateOperationsInput | number
+  discountCents?: Prisma.IntFieldUpdateOperationsInput | number
+  totalCents?: Prisma.IntFieldUpdateOperationsInput | number
+  paidCents?: Prisma.IntFieldUpdateOperationsInput | number
+  waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
+  deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  issuedById?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1430,6 +1838,10 @@ export type InvoiceCreateManyPatientInput = {
   paidCents?: number
   waivedCents?: number
   deferredCents?: number
+  cancelledCents?: number
+  freeRequestCents?: number
+  freeRequestReason?: string | null
+  freeRequestedById?: string | null
   issuedById: string
   issuedAt?: Date | string | null
   createdAt?: Date | string
@@ -1446,11 +1858,15 @@ export type InvoiceUpdateWithoutPatientInput = {
   paidCents?: Prisma.IntFieldUpdateOperationsInput | number
   waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
   deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   encounter?: Prisma.EncounterUpdateOneRequiredWithoutInvoiceNestedInput
   issuedBy?: Prisma.UserUpdateOneRequiredWithoutIssuedInvoicesNestedInput
+  freeRequestedBy?: Prisma.UserUpdateOneWithoutFreeRequestedInvoicesNestedInput
   items?: Prisma.InvoiceItemUpdateManyWithoutInvoiceNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutInvoiceNestedInput
   adjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutInvoiceNestedInput
@@ -1467,6 +1883,10 @@ export type InvoiceUncheckedUpdateWithoutPatientInput = {
   paidCents?: Prisma.IntFieldUpdateOperationsInput | number
   waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
   deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  freeRequestedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedById?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1487,6 +1907,10 @@ export type InvoiceUncheckedUpdateManyWithoutPatientInput = {
   paidCents?: Prisma.IntFieldUpdateOperationsInput | number
   waivedCents?: Prisma.IntFieldUpdateOperationsInput | number
   deferredCents?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelledCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestCents?: Prisma.IntFieldUpdateOperationsInput | number
+  freeRequestReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  freeRequestedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   issuedById?: Prisma.StringFieldUpdateOperationsInput | string
   issuedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1554,6 +1978,10 @@ export type InvoiceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   paidCents?: boolean
   waivedCents?: boolean
   deferredCents?: boolean
+  cancelledCents?: boolean
+  freeRequestCents?: boolean
+  freeRequestReason?: boolean
+  freeRequestedById?: boolean
   issuedById?: boolean
   issuedAt?: boolean
   createdAt?: boolean
@@ -1561,6 +1989,7 @@ export type InvoiceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   encounter?: boolean | Prisma.EncounterDefaultArgs<ExtArgs>
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   issuedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  freeRequestedBy?: boolean | Prisma.Invoice$freeRequestedByArgs<ExtArgs>
   items?: boolean | Prisma.Invoice$itemsArgs<ExtArgs>
   payments?: boolean | Prisma.Invoice$paymentsArgs<ExtArgs>
   adjustments?: boolean | Prisma.Invoice$adjustmentsArgs<ExtArgs>
@@ -1579,6 +2008,10 @@ export type InvoiceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   paidCents?: boolean
   waivedCents?: boolean
   deferredCents?: boolean
+  cancelledCents?: boolean
+  freeRequestCents?: boolean
+  freeRequestReason?: boolean
+  freeRequestedById?: boolean
   issuedById?: boolean
   issuedAt?: boolean
   createdAt?: boolean
@@ -1586,6 +2019,7 @@ export type InvoiceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   encounter?: boolean | Prisma.EncounterDefaultArgs<ExtArgs>
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   issuedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  freeRequestedBy?: boolean | Prisma.Invoice$freeRequestedByArgs<ExtArgs>
 }, ExtArgs["result"]["invoice"]>
 
 export type InvoiceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1600,6 +2034,10 @@ export type InvoiceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   paidCents?: boolean
   waivedCents?: boolean
   deferredCents?: boolean
+  cancelledCents?: boolean
+  freeRequestCents?: boolean
+  freeRequestReason?: boolean
+  freeRequestedById?: boolean
   issuedById?: boolean
   issuedAt?: boolean
   createdAt?: boolean
@@ -1607,6 +2045,7 @@ export type InvoiceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   encounter?: boolean | Prisma.EncounterDefaultArgs<ExtArgs>
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   issuedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  freeRequestedBy?: boolean | Prisma.Invoice$freeRequestedByArgs<ExtArgs>
 }, ExtArgs["result"]["invoice"]>
 
 export type InvoiceSelectScalar = {
@@ -1621,17 +2060,22 @@ export type InvoiceSelectScalar = {
   paidCents?: boolean
   waivedCents?: boolean
   deferredCents?: boolean
+  cancelledCents?: boolean
+  freeRequestCents?: boolean
+  freeRequestReason?: boolean
+  freeRequestedById?: boolean
   issuedById?: boolean
   issuedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type InvoiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "invoiceNumber" | "encounterId" | "patientId" | "status" | "subtotalCents" | "discountCents" | "totalCents" | "paidCents" | "waivedCents" | "deferredCents" | "issuedById" | "issuedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["invoice"]>
+export type InvoiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "invoiceNumber" | "encounterId" | "patientId" | "status" | "subtotalCents" | "discountCents" | "totalCents" | "paidCents" | "waivedCents" | "deferredCents" | "cancelledCents" | "freeRequestCents" | "freeRequestReason" | "freeRequestedById" | "issuedById" | "issuedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["invoice"]>
 export type InvoiceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   encounter?: boolean | Prisma.EncounterDefaultArgs<ExtArgs>
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   issuedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  freeRequestedBy?: boolean | Prisma.Invoice$freeRequestedByArgs<ExtArgs>
   items?: boolean | Prisma.Invoice$itemsArgs<ExtArgs>
   payments?: boolean | Prisma.Invoice$paymentsArgs<ExtArgs>
   adjustments?: boolean | Prisma.Invoice$adjustmentsArgs<ExtArgs>
@@ -1641,11 +2085,13 @@ export type InvoiceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   encounter?: boolean | Prisma.EncounterDefaultArgs<ExtArgs>
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   issuedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  freeRequestedBy?: boolean | Prisma.Invoice$freeRequestedByArgs<ExtArgs>
 }
 export type InvoiceIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   encounter?: boolean | Prisma.EncounterDefaultArgs<ExtArgs>
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   issuedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  freeRequestedBy?: boolean | Prisma.Invoice$freeRequestedByArgs<ExtArgs>
 }
 
 export type $InvoicePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1654,6 +2100,7 @@ export type $InvoicePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     encounter: Prisma.$EncounterPayload<ExtArgs>
     patient: Prisma.$PatientPayload<ExtArgs>
     issuedBy: Prisma.$UserPayload<ExtArgs>
+    freeRequestedBy: Prisma.$UserPayload<ExtArgs> | null
     items: Prisma.$InvoiceItemPayload<ExtArgs>[]
     payments: Prisma.$PaymentPayload<ExtArgs>[]
     adjustments: Prisma.$InvoiceAdjustmentPayload<ExtArgs>[]
@@ -1669,13 +2116,27 @@ export type $InvoicePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     totalCents: number
     paidCents: number
     /**
-     * * Forgiven by cashier (free / waive); not owed.
+     * *
+     *    * Forgiven by cashier (free / waive); not owed.
      */
     waivedCents: number
     /**
-     * * Approved "pay later" amount; patient may leave the cashier owing it.
+     * *
+     *    * Approved "pay later" amount; patient may leave the cashier owing it.
      */
     deferredCents: number
+    /**
+     * *
+     *    * Part of waivedCents that was cancelled (patient left without paying).
+     */
+    cancelledCents: number
+    /**
+     * *
+     *    * Doctor asked the cashier to make this much free; pending until confirmed.
+     */
+    freeRequestCents: number
+    freeRequestReason: string | null
+    freeRequestedById: string | null
     issuedById: string
     issuedAt: Date | null
     createdAt: Date
@@ -2077,6 +2538,7 @@ export interface Prisma__InvoiceClient<T, Null = never, ExtArgs extends runtime.
   encounter<T extends Prisma.EncounterDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EncounterDefaultArgs<ExtArgs>>): Prisma.Prisma__EncounterClient<runtime.Types.Result.GetResult<Prisma.$EncounterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   patient<T extends Prisma.PatientDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PatientDefaultArgs<ExtArgs>>): Prisma.Prisma__PatientClient<runtime.Types.Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   issuedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  freeRequestedBy<T extends Prisma.Invoice$freeRequestedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Invoice$freeRequestedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   items<T extends Prisma.Invoice$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Invoice$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoiceItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   payments<T extends Prisma.Invoice$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Invoice$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   adjustments<T extends Prisma.Invoice$adjustmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Invoice$adjustmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoiceAdjustmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2120,6 +2582,10 @@ export interface InvoiceFieldRefs {
   readonly paidCents: Prisma.FieldRef<"Invoice", 'Int'>
   readonly waivedCents: Prisma.FieldRef<"Invoice", 'Int'>
   readonly deferredCents: Prisma.FieldRef<"Invoice", 'Int'>
+  readonly cancelledCents: Prisma.FieldRef<"Invoice", 'Int'>
+  readonly freeRequestCents: Prisma.FieldRef<"Invoice", 'Int'>
+  readonly freeRequestReason: Prisma.FieldRef<"Invoice", 'String'>
+  readonly freeRequestedById: Prisma.FieldRef<"Invoice", 'String'>
   readonly issuedById: Prisma.FieldRef<"Invoice", 'String'>
   readonly issuedAt: Prisma.FieldRef<"Invoice", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Invoice", 'DateTime'>
@@ -2522,6 +2988,25 @@ export type InvoiceDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Invoices to delete.
    */
   limit?: number
+}
+
+/**
+ * Invoice.freeRequestedBy
+ */
+export type Invoice$freeRequestedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

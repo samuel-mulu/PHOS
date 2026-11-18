@@ -6,6 +6,7 @@ import { AuthUser } from "../common/types/auth-user";
 import { DESK_PAY_ROLES } from "../common/constants/desk-roles";
 import { Role } from "../generated/prisma/client";
 import {
+  CancelInvoiceDto,
   CreatePaymentDto,
   CreateRefundDto,
   DeferInvoiceDto,
@@ -76,5 +77,16 @@ export class InvoiceAdjustmentsController {
     @CurrentUser() user: AuthUser,
   ) {
     return this.service.waive(id, dto, user.id);
+  }
+
+  /** Patient left without paying: void the due amount and send them back. */
+  @Roles(...DESK_PAY_ROLES)
+  @Post(":id/cancel")
+  cancel(
+    @Param("id") id: string,
+    @Body() dto: CancelInvoiceDto,
+    @CurrentUser() user: AuthUser,
+  ) {
+    return this.service.cancel(id, dto, user.id);
   }
 }

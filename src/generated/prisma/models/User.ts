@@ -257,6 +257,8 @@ export type UserWhereInput = {
   issuedInvoices?: Prisma.InvoiceListRelationFilter
   recordedPayments?: Prisma.PaymentListRelationFilter
   invoiceAdjustments?: Prisma.InvoiceAdjustmentListRelationFilter
+  requestedAdjustments?: Prisma.InvoiceAdjustmentListRelationFilter
+  freeRequestedInvoices?: Prisma.InvoiceListRelationFilter
   issuedRefunds?: Prisma.RefundListRelationFilter
   recordedExpenses?: Prisma.ExpenseListRelationFilter
   voidedExpenses?: Prisma.ExpenseListRelationFilter
@@ -304,6 +306,8 @@ export type UserOrderByWithRelationInput = {
   issuedInvoices?: Prisma.InvoiceOrderByRelationAggregateInput
   recordedPayments?: Prisma.PaymentOrderByRelationAggregateInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentOrderByRelationAggregateInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentOrderByRelationAggregateInput
+  freeRequestedInvoices?: Prisma.InvoiceOrderByRelationAggregateInput
   issuedRefunds?: Prisma.RefundOrderByRelationAggregateInput
   recordedExpenses?: Prisma.ExpenseOrderByRelationAggregateInput
   voidedExpenses?: Prisma.ExpenseOrderByRelationAggregateInput
@@ -354,6 +358,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   issuedInvoices?: Prisma.InvoiceListRelationFilter
   recordedPayments?: Prisma.PaymentListRelationFilter
   invoiceAdjustments?: Prisma.InvoiceAdjustmentListRelationFilter
+  requestedAdjustments?: Prisma.InvoiceAdjustmentListRelationFilter
+  freeRequestedInvoices?: Prisma.InvoiceListRelationFilter
   issuedRefunds?: Prisma.RefundListRelationFilter
   recordedExpenses?: Prisma.ExpenseListRelationFilter
   voidedExpenses?: Prisma.ExpenseListRelationFilter
@@ -436,6 +442,8 @@ export type UserCreateInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -482,6 +490,8 @@ export type UserUncheckedCreateInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -528,6 +538,8 @@ export type UserUpdateInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -574,6 +586,8 @@ export type UserUncheckedUpdateInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -1016,6 +1030,12 @@ export type UserCreateNestedOneWithoutIssuedInvoicesInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
+export type UserCreateNestedOneWithoutFreeRequestedInvoicesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFreeRequestedInvoicesInput, Prisma.UserUncheckedCreateWithoutFreeRequestedInvoicesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFreeRequestedInvoicesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
 export type UserUpdateOneRequiredWithoutIssuedInvoicesNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutIssuedInvoicesInput, Prisma.UserUncheckedCreateWithoutIssuedInvoicesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutIssuedInvoicesInput
@@ -1024,9 +1044,25 @@ export type UserUpdateOneRequiredWithoutIssuedInvoicesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutIssuedInvoicesInput, Prisma.UserUpdateWithoutIssuedInvoicesInput>, Prisma.UserUncheckedUpdateWithoutIssuedInvoicesInput>
 }
 
+export type UserUpdateOneWithoutFreeRequestedInvoicesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFreeRequestedInvoicesInput, Prisma.UserUncheckedCreateWithoutFreeRequestedInvoicesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFreeRequestedInvoicesInput
+  upsert?: Prisma.UserUpsertWithoutFreeRequestedInvoicesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFreeRequestedInvoicesInput, Prisma.UserUpdateWithoutFreeRequestedInvoicesInput>, Prisma.UserUncheckedUpdateWithoutFreeRequestedInvoicesInput>
+}
+
 export type UserCreateNestedOneWithoutInvoiceAdjustmentsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutInvoiceAdjustmentsInput, Prisma.UserUncheckedCreateWithoutInvoiceAdjustmentsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutInvoiceAdjustmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutRequestedAdjustmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRequestedAdjustmentsInput, Prisma.UserUncheckedCreateWithoutRequestedAdjustmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRequestedAdjustmentsInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
@@ -1036,6 +1072,16 @@ export type UserUpdateOneRequiredWithoutInvoiceAdjustmentsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutInvoiceAdjustmentsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutInvoiceAdjustmentsInput, Prisma.UserUpdateWithoutInvoiceAdjustmentsInput>, Prisma.UserUncheckedUpdateWithoutInvoiceAdjustmentsInput>
+}
+
+export type UserUpdateOneWithoutRequestedAdjustmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRequestedAdjustmentsInput, Prisma.UserUncheckedCreateWithoutRequestedAdjustmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRequestedAdjustmentsInput
+  upsert?: Prisma.UserUpsertWithoutRequestedAdjustmentsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRequestedAdjustmentsInput, Prisma.UserUpdateWithoutRequestedAdjustmentsInput>, Prisma.UserUncheckedUpdateWithoutRequestedAdjustmentsInput>
 }
 
 export type UserCreateNestedOneWithoutRecordedPaymentsInput = {
@@ -1238,6 +1284,8 @@ export type UserCreateWithoutRefreshSessionsInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -1283,6 +1331,8 @@ export type UserUncheckedCreateWithoutRefreshSessionsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -1344,6 +1394,8 @@ export type UserUpdateWithoutRefreshSessionsInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -1389,6 +1441,8 @@ export type UserUncheckedUpdateWithoutRefreshSessionsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -1434,6 +1488,8 @@ export type UserCreateWithoutDepartmentInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -1479,6 +1535,8 @@ export type UserUncheckedCreateWithoutDepartmentInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -1568,6 +1626,8 @@ export type UserCreateWithoutCreatedPatientsInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -1613,6 +1673,8 @@ export type UserUncheckedCreateWithoutCreatedPatientsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -1674,6 +1736,8 @@ export type UserUpdateWithoutCreatedPatientsInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -1719,6 +1783,8 @@ export type UserUncheckedUpdateWithoutCreatedPatientsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -1764,6 +1830,8 @@ export type UserCreateWithoutCreatedEncountersInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -1809,6 +1877,8 @@ export type UserUncheckedCreateWithoutCreatedEncountersInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -1859,6 +1929,8 @@ export type UserCreateWithoutAssignedEncountersInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -1904,6 +1976,8 @@ export type UserUncheckedCreateWithoutAssignedEncountersInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -1965,6 +2039,8 @@ export type UserUpdateWithoutCreatedEncountersInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -2010,6 +2086,8 @@ export type UserUncheckedUpdateWithoutCreatedEncountersInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -2066,6 +2144,8 @@ export type UserUpdateWithoutAssignedEncountersInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -2111,6 +2191,8 @@ export type UserUncheckedUpdateWithoutAssignedEncountersInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -2157,6 +2239,8 @@ export type UserCreateWithoutCreatedAppointmentsInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -2202,6 +2286,8 @@ export type UserUncheckedCreateWithoutCreatedAppointmentsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -2263,6 +2349,8 @@ export type UserUpdateWithoutCreatedAppointmentsInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -2308,6 +2396,8 @@ export type UserUncheckedUpdateWithoutCreatedAppointmentsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -2352,6 +2442,8 @@ export type UserCreateWithoutAssignedQueuesInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -2397,6 +2489,8 @@ export type UserUncheckedCreateWithoutAssignedQueuesInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -2458,6 +2552,8 @@ export type UserUpdateWithoutAssignedQueuesInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -2503,6 +2599,8 @@ export type UserUncheckedUpdateWithoutAssignedQueuesInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -2548,6 +2646,8 @@ export type UserCreateWithoutRecordedTriagesInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -2593,6 +2693,8 @@ export type UserUncheckedCreateWithoutRecordedTriagesInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -2654,6 +2756,8 @@ export type UserUpdateWithoutRecordedTriagesInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -2699,6 +2803,8 @@ export type UserUncheckedUpdateWithoutRecordedTriagesInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -2744,6 +2850,8 @@ export type UserCreateWithoutConsultationsInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -2789,6 +2897,8 @@ export type UserUncheckedCreateWithoutConsultationsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -2850,6 +2960,8 @@ export type UserUpdateWithoutConsultationsInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -2895,6 +3007,8 @@ export type UserUncheckedUpdateWithoutConsultationsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -2940,6 +3054,8 @@ export type UserCreateWithoutDiagnosesInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -2985,6 +3101,8 @@ export type UserUncheckedCreateWithoutDiagnosesInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -3046,6 +3164,8 @@ export type UserUpdateWithoutDiagnosesInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -3091,6 +3211,8 @@ export type UserUncheckedUpdateWithoutDiagnosesInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -3136,6 +3258,8 @@ export type UserCreateWithoutAuditLogsInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -3181,6 +3305,8 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -3242,6 +3368,8 @@ export type UserUpdateWithoutAuditLogsInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -3287,6 +3415,8 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -3332,6 +3462,8 @@ export type UserCreateWithoutOrderedLabOrdersInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -3377,6 +3509,8 @@ export type UserUncheckedCreateWithoutOrderedLabOrdersInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -3438,6 +3572,8 @@ export type UserUpdateWithoutOrderedLabOrdersInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -3483,6 +3619,8 @@ export type UserUncheckedUpdateWithoutOrderedLabOrdersInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -3529,6 +3667,8 @@ export type UserCreateWithoutClinicalMessagesInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -3574,6 +3714,8 @@ export type UserUncheckedCreateWithoutClinicalMessagesInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -3635,6 +3777,8 @@ export type UserUpdateWithoutClinicalMessagesInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -3680,6 +3824,8 @@ export type UserUncheckedUpdateWithoutClinicalMessagesInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -3724,6 +3870,8 @@ export type UserCreateWithoutEnteredLabResultsInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -3769,6 +3917,8 @@ export type UserUncheckedCreateWithoutEnteredLabResultsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -3819,6 +3969,8 @@ export type UserCreateWithoutVerifiedLabResultsInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -3864,6 +4016,8 @@ export type UserUncheckedCreateWithoutVerifiedLabResultsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -3925,6 +4079,8 @@ export type UserUpdateWithoutEnteredLabResultsInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -3970,6 +4126,8 @@ export type UserUncheckedUpdateWithoutEnteredLabResultsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -4026,6 +4184,8 @@ export type UserUpdateWithoutVerifiedLabResultsInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -4071,6 +4231,8 @@ export type UserUncheckedUpdateWithoutVerifiedLabResultsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -4116,6 +4278,8 @@ export type UserCreateWithoutPrescriptionsInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -4161,6 +4325,8 @@ export type UserUncheckedCreateWithoutPrescriptionsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -4222,6 +4388,8 @@ export type UserUpdateWithoutPrescriptionsInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -4267,6 +4435,8 @@ export type UserUncheckedUpdateWithoutPrescriptionsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -4312,6 +4482,8 @@ export type UserCreateWithoutInventoryMovementsInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -4357,6 +4529,8 @@ export type UserUncheckedCreateWithoutInventoryMovementsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -4418,6 +4592,8 @@ export type UserUpdateWithoutInventoryMovementsInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -4463,6 +4639,8 @@ export type UserUncheckedUpdateWithoutInventoryMovementsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -4508,6 +4686,8 @@ export type UserCreateWithoutDispensingsInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -4553,6 +4733,8 @@ export type UserUncheckedCreateWithoutDispensingsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -4614,6 +4796,8 @@ export type UserUpdateWithoutDispensingsInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -4659,6 +4843,8 @@ export type UserUncheckedUpdateWithoutDispensingsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -4704,6 +4890,8 @@ export type UserCreateWithoutIssuedInvoicesInput = {
   inventoryMovements?: Prisma.InventoryMovementCreateNestedManyWithoutPerformedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -4749,6 +4937,8 @@ export type UserUncheckedCreateWithoutIssuedInvoicesInput = {
   inventoryMovements?: Prisma.InventoryMovementUncheckedCreateNestedManyWithoutPerformedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -4767,6 +4957,105 @@ export type UserUncheckedCreateWithoutIssuedInvoicesInput = {
 export type UserCreateOrConnectWithoutIssuedInvoicesInput = {
   where: Prisma.UserWhereUniqueInput
   create: Prisma.XOR<Prisma.UserCreateWithoutIssuedInvoicesInput, Prisma.UserUncheckedCreateWithoutIssuedInvoicesInput>
+}
+
+export type UserCreateWithoutFreeRequestedInvoicesInput = {
+  id?: string
+  email: string
+  phone?: string | null
+  passwordHash: string
+  firstName: string
+  lastName: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  department?: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  refreshSessions?: Prisma.RefreshSessionCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientCreateNestedManyWithoutCreatedByInput
+  createdEncounters?: Prisma.EncounterCreateNestedManyWithoutCreatedByInput
+  assignedEncounters?: Prisma.EncounterCreateNestedManyWithoutAssignedDoctorInput
+  assignedQueues?: Prisma.QueueEntryCreateNestedManyWithoutAssignedToInput
+  recordedTriages?: Prisma.TriageCreateNestedManyWithoutRecordedByInput
+  consultations?: Prisma.ConsultationCreateNestedManyWithoutDoctorInput
+  diagnoses?: Prisma.DiagnosisCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  orderedLabOrders?: Prisma.LabOrderCreateNestedManyWithoutDoctorInput
+  enteredLabResults?: Prisma.LabResultCreateNestedManyWithoutEnteredByInput
+  verifiedLabResults?: Prisma.LabResultCreateNestedManyWithoutVerifiedByInput
+  prescriptions?: Prisma.PrescriptionCreateNestedManyWithoutDoctorInput
+  dispensings?: Prisma.DispensingCreateNestedManyWithoutPharmacistInput
+  inventoryMovements?: Prisma.InventoryMovementCreateNestedManyWithoutPerformedByInput
+  issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
+  recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
+  invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
+  recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
+  voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
+  cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
+  obstetricHistories?: Prisma.ObstetricHistoryCreateNestedManyWithoutRecordedByInput
+  ancVisits?: Prisma.AncVisitCreateNestedManyWithoutRecordedByInput
+  laborAdmissions?: Prisma.LaborAdmissionCreateNestedManyWithoutRecordedByInput
+  laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
+  deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
+  familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
+}
+
+export type UserUncheckedCreateWithoutFreeRequestedInvoicesInput = {
+  id?: string
+  email: string
+  phone?: string | null
+  passwordHash: string
+  firstName: string
+  lastName: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  departmentId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshSessions?: Prisma.RefreshSessionUncheckedCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientUncheckedCreateNestedManyWithoutCreatedByInput
+  createdEncounters?: Prisma.EncounterUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedEncounters?: Prisma.EncounterUncheckedCreateNestedManyWithoutAssignedDoctorInput
+  assignedQueues?: Prisma.QueueEntryUncheckedCreateNestedManyWithoutAssignedToInput
+  recordedTriages?: Prisma.TriageUncheckedCreateNestedManyWithoutRecordedByInput
+  consultations?: Prisma.ConsultationUncheckedCreateNestedManyWithoutDoctorInput
+  diagnoses?: Prisma.DiagnosisUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  orderedLabOrders?: Prisma.LabOrderUncheckedCreateNestedManyWithoutDoctorInput
+  enteredLabResults?: Prisma.LabResultUncheckedCreateNestedManyWithoutEnteredByInput
+  verifiedLabResults?: Prisma.LabResultUncheckedCreateNestedManyWithoutVerifiedByInput
+  prescriptions?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutDoctorInput
+  dispensings?: Prisma.DispensingUncheckedCreateNestedManyWithoutPharmacistInput
+  inventoryMovements?: Prisma.InventoryMovementUncheckedCreateNestedManyWithoutPerformedByInput
+  issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
+  recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
+  invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
+  recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
+  voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
+  cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
+  obstetricHistories?: Prisma.ObstetricHistoryUncheckedCreateNestedManyWithoutRecordedByInput
+  ancVisits?: Prisma.AncVisitUncheckedCreateNestedManyWithoutRecordedByInput
+  laborAdmissions?: Prisma.LaborAdmissionUncheckedCreateNestedManyWithoutRecordedByInput
+  laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
+  familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
+}
+
+export type UserCreateOrConnectWithoutFreeRequestedInvoicesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFreeRequestedInvoicesInput, Prisma.UserUncheckedCreateWithoutFreeRequestedInvoicesInput>
 }
 
 export type UserUpsertWithoutIssuedInvoicesInput = {
@@ -4810,6 +5099,8 @@ export type UserUpdateWithoutIssuedInvoicesInput = {
   inventoryMovements?: Prisma.InventoryMovementUpdateManyWithoutPerformedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -4855,6 +5146,113 @@ export type UserUncheckedUpdateWithoutIssuedInvoicesInput = {
   inventoryMovements?: Prisma.InventoryMovementUncheckedUpdateManyWithoutPerformedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
+  issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
+  recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
+  voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
+  cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  obstetricHistories?: Prisma.ObstetricHistoryUncheckedUpdateManyWithoutRecordedByNestedInput
+  ancVisits?: Prisma.AncVisitUncheckedUpdateManyWithoutRecordedByNestedInput
+  laborAdmissions?: Prisma.LaborAdmissionUncheckedUpdateManyWithoutRecordedByNestedInput
+  laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
+  familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserUpsertWithoutFreeRequestedInvoicesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFreeRequestedInvoicesInput, Prisma.UserUncheckedUpdateWithoutFreeRequestedInvoicesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFreeRequestedInvoicesInput, Prisma.UserUncheckedCreateWithoutFreeRequestedInvoicesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutFreeRequestedInvoicesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFreeRequestedInvoicesInput, Prisma.UserUncheckedUpdateWithoutFreeRequestedInvoicesInput>
+}
+
+export type UserUpdateWithoutFreeRequestedInvoicesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  department?: Prisma.DepartmentUpdateOneWithoutUsersNestedInput
+  refreshSessions?: Prisma.RefreshSessionUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUpdateManyWithoutCreatedByNestedInput
+  createdEncounters?: Prisma.EncounterUpdateManyWithoutCreatedByNestedInput
+  assignedEncounters?: Prisma.EncounterUpdateManyWithoutAssignedDoctorNestedInput
+  assignedQueues?: Prisma.QueueEntryUpdateManyWithoutAssignedToNestedInput
+  recordedTriages?: Prisma.TriageUpdateManyWithoutRecordedByNestedInput
+  consultations?: Prisma.ConsultationUpdateManyWithoutDoctorNestedInput
+  diagnoses?: Prisma.DiagnosisUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  orderedLabOrders?: Prisma.LabOrderUpdateManyWithoutDoctorNestedInput
+  enteredLabResults?: Prisma.LabResultUpdateManyWithoutEnteredByNestedInput
+  verifiedLabResults?: Prisma.LabResultUpdateManyWithoutVerifiedByNestedInput
+  prescriptions?: Prisma.PrescriptionUpdateManyWithoutDoctorNestedInput
+  dispensings?: Prisma.DispensingUpdateManyWithoutPharmacistNestedInput
+  inventoryMovements?: Prisma.InventoryMovementUpdateManyWithoutPerformedByNestedInput
+  issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
+  recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
+  invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
+  recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
+  voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
+  cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
+  obstetricHistories?: Prisma.ObstetricHistoryUpdateManyWithoutRecordedByNestedInput
+  ancVisits?: Prisma.AncVisitUpdateManyWithoutRecordedByNestedInput
+  laborAdmissions?: Prisma.LaborAdmissionUpdateManyWithoutRecordedByNestedInput
+  laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
+  deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
+  familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFreeRequestedInvoicesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshSessions?: Prisma.RefreshSessionUncheckedUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdEncounters?: Prisma.EncounterUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedEncounters?: Prisma.EncounterUncheckedUpdateManyWithoutAssignedDoctorNestedInput
+  assignedQueues?: Prisma.QueueEntryUncheckedUpdateManyWithoutAssignedToNestedInput
+  recordedTriages?: Prisma.TriageUncheckedUpdateManyWithoutRecordedByNestedInput
+  consultations?: Prisma.ConsultationUncheckedUpdateManyWithoutDoctorNestedInput
+  diagnoses?: Prisma.DiagnosisUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  orderedLabOrders?: Prisma.LabOrderUncheckedUpdateManyWithoutDoctorNestedInput
+  enteredLabResults?: Prisma.LabResultUncheckedUpdateManyWithoutEnteredByNestedInput
+  verifiedLabResults?: Prisma.LabResultUncheckedUpdateManyWithoutVerifiedByNestedInput
+  prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutDoctorNestedInput
+  dispensings?: Prisma.DispensingUncheckedUpdateManyWithoutPharmacistNestedInput
+  inventoryMovements?: Prisma.InventoryMovementUncheckedUpdateManyWithoutPerformedByNestedInput
+  issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
+  recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
+  invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -4900,6 +5298,8 @@ export type UserCreateWithoutInvoiceAdjustmentsInput = {
   inventoryMovements?: Prisma.InventoryMovementCreateNestedManyWithoutPerformedByInput
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -4945,6 +5345,8 @@ export type UserUncheckedCreateWithoutInvoiceAdjustmentsInput = {
   inventoryMovements?: Prisma.InventoryMovementUncheckedCreateNestedManyWithoutPerformedByInput
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -4963,6 +5365,105 @@ export type UserUncheckedCreateWithoutInvoiceAdjustmentsInput = {
 export type UserCreateOrConnectWithoutInvoiceAdjustmentsInput = {
   where: Prisma.UserWhereUniqueInput
   create: Prisma.XOR<Prisma.UserCreateWithoutInvoiceAdjustmentsInput, Prisma.UserUncheckedCreateWithoutInvoiceAdjustmentsInput>
+}
+
+export type UserCreateWithoutRequestedAdjustmentsInput = {
+  id?: string
+  email: string
+  phone?: string | null
+  passwordHash: string
+  firstName: string
+  lastName: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  department?: Prisma.DepartmentCreateNestedOneWithoutUsersInput
+  refreshSessions?: Prisma.RefreshSessionCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientCreateNestedManyWithoutCreatedByInput
+  createdEncounters?: Prisma.EncounterCreateNestedManyWithoutCreatedByInput
+  assignedEncounters?: Prisma.EncounterCreateNestedManyWithoutAssignedDoctorInput
+  assignedQueues?: Prisma.QueueEntryCreateNestedManyWithoutAssignedToInput
+  recordedTriages?: Prisma.TriageCreateNestedManyWithoutRecordedByInput
+  consultations?: Prisma.ConsultationCreateNestedManyWithoutDoctorInput
+  diagnoses?: Prisma.DiagnosisCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  orderedLabOrders?: Prisma.LabOrderCreateNestedManyWithoutDoctorInput
+  enteredLabResults?: Prisma.LabResultCreateNestedManyWithoutEnteredByInput
+  verifiedLabResults?: Prisma.LabResultCreateNestedManyWithoutVerifiedByInput
+  prescriptions?: Prisma.PrescriptionCreateNestedManyWithoutDoctorInput
+  dispensings?: Prisma.DispensingCreateNestedManyWithoutPharmacistInput
+  inventoryMovements?: Prisma.InventoryMovementCreateNestedManyWithoutPerformedByInput
+  issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
+  recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
+  invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
+  issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
+  recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
+  voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
+  cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentCreateNestedManyWithoutCreatedByInput
+  obstetricHistories?: Prisma.ObstetricHistoryCreateNestedManyWithoutRecordedByInput
+  ancVisits?: Prisma.AncVisitCreateNestedManyWithoutRecordedByInput
+  laborAdmissions?: Prisma.LaborAdmissionCreateNestedManyWithoutRecordedByInput
+  laborMonitoring?: Prisma.LaborMonitoringEntryCreateNestedManyWithoutRecordedByInput
+  deliverySummaries?: Prisma.DeliverySummaryCreateNestedManyWithoutRecordedByInput
+  familyPlanningRecords?: Prisma.FamilyPlanningRecordCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageCreateNestedManyWithoutAuthorInput
+}
+
+export type UserUncheckedCreateWithoutRequestedAdjustmentsInput = {
+  id?: string
+  email: string
+  phone?: string | null
+  passwordHash: string
+  firstName: string
+  lastName: string
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  departmentId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshSessions?: Prisma.RefreshSessionUncheckedCreateNestedManyWithoutUserInput
+  createdPatients?: Prisma.PatientUncheckedCreateNestedManyWithoutCreatedByInput
+  createdEncounters?: Prisma.EncounterUncheckedCreateNestedManyWithoutCreatedByInput
+  assignedEncounters?: Prisma.EncounterUncheckedCreateNestedManyWithoutAssignedDoctorInput
+  assignedQueues?: Prisma.QueueEntryUncheckedCreateNestedManyWithoutAssignedToInput
+  recordedTriages?: Prisma.TriageUncheckedCreateNestedManyWithoutRecordedByInput
+  consultations?: Prisma.ConsultationUncheckedCreateNestedManyWithoutDoctorInput
+  diagnoses?: Prisma.DiagnosisUncheckedCreateNestedManyWithoutCreatedByInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  orderedLabOrders?: Prisma.LabOrderUncheckedCreateNestedManyWithoutDoctorInput
+  enteredLabResults?: Prisma.LabResultUncheckedCreateNestedManyWithoutEnteredByInput
+  verifiedLabResults?: Prisma.LabResultUncheckedCreateNestedManyWithoutVerifiedByInput
+  prescriptions?: Prisma.PrescriptionUncheckedCreateNestedManyWithoutDoctorInput
+  dispensings?: Prisma.DispensingUncheckedCreateNestedManyWithoutPharmacistInput
+  inventoryMovements?: Prisma.InventoryMovementUncheckedCreateNestedManyWithoutPerformedByInput
+  issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
+  recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
+  invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
+  issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
+  recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
+  voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
+  cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutRecipientInput
+  createdAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCreatedByInput
+  obstetricHistories?: Prisma.ObstetricHistoryUncheckedCreateNestedManyWithoutRecordedByInput
+  ancVisits?: Prisma.AncVisitUncheckedCreateNestedManyWithoutRecordedByInput
+  laborAdmissions?: Prisma.LaborAdmissionUncheckedCreateNestedManyWithoutRecordedByInput
+  laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedCreateNestedManyWithoutRecordedByInput
+  deliverySummaries?: Prisma.DeliverySummaryUncheckedCreateNestedManyWithoutRecordedByInput
+  familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedCreateNestedManyWithoutRecordedByInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedCreateNestedManyWithoutAuthorInput
+}
+
+export type UserCreateOrConnectWithoutRequestedAdjustmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRequestedAdjustmentsInput, Prisma.UserUncheckedCreateWithoutRequestedAdjustmentsInput>
 }
 
 export type UserUpsertWithoutInvoiceAdjustmentsInput = {
@@ -5006,6 +5507,8 @@ export type UserUpdateWithoutInvoiceAdjustmentsInput = {
   inventoryMovements?: Prisma.InventoryMovementUpdateManyWithoutPerformedByNestedInput
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -5051,6 +5554,113 @@ export type UserUncheckedUpdateWithoutInvoiceAdjustmentsInput = {
   inventoryMovements?: Prisma.InventoryMovementUncheckedUpdateManyWithoutPerformedByNestedInput
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
+  issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
+  recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
+  voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
+  cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCreatedByNestedInput
+  obstetricHistories?: Prisma.ObstetricHistoryUncheckedUpdateManyWithoutRecordedByNestedInput
+  ancVisits?: Prisma.AncVisitUncheckedUpdateManyWithoutRecordedByNestedInput
+  laborAdmissions?: Prisma.LaborAdmissionUncheckedUpdateManyWithoutRecordedByNestedInput
+  laborMonitoring?: Prisma.LaborMonitoringEntryUncheckedUpdateManyWithoutRecordedByNestedInput
+  deliverySummaries?: Prisma.DeliverySummaryUncheckedUpdateManyWithoutRecordedByNestedInput
+  familyPlanningRecords?: Prisma.FamilyPlanningRecordUncheckedUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUncheckedUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserUpsertWithoutRequestedAdjustmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRequestedAdjustmentsInput, Prisma.UserUncheckedUpdateWithoutRequestedAdjustmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRequestedAdjustmentsInput, Prisma.UserUncheckedCreateWithoutRequestedAdjustmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRequestedAdjustmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRequestedAdjustmentsInput, Prisma.UserUncheckedUpdateWithoutRequestedAdjustmentsInput>
+}
+
+export type UserUpdateWithoutRequestedAdjustmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  department?: Prisma.DepartmentUpdateOneWithoutUsersNestedInput
+  refreshSessions?: Prisma.RefreshSessionUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUpdateManyWithoutCreatedByNestedInput
+  createdEncounters?: Prisma.EncounterUpdateManyWithoutCreatedByNestedInput
+  assignedEncounters?: Prisma.EncounterUpdateManyWithoutAssignedDoctorNestedInput
+  assignedQueues?: Prisma.QueueEntryUpdateManyWithoutAssignedToNestedInput
+  recordedTriages?: Prisma.TriageUpdateManyWithoutRecordedByNestedInput
+  consultations?: Prisma.ConsultationUpdateManyWithoutDoctorNestedInput
+  diagnoses?: Prisma.DiagnosisUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  orderedLabOrders?: Prisma.LabOrderUpdateManyWithoutDoctorNestedInput
+  enteredLabResults?: Prisma.LabResultUpdateManyWithoutEnteredByNestedInput
+  verifiedLabResults?: Prisma.LabResultUpdateManyWithoutVerifiedByNestedInput
+  prescriptions?: Prisma.PrescriptionUpdateManyWithoutDoctorNestedInput
+  dispensings?: Prisma.DispensingUpdateManyWithoutPharmacistNestedInput
+  inventoryMovements?: Prisma.InventoryMovementUpdateManyWithoutPerformedByNestedInput
+  issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
+  recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
+  invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
+  issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
+  recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
+  voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
+  cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutRecipientNestedInput
+  createdAppointments?: Prisma.AppointmentUpdateManyWithoutCreatedByNestedInput
+  obstetricHistories?: Prisma.ObstetricHistoryUpdateManyWithoutRecordedByNestedInput
+  ancVisits?: Prisma.AncVisitUpdateManyWithoutRecordedByNestedInput
+  laborAdmissions?: Prisma.LaborAdmissionUpdateManyWithoutRecordedByNestedInput
+  laborMonitoring?: Prisma.LaborMonitoringEntryUpdateManyWithoutRecordedByNestedInput
+  deliverySummaries?: Prisma.DeliverySummaryUpdateManyWithoutRecordedByNestedInput
+  familyPlanningRecords?: Prisma.FamilyPlanningRecordUpdateManyWithoutRecordedByNestedInput
+  clinicalMessages?: Prisma.ClinicalMessageUpdateManyWithoutAuthorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRequestedAdjustmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  departmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshSessions?: Prisma.RefreshSessionUncheckedUpdateManyWithoutUserNestedInput
+  createdPatients?: Prisma.PatientUncheckedUpdateManyWithoutCreatedByNestedInput
+  createdEncounters?: Prisma.EncounterUncheckedUpdateManyWithoutCreatedByNestedInput
+  assignedEncounters?: Prisma.EncounterUncheckedUpdateManyWithoutAssignedDoctorNestedInput
+  assignedQueues?: Prisma.QueueEntryUncheckedUpdateManyWithoutAssignedToNestedInput
+  recordedTriages?: Prisma.TriageUncheckedUpdateManyWithoutRecordedByNestedInput
+  consultations?: Prisma.ConsultationUncheckedUpdateManyWithoutDoctorNestedInput
+  diagnoses?: Prisma.DiagnosisUncheckedUpdateManyWithoutCreatedByNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  orderedLabOrders?: Prisma.LabOrderUncheckedUpdateManyWithoutDoctorNestedInput
+  enteredLabResults?: Prisma.LabResultUncheckedUpdateManyWithoutEnteredByNestedInput
+  verifiedLabResults?: Prisma.LabResultUncheckedUpdateManyWithoutVerifiedByNestedInput
+  prescriptions?: Prisma.PrescriptionUncheckedUpdateManyWithoutDoctorNestedInput
+  dispensings?: Prisma.DispensingUncheckedUpdateManyWithoutPharmacistNestedInput
+  inventoryMovements?: Prisma.InventoryMovementUncheckedUpdateManyWithoutPerformedByNestedInput
+  issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
+  recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
+  invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -5096,6 +5706,8 @@ export type UserCreateWithoutRecordedPaymentsInput = {
   inventoryMovements?: Prisma.InventoryMovementCreateNestedManyWithoutPerformedByInput
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -5141,6 +5753,8 @@ export type UserUncheckedCreateWithoutRecordedPaymentsInput = {
   inventoryMovements?: Prisma.InventoryMovementUncheckedCreateNestedManyWithoutPerformedByInput
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -5202,6 +5816,8 @@ export type UserUpdateWithoutRecordedPaymentsInput = {
   inventoryMovements?: Prisma.InventoryMovementUpdateManyWithoutPerformedByNestedInput
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -5247,6 +5863,8 @@ export type UserUncheckedUpdateWithoutRecordedPaymentsInput = {
   inventoryMovements?: Prisma.InventoryMovementUncheckedUpdateManyWithoutPerformedByNestedInput
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -5293,6 +5911,8 @@ export type UserCreateWithoutIssuedRefundsInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
@@ -5338,6 +5958,8 @@ export type UserUncheckedCreateWithoutIssuedRefundsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
@@ -5399,6 +6021,8 @@ export type UserUpdateWithoutIssuedRefundsInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
@@ -5444,6 +6068,8 @@ export type UserUncheckedUpdateWithoutIssuedRefundsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
@@ -5489,6 +6115,8 @@ export type UserCreateWithoutRecordedExpensesInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
@@ -5534,6 +6162,8 @@ export type UserUncheckedCreateWithoutRecordedExpensesInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
@@ -5584,6 +6214,8 @@ export type UserCreateWithoutVoidedExpensesInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   cashSessions?: Prisma.CashSessionCreateNestedManyWithoutCashierInput
@@ -5629,6 +6261,8 @@ export type UserUncheckedCreateWithoutVoidedExpensesInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   cashSessions?: Prisma.CashSessionUncheckedCreateNestedManyWithoutCashierInput
@@ -5690,6 +6324,8 @@ export type UserUpdateWithoutRecordedExpensesInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
@@ -5735,6 +6371,8 @@ export type UserUncheckedUpdateWithoutRecordedExpensesInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
@@ -5791,6 +6429,8 @@ export type UserUpdateWithoutVoidedExpensesInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   cashSessions?: Prisma.CashSessionUpdateManyWithoutCashierNestedInput
@@ -5836,6 +6476,8 @@ export type UserUncheckedUpdateWithoutVoidedExpensesInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   cashSessions?: Prisma.CashSessionUncheckedUpdateManyWithoutCashierNestedInput
@@ -5881,6 +6523,8 @@ export type UserCreateWithoutCashSessionsInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -5926,6 +6570,8 @@ export type UserUncheckedCreateWithoutCashSessionsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -5987,6 +6633,8 @@ export type UserUpdateWithoutCashSessionsInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -6032,6 +6680,8 @@ export type UserUncheckedUpdateWithoutCashSessionsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -6077,6 +6727,8 @@ export type UserCreateWithoutNotificationsInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -6122,6 +6774,8 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -6183,6 +6837,8 @@ export type UserUpdateWithoutNotificationsInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -6228,6 +6884,8 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -6273,6 +6931,8 @@ export type UserCreateWithoutObstetricHistoriesInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -6318,6 +6978,8 @@ export type UserUncheckedCreateWithoutObstetricHistoriesInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -6379,6 +7041,8 @@ export type UserUpdateWithoutObstetricHistoriesInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -6424,6 +7088,8 @@ export type UserUncheckedUpdateWithoutObstetricHistoriesInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -6469,6 +7135,8 @@ export type UserCreateWithoutAncVisitsInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -6514,6 +7182,8 @@ export type UserUncheckedCreateWithoutAncVisitsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -6575,6 +7245,8 @@ export type UserUpdateWithoutAncVisitsInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -6620,6 +7292,8 @@ export type UserUncheckedUpdateWithoutAncVisitsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -6665,6 +7339,8 @@ export type UserCreateWithoutLaborAdmissionsInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -6710,6 +7386,8 @@ export type UserUncheckedCreateWithoutLaborAdmissionsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -6771,6 +7449,8 @@ export type UserUpdateWithoutLaborAdmissionsInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -6816,6 +7496,8 @@ export type UserUncheckedUpdateWithoutLaborAdmissionsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -6861,6 +7543,8 @@ export type UserCreateWithoutLaborMonitoringInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -6906,6 +7590,8 @@ export type UserUncheckedCreateWithoutLaborMonitoringInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -6967,6 +7653,8 @@ export type UserUpdateWithoutLaborMonitoringInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -7012,6 +7700,8 @@ export type UserUncheckedUpdateWithoutLaborMonitoringInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -7057,6 +7747,8 @@ export type UserCreateWithoutDeliverySummariesInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -7102,6 +7794,8 @@ export type UserUncheckedCreateWithoutDeliverySummariesInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -7163,6 +7857,8 @@ export type UserUpdateWithoutDeliverySummariesInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -7208,6 +7904,8 @@ export type UserUncheckedUpdateWithoutDeliverySummariesInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -7253,6 +7951,8 @@ export type UserCreateWithoutFamilyPlanningRecordsInput = {
   issuedInvoices?: Prisma.InvoiceCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseCreateNestedManyWithoutVoidedByInput
@@ -7298,6 +7998,8 @@ export type UserUncheckedCreateWithoutFamilyPlanningRecordsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutIssuedByInput
   recordedPayments?: Prisma.PaymentUncheckedCreateNestedManyWithoutRecordedByInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedCreateNestedManyWithoutFreeRequestedByInput
   issuedRefunds?: Prisma.RefundUncheckedCreateNestedManyWithoutIssuedByInput
   recordedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutRecordedByInput
   voidedExpenses?: Prisma.ExpenseUncheckedCreateNestedManyWithoutVoidedByInput
@@ -7359,6 +8061,8 @@ export type UserUpdateWithoutFamilyPlanningRecordsInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -7404,6 +8108,8 @@ export type UserUncheckedUpdateWithoutFamilyPlanningRecordsInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -7462,6 +8168,8 @@ export type UserUpdateWithoutDepartmentInput = {
   issuedInvoices?: Prisma.InvoiceUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUpdateManyWithoutVoidedByNestedInput
@@ -7507,6 +8215,8 @@ export type UserUncheckedUpdateWithoutDepartmentInput = {
   issuedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedPayments?: Prisma.PaymentUncheckedUpdateManyWithoutRecordedByNestedInput
   invoiceAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput
+  requestedAdjustments?: Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput
+  freeRequestedInvoices?: Prisma.InvoiceUncheckedUpdateManyWithoutFreeRequestedByNestedInput
   issuedRefunds?: Prisma.RefundUncheckedUpdateManyWithoutIssuedByNestedInput
   recordedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutRecordedByNestedInput
   voidedExpenses?: Prisma.ExpenseUncheckedUpdateManyWithoutVoidedByNestedInput
@@ -7560,6 +8270,8 @@ export type UserCountOutputType = {
   issuedInvoices: number
   recordedPayments: number
   invoiceAdjustments: number
+  requestedAdjustments: number
+  freeRequestedInvoices: number
   issuedRefunds: number
   recordedExpenses: number
   voidedExpenses: number
@@ -7594,6 +8306,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   issuedInvoices?: boolean | UserCountOutputTypeCountIssuedInvoicesArgs
   recordedPayments?: boolean | UserCountOutputTypeCountRecordedPaymentsArgs
   invoiceAdjustments?: boolean | UserCountOutputTypeCountInvoiceAdjustmentsArgs
+  requestedAdjustments?: boolean | UserCountOutputTypeCountRequestedAdjustmentsArgs
+  freeRequestedInvoices?: boolean | UserCountOutputTypeCountFreeRequestedInvoicesArgs
   issuedRefunds?: boolean | UserCountOutputTypeCountIssuedRefundsArgs
   recordedExpenses?: boolean | UserCountOutputTypeCountRecordedExpensesArgs
   voidedExpenses?: boolean | UserCountOutputTypeCountVoidedExpensesArgs
@@ -7748,6 +8462,20 @@ export type UserCountOutputTypeCountInvoiceAdjustmentsArgs<ExtArgs extends runti
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountRequestedAdjustmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InvoiceAdjustmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountFreeRequestedInvoicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InvoiceWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountIssuedRefundsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.RefundWhereInput
 }
@@ -7869,6 +8597,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   issuedInvoices?: boolean | Prisma.User$issuedInvoicesArgs<ExtArgs>
   recordedPayments?: boolean | Prisma.User$recordedPaymentsArgs<ExtArgs>
   invoiceAdjustments?: boolean | Prisma.User$invoiceAdjustmentsArgs<ExtArgs>
+  requestedAdjustments?: boolean | Prisma.User$requestedAdjustmentsArgs<ExtArgs>
+  freeRequestedInvoices?: boolean | Prisma.User$freeRequestedInvoicesArgs<ExtArgs>
   issuedRefunds?: boolean | Prisma.User$issuedRefundsArgs<ExtArgs>
   recordedExpenses?: boolean | Prisma.User$recordedExpensesArgs<ExtArgs>
   voidedExpenses?: boolean | Prisma.User$voidedExpensesArgs<ExtArgs>
@@ -7953,6 +8683,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   issuedInvoices?: boolean | Prisma.User$issuedInvoicesArgs<ExtArgs>
   recordedPayments?: boolean | Prisma.User$recordedPaymentsArgs<ExtArgs>
   invoiceAdjustments?: boolean | Prisma.User$invoiceAdjustmentsArgs<ExtArgs>
+  requestedAdjustments?: boolean | Prisma.User$requestedAdjustmentsArgs<ExtArgs>
+  freeRequestedInvoices?: boolean | Prisma.User$freeRequestedInvoicesArgs<ExtArgs>
   issuedRefunds?: boolean | Prisma.User$issuedRefundsArgs<ExtArgs>
   recordedExpenses?: boolean | Prisma.User$recordedExpensesArgs<ExtArgs>
   voidedExpenses?: boolean | Prisma.User$voidedExpensesArgs<ExtArgs>
@@ -7997,6 +8729,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     issuedInvoices: Prisma.$InvoicePayload<ExtArgs>[]
     recordedPayments: Prisma.$PaymentPayload<ExtArgs>[]
     invoiceAdjustments: Prisma.$InvoiceAdjustmentPayload<ExtArgs>[]
+    requestedAdjustments: Prisma.$InvoiceAdjustmentPayload<ExtArgs>[]
+    freeRequestedInvoices: Prisma.$InvoicePayload<ExtArgs>[]
     issuedRefunds: Prisma.$RefundPayload<ExtArgs>[]
     recordedExpenses: Prisma.$ExpensePayload<ExtArgs>[]
     voidedExpenses: Prisma.$ExpensePayload<ExtArgs>[]
@@ -8437,6 +9171,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   issuedInvoices<T extends Prisma.User$issuedInvoicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$issuedInvoicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   recordedPayments<T extends Prisma.User$recordedPaymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recordedPaymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   invoiceAdjustments<T extends Prisma.User$invoiceAdjustmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$invoiceAdjustmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoiceAdjustmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  requestedAdjustments<T extends Prisma.User$requestedAdjustmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$requestedAdjustmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoiceAdjustmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  freeRequestedInvoices<T extends Prisma.User$freeRequestedInvoicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$freeRequestedInvoicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   issuedRefunds<T extends Prisma.User$issuedRefundsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$issuedRefundsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefundPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   recordedExpenses<T extends Prisma.User$recordedExpensesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recordedExpensesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   voidedExpenses<T extends Prisma.User$voidedExpensesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$voidedExpensesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExpensePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -9340,6 +10076,54 @@ export type User$invoiceAdjustmentsArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.InvoiceAdjustmentScalarFieldEnum | Prisma.InvoiceAdjustmentScalarFieldEnum[]
+}
+
+/**
+ * User.requestedAdjustments
+ */
+export type User$requestedAdjustmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InvoiceAdjustment
+   */
+  select?: Prisma.InvoiceAdjustmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InvoiceAdjustment
+   */
+  omit?: Prisma.InvoiceAdjustmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InvoiceAdjustmentInclude<ExtArgs> | null
+  where?: Prisma.InvoiceAdjustmentWhereInput
+  orderBy?: Prisma.InvoiceAdjustmentOrderByWithRelationInput | Prisma.InvoiceAdjustmentOrderByWithRelationInput[]
+  cursor?: Prisma.InvoiceAdjustmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InvoiceAdjustmentScalarFieldEnum | Prisma.InvoiceAdjustmentScalarFieldEnum[]
+}
+
+/**
+ * User.freeRequestedInvoices
+ */
+export type User$freeRequestedInvoicesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Invoice
+   */
+  select?: Prisma.InvoiceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Invoice
+   */
+  omit?: Prisma.InvoiceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InvoiceInclude<ExtArgs> | null
+  where?: Prisma.InvoiceWhereInput
+  orderBy?: Prisma.InvoiceOrderByWithRelationInput | Prisma.InvoiceOrderByWithRelationInput[]
+  cursor?: Prisma.InvoiceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InvoiceScalarFieldEnum | Prisma.InvoiceScalarFieldEnum[]
 }
 
 /**

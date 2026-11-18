@@ -4587,7 +4587,8 @@ export type $EncounterPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     id: string
     encounterNumber: string
     /**
-     * * 1-based visit index for this patient (non-cancelled encounters).
+     * *
+     *    * 1-based visit index for this patient (non-cancelled encounters).
      */
     visitNumber: number
     patientId: string
@@ -4603,11 +4604,13 @@ export type $EncounterPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     createdById: string
     assignedDoctorId: string | null
     /**
-     * * After mid-visit cashier payment, auto-return patient to this station.
+     * *
+     *    * After mid-visit cashier payment, auto-return patient to this station.
      */
     paymentReturnStation: $Enums.QueueStation | null
     /**
-     * * Doctor sent patient to nurse/triage mid-visit (vs reception intake).
+     * *
+     *    * Doctor sent patient to nurse/triage mid-visit (vs reception intake).
      */
     nurseReferralActive: boolean
     createdAt: Date

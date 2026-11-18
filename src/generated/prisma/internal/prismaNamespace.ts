@@ -4058,6 +4058,10 @@ export const InvoiceScalarFieldEnum = {
   paidCents: 'paidCents',
   waivedCents: 'waivedCents',
   deferredCents: 'deferredCents',
+  cancelledCents: 'cancelledCents',
+  freeRequestCents: 'freeRequestCents',
+  freeRequestReason: 'freeRequestReason',
+  freeRequestedById: 'freeRequestedById',
   issuedById: 'issuedById',
   issuedAt: 'issuedAt',
   createdAt: 'createdAt',
@@ -4076,6 +4080,7 @@ export const InvoiceAdjustmentScalarFieldEnum = {
   reason: 'reason',
   idempotencyKey: 'idempotencyKey',
   recordedById: 'recordedById',
+  requestedById: 'requestedById',
   createdAt: 'createdAt'
 } as const
 

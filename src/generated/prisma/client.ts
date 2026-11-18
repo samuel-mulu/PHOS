@@ -176,7 +176,8 @@ export type DispensingItem = Prisma.DispensingItemModel
 export type Invoice = Prisma.InvoiceModel
 /**
  * Model InvoiceAdjustment
- * * Cashier decisions on an unpaid amount: pay later (debt) or waive (free).
+ * *
+ *  * Cashier decisions on an unpaid amount: pay later (debt), waive (free) or cancel.
  */
 export type InvoiceAdjustment = Prisma.InvoiceAdjustmentModel
 /**

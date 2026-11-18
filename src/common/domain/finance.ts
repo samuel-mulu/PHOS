@@ -52,3 +52,28 @@ export function invoiceStatusFor(inv: InvoiceMoney): PayableInvoiceStatus {
   if (inv.paidCents > 0 || (inv.waivedCents ?? 0) > 0) return "PARTIALLY_PAID";
   return "ISSUED";
 }
+
+/** Invoice line used when spreading money over lines. */
+export interface MoneyLine {
+  id: string;
+  totalCents: number;
+}
+
+/**
+ * Lines not yet covered by paid, waived or pay-later money, with what remains.
+ * Money is spread over lines in order (same rule as the frontend line states).
+ */
+export function unsettledItems<T extends MoneyLine>(
+  inv: InvoiceMoney,
+  items: T[],
+): Array<T & { remainingCents: number }> {
+  let covered = inv.paidCents + (inv.waivedCents ?? 0) + clampDeferred(inv);
+  const out: Array<T & { remainingCents: number }> = [];
+  for (const item of items) {
+    const used = Math.min(covered, item.totalCents);
+    covered -= used;
+    const remaining = item.totalCents - used;
+    if (remaining > 0) out.push({ ...item, remainingCents: remaining });
+  }
+  return out;
+}

@@ -5,6 +5,7 @@ import {
   invoiceBalance,
   invoiceDueNow,
   invoiceStatusFor,
+  unsettledItems,
 } from "../src/common/domain/finance";
 describe("finance domain rules", () => {
   it("calculates invoice amounts in integer cents", () => {
@@ -65,5 +66,35 @@ describe("partial / pay later / waive balance rules", () => {
   it("refund back to zero paid returns to ISSUED", () => {
     expect(invoiceStatusFor({ ...inv, paidCents: 0 })).toBe("ISSUED");
     expect(invoiceStatusFor({ ...inv, paidCents: 50000 })).toBe("PAID");
+  });
+  it("cancel voids what is due now; earlier pay later stays owed", () => {
+    // 1 ETB paid, 200 ETB due: cancel 200 (stored in waived, not owed).
+    const part = { totalCents: 20100, paidCents: 100, waivedCents: 0, deferredCents: 0 };
+    const due = invoiceDueNow(part);
+    expect(due).toBe(20000);
+    const after = { ...part, waivedCents: due };
+    expect(invoiceBalance(after)).toBe(0);
+    expect(invoiceStatusFor(after)).toBe("PAID");
+    const withDebt = { totalCents: 30000, paidCents: 0, waivedCents: 0, deferredCents: 10000 };
+    const cancelAfter = { ...withDebt, waivedCents: invoiceDueNow(withDebt) };
+    expect(invoiceBalance(cancelAfter)).toBe(10000);
+    expect(clampDeferred(cancelAfter)).toBe(10000);
+    expect(invoiceDueNow(cancelAfter)).toBe(0);
+  });
+
+  it("unsettledItems spreads covered money over lines in order", () => {
+    const items = [
+      { id: "a", totalCents: 10000 },
+      { id: "b", totalCents: 15000 },
+      { id: "c", totalCents: 5000 },
+    ];
+    const lines = unsettledItems(
+      { totalCents: 30000, paidCents: 12000, waivedCents: 0, deferredCents: 0 },
+      items,
+    );
+    expect(lines.map((l) => [l.id, l.remainingCents])).toEqual([
+      ["b", 13000],
+      ["c", 5000],
+    ]);
   });
 });

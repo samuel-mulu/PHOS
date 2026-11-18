@@ -324,50 +324,52 @@ enum FpOutcome {
 }
 
 model User {
-  id                 String              @id @default(uuid()) @db.Uuid
-  email              String              @unique
-  phone              String?             @unique
-  passwordHash       String              @map("password_hash")
-  firstName          String              @map("first_name")
-  lastName           String              @map("last_name")
-  role               Role
-  status             UserStatus          @default(ACTIVE)
-  departmentId       String?             @map("department_id") @db.Uuid
-  department         Department?         @relation(fields: [departmentId], references: [id])
-  refreshSessions    RefreshSession[]
-  createdPatients    Patient[]           @relation("PatientCreator")
-  createdEncounters  Encounter[]         @relation("EncounterCreator")
-  assignedEncounters Encounter[]         @relation("EncounterAssignedDoctor")
-  assignedQueues     QueueEntry[]        @relation("QueueAssignee")
-  recordedTriages    Triage[]            @relation("TriageRecorder")
-  consultations      Consultation[]      @relation("ConsultationDoctor")
-  diagnoses          Diagnosis[]         @relation("DiagnosisCreator")
-  auditLogs          AuditLog[]
-  orderedLabOrders   LabOrder[]          @relation("LabOrderDoctor")
-  enteredLabResults  LabResult[]         @relation("LabResultEnteredBy")
-  verifiedLabResults LabResult[]         @relation("LabResultVerifiedBy")
-  prescriptions      Prescription[]      @relation("PrescriptionDoctor")
-  dispensings        Dispensing[]        @relation("DispensingPharmacist")
-  inventoryMovements InventoryMovement[] @relation("InventoryMovementUser")
-  issuedInvoices     Invoice[]           @relation("InvoiceIssuer")
-  recordedPayments   Payment[]           @relation("PaymentRecorder")
-  invoiceAdjustments InvoiceAdjustment[] @relation("InvoiceAdjustmentRecorder")
-  issuedRefunds      Refund[]            @relation("RefundIssuer")
-  recordedExpenses   Expense[]           @relation("ExpenseRecorder")
-  voidedExpenses     Expense[]           @relation("ExpenseVoider")
-  cashSessions       CashSession[]
-  notifications      Notification[]      @relation("NotificationRecipient")
-  createdAppointments Appointment[]      @relation("AppointmentCreator")
-  obstetricHistories ObstetricHistory[]  @relation("ObstetricHistoryRecorder")
-  ancVisits          AncVisit[]          @relation("AncVisitRecorder")
-  laborAdmissions    LaborAdmission[]    @relation("LaborAdmissionRecorder")
-  laborMonitoring    LaborMonitoringEntry[] @relation("LaborMonitoringRecorder")
-  deliverySummaries  DeliverySummary[]   @relation("DeliverySummaryRecorder")
+  id                    String                 @id @default(uuid()) @db.Uuid
+  email                 String                 @unique
+  phone                 String?                @unique
+  passwordHash          String                 @map("password_hash")
+  firstName             String                 @map("first_name")
+  lastName              String                 @map("last_name")
+  role                  Role
+  status                UserStatus             @default(ACTIVE)
+  departmentId          String?                @map("department_id") @db.Uuid
+  department            Department?            @relation(fields: [departmentId], references: [id])
+  refreshSessions       RefreshSession[]
+  createdPatients       Patient[]              @relation("PatientCreator")
+  createdEncounters     Encounter[]            @relation("EncounterCreator")
+  assignedEncounters    Encounter[]            @relation("EncounterAssignedDoctor")
+  assignedQueues        QueueEntry[]           @relation("QueueAssignee")
+  recordedTriages       Triage[]               @relation("TriageRecorder")
+  consultations         Consultation[]         @relation("ConsultationDoctor")
+  diagnoses             Diagnosis[]            @relation("DiagnosisCreator")
+  auditLogs             AuditLog[]
+  orderedLabOrders      LabOrder[]             @relation("LabOrderDoctor")
+  enteredLabResults     LabResult[]            @relation("LabResultEnteredBy")
+  verifiedLabResults    LabResult[]            @relation("LabResultVerifiedBy")
+  prescriptions         Prescription[]         @relation("PrescriptionDoctor")
+  dispensings           Dispensing[]           @relation("DispensingPharmacist")
+  inventoryMovements    InventoryMovement[]    @relation("InventoryMovementUser")
+  issuedInvoices        Invoice[]              @relation("InvoiceIssuer")
+  recordedPayments      Payment[]              @relation("PaymentRecorder")
+  invoiceAdjustments    InvoiceAdjustment[]    @relation("InvoiceAdjustmentRecorder")
+  requestedAdjustments  InvoiceAdjustment[]    @relation("InvoiceAdjustmentRequester")
+  freeRequestedInvoices Invoice[]              @relation("InvoiceFreeRequester")
+  issuedRefunds         Refund[]               @relation("RefundIssuer")
+  recordedExpenses      Expense[]              @relation("ExpenseRecorder")
+  voidedExpenses        Expense[]              @relation("ExpenseVoider")
+  cashSessions          CashSession[]
+  notifications         Notification[]         @relation("NotificationRecipient")
+  createdAppointments   Appointment[]          @relation("AppointmentCreator")
+  obstetricHistories    ObstetricHistory[]     @relation("ObstetricHistoryRecorder")
+  ancVisits             AncVisit[]             @relation("AncVisitRecorder")
+  laborAdmissions       LaborAdmission[]       @relation("LaborAdmissionRecorder")
+  laborMonitoring       LaborMonitoringEntry[] @relation("LaborMonitoringRecorder")
+  deliverySummaries     DeliverySummary[]      @relation("DeliverySummaryRecorder")
   familyPlanningRecords FamilyPlanningRecord[] @relation("FamilyPlanningRecorder")
-  clinicalMessages   ClinicalMessage[]   @relation("ClinicalMessageAuthor")
-  createdAt          DateTime            @default(now()) @map("created_at")
-  updatedAt          DateTime            @updatedAt @map("updated_at")
-  deletedAt          DateTime?           @map("deleted_at")
+  clinicalMessages      ClinicalMessage[]      @relation("ClinicalMessageAuthor")
+  createdAt             DateTime               @default(now()) @map("created_at")
+  updatedAt             DateTime               @updatedAt @map("updated_at")
+  deletedAt             DateTime?              @map("deleted_at")
 
   @@index([role, status])
   @@map("users")
@@ -405,14 +407,14 @@ model Facility {
 }
 
 model Department {
-  id         String      @id @default(uuid()) @db.Uuid
-  facilityId String      @map("facility_id") @db.Uuid
-  code       String
-  name       String
-  active     Boolean     @default(true)
-  facility   Facility    @relation(fields: [facilityId], references: [id])
-  services   Service[]
-  users      User[]
+  id           String        @id @default(uuid()) @db.Uuid
+  facilityId   String        @map("facility_id") @db.Uuid
+  code         String
+  name         String
+  active       Boolean       @default(true)
+  facility     Facility      @relation(fields: [facilityId], references: [id])
+  services     Service[]
+  users        User[]
   encounters   Encounter[]
   appointments Appointment[]
   createdAt    DateTime      @default(now()) @map("created_at")
@@ -425,13 +427,13 @@ model Department {
 }
 
 model Service {
-  id              String      @id @default(uuid()) @db.Uuid
-  departmentId    String      @map("department_id") @db.Uuid
+  id              String        @id @default(uuid()) @db.Uuid
+  departmentId    String        @map("department_id") @db.Uuid
   code            String
   name            String
-  priceCents      Int         @map("price_cents")
-  durationMinutes Int?        @map("duration_minutes")
-  active          Boolean     @default(true)
+  priceCents      Int           @map("price_cents")
+  durationMinutes Int?          @map("duration_minutes")
+  active          Boolean       @default(true)
   department      Department    @relation(fields: [departmentId], references: [id])
   encounters      Encounter[]
   appointments    Appointment[]
@@ -445,22 +447,22 @@ model Service {
 }
 
 model Patient {
-  id                    String         @id @default(uuid()) @db.Uuid
-  patientNumber         String         @unique @map("patient_number")
-  firstName             String         @map("first_name")
-  middleName            String?        @map("middle_name")
-  lastName              String         @map("last_name")
+  id                    String                 @id @default(uuid()) @db.Uuid
+  patientNumber         String                 @unique @map("patient_number")
+  firstName             String                 @map("first_name")
+  middleName            String?                @map("middle_name")
+  lastName              String                 @map("last_name")
   sex                   Sex
-  dateOfBirth           DateTime?      @map("date_of_birth") @db.Date
+  dateOfBirth           DateTime?              @map("date_of_birth") @db.Date
   phone                 String?
   email                 String?
   address               String?
-  governmentId          String?        @unique @map("government_id")
-  emergencyContactName  String?        @map("emergency_contact_name")
-  emergencyContactPhone String?        @map("emergency_contact_phone")
+  governmentId          String?                @unique @map("government_id")
+  emergencyContactName  String?                @map("emergency_contact_name")
+  emergencyContactPhone String?                @map("emergency_contact_phone")
   allergies             String?
-  createdById           String         @map("created_by_id") @db.Uuid
-  createdBy             User           @relation("PatientCreator", fields: [createdById], references: [id])
+  createdById           String                 @map("created_by_id") @db.Uuid
+  createdBy             User                   @relation("PatientCreator", fields: [createdById], references: [id])
   encounters            Encounter[]
   labOrders             LabOrder[]
   prescriptions         Prescription[]
@@ -472,9 +474,9 @@ model Patient {
   ancVisits             AncVisit[]
   familyPlanningRecords FamilyPlanningRecord[]
   clinicalMessages      ClinicalMessage[]
-  createdAt             DateTime       @default(now()) @map("created_at")
-  updatedAt             DateTime       @updatedAt @map("updated_at")
-  deletedAt             DateTime?      @map("deleted_at")
+  createdAt             DateTime               @default(now()) @map("created_at")
+  updatedAt             DateTime               @updatedAt @map("updated_at")
+  deletedAt             DateTime?              @map("deleted_at")
 
   @@index([lastName, firstName])
   @@index([phone])
@@ -482,47 +484,53 @@ model Patient {
 }
 
 model Encounter {
-  id              String            @id @default(uuid()) @db.Uuid
-  encounterNumber String            @unique @map("encounter_number")
-  /** 1-based visit index for this patient (non-cancelled encounters). */
-  visitNumber     Int               @default(1) @map("visit_number")
-  patientId       String            @map("patient_id") @db.Uuid
-  facilityId      String            @map("facility_id") @db.Uuid
-  departmentId    String            @map("department_id") @db.Uuid
-  serviceId       String?           @map("service_id") @db.Uuid
-  type            EncounterType     @default(WALK_IN)
-  status          EncounterStatus   @default(REGISTERED)
-  priority        EncounterPriority @default(ROUTINE)
-  reason          String?
-  startedAt       DateTime          @default(now()) @map("started_at")
-  closedAt        DateTime?         @map("closed_at")
-  createdById     String            @map("created_by_id") @db.Uuid
-  assignedDoctorId String?          @map("assigned_doctor_id") @db.Uuid
-  /** After mid-visit cashier payment, auto-return patient to this station. */
-  paymentReturnStation QueueStation? @map("payment_return_station")
-  /** Doctor sent patient to nurse/triage mid-visit (vs reception intake). */
-  nurseReferralActive Boolean @default(false) @map("nurse_referral_active")
-  patient         Patient           @relation(fields: [patientId], references: [id])
-  facility        Facility          @relation(fields: [facilityId], references: [id])
-  department      Department        @relation(fields: [departmentId], references: [id])
-  service         Service?          @relation(fields: [serviceId], references: [id])
-  createdBy       User              @relation("EncounterCreator", fields: [createdById], references: [id])
-  assignedDoctor  User?             @relation("EncounterAssignedDoctor", fields: [assignedDoctorId], references: [id])
-  queueEntries    QueueEntry[]
-  triage          Triage?
-  consultation    Consultation?
-  labOrders       LabOrder[]
-  prescriptions   Prescription[]
-  invoice         Invoice?
-  appointment     Appointment?
-  ancVisits       AncVisit[]
-  laborAdmission  LaborAdmission?
-  deliverySummary DeliverySummary?
+  id                    String                 @id @default(uuid()) @db.Uuid
+  encounterNumber       String                 @unique @map("encounter_number")
+  /**
+   * 1-based visit index for this patient (non-cancelled encounters).
+   */
+  visitNumber           Int                    @default(1) @map("visit_number")
+  patientId             String                 @map("patient_id") @db.Uuid
+  facilityId            String                 @map("facility_id") @db.Uuid
+  departmentId          String                 @map("department_id") @db.Uuid
+  serviceId             String?                @map("service_id") @db.Uuid
+  type                  EncounterType          @default(WALK_IN)
+  status                EncounterStatus        @default(REGISTERED)
+  priority              EncounterPriority      @default(ROUTINE)
+  reason                String?
+  startedAt             DateTime               @default(now()) @map("started_at")
+  closedAt              DateTime?              @map("closed_at")
+  createdById           String                 @map("created_by_id") @db.Uuid
+  assignedDoctorId      String?                @map("assigned_doctor_id") @db.Uuid
+  /**
+   * After mid-visit cashier payment, auto-return patient to this station.
+   */
+  paymentReturnStation  QueueStation?          @map("payment_return_station")
+  /**
+   * Doctor sent patient to nurse/triage mid-visit (vs reception intake).
+   */
+  nurseReferralActive   Boolean                @default(false) @map("nurse_referral_active")
+  patient               Patient                @relation(fields: [patientId], references: [id])
+  facility              Facility               @relation(fields: [facilityId], references: [id])
+  department            Department             @relation(fields: [departmentId], references: [id])
+  service               Service?               @relation(fields: [serviceId], references: [id])
+  createdBy             User                   @relation("EncounterCreator", fields: [createdById], references: [id])
+  assignedDoctor        User?                  @relation("EncounterAssignedDoctor", fields: [assignedDoctorId], references: [id])
+  queueEntries          QueueEntry[]
+  triage                Triage?
+  consultation          Consultation?
+  labOrders             LabOrder[]
+  prescriptions         Prescription[]
+  invoice               Invoice?
+  appointment           Appointment?
+  ancVisits             AncVisit[]
+  laborAdmission        LaborAdmission?
+  deliverySummary       DeliverySummary?
   familyPlanningRecords FamilyPlanningRecord[]
-  clinicalMessages ClinicalMessage[]
-  createdAt       DateTime          @default(now()) @map("created_at")
-  updatedAt       DateTime          @updatedAt @map("updated_at")
-  deletedAt       DateTime?         @map("deleted_at")
+  clinicalMessages      ClinicalMessage[]
+  createdAt             DateTime               @default(now()) @map("created_at")
+  updatedAt             DateTime               @updatedAt @map("updated_at")
+  deletedAt             DateTime?              @map("deleted_at")
 
   @@index([patientId, startedAt])
   @@index([status, departmentId])
@@ -575,29 +583,29 @@ model QueueEntry {
 }
 
 model Triage {
-  id              String    @id @default(uuid()) @db.Uuid
-  encounterId     String    @unique @map("encounter_id") @db.Uuid
-  temperature     Decimal?  @db.Decimal(4, 1)
-  systolic        Int?
-  diastolic       Int?
-  heartRate       Int?      @map("heart_rate")
-  respiratoryRate Int?      @map("respiratory_rate")
-  spo2            Int?
-  weightKg        Decimal?  @map("weight_kg") @db.Decimal(5, 2)
-  heightCm        Decimal?  @map("height_cm") @db.Decimal(5, 2)
-  painScore       Int?      @map("pain_score")
-  bloodGlucoseMgDl Int?     @map("blood_glucose_mg_dl")
+  id                 String    @id @default(uuid()) @db.Uuid
+  encounterId        String    @unique @map("encounter_id") @db.Uuid
+  temperature        Decimal?  @db.Decimal(4, 1)
+  systolic           Int?
+  diastolic          Int?
+  heartRate          Int?      @map("heart_rate")
+  respiratoryRate    Int?      @map("respiratory_rate")
+  spo2               Int?
+  weightKg           Decimal?  @map("weight_kg") @db.Decimal(5, 2)
+  heightCm           Decimal?  @map("height_cm") @db.Decimal(5, 2)
+  painScore          Int?      @map("pain_score")
+  bloodGlucoseMgDl   Int?      @map("blood_glucose_mg_dl")
   /// Triage flags for MCH / FP routing (doctor completes full forms).
-  pregnancySuspected Boolean? @map("pregnancy_suspected")
-  mchNeeded       Boolean?  @map("mch_needed")
-  fpNeeded        Boolean?  @map("fp_needed")
-  notes           String?
-  recordedById    String    @map("recorded_by_id") @db.Uuid
-  recordedAt      DateTime  @default(now()) @map("recorded_at")
-  encounter       Encounter @relation(fields: [encounterId], references: [id])
-  recordedBy      User      @relation("TriageRecorder", fields: [recordedById], references: [id])
-  updatedAt       DateTime  @updatedAt @map("updated_at")
-  deletedAt       DateTime? @map("deleted_at")
+  pregnancySuspected Boolean?  @map("pregnancy_suspected")
+  mchNeeded          Boolean?  @map("mch_needed")
+  fpNeeded           Boolean?  @map("fp_needed")
+  notes              String?
+  recordedById       String    @map("recorded_by_id") @db.Uuid
+  recordedAt         DateTime  @default(now()) @map("recorded_at")
+  encounter          Encounter @relation(fields: [encounterId], references: [id])
+  recordedBy         User      @relation("TriageRecorder", fields: [recordedById], references: [id])
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+  deletedAt          DateTime? @map("deleted_at")
 
   @@map("triages")
 }
@@ -691,27 +699,27 @@ model LabTest {
 }
 
 model LabOrder {
-  id             String            @id @default(uuid()) @db.Uuid
-  orderNumber    String            @unique @map("order_number")
-  consultationId String            @map("consultation_id") @db.Uuid
-  encounterId    String            @map("encounter_id") @db.Uuid
-  patientId      String            @map("patient_id") @db.Uuid
-  doctorId       String            @map("doctor_id") @db.Uuid
-  status             LabOrderStatus    @default(ORDERED)
-  priority           EncounterPriority @default(ROUTINE)
-  clinicalNotes      String?           @map("clinical_notes")
+  id                String            @id @default(uuid()) @db.Uuid
+  orderNumber       String            @unique @map("order_number")
+  consultationId    String            @map("consultation_id") @db.Uuid
+  encounterId       String            @map("encounter_id") @db.Uuid
+  patientId         String            @map("patient_id") @db.Uuid
+  doctorId          String            @map("doctor_id") @db.Uuid
+  status            LabOrderStatus    @default(ORDERED)
+  priority          EncounterPriority @default(ROUTINE)
+  clinicalNotes     String?           @map("clinical_notes")
   /// Doctor interpretation / notes after reviewing verified results
-  doctorReviewNotes  String?           @map("doctor_review_notes")
-  doctorReviewedAt   DateTime?         @map("doctor_reviewed_at")
-  consultation       Consultation      @relation(fields: [consultationId], references: [id])
-  encounter          Encounter         @relation(fields: [encounterId], references: [id])
-  patient            Patient           @relation(fields: [patientId], references: [id])
-  doctor             User              @relation("LabOrderDoctor", fields: [doctorId], references: [id])
-  items              LabOrderItem[]
-  clinicalMessages   ClinicalMessage[]
-  createdAt          DateTime          @default(now()) @map("created_at")
-  updatedAt          DateTime          @updatedAt @map("updated_at")
-  cancelledAt        DateTime?         @map("cancelled_at")
+  doctorReviewNotes String?           @map("doctor_review_notes")
+  doctorReviewedAt  DateTime?         @map("doctor_reviewed_at")
+  consultation      Consultation      @relation(fields: [consultationId], references: [id])
+  encounter         Encounter         @relation(fields: [encounterId], references: [id])
+  patient           Patient           @relation(fields: [patientId], references: [id])
+  doctor            User              @relation("LabOrderDoctor", fields: [doctorId], references: [id])
+  items             LabOrderItem[]
+  clinicalMessages  ClinicalMessage[]
+  createdAt         DateTime          @default(now()) @map("created_at")
+  updatedAt         DateTime          @updatedAt @map("updated_at")
+  cancelledAt       DateTime?         @map("cancelled_at")
 
   @@index([status, priority, createdAt])
   @@index([encounterId])
@@ -719,19 +727,19 @@ model LabOrder {
 }
 
 model ClinicalMessage {
-  id          String                     @id @default(uuid()) @db.Uuid
-  encounterId String                     @map("encounter_id") @db.Uuid
-  patientId   String                     @map("patient_id") @db.Uuid
-  authorId    String                     @map("author_id") @db.Uuid
-  authorSide  ClinicalMessageAuthorSide  @map("author_side")
-  kind        ClinicalMessageKind        @default(NOTE)
+  id          String                    @id @default(uuid()) @db.Uuid
+  encounterId String                    @map("encounter_id") @db.Uuid
+  patientId   String                    @map("patient_id") @db.Uuid
+  authorId    String                    @map("author_id") @db.Uuid
+  authorSide  ClinicalMessageAuthorSide @map("author_side")
+  kind        ClinicalMessageKind       @default(NOTE)
   body        String
-  labOrderId  String?                    @map("lab_order_id") @db.Uuid
-  encounter   Encounter                  @relation(fields: [encounterId], references: [id])
-  patient     Patient                    @relation(fields: [patientId], references: [id])
-  author      User                       @relation("ClinicalMessageAuthor", fields: [authorId], references: [id])
-  labOrder    LabOrder?                  @relation(fields: [labOrderId], references: [id])
-  createdAt   DateTime                   @default(now()) @map("created_at")
+  labOrderId  String?                   @map("lab_order_id") @db.Uuid
+  encounter   Encounter                 @relation(fields: [encounterId], references: [id])
+  patient     Patient                   @relation(fields: [patientId], references: [id])
+  author      User                      @relation("ClinicalMessageAuthor", fields: [authorId], references: [id])
+  labOrder    LabOrder?                 @relation(fields: [labOrderId], references: [id])
+  createdAt   DateTime                  @default(now()) @map("created_at")
 
   @@index([encounterId, createdAt])
   @@index([patientId, createdAt])
@@ -913,29 +921,44 @@ model DispensingItem {
 }
 
 model Invoice {
-  id            String        @id @default(uuid()) @db.Uuid
-  invoiceNumber String        @unique @map("invoice_number")
-  encounterId   String        @unique @map("encounter_id") @db.Uuid
-  patientId     String        @map("patient_id") @db.Uuid
-  status        InvoiceStatus @default(DRAFT)
-  subtotalCents Int           @map("subtotal_cents")
-  discountCents Int           @default(0) @map("discount_cents")
-  totalCents    Int           @map("total_cents")
-  paidCents     Int           @default(0) @map("paid_cents")
-  /** Forgiven by cashier (free / waive); not owed. */
-  waivedCents   Int           @default(0) @map("waived_cents")
-  /** Approved "pay later" amount; patient may leave the cashier owing it. */
-  deferredCents Int           @default(0) @map("deferred_cents")
-  issuedById    String        @map("issued_by_id") @db.Uuid
-  issuedAt      DateTime?     @map("issued_at")
-  encounter     Encounter     @relation(fields: [encounterId], references: [id])
-  patient       Patient       @relation(fields: [patientId], references: [id])
-  issuedBy      User          @relation("InvoiceIssuer", fields: [issuedById], references: [id])
-  items         InvoiceItem[]
-  payments      Payment[]
-  adjustments   InvoiceAdjustment[]
-  createdAt     DateTime      @default(now()) @map("created_at")
-  updatedAt     DateTime      @updatedAt @map("updated_at")
+  id                String              @id @default(uuid()) @db.Uuid
+  invoiceNumber     String              @unique @map("invoice_number")
+  encounterId       String              @unique @map("encounter_id") @db.Uuid
+  patientId         String              @map("patient_id") @db.Uuid
+  status            InvoiceStatus       @default(DRAFT)
+  subtotalCents     Int                 @map("subtotal_cents")
+  discountCents     Int                 @default(0) @map("discount_cents")
+  totalCents        Int                 @map("total_cents")
+  paidCents         Int                 @default(0) @map("paid_cents")
+  /**
+   * Forgiven by cashier (free / waive); not owed.
+   */
+  waivedCents       Int                 @default(0) @map("waived_cents")
+  /**
+   * Approved "pay later" amount; patient may leave the cashier owing it.
+   */
+  deferredCents     Int                 @default(0) @map("deferred_cents")
+  /**
+   * Part of waivedCents that was cancelled (patient left without paying).
+   */
+  cancelledCents    Int                 @default(0) @map("cancelled_cents")
+  /**
+   * Doctor asked the cashier to make this much free; pending until confirmed.
+   */
+  freeRequestCents  Int                 @default(0) @map("free_request_cents")
+  freeRequestReason String?             @map("free_request_reason")
+  freeRequestedById String?             @map("free_requested_by_id") @db.Uuid
+  issuedById        String              @map("issued_by_id") @db.Uuid
+  issuedAt          DateTime?           @map("issued_at")
+  encounter         Encounter           @relation(fields: [encounterId], references: [id])
+  patient           Patient             @relation(fields: [patientId], references: [id])
+  issuedBy          User                @relation("InvoiceIssuer", fields: [issuedById], references: [id])
+  freeRequestedBy   User?               @relation("InvoiceFreeRequester", fields: [freeRequestedById], references: [id])
+  items             InvoiceItem[]
+  payments          Payment[]
+  adjustments       InvoiceAdjustment[]
+  createdAt         DateTime            @default(now()) @map("created_at")
+  updatedAt         DateTime            @updatedAt @map("updated_at")
 
   @@index([status, createdAt])
   @@index([patientId, status])
@@ -945,9 +968,15 @@ model Invoice {
 enum InvoiceAdjustmentType {
   DEFER
   WAIVE
+  /**
+   * Patient left without paying; amount voided (not owed).
+   */
+  CANCEL
 }
 
-/** Cashier decisions on an unpaid amount: pay later (debt) or waive (free). */
+/**
+ * Cashier decisions on an unpaid amount: pay later (debt), waive (free) or cancel.
+ */
 model InvoiceAdjustment {
   id             String                @id @default(uuid()) @db.Uuid
   invoiceId      String                @map("invoice_id") @db.Uuid
@@ -960,6 +989,11 @@ model InvoiceAdjustment {
   invoice        Invoice               @relation(fields: [invoiceId], references: [id])
   patient        Patient               @relation(fields: [patientId], references: [id])
   recordedBy     User                  @relation("InvoiceAdjustmentRecorder", fields: [recordedById], references: [id])
+  /**
+   * Doctor who requested this waive (free) before sending to cashier.
+   */
+  requestedById  String?               @map("requested_by_id") @db.Uuid
+  requestedBy    User?                 @relation("InvoiceAdjustmentRequester", fields: [requestedById], references: [id])
   createdAt      DateTime              @default(now()) @map("created_at")
 
   @@index([invoiceId])
@@ -996,7 +1030,9 @@ model Payment {
   idempotencyKey  String        @unique @map("idempotency_key")
   recordedById    String        @map("recorded_by_id") @db.Uuid
   cashSessionId   String?       @map("cash_session_id") @db.Uuid
-  /** Collected against an approved pay-later debt. */
+  /**
+   * Collected against an approved pay-later debt.
+   */
   isDebtPayment   Boolean       @default(false) @map("is_debt_payment")
   invoice         Invoice       @relation(fields: [invoiceId], references: [id])
   patient         Patient       @relation(fields: [patientId], references: [id])
@@ -1011,17 +1047,17 @@ model Payment {
 }
 
 model Refund {
-  id           String       @id @default(uuid()) @db.Uuid
-  refundNumber String       @unique @map("refund_number")
-  paymentId    String       @map("payment_id") @db.Uuid
-  amountCents  Int          @map("amount_cents")
-  reason       String
-  idempotencyKey String @unique @map("idempotency_key")
-  status       RefundStatus @default(COMPLETED)
-  issuedById   String       @map("issued_by_id") @db.Uuid
-  payment      Payment      @relation(fields: [paymentId], references: [id])
-  issuedBy     User         @relation("RefundIssuer", fields: [issuedById], references: [id])
-  createdAt    DateTime     @default(now()) @map("created_at")
+  id             String       @id @default(uuid()) @db.Uuid
+  refundNumber   String       @unique @map("refund_number")
+  paymentId      String       @map("payment_id") @db.Uuid
+  amountCents    Int          @map("amount_cents")
+  reason         String
+  idempotencyKey String       @unique @map("idempotency_key")
+  status         RefundStatus @default(COMPLETED)
+  issuedById     String       @map("issued_by_id") @db.Uuid
+  payment        Payment      @relation(fields: [paymentId], references: [id])
+  issuedBy       User         @relation("RefundIssuer", fields: [issuedById], references: [id])
+  createdAt      DateTime     @default(now()) @map("created_at")
 
   @@index([paymentId])
   @@map("refunds")
@@ -1136,36 +1172,36 @@ model ObstetricHistory {
 }
 
 model AncVisit {
-  id                 String            @id @default(uuid()) @db.Uuid
-  patientId          String            @map("patient_id") @db.Uuid
-  encounterId        String?           @map("encounter_id") @db.Uuid
-  visitNumber        Int               @map("visit_number")
-  visitDate          DateTime          @map("visit_date") @db.Date
-  gaWeeks            Int?              @map("ga_weeks")
-  gaDays             Int?              @map("ga_days")
-  weightKg           Decimal?          @map("weight_kg") @db.Decimal(5, 2)
+  id                 String             @id @default(uuid()) @db.Uuid
+  patientId          String             @map("patient_id") @db.Uuid
+  encounterId        String?            @map("encounter_id") @db.Uuid
+  visitNumber        Int                @map("visit_number")
+  visitDate          DateTime           @map("visit_date") @db.Date
+  gaWeeks            Int?               @map("ga_weeks")
+  gaDays             Int?               @map("ga_days")
+  weightKg           Decimal?           @map("weight_kg") @db.Decimal(5, 2)
   systolic           Int?
   diastolic          Int?
-  pulseRate          Int?              @map("pulse_rate")
-  fundalHeightCm     Decimal?          @map("fundal_height_cm") @db.Decimal(4, 1)
-  fetalHeartRate     Int?              @map("fetal_heart_rate")
+  pulseRate          Int?               @map("pulse_rate")
+  fundalHeightCm     Decimal?           @map("fundal_height_cm") @db.Decimal(4, 1)
+  fetalHeartRate     Int?               @map("fetal_heart_rate")
   fetalPresentation  FetalPresentation? @map("fetal_presentation")
-  fetalMovement      FetalMovement?    @map("fetal_movement")
-  urineProtein       Boolean?          @map("urine_protein")
-  urineGlucose       Boolean?          @map("urine_glucose")
-  hemoglobinGdl      Decimal?          @map("hemoglobin_gdl") @db.Decimal(4, 1)
-  bloodGlucose       Decimal?          @map("blood_glucose") @db.Decimal(6, 1)
-  riskAssessment     AncRiskLevel?     @map("risk_assessment")
+  fetalMovement      FetalMovement?     @map("fetal_movement")
+  urineProtein       Boolean?           @map("urine_protein")
+  urineGlucose       Boolean?           @map("urine_glucose")
+  hemoglobinGdl      Decimal?           @map("hemoglobin_gdl") @db.Decimal(4, 1)
+  bloodGlucose       Decimal?           @map("blood_glucose") @db.Decimal(6, 1)
+  riskAssessment     AncRiskLevel?      @map("risk_assessment")
   treatment          String?
-  ultrasoundFindings String?           @map("ultrasound_findings")
-  nextAppointment    DateTime?         @map("next_appointment") @db.Date
-  recordedById       String            @map("recorded_by_id") @db.Uuid
-  patient            Patient           @relation(fields: [patientId], references: [id])
-  encounter          Encounter?        @relation(fields: [encounterId], references: [id])
-  recordedBy         User              @relation("AncVisitRecorder", fields: [recordedById], references: [id])
-  createdAt          DateTime          @default(now()) @map("created_at")
-  updatedAt          DateTime          @updatedAt @map("updated_at")
-  deletedAt          DateTime?         @map("deleted_at")
+  ultrasoundFindings String?            @map("ultrasound_findings")
+  nextAppointment    DateTime?          @map("next_appointment") @db.Date
+  recordedById       String             @map("recorded_by_id") @db.Uuid
+  patient            Patient            @relation(fields: [patientId], references: [id])
+  encounter          Encounter?         @relation(fields: [encounterId], references: [id])
+  recordedBy         User               @relation("AncVisitRecorder", fields: [recordedById], references: [id])
+  createdAt          DateTime           @default(now()) @map("created_at")
+  updatedAt          DateTime           @updatedAt @map("updated_at")
+  deletedAt          DateTime?          @map("deleted_at")
 
   @@unique([patientId, visitNumber])
   @@index([patientId, visitDate])
@@ -1174,104 +1210,104 @@ model AncVisit {
 }
 
 model LaborAdmission {
-  id                String           @id @default(uuid()) @db.Uuid
-  encounterId       String           @unique @map("encounter_id") @db.Uuid
-  admittedAt        DateTime         @map("admitted_at")
-  gaWeeks           Int?             @map("ga_weeks")
-  onsetOfLabor      LaborOnset?      @map("onset_of_labor")
-  cervicalDilatationCm Decimal?      @map("cervical_dilatation_cm") @db.Decimal(3, 1)
-  cervicalEffacementPct Int?         @map("cervical_effacement_pct")
-  membraneStatus    MembraneStatus?  @map("membrane_status")
-  liquor            LiquorStatus?
-  fetalPresentation FetalPresentation? @map("fetal_presentation")
-  fetalHeartRate    Int?             @map("fetal_heart_rate")
-  contractionsNote  String?          @map("contractions_note")
-  systolic          Int?
-  diastolic         Int?
-  pulseRate         Int?             @map("pulse_rate")
-  temperatureC      Decimal?         @map("temperature_c") @db.Decimal(4, 1)
-  recordedById      String           @map("recorded_by_id") @db.Uuid
-  encounter         Encounter        @relation(fields: [encounterId], references: [id])
-  recordedBy        User             @relation("LaborAdmissionRecorder", fields: [recordedById], references: [id])
-  monitoringEntries LaborMonitoringEntry[]
-  createdAt         DateTime         @default(now()) @map("created_at")
-  updatedAt         DateTime         @updatedAt @map("updated_at")
-  deletedAt         DateTime?        @map("deleted_at")
+  id                    String                 @id @default(uuid()) @db.Uuid
+  encounterId           String                 @unique @map("encounter_id") @db.Uuid
+  admittedAt            DateTime               @map("admitted_at")
+  gaWeeks               Int?                   @map("ga_weeks")
+  onsetOfLabor          LaborOnset?            @map("onset_of_labor")
+  cervicalDilatationCm  Decimal?               @map("cervical_dilatation_cm") @db.Decimal(3, 1)
+  cervicalEffacementPct Int?                   @map("cervical_effacement_pct")
+  membraneStatus        MembraneStatus?        @map("membrane_status")
+  liquor                LiquorStatus?
+  fetalPresentation     FetalPresentation?     @map("fetal_presentation")
+  fetalHeartRate        Int?                   @map("fetal_heart_rate")
+  contractionsNote      String?                @map("contractions_note")
+  systolic              Int?
+  diastolic             Int?
+  pulseRate             Int?                   @map("pulse_rate")
+  temperatureC          Decimal?               @map("temperature_c") @db.Decimal(4, 1)
+  recordedById          String                 @map("recorded_by_id") @db.Uuid
+  encounter             Encounter              @relation(fields: [encounterId], references: [id])
+  recordedBy            User                   @relation("LaborAdmissionRecorder", fields: [recordedById], references: [id])
+  monitoringEntries     LaborMonitoringEntry[]
+  createdAt             DateTime               @default(now()) @map("created_at")
+  updatedAt             DateTime               @updatedAt @map("updated_at")
+  deletedAt             DateTime?              @map("deleted_at")
 
   @@map("labor_admissions")
 }
 
 model LaborMonitoringEntry {
-  id                   String          @id @default(uuid()) @db.Uuid
-  laborAdmissionId     String          @map("labor_admission_id") @db.Uuid
-  recordedAt           DateTime        @map("recorded_at")
-  cervicalDilatationCm Decimal?        @map("cervical_dilatation_cm") @db.Decimal(3, 1)
-  fetalHeartRate       Int?            @map("fetal_heart_rate")
-  contractionsPer10Min Int?            @map("contractions_per_10_min")
-  contractionDurationSec Int?          @map("contraction_duration_sec")
-  membraneLiquorNote   String?         @map("membrane_liquor_note")
-  descentFifths        Int?            @map("descent_fifths")
-  systolic             Int?
-  diastolic            Int?
-  pulseRate            Int?            @map("pulse_rate")
-  urineOutputMl        Int?            @map("urine_output_ml")
-  medicationNote       String?         @map("medication_note")
-  recordedById         String          @map("recorded_by_id") @db.Uuid
-  laborAdmission       LaborAdmission  @relation(fields: [laborAdmissionId], references: [id], onDelete: Cascade)
-  recordedBy           User            @relation("LaborMonitoringRecorder", fields: [recordedById], references: [id])
-  createdAt            DateTime        @default(now()) @map("created_at")
+  id                     String         @id @default(uuid()) @db.Uuid
+  laborAdmissionId       String         @map("labor_admission_id") @db.Uuid
+  recordedAt             DateTime       @map("recorded_at")
+  cervicalDilatationCm   Decimal?       @map("cervical_dilatation_cm") @db.Decimal(3, 1)
+  fetalHeartRate         Int?           @map("fetal_heart_rate")
+  contractionsPer10Min   Int?           @map("contractions_per_10_min")
+  contractionDurationSec Int?           @map("contraction_duration_sec")
+  membraneLiquorNote     String?        @map("membrane_liquor_note")
+  descentFifths          Int?           @map("descent_fifths")
+  systolic               Int?
+  diastolic              Int?
+  pulseRate              Int?           @map("pulse_rate")
+  urineOutputMl          Int?           @map("urine_output_ml")
+  medicationNote         String?        @map("medication_note")
+  recordedById           String         @map("recorded_by_id") @db.Uuid
+  laborAdmission         LaborAdmission @relation(fields: [laborAdmissionId], references: [id], onDelete: Cascade)
+  recordedBy             User           @relation("LaborMonitoringRecorder", fields: [recordedById], references: [id])
+  createdAt              DateTime       @default(now()) @map("created_at")
 
   @@index([laborAdmissionId, recordedAt])
   @@map("labor_monitoring_entries")
 }
 
 model DeliverySummary {
-  id                    String                  @id @default(uuid()) @db.Uuid
-  encounterId           String                  @unique @map("encounter_id") @db.Uuid
-  deliveredAt           DateTime?               @map("delivered_at")
-  modeOfDelivery        DeliveryMode?           @map("mode_of_delivery")
-  csIndication          String?                 @map("cs_indication")
-  placeOfDelivery       DeliveryPlace?          @map("place_of_delivery")
-  presentation          FetalPresentation?
-  episiotomy            Boolean?
-  perinealTearDegree    String?                 @map("perineal_tear_degree")
-  placenta              PlacentaStatus?
-  thirdStageManagement  ThirdStageManagement?   @map("third_stage_management")
-  estimatedBloodLossMl  Int?                    @map("estimated_blood_loss_ml")
-  complications         String?
-  maternalCondition     MaternalCondition?      @map("maternal_condition")
-  pph                   Boolean?
-  bloodTransfusion      Boolean?                @map("blood_transfusion")
-  additionalIntervention String?                @map("additional_intervention")
-  postDeliverySystolic  Int?                    @map("post_delivery_systolic")
-  postDeliveryDiastolic Int?                    @map("post_delivery_diastolic")
-  disposition           PostDeliveryDisposition?
-  recordedById          String                  @map("recorded_by_id") @db.Uuid
-  encounter             Encounter               @relation(fields: [encounterId], references: [id])
-  recordedBy            User                    @relation("DeliverySummaryRecorder", fields: [recordedById], references: [id])
-  newborns              NewbornRecord[]
-  createdAt             DateTime                @default(now()) @map("created_at")
-  updatedAt             DateTime                @updatedAt @map("updated_at")
-  deletedAt             DateTime?               @map("deleted_at")
+  id                     String                   @id @default(uuid()) @db.Uuid
+  encounterId            String                   @unique @map("encounter_id") @db.Uuid
+  deliveredAt            DateTime?                @map("delivered_at")
+  modeOfDelivery         DeliveryMode?            @map("mode_of_delivery")
+  csIndication           String?                  @map("cs_indication")
+  placeOfDelivery        DeliveryPlace?           @map("place_of_delivery")
+  presentation           FetalPresentation?
+  episiotomy             Boolean?
+  perinealTearDegree     String?                  @map("perineal_tear_degree")
+  placenta               PlacentaStatus?
+  thirdStageManagement   ThirdStageManagement?    @map("third_stage_management")
+  estimatedBloodLossMl   Int?                     @map("estimated_blood_loss_ml")
+  complications          String?
+  maternalCondition      MaternalCondition?       @map("maternal_condition")
+  pph                    Boolean?
+  bloodTransfusion       Boolean?                 @map("blood_transfusion")
+  additionalIntervention String?                  @map("additional_intervention")
+  postDeliverySystolic   Int?                     @map("post_delivery_systolic")
+  postDeliveryDiastolic  Int?                     @map("post_delivery_diastolic")
+  disposition            PostDeliveryDisposition?
+  recordedById           String                   @map("recorded_by_id") @db.Uuid
+  encounter              Encounter                @relation(fields: [encounterId], references: [id])
+  recordedBy             User                     @relation("DeliverySummaryRecorder", fields: [recordedById], references: [id])
+  newborns               NewbornRecord[]
+  createdAt              DateTime                 @default(now()) @map("created_at")
+  updatedAt              DateTime                 @updatedAt @map("updated_at")
+  deletedAt              DateTime?                @map("deleted_at")
 
   @@map("delivery_summaries")
 }
 
 model NewbornRecord {
-  id                 String          @id @default(uuid()) @db.Uuid
-  deliverySummaryId  String          @map("delivery_summary_id") @db.Uuid
-  birthOrder         Int             @default(1) @map("birth_order")
-  sex                BabySex?
-  birthWeightGrams   Int?            @map("birth_weight_grams")
-  apgar1             Int?            @map("apgar_1")
-  apgar5             Int?            @map("apgar_5")
-  gaWeeks            Int?            @map("ga_weeks")
-  status             BabyStatus?
-  resuscitation      Boolean?
-  nicuAdmission      Boolean?        @map("nicu_admission")
-  deliverySummary    DeliverySummary @relation(fields: [deliverySummaryId], references: [id], onDelete: Cascade)
-  createdAt          DateTime        @default(now()) @map("created_at")
-  updatedAt          DateTime        @updatedAt @map("updated_at")
+  id                String          @id @default(uuid()) @db.Uuid
+  deliverySummaryId String          @map("delivery_summary_id") @db.Uuid
+  birthOrder        Int             @default(1) @map("birth_order")
+  sex               BabySex?
+  birthWeightGrams  Int?            @map("birth_weight_grams")
+  apgar1            Int?            @map("apgar_1")
+  apgar5            Int?            @map("apgar_5")
+  gaWeeks           Int?            @map("ga_weeks")
+  status            BabyStatus?
+  resuscitation     Boolean?
+  nicuAdmission     Boolean?        @map("nicu_admission")
+  deliverySummary   DeliverySummary @relation(fields: [deliverySummaryId], references: [id], onDelete: Cascade)
+  createdAt         DateTime        @default(now()) @map("created_at")
+  updatedAt         DateTime        @updatedAt @map("updated_at")
 
   @@index([deliverySummaryId])
   @@map("newborn_records")
@@ -1279,32 +1315,32 @@ model NewbornRecord {
 
 /// Separate family planning register (not mixed with ANC/labor).
 model FamilyPlanningRecord {
-  id                    String              @id @default(uuid()) @db.Uuid
-  patientId             String              @map("patient_id") @db.Uuid
-  encounterId           String?             @map("encounter_id") @db.Uuid
-  visitType             FpVisitType?        @map("visit_type")
-  gravidity             Int?
-  parity                Int?
-  livingChildren        Int?                @map("living_children")
-  previousMethod        ContraceptiveMethod? @map("previous_method")
-  currentMethod         ContraceptiveMethod? @map("current_method")
-  pregnancyStatus       String?             @map("pregnancy_status")
-  systolic              Int?
-  diastolic             Int?
-  contraindications     String?
-  counselingDone        Boolean?            @map("counseling_done")
-  counselingNotes       String?             @map("counseling_notes")
-  procedureDate         DateTime?           @map("procedure_date") @db.Date
-  sideEffects           String?             @map("side_effects")
-  nextAppointment       DateTime?           @map("next_appointment") @db.Date
-  outcome               FpOutcome?
-  recordedById          String              @map("recorded_by_id") @db.Uuid
-  patient               Patient             @relation(fields: [patientId], references: [id])
-  encounter             Encounter?          @relation(fields: [encounterId], references: [id])
-  recordedBy            User                @relation("FamilyPlanningRecorder", fields: [recordedById], references: [id])
-  createdAt             DateTime            @default(now()) @map("created_at")
-  updatedAt             DateTime            @updatedAt @map("updated_at")
-  deletedAt             DateTime?           @map("deleted_at")
+  id                String               @id @default(uuid()) @db.Uuid
+  patientId         String               @map("patient_id") @db.Uuid
+  encounterId       String?              @map("encounter_id") @db.Uuid
+  visitType         FpVisitType?         @map("visit_type")
+  gravidity         Int?
+  parity            Int?
+  livingChildren    Int?                 @map("living_children")
+  previousMethod    ContraceptiveMethod? @map("previous_method")
+  currentMethod     ContraceptiveMethod? @map("current_method")
+  pregnancyStatus   String?              @map("pregnancy_status")
+  systolic          Int?
+  diastolic         Int?
+  contraindications String?
+  counselingDone    Boolean?             @map("counseling_done")
+  counselingNotes   String?              @map("counseling_notes")
+  procedureDate     DateTime?            @map("procedure_date") @db.Date
+  sideEffects       String?              @map("side_effects")
+  nextAppointment   DateTime?            @map("next_appointment") @db.Date
+  outcome           FpOutcome?
+  recordedById      String               @map("recorded_by_id") @db.Uuid
+  patient           Patient              @relation(fields: [patientId], references: [id])
+  encounter         Encounter?           @relation(fields: [encounterId], references: [id])
+  recordedBy        User                 @relation("FamilyPlanningRecorder", fields: [recordedById], references: [id])
+  createdAt         DateTime             @default(now()) @map("created_at")
+  updatedAt         DateTime             @updatedAt @map("updated_at")
+  deletedAt         DateTime?            @map("deleted_at")
 
   @@index([patientId, createdAt])
   @@index([encounterId])

@@ -14,7 +14,8 @@ import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model InvoiceAdjustment
- * * Cashier decisions on an unpaid amount: pay later (debt) or waive (free).
+ * *
+ *  * Cashier decisions on an unpaid amount: pay later (debt), waive (free) or cancel.
  */
 export type InvoiceAdjustmentModel = runtime.Types.Result.DefaultSelection<Prisma.$InvoiceAdjustmentPayload>
 
@@ -43,6 +44,7 @@ export type InvoiceAdjustmentMinAggregateOutputType = {
   reason: string | null
   idempotencyKey: string | null
   recordedById: string | null
+  requestedById: string | null
   createdAt: Date | null
 }
 
@@ -55,6 +57,7 @@ export type InvoiceAdjustmentMaxAggregateOutputType = {
   reason: string | null
   idempotencyKey: string | null
   recordedById: string | null
+  requestedById: string | null
   createdAt: Date | null
 }
 
@@ -67,6 +70,7 @@ export type InvoiceAdjustmentCountAggregateOutputType = {
   reason: number
   idempotencyKey: number
   recordedById: number
+  requestedById: number
   createdAt: number
   _all: number
 }
@@ -89,6 +93,7 @@ export type InvoiceAdjustmentMinAggregateInputType = {
   reason?: true
   idempotencyKey?: true
   recordedById?: true
+  requestedById?: true
   createdAt?: true
 }
 
@@ -101,6 +106,7 @@ export type InvoiceAdjustmentMaxAggregateInputType = {
   reason?: true
   idempotencyKey?: true
   recordedById?: true
+  requestedById?: true
   createdAt?: true
 }
 
@@ -113,6 +119,7 @@ export type InvoiceAdjustmentCountAggregateInputType = {
   reason?: true
   idempotencyKey?: true
   recordedById?: true
+  requestedById?: true
   createdAt?: true
   _all?: true
 }
@@ -212,6 +219,7 @@ export type InvoiceAdjustmentGroupByOutputType = {
   reason: string
   idempotencyKey: string
   recordedById: string
+  requestedById: string | null
   createdAt: Date
   _count: InvoiceAdjustmentCountAggregateOutputType | null
   _avg: InvoiceAdjustmentAvgAggregateOutputType | null
@@ -247,10 +255,12 @@ export type InvoiceAdjustmentWhereInput = {
   reason?: Prisma.StringFilter<"InvoiceAdjustment"> | string
   idempotencyKey?: Prisma.StringFilter<"InvoiceAdjustment"> | string
   recordedById?: Prisma.UuidFilter<"InvoiceAdjustment"> | string
+  requestedById?: Prisma.UuidNullableFilter<"InvoiceAdjustment"> | string | null
   createdAt?: Prisma.DateTimeFilter<"InvoiceAdjustment"> | Date | string
   invoice?: Prisma.XOR<Prisma.InvoiceScalarRelationFilter, Prisma.InvoiceWhereInput>
   patient?: Prisma.XOR<Prisma.PatientScalarRelationFilter, Prisma.PatientWhereInput>
   recordedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  requestedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type InvoiceAdjustmentOrderByWithRelationInput = {
@@ -262,10 +272,12 @@ export type InvoiceAdjustmentOrderByWithRelationInput = {
   reason?: Prisma.SortOrder
   idempotencyKey?: Prisma.SortOrder
   recordedById?: Prisma.SortOrder
+  requestedById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   invoice?: Prisma.InvoiceOrderByWithRelationInput
   patient?: Prisma.PatientOrderByWithRelationInput
   recordedBy?: Prisma.UserOrderByWithRelationInput
+  requestedBy?: Prisma.UserOrderByWithRelationInput
 }
 
 export type InvoiceAdjustmentWhereUniqueInput = Prisma.AtLeast<{
@@ -280,10 +292,12 @@ export type InvoiceAdjustmentWhereUniqueInput = Prisma.AtLeast<{
   amountCents?: Prisma.IntFilter<"InvoiceAdjustment"> | number
   reason?: Prisma.StringFilter<"InvoiceAdjustment"> | string
   recordedById?: Prisma.UuidFilter<"InvoiceAdjustment"> | string
+  requestedById?: Prisma.UuidNullableFilter<"InvoiceAdjustment"> | string | null
   createdAt?: Prisma.DateTimeFilter<"InvoiceAdjustment"> | Date | string
   invoice?: Prisma.XOR<Prisma.InvoiceScalarRelationFilter, Prisma.InvoiceWhereInput>
   patient?: Prisma.XOR<Prisma.PatientScalarRelationFilter, Prisma.PatientWhereInput>
   recordedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  requestedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id" | "idempotencyKey">
 
 export type InvoiceAdjustmentOrderByWithAggregationInput = {
@@ -295,6 +309,7 @@ export type InvoiceAdjustmentOrderByWithAggregationInput = {
   reason?: Prisma.SortOrder
   idempotencyKey?: Prisma.SortOrder
   recordedById?: Prisma.SortOrder
+  requestedById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.InvoiceAdjustmentCountOrderByAggregateInput
   _avg?: Prisma.InvoiceAdjustmentAvgOrderByAggregateInput
@@ -315,6 +330,7 @@ export type InvoiceAdjustmentScalarWhereWithAggregatesInput = {
   reason?: Prisma.StringWithAggregatesFilter<"InvoiceAdjustment"> | string
   idempotencyKey?: Prisma.StringWithAggregatesFilter<"InvoiceAdjustment"> | string
   recordedById?: Prisma.UuidWithAggregatesFilter<"InvoiceAdjustment"> | string
+  requestedById?: Prisma.UuidNullableWithAggregatesFilter<"InvoiceAdjustment"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"InvoiceAdjustment"> | Date | string
 }
 
@@ -328,6 +344,7 @@ export type InvoiceAdjustmentCreateInput = {
   invoice: Prisma.InvoiceCreateNestedOneWithoutAdjustmentsInput
   patient: Prisma.PatientCreateNestedOneWithoutInvoiceAdjustmentsInput
   recordedBy: Prisma.UserCreateNestedOneWithoutInvoiceAdjustmentsInput
+  requestedBy?: Prisma.UserCreateNestedOneWithoutRequestedAdjustmentsInput
 }
 
 export type InvoiceAdjustmentUncheckedCreateInput = {
@@ -339,6 +356,7 @@ export type InvoiceAdjustmentUncheckedCreateInput = {
   reason: string
   idempotencyKey: string
   recordedById: string
+  requestedById?: string | null
   createdAt?: Date | string
 }
 
@@ -352,6 +370,7 @@ export type InvoiceAdjustmentUpdateInput = {
   invoice?: Prisma.InvoiceUpdateOneRequiredWithoutAdjustmentsNestedInput
   patient?: Prisma.PatientUpdateOneRequiredWithoutInvoiceAdjustmentsNestedInput
   recordedBy?: Prisma.UserUpdateOneRequiredWithoutInvoiceAdjustmentsNestedInput
+  requestedBy?: Prisma.UserUpdateOneWithoutRequestedAdjustmentsNestedInput
 }
 
 export type InvoiceAdjustmentUncheckedUpdateInput = {
@@ -363,6 +382,7 @@ export type InvoiceAdjustmentUncheckedUpdateInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
+  requestedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -375,6 +395,7 @@ export type InvoiceAdjustmentCreateManyInput = {
   reason: string
   idempotencyKey: string
   recordedById: string
+  requestedById?: string | null
   createdAt?: Date | string
 }
 
@@ -396,6 +417,7 @@ export type InvoiceAdjustmentUncheckedUpdateManyInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
+  requestedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -418,6 +440,7 @@ export type InvoiceAdjustmentCountOrderByAggregateInput = {
   reason?: Prisma.SortOrder
   idempotencyKey?: Prisma.SortOrder
   recordedById?: Prisma.SortOrder
+  requestedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -434,6 +457,7 @@ export type InvoiceAdjustmentMaxOrderByAggregateInput = {
   reason?: Prisma.SortOrder
   idempotencyKey?: Prisma.SortOrder
   recordedById?: Prisma.SortOrder
+  requestedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -446,6 +470,7 @@ export type InvoiceAdjustmentMinOrderByAggregateInput = {
   reason?: Prisma.SortOrder
   idempotencyKey?: Prisma.SortOrder
   recordedById?: Prisma.SortOrder
+  requestedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -460,10 +485,24 @@ export type InvoiceAdjustmentCreateNestedManyWithoutRecordedByInput = {
   connect?: Prisma.InvoiceAdjustmentWhereUniqueInput | Prisma.InvoiceAdjustmentWhereUniqueInput[]
 }
 
+export type InvoiceAdjustmentCreateNestedManyWithoutRequestedByInput = {
+  create?: Prisma.XOR<Prisma.InvoiceAdjustmentCreateWithoutRequestedByInput, Prisma.InvoiceAdjustmentUncheckedCreateWithoutRequestedByInput> | Prisma.InvoiceAdjustmentCreateWithoutRequestedByInput[] | Prisma.InvoiceAdjustmentUncheckedCreateWithoutRequestedByInput[]
+  connectOrCreate?: Prisma.InvoiceAdjustmentCreateOrConnectWithoutRequestedByInput | Prisma.InvoiceAdjustmentCreateOrConnectWithoutRequestedByInput[]
+  createMany?: Prisma.InvoiceAdjustmentCreateManyRequestedByInputEnvelope
+  connect?: Prisma.InvoiceAdjustmentWhereUniqueInput | Prisma.InvoiceAdjustmentWhereUniqueInput[]
+}
+
 export type InvoiceAdjustmentUncheckedCreateNestedManyWithoutRecordedByInput = {
   create?: Prisma.XOR<Prisma.InvoiceAdjustmentCreateWithoutRecordedByInput, Prisma.InvoiceAdjustmentUncheckedCreateWithoutRecordedByInput> | Prisma.InvoiceAdjustmentCreateWithoutRecordedByInput[] | Prisma.InvoiceAdjustmentUncheckedCreateWithoutRecordedByInput[]
   connectOrCreate?: Prisma.InvoiceAdjustmentCreateOrConnectWithoutRecordedByInput | Prisma.InvoiceAdjustmentCreateOrConnectWithoutRecordedByInput[]
   createMany?: Prisma.InvoiceAdjustmentCreateManyRecordedByInputEnvelope
+  connect?: Prisma.InvoiceAdjustmentWhereUniqueInput | Prisma.InvoiceAdjustmentWhereUniqueInput[]
+}
+
+export type InvoiceAdjustmentUncheckedCreateNestedManyWithoutRequestedByInput = {
+  create?: Prisma.XOR<Prisma.InvoiceAdjustmentCreateWithoutRequestedByInput, Prisma.InvoiceAdjustmentUncheckedCreateWithoutRequestedByInput> | Prisma.InvoiceAdjustmentCreateWithoutRequestedByInput[] | Prisma.InvoiceAdjustmentUncheckedCreateWithoutRequestedByInput[]
+  connectOrCreate?: Prisma.InvoiceAdjustmentCreateOrConnectWithoutRequestedByInput | Prisma.InvoiceAdjustmentCreateOrConnectWithoutRequestedByInput[]
+  createMany?: Prisma.InvoiceAdjustmentCreateManyRequestedByInputEnvelope
   connect?: Prisma.InvoiceAdjustmentWhereUniqueInput | Prisma.InvoiceAdjustmentWhereUniqueInput[]
 }
 
@@ -481,6 +520,20 @@ export type InvoiceAdjustmentUpdateManyWithoutRecordedByNestedInput = {
   deleteMany?: Prisma.InvoiceAdjustmentScalarWhereInput | Prisma.InvoiceAdjustmentScalarWhereInput[]
 }
 
+export type InvoiceAdjustmentUpdateManyWithoutRequestedByNestedInput = {
+  create?: Prisma.XOR<Prisma.InvoiceAdjustmentCreateWithoutRequestedByInput, Prisma.InvoiceAdjustmentUncheckedCreateWithoutRequestedByInput> | Prisma.InvoiceAdjustmentCreateWithoutRequestedByInput[] | Prisma.InvoiceAdjustmentUncheckedCreateWithoutRequestedByInput[]
+  connectOrCreate?: Prisma.InvoiceAdjustmentCreateOrConnectWithoutRequestedByInput | Prisma.InvoiceAdjustmentCreateOrConnectWithoutRequestedByInput[]
+  upsert?: Prisma.InvoiceAdjustmentUpsertWithWhereUniqueWithoutRequestedByInput | Prisma.InvoiceAdjustmentUpsertWithWhereUniqueWithoutRequestedByInput[]
+  createMany?: Prisma.InvoiceAdjustmentCreateManyRequestedByInputEnvelope
+  set?: Prisma.InvoiceAdjustmentWhereUniqueInput | Prisma.InvoiceAdjustmentWhereUniqueInput[]
+  disconnect?: Prisma.InvoiceAdjustmentWhereUniqueInput | Prisma.InvoiceAdjustmentWhereUniqueInput[]
+  delete?: Prisma.InvoiceAdjustmentWhereUniqueInput | Prisma.InvoiceAdjustmentWhereUniqueInput[]
+  connect?: Prisma.InvoiceAdjustmentWhereUniqueInput | Prisma.InvoiceAdjustmentWhereUniqueInput[]
+  update?: Prisma.InvoiceAdjustmentUpdateWithWhereUniqueWithoutRequestedByInput | Prisma.InvoiceAdjustmentUpdateWithWhereUniqueWithoutRequestedByInput[]
+  updateMany?: Prisma.InvoiceAdjustmentUpdateManyWithWhereWithoutRequestedByInput | Prisma.InvoiceAdjustmentUpdateManyWithWhereWithoutRequestedByInput[]
+  deleteMany?: Prisma.InvoiceAdjustmentScalarWhereInput | Prisma.InvoiceAdjustmentScalarWhereInput[]
+}
+
 export type InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput = {
   create?: Prisma.XOR<Prisma.InvoiceAdjustmentCreateWithoutRecordedByInput, Prisma.InvoiceAdjustmentUncheckedCreateWithoutRecordedByInput> | Prisma.InvoiceAdjustmentCreateWithoutRecordedByInput[] | Prisma.InvoiceAdjustmentUncheckedCreateWithoutRecordedByInput[]
   connectOrCreate?: Prisma.InvoiceAdjustmentCreateOrConnectWithoutRecordedByInput | Prisma.InvoiceAdjustmentCreateOrConnectWithoutRecordedByInput[]
@@ -492,6 +545,20 @@ export type InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByNestedInput = {
   connect?: Prisma.InvoiceAdjustmentWhereUniqueInput | Prisma.InvoiceAdjustmentWhereUniqueInput[]
   update?: Prisma.InvoiceAdjustmentUpdateWithWhereUniqueWithoutRecordedByInput | Prisma.InvoiceAdjustmentUpdateWithWhereUniqueWithoutRecordedByInput[]
   updateMany?: Prisma.InvoiceAdjustmentUpdateManyWithWhereWithoutRecordedByInput | Prisma.InvoiceAdjustmentUpdateManyWithWhereWithoutRecordedByInput[]
+  deleteMany?: Prisma.InvoiceAdjustmentScalarWhereInput | Prisma.InvoiceAdjustmentScalarWhereInput[]
+}
+
+export type InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByNestedInput = {
+  create?: Prisma.XOR<Prisma.InvoiceAdjustmentCreateWithoutRequestedByInput, Prisma.InvoiceAdjustmentUncheckedCreateWithoutRequestedByInput> | Prisma.InvoiceAdjustmentCreateWithoutRequestedByInput[] | Prisma.InvoiceAdjustmentUncheckedCreateWithoutRequestedByInput[]
+  connectOrCreate?: Prisma.InvoiceAdjustmentCreateOrConnectWithoutRequestedByInput | Prisma.InvoiceAdjustmentCreateOrConnectWithoutRequestedByInput[]
+  upsert?: Prisma.InvoiceAdjustmentUpsertWithWhereUniqueWithoutRequestedByInput | Prisma.InvoiceAdjustmentUpsertWithWhereUniqueWithoutRequestedByInput[]
+  createMany?: Prisma.InvoiceAdjustmentCreateManyRequestedByInputEnvelope
+  set?: Prisma.InvoiceAdjustmentWhereUniqueInput | Prisma.InvoiceAdjustmentWhereUniqueInput[]
+  disconnect?: Prisma.InvoiceAdjustmentWhereUniqueInput | Prisma.InvoiceAdjustmentWhereUniqueInput[]
+  delete?: Prisma.InvoiceAdjustmentWhereUniqueInput | Prisma.InvoiceAdjustmentWhereUniqueInput[]
+  connect?: Prisma.InvoiceAdjustmentWhereUniqueInput | Prisma.InvoiceAdjustmentWhereUniqueInput[]
+  update?: Prisma.InvoiceAdjustmentUpdateWithWhereUniqueWithoutRequestedByInput | Prisma.InvoiceAdjustmentUpdateWithWhereUniqueWithoutRequestedByInput[]
+  updateMany?: Prisma.InvoiceAdjustmentUpdateManyWithWhereWithoutRequestedByInput | Prisma.InvoiceAdjustmentUpdateManyWithWhereWithoutRequestedByInput[]
   deleteMany?: Prisma.InvoiceAdjustmentScalarWhereInput | Prisma.InvoiceAdjustmentScalarWhereInput[]
 }
 
@@ -592,6 +659,7 @@ export type InvoiceAdjustmentCreateWithoutRecordedByInput = {
   createdAt?: Date | string
   invoice: Prisma.InvoiceCreateNestedOneWithoutAdjustmentsInput
   patient: Prisma.PatientCreateNestedOneWithoutInvoiceAdjustmentsInput
+  requestedBy?: Prisma.UserCreateNestedOneWithoutRequestedAdjustmentsInput
 }
 
 export type InvoiceAdjustmentUncheckedCreateWithoutRecordedByInput = {
@@ -602,6 +670,7 @@ export type InvoiceAdjustmentUncheckedCreateWithoutRecordedByInput = {
   amountCents: number
   reason: string
   idempotencyKey: string
+  requestedById?: string | null
   createdAt?: Date | string
 }
 
@@ -612,6 +681,40 @@ export type InvoiceAdjustmentCreateOrConnectWithoutRecordedByInput = {
 
 export type InvoiceAdjustmentCreateManyRecordedByInputEnvelope = {
   data: Prisma.InvoiceAdjustmentCreateManyRecordedByInput | Prisma.InvoiceAdjustmentCreateManyRecordedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type InvoiceAdjustmentCreateWithoutRequestedByInput = {
+  id?: string
+  type: $Enums.InvoiceAdjustmentType
+  amountCents: number
+  reason: string
+  idempotencyKey: string
+  createdAt?: Date | string
+  invoice: Prisma.InvoiceCreateNestedOneWithoutAdjustmentsInput
+  patient: Prisma.PatientCreateNestedOneWithoutInvoiceAdjustmentsInput
+  recordedBy: Prisma.UserCreateNestedOneWithoutInvoiceAdjustmentsInput
+}
+
+export type InvoiceAdjustmentUncheckedCreateWithoutRequestedByInput = {
+  id?: string
+  invoiceId: string
+  patientId: string
+  type: $Enums.InvoiceAdjustmentType
+  amountCents: number
+  reason: string
+  idempotencyKey: string
+  recordedById: string
+  createdAt?: Date | string
+}
+
+export type InvoiceAdjustmentCreateOrConnectWithoutRequestedByInput = {
+  where: Prisma.InvoiceAdjustmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.InvoiceAdjustmentCreateWithoutRequestedByInput, Prisma.InvoiceAdjustmentUncheckedCreateWithoutRequestedByInput>
+}
+
+export type InvoiceAdjustmentCreateManyRequestedByInputEnvelope = {
+  data: Prisma.InvoiceAdjustmentCreateManyRequestedByInput | Prisma.InvoiceAdjustmentCreateManyRequestedByInput[]
   skipDuplicates?: boolean
 }
 
@@ -643,7 +746,24 @@ export type InvoiceAdjustmentScalarWhereInput = {
   reason?: Prisma.StringFilter<"InvoiceAdjustment"> | string
   idempotencyKey?: Prisma.StringFilter<"InvoiceAdjustment"> | string
   recordedById?: Prisma.UuidFilter<"InvoiceAdjustment"> | string
+  requestedById?: Prisma.UuidNullableFilter<"InvoiceAdjustment"> | string | null
   createdAt?: Prisma.DateTimeFilter<"InvoiceAdjustment"> | Date | string
+}
+
+export type InvoiceAdjustmentUpsertWithWhereUniqueWithoutRequestedByInput = {
+  where: Prisma.InvoiceAdjustmentWhereUniqueInput
+  update: Prisma.XOR<Prisma.InvoiceAdjustmentUpdateWithoutRequestedByInput, Prisma.InvoiceAdjustmentUncheckedUpdateWithoutRequestedByInput>
+  create: Prisma.XOR<Prisma.InvoiceAdjustmentCreateWithoutRequestedByInput, Prisma.InvoiceAdjustmentUncheckedCreateWithoutRequestedByInput>
+}
+
+export type InvoiceAdjustmentUpdateWithWhereUniqueWithoutRequestedByInput = {
+  where: Prisma.InvoiceAdjustmentWhereUniqueInput
+  data: Prisma.XOR<Prisma.InvoiceAdjustmentUpdateWithoutRequestedByInput, Prisma.InvoiceAdjustmentUncheckedUpdateWithoutRequestedByInput>
+}
+
+export type InvoiceAdjustmentUpdateManyWithWhereWithoutRequestedByInput = {
+  where: Prisma.InvoiceAdjustmentScalarWhereInput
+  data: Prisma.XOR<Prisma.InvoiceAdjustmentUpdateManyMutationInput, Prisma.InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByInput>
 }
 
 export type InvoiceAdjustmentCreateWithoutPatientInput = {
@@ -655,6 +775,7 @@ export type InvoiceAdjustmentCreateWithoutPatientInput = {
   createdAt?: Date | string
   invoice: Prisma.InvoiceCreateNestedOneWithoutAdjustmentsInput
   recordedBy: Prisma.UserCreateNestedOneWithoutInvoiceAdjustmentsInput
+  requestedBy?: Prisma.UserCreateNestedOneWithoutRequestedAdjustmentsInput
 }
 
 export type InvoiceAdjustmentUncheckedCreateWithoutPatientInput = {
@@ -665,6 +786,7 @@ export type InvoiceAdjustmentUncheckedCreateWithoutPatientInput = {
   reason: string
   idempotencyKey: string
   recordedById: string
+  requestedById?: string | null
   createdAt?: Date | string
 }
 
@@ -703,6 +825,7 @@ export type InvoiceAdjustmentCreateWithoutInvoiceInput = {
   createdAt?: Date | string
   patient: Prisma.PatientCreateNestedOneWithoutInvoiceAdjustmentsInput
   recordedBy: Prisma.UserCreateNestedOneWithoutInvoiceAdjustmentsInput
+  requestedBy?: Prisma.UserCreateNestedOneWithoutRequestedAdjustmentsInput
 }
 
 export type InvoiceAdjustmentUncheckedCreateWithoutInvoiceInput = {
@@ -713,6 +836,7 @@ export type InvoiceAdjustmentUncheckedCreateWithoutInvoiceInput = {
   reason: string
   idempotencyKey: string
   recordedById: string
+  requestedById?: string | null
   createdAt?: Date | string
 }
 
@@ -750,6 +874,19 @@ export type InvoiceAdjustmentCreateManyRecordedByInput = {
   amountCents: number
   reason: string
   idempotencyKey: string
+  requestedById?: string | null
+  createdAt?: Date | string
+}
+
+export type InvoiceAdjustmentCreateManyRequestedByInput = {
+  id?: string
+  invoiceId: string
+  patientId: string
+  type: $Enums.InvoiceAdjustmentType
+  amountCents: number
+  reason: string
+  idempotencyKey: string
+  recordedById: string
   createdAt?: Date | string
 }
 
@@ -762,6 +899,7 @@ export type InvoiceAdjustmentUpdateWithoutRecordedByInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   invoice?: Prisma.InvoiceUpdateOneRequiredWithoutAdjustmentsNestedInput
   patient?: Prisma.PatientUpdateOneRequiredWithoutInvoiceAdjustmentsNestedInput
+  requestedBy?: Prisma.UserUpdateOneWithoutRequestedAdjustmentsNestedInput
 }
 
 export type InvoiceAdjustmentUncheckedUpdateWithoutRecordedByInput = {
@@ -772,6 +910,7 @@ export type InvoiceAdjustmentUncheckedUpdateWithoutRecordedByInput = {
   amountCents?: Prisma.IntFieldUpdateOperationsInput | number
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
+  requestedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -783,6 +922,43 @@ export type InvoiceAdjustmentUncheckedUpdateManyWithoutRecordedByInput = {
   amountCents?: Prisma.IntFieldUpdateOperationsInput | number
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
+  requestedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type InvoiceAdjustmentUpdateWithoutRequestedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumInvoiceAdjustmentTypeFieldUpdateOperationsInput | $Enums.InvoiceAdjustmentType
+  amountCents?: Prisma.IntFieldUpdateOperationsInput | number
+  reason?: Prisma.StringFieldUpdateOperationsInput | string
+  idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  invoice?: Prisma.InvoiceUpdateOneRequiredWithoutAdjustmentsNestedInput
+  patient?: Prisma.PatientUpdateOneRequiredWithoutInvoiceAdjustmentsNestedInput
+  recordedBy?: Prisma.UserUpdateOneRequiredWithoutInvoiceAdjustmentsNestedInput
+}
+
+export type InvoiceAdjustmentUncheckedUpdateWithoutRequestedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  invoiceId?: Prisma.StringFieldUpdateOperationsInput | string
+  patientId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumInvoiceAdjustmentTypeFieldUpdateOperationsInput | $Enums.InvoiceAdjustmentType
+  amountCents?: Prisma.IntFieldUpdateOperationsInput | number
+  reason?: Prisma.StringFieldUpdateOperationsInput | string
+  idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
+  recordedById?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type InvoiceAdjustmentUncheckedUpdateManyWithoutRequestedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  invoiceId?: Prisma.StringFieldUpdateOperationsInput | string
+  patientId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumInvoiceAdjustmentTypeFieldUpdateOperationsInput | $Enums.InvoiceAdjustmentType
+  amountCents?: Prisma.IntFieldUpdateOperationsInput | number
+  reason?: Prisma.StringFieldUpdateOperationsInput | string
+  idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
+  recordedById?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -794,6 +970,7 @@ export type InvoiceAdjustmentCreateManyPatientInput = {
   reason: string
   idempotencyKey: string
   recordedById: string
+  requestedById?: string | null
   createdAt?: Date | string
 }
 
@@ -806,6 +983,7 @@ export type InvoiceAdjustmentUpdateWithoutPatientInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   invoice?: Prisma.InvoiceUpdateOneRequiredWithoutAdjustmentsNestedInput
   recordedBy?: Prisma.UserUpdateOneRequiredWithoutInvoiceAdjustmentsNestedInput
+  requestedBy?: Prisma.UserUpdateOneWithoutRequestedAdjustmentsNestedInput
 }
 
 export type InvoiceAdjustmentUncheckedUpdateWithoutPatientInput = {
@@ -816,6 +994,7 @@ export type InvoiceAdjustmentUncheckedUpdateWithoutPatientInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
+  requestedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -827,6 +1006,7 @@ export type InvoiceAdjustmentUncheckedUpdateManyWithoutPatientInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
+  requestedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -838,6 +1018,7 @@ export type InvoiceAdjustmentCreateManyInvoiceInput = {
   reason: string
   idempotencyKey: string
   recordedById: string
+  requestedById?: string | null
   createdAt?: Date | string
 }
 
@@ -850,6 +1031,7 @@ export type InvoiceAdjustmentUpdateWithoutInvoiceInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   patient?: Prisma.PatientUpdateOneRequiredWithoutInvoiceAdjustmentsNestedInput
   recordedBy?: Prisma.UserUpdateOneRequiredWithoutInvoiceAdjustmentsNestedInput
+  requestedBy?: Prisma.UserUpdateOneWithoutRequestedAdjustmentsNestedInput
 }
 
 export type InvoiceAdjustmentUncheckedUpdateWithoutInvoiceInput = {
@@ -860,6 +1042,7 @@ export type InvoiceAdjustmentUncheckedUpdateWithoutInvoiceInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
+  requestedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -871,6 +1054,7 @@ export type InvoiceAdjustmentUncheckedUpdateManyWithoutInvoiceInput = {
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   recordedById?: Prisma.StringFieldUpdateOperationsInput | string
+  requestedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -885,10 +1069,12 @@ export type InvoiceAdjustmentSelect<ExtArgs extends runtime.Types.Extensions.Int
   reason?: boolean
   idempotencyKey?: boolean
   recordedById?: boolean
+  requestedById?: boolean
   createdAt?: boolean
   invoice?: boolean | Prisma.InvoiceDefaultArgs<ExtArgs>
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   recordedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  requestedBy?: boolean | Prisma.InvoiceAdjustment$requestedByArgs<ExtArgs>
 }, ExtArgs["result"]["invoiceAdjustment"]>
 
 export type InvoiceAdjustmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -900,10 +1086,12 @@ export type InvoiceAdjustmentSelectCreateManyAndReturn<ExtArgs extends runtime.T
   reason?: boolean
   idempotencyKey?: boolean
   recordedById?: boolean
+  requestedById?: boolean
   createdAt?: boolean
   invoice?: boolean | Prisma.InvoiceDefaultArgs<ExtArgs>
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   recordedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  requestedBy?: boolean | Prisma.InvoiceAdjustment$requestedByArgs<ExtArgs>
 }, ExtArgs["result"]["invoiceAdjustment"]>
 
 export type InvoiceAdjustmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -915,10 +1103,12 @@ export type InvoiceAdjustmentSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   reason?: boolean
   idempotencyKey?: boolean
   recordedById?: boolean
+  requestedById?: boolean
   createdAt?: boolean
   invoice?: boolean | Prisma.InvoiceDefaultArgs<ExtArgs>
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   recordedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  requestedBy?: boolean | Prisma.InvoiceAdjustment$requestedByArgs<ExtArgs>
 }, ExtArgs["result"]["invoiceAdjustment"]>
 
 export type InvoiceAdjustmentSelectScalar = {
@@ -930,24 +1120,28 @@ export type InvoiceAdjustmentSelectScalar = {
   reason?: boolean
   idempotencyKey?: boolean
   recordedById?: boolean
+  requestedById?: boolean
   createdAt?: boolean
 }
 
-export type InvoiceAdjustmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "invoiceId" | "patientId" | "type" | "amountCents" | "reason" | "idempotencyKey" | "recordedById" | "createdAt", ExtArgs["result"]["invoiceAdjustment"]>
+export type InvoiceAdjustmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "invoiceId" | "patientId" | "type" | "amountCents" | "reason" | "idempotencyKey" | "recordedById" | "requestedById" | "createdAt", ExtArgs["result"]["invoiceAdjustment"]>
 export type InvoiceAdjustmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   invoice?: boolean | Prisma.InvoiceDefaultArgs<ExtArgs>
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   recordedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  requestedBy?: boolean | Prisma.InvoiceAdjustment$requestedByArgs<ExtArgs>
 }
 export type InvoiceAdjustmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   invoice?: boolean | Prisma.InvoiceDefaultArgs<ExtArgs>
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   recordedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  requestedBy?: boolean | Prisma.InvoiceAdjustment$requestedByArgs<ExtArgs>
 }
 export type InvoiceAdjustmentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   invoice?: boolean | Prisma.InvoiceDefaultArgs<ExtArgs>
   patient?: boolean | Prisma.PatientDefaultArgs<ExtArgs>
   recordedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  requestedBy?: boolean | Prisma.InvoiceAdjustment$requestedByArgs<ExtArgs>
 }
 
 export type $InvoiceAdjustmentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -956,6 +1150,7 @@ export type $InvoiceAdjustmentPayload<ExtArgs extends runtime.Types.Extensions.I
     invoice: Prisma.$InvoicePayload<ExtArgs>
     patient: Prisma.$PatientPayload<ExtArgs>
     recordedBy: Prisma.$UserPayload<ExtArgs>
+    requestedBy: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -966,6 +1161,11 @@ export type $InvoiceAdjustmentPayload<ExtArgs extends runtime.Types.Extensions.I
     reason: string
     idempotencyKey: string
     recordedById: string
+    /**
+     * *
+     *    * Doctor who requested this waive (free) before sending to cashier.
+     */
+    requestedById: string | null
     createdAt: Date
   }, ExtArgs["result"]["invoiceAdjustment"]>
   composites: {}
@@ -1364,6 +1564,7 @@ export interface Prisma__InvoiceAdjustmentClient<T, Null = never, ExtArgs extend
   invoice<T extends Prisma.InvoiceDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InvoiceDefaultArgs<ExtArgs>>): Prisma.Prisma__InvoiceClient<runtime.Types.Result.GetResult<Prisma.$InvoicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   patient<T extends Prisma.PatientDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PatientDefaultArgs<ExtArgs>>): Prisma.Prisma__PatientClient<runtime.Types.Result.GetResult<Prisma.$PatientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   recordedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  requestedBy<T extends Prisma.InvoiceAdjustment$requestedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.InvoiceAdjustment$requestedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1401,6 +1602,7 @@ export interface InvoiceAdjustmentFieldRefs {
   readonly reason: Prisma.FieldRef<"InvoiceAdjustment", 'String'>
   readonly idempotencyKey: Prisma.FieldRef<"InvoiceAdjustment", 'String'>
   readonly recordedById: Prisma.FieldRef<"InvoiceAdjustment", 'String'>
+  readonly requestedById: Prisma.FieldRef<"InvoiceAdjustment", 'String'>
   readonly createdAt: Prisma.FieldRef<"InvoiceAdjustment", 'DateTime'>
 }
     
@@ -1800,6 +2002,25 @@ export type InvoiceAdjustmentDeleteManyArgs<ExtArgs extends runtime.Types.Extens
    * Limit how many InvoiceAdjustments to delete.
    */
   limit?: number
+}
+
+/**
+ * InvoiceAdjustment.requestedBy
+ */
+export type InvoiceAdjustment$requestedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

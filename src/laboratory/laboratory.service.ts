@@ -65,6 +65,13 @@ export class LaboratoryService {
       );
     const billFirst = Boolean(dto.billFirst);
     const amountCents = tests.reduce((sum, test) => sum + test.priceCents, 0);
+    const freeCents = billFirst ? (dto.freeCents ?? 0) : 0;
+    if (freeCents > 0) {
+      if (freeCents > amountCents)
+        throw new BadRequestException("Free amount cannot exceed the lab total");
+      if (!dto.freeReason || dto.freeReason.trim().length < 3)
+        throw new BadRequestException("Give a reason for making it free");
+    }
     if (billFirst && amountCents < 1)
       throw new BadRequestException(
         "Selected lab tests have no price - send to lab directly or set prices first",
@@ -176,12 +183,20 @@ export class LaboratoryService {
         panelNames.length > 0
           ? panelNames.join(", ")
           : tests.map((test) => test.name).join(", ");
-      await this.billing.addChargeAndEnsurePayable(
+      const invoice = await this.billing.addChargeAndEnsurePayable(
         consultation.encounterId,
         `Lab order ${order.orderNumber}: ${names}`,
         amountCents,
         actorId,
+        order.id,
       );
+      if (freeCents > 0)
+        await this.billing.addFreeRequest(
+          invoice.id,
+          freeCents,
+          dto.freeReason ?? "",
+          actorId,
+        );
       await this.prisma.encounter.update({
         where: { id: consultation.encounterId },
         data: { paymentReturnStation: "LAB" },

@@ -13,9 +13,11 @@ import {
   invoiceBalance,
   invoiceDueNow,
   invoiceStatusFor,
+  unsettledItems,
 } from "../common/domain/finance";
 import { CashierReleaseService } from "./cashier-release.service";
 import {
+  CancelInvoiceDto,
   CreatePaymentDto,
   CreateRefundDto,
   DeferInvoiceDto,
@@ -278,7 +280,11 @@ export class PaymentsService {
       const balance = invoiceBalance(invoice);
       if (dto.amountCents > balance)
         throw new BadRequestException("Waive amount exceeds invoice balance");
-      const reason = dto.reason.trim();
+      const fromRequest =
+        dto.fromFreeRequest === true && invoice.freeRequestCents > 0;
+      let reason = dto.reason.trim();
+      if (fromRequest && !/^doctor request/i.test(reason))
+        reason = `Doctor request: ${reason}`.slice(0, 500);
 
       const adjustment = await tx.invoiceAdjustment.create({
         data: {
@@ -289,6 +295,7 @@ export class PaymentsService {
           reason,
           idempotencyKey: dto.idempotencyKey,
           recordedById: actorId,
+          requestedById: fromRequest ? invoice.freeRequestedById : null,
         },
       });
       const after = {
@@ -302,6 +309,13 @@ export class PaymentsService {
           waivedCents: after.waivedCents,
           deferredCents,
           status: invoiceStatusFor(after),
+          ...(fromRequest
+            ? {
+                freeRequestCents: 0,
+                freeRequestReason: null,
+                freeRequestedById: null,
+              }
+            : {}),
         },
       });
       await this.audit.create(
@@ -329,6 +343,145 @@ export class PaymentsService {
           waivedNowCents: dto.amountCents,
         });
       }
+      return adjustment;
+    });
+  }
+
+  /**
+   * Cancel: the patient left the clinic without paying. What is due now is
+   * voided (not owed), unpaid bill-first lab orders are cancelled, and the
+   * patient goes back to the requesting station so care can be completed.
+   * Earlier approved pay-later debt is kept.
+   */
+  async cancel(invoiceId: string, dto: CancelInvoiceDto, actorId: string) {
+    return this.prisma.$transaction(async (tx) => {
+      const replay = await tx.invoiceAdjustment.findUnique({
+        where: { idempotencyKey: dto.idempotencyKey },
+      });
+      if (replay) {
+        if (replay.invoiceId !== invoiceId || replay.type !== "CANCEL")
+          throw new ConflictException("Idempotency key was already used");
+        return replay;
+      }
+      const invoice = await tx.invoice.findUnique({
+        where: { id: invoiceId },
+        include: {
+          items: true,
+          encounter: {
+            select: {
+              id: true,
+              status: true,
+              paymentReturnStation: true,
+              consultation: { select: { status: true } },
+            },
+          },
+        },
+      });
+      if (!invoice || !["ISSUED", "PARTIALLY_PAID"].includes(invoice.status))
+        throw new ConflictException("Invoice has nothing to cancel");
+      if (invoice.encounter.status !== "WAITING_PAYMENT")
+        throw new ConflictException(
+          "Cancel is only for a patient who is waiting at the cashier",
+        );
+      const due = invoiceDueNow(invoice);
+      if (due <= 0)
+        throw new ConflictException("Nothing is due now on this invoice");
+      const reason = dto.reason.trim();
+
+      // Lines this cancel covers, before money moves (same order as the UI).
+      const unsettled = unsettledItems(invoice, invoice.items);
+
+      const adjustment = await tx.invoiceAdjustment.create({
+        data: {
+          invoiceId,
+          patientId: invoice.patientId,
+          type: "CANCEL",
+          amountCents: due,
+          reason,
+          idempotencyKey: dto.idempotencyKey,
+          recordedById: actorId,
+        },
+      });
+      const after = {
+        ...invoice,
+        waivedCents: invoice.waivedCents + due,
+      };
+      const deferredCents = clampDeferred(after);
+      await tx.invoice.update({
+        where: { id: invoiceId },
+        data: {
+          waivedCents: after.waivedCents,
+          cancelledCents: invoice.cancelledCents + due,
+          deferredCents,
+          status: invoiceStatusFor(after),
+          freeRequestCents: 0,
+          freeRequestReason: null,
+          freeRequestedById: null,
+        },
+      });
+
+      // Lab: cancel bill-first orders that were never paid (sample not taken).
+      const cancelledLabOrders: string[] = [];
+      const encounter = invoice.encounter;
+      if (encounter.paymentReturnStation === "LAB") {
+        const orders = await tx.labOrder.findMany({
+          where: { encounterId: encounter.id, status: "ORDERED" },
+          select: { id: true, orderNumber: true },
+        });
+        for (const order of orders) {
+          const unpaid = unsettled.some(
+            (line) =>
+              line.sourceId === order.id ||
+              line.description.includes(order.orderNumber),
+          );
+          if (!unpaid) continue;
+          await tx.labOrder.update({
+            where: { id: order.id },
+            data: { status: "CANCELLED", cancelledAt: new Date() },
+          });
+          cancelledLabOrders.push(order.orderNumber);
+        }
+        const activeLab = await tx.labOrder.count({
+          where: {
+            encounterId: encounter.id,
+            status: { in: ["ORDERED", "RECEIVED", "PROCESSING"] },
+          },
+        });
+        const careFinished =
+          encounter.consultation?.status === "FINALIZED" ||
+          encounter.consultation?.status === "CORRECTED";
+        if (activeLab === 0 && encounter.consultation && !careFinished) {
+          // Nothing left for the lab: send the patient back to the doctor.
+          await tx.encounter.update({
+            where: { id: encounter.id },
+            data: { paymentReturnStation: "DOCTOR" },
+          });
+        }
+      }
+
+      await this.audit.create(
+        {
+          actorId,
+          action: "invoice.cancelled",
+          entityType: "Invoice",
+          entityId: invoiceId,
+          metadata: {
+            amountCents: due,
+            reason,
+            cancelledLabOrders,
+            balanceAfterCents: invoiceBalance(after),
+          },
+        },
+        tx,
+      );
+      await this.release.release(tx, invoiceId, actorId, {
+        reference: invoice.invoiceNumber,
+        paidNowCents: 0,
+        owedCents: invoiceBalance(after),
+        waivedNowCents: 0,
+        cancelledNowCents: due,
+        cancelReason: reason,
+      });
       return adjustment;
     });
   }
@@ -485,6 +638,54 @@ export class PaymentsService {
       };
     });
 
+    // Waived (free) and cancelled (left without paying) in the same period.
+    const adjustmentRows = await this.prisma.invoiceAdjustment.findMany({
+      where: {
+        createdAt: { gte: from, lte: to },
+        type: { in: ["WAIVE", "CANCEL"] },
+      },
+      include: {
+        patient: {
+          select: {
+            id: true,
+            patientNumber: true,
+            firstName: true,
+            middleName: true,
+            lastName: true,
+          },
+        },
+        invoice: { select: { id: true, invoiceNumber: true } },
+        recordedBy: { select: { id: true, firstName: true, lastName: true } },
+        requestedBy: { select: { id: true, firstName: true, lastName: true } },
+      },
+      orderBy: { createdAt: "desc" },
+      take: 5_000,
+    });
+    let waivedCents = 0;
+    let waivedCount = 0;
+    let cancelledCents = 0;
+    let cancelledCount = 0;
+    const adjustments = adjustmentRows.map((a) => {
+      if (a.type === "CANCEL") {
+        cancelledCents += a.amountCents;
+        cancelledCount += 1;
+      } else {
+        waivedCents += a.amountCents;
+        waivedCount += 1;
+      }
+      return {
+        id: a.id,
+        type: a.type,
+        createdAt: a.createdAt.toISOString(),
+        amountCents: a.amountCents,
+        reason: a.reason,
+        invoice: a.invoice,
+        patient: a.patient,
+        recordedBy: a.recordedBy,
+        requestedBy: a.requestedBy,
+      };
+    });
+
     return {
       period: { from: from.toISOString(), to: to.toISOString() },
       totals: {
@@ -494,8 +695,13 @@ export class PaymentsService {
         netCents: amountCents - refundedCents,
         debtCollectedCents,
         byMethod,
+        waivedCents,
+        waivedCount,
+        cancelledCents,
+        cancelledCount,
       },
       rows,
+      adjustments,
     };
   }
 }
