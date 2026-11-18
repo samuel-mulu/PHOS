@@ -4,15 +4,29 @@ import { invoiceBalance } from "../common/domain/finance";
 import {
   ageBand,
   ageYearsAt,
+  ancAgeKey,
+  ANC_AGE_KEYS,
   classifySurveillance,
-  emptyAgeGrid,
+  emptyCountMap,
   emptyLabRows,
+  emptyMorbidities,
+  emptyOthersRow,
+  emptySexMap,
   fpAgeKey,
-  HMIS_AGE_BANDS,
+  fpMethodKey,
+  FP_AGE_KEYS,
+  FP_METHOD_KEYS,
+  immediateDiseaseLabels,
+  isHivLabTest,
   isQualitativePositive,
+  malariaSpecies,
   matchHmisLabTest,
+  matchImmediate,
+  matchNcod,
+  NOT_RECORDED,
+  opdAgeBand,
+  OPD_AGE_BANDS,
   sexHmis,
-  type HmisAgeBand,
 } from "./hmis-clinic";
 
 function startOfToday(): Date {
@@ -316,8 +330,9 @@ export class ReportsService {
   }
 
   /**
-   * Live HMIS tables from encounters, diagnoses, and verified lab results.
-   * FP methods / ANC visit number / EPI / IPD / deaths are not captured yet.
+   * Live ministry tables from encounters, diagnoses, verified lab results,
+   * family planning, antenatal visits, and deliveries.
+   * Deaths, EPI, ART regimens, and nutrition cohorts are not stored.
    */
   private async clinicHmis(from: Date, to: Date) {
     const facility = await this.prisma.facility.findFirst({
@@ -325,79 +340,117 @@ export class ReportsService {
       orderBy: { createdAt: "asc" },
     });
 
-    const [visitRows, labRows, diagnosisRows] = await Promise.all([
-      this.prisma.encounter.findMany({
-        where: {
-          startedAt: { gte: from, lte: to },
-          deletedAt: null,
-          status: { not: "CANCELLED" },
-        },
-        select: {
-          startedAt: true,
-          service: { select: { code: true } },
-          patient: { select: { sex: true, dateOfBirth: true } },
-        },
-      }),
-      this.prisma.labResult.findMany({
-        where: {
-          item: { labOrder: { status: "VERIFIED", cancelledAt: null } },
-          OR: [
-            { verifiedAt: { gte: from, lte: to } },
-            { verifiedAt: null, enteredAt: { gte: from, lte: to } },
-          ],
-        },
-        select: {
-          value: true,
-          flag: true,
-          item: {
-            select: {
-              labTest: { select: { code: true, name: true, category: true } },
-              labOrder: {
-                select: {
-                  encounter: {
-                    select: {
-                      service: { select: { code: true } },
-                      patient: { select: { sex: true } },
+    const [visitRows, labRows, diagnosisRows, fpRows, ancRows, deliveries] =
+      await Promise.all([
+        this.prisma.encounter.findMany({
+          where: {
+            startedAt: { gte: from, lte: to },
+            deletedAt: null,
+            status: { not: "CANCELLED" },
+          },
+          select: {
+            startedAt: true,
+            service: { select: { code: true } },
+            patient: { select: { sex: true, dateOfBirth: true } },
+          },
+        }),
+        this.prisma.labResult.findMany({
+          where: {
+            item: { labOrder: { status: "VERIFIED", cancelledAt: null } },
+            OR: [
+              { verifiedAt: { gte: from, lte: to } },
+              { verifiedAt: null, enteredAt: { gte: from, lte: to } },
+            ],
+          },
+          select: {
+            value: true,
+            flag: true,
+            item: {
+              select: {
+                labTest: { select: { code: true, name: true, category: true } },
+                labOrder: {
+                  select: {
+                    encounter: {
+                      select: {
+                        service: { select: { code: true } },
+                        patient: { select: { id: true, sex: true } },
+                      },
                     },
                   },
                 },
               },
             },
           },
-        },
-      }),
-      this.prisma.diagnosis.findMany({
-        where: {
-          deletedAt: null,
-          createdAt: { gte: from, lte: to },
-          consultation: { deletedAt: null },
-        },
-        select: {
-          label: true,
-          consultation: {
-            select: {
-              encounter: {
-                select: {
-                  startedAt: true,
-                  patient: { select: { sex: true, dateOfBirth: true } },
+        }),
+        this.prisma.diagnosis.findMany({
+          where: {
+            deletedAt: null,
+            createdAt: { gte: from, lte: to },
+            consultation: { deletedAt: null },
+          },
+          select: {
+            label: true,
+            consultation: {
+              select: {
+                encounter: {
+                  select: {
+                    startedAt: true,
+                    patient: { select: { sex: true, dateOfBirth: true } },
+                  },
                 },
               },
             },
           },
-        },
-      }),
-    ]);
+        }),
+        this.prisma.familyPlanningRecord.findMany({
+          where: {
+            deletedAt: null,
+            OR: [
+              { procedureDate: { gte: from, lte: to } },
+              { procedureDate: null, createdAt: { gte: from, lte: to } },
+            ],
+          },
+          select: {
+            visitType: true,
+            currentMethod: true,
+            procedureDate: true,
+            createdAt: true,
+            patient: { select: { dateOfBirth: true } },
+          },
+        }),
+        this.prisma.ancVisit.findMany({
+          where: {
+            deletedAt: null,
+            visitDate: { gte: from, lte: to },
+          },
+          select: {
+            patientId: true,
+            visitNumber: true,
+            gaWeeks: true,
+            visitDate: true,
+            patient: { select: { dateOfBirth: true } },
+          },
+        }),
+        this.prisma.deliverySummary.findMany({
+          where: {
+            deletedAt: null,
+            OR: [
+              { deliveredAt: { gte: from, lte: to } },
+              { deliveredAt: null, createdAt: { gte: from, lte: to } },
+            ],
+          },
+          select: {
+            modeOfDelivery: true,
+            newborns: {
+              select: { status: true, birthWeightGrams: true },
+            },
+          },
+        }),
+      ]);
 
     const opd = { M: 0, F: 0, total: 0 };
     const ipd = { M: 0, F: 0, total: 0 };
-    const fpByAge: Record<string, number> = {
-      "10-14": 0,
-      "15-19": 0,
-      "20-24": 0,
-      "25-29": 0,
-      "30-49": 0,
-    };
-    let ancFirstVisit = 0;
+    const opdByAge = emptySexMap(OPD_AGE_BANDS);
     let pncVisits = 0;
 
     for (const visit of visitRows) {
@@ -405,17 +458,70 @@ export class ReportsService {
       opd[sex] += 1;
       opd.total += 1;
       const years = ageYearsAt(visit.patient.dateOfBirth, visit.startedAt);
-      const code = visit.service?.code ?? "";
-      if (code === "FP") {
-        const key = fpAgeKey(years);
-        if (key) fpByAge[key] += 1;
+      opdByAge[opdAgeBand(years)][sex] += 1;
+      if (visit.service?.code === "PNC") pncVisits += 1;
+    }
+
+    const fpNewAge = emptyCountMap(FP_AGE_KEYS);
+    const fpRepeatAge = emptyCountMap(FP_AGE_KEYS);
+    const fpNewMethod = emptyCountMap(FP_METHOD_KEYS);
+    const fpRepeatMethod = emptyCountMap(FP_METHOD_KEYS);
+    let fpUntyped = 0;
+
+    for (const row of fpRows) {
+      const at = row.procedureDate ?? row.createdAt;
+      const key = fpAgeKey(ageYearsAt(row.patient.dateOfBirth, at));
+      const method = fpMethodKey(row.currentMethod);
+      const isNew = row.visitType === "NEW";
+      const isRepeat =
+        row.visitType === "RETURNING" ||
+        row.visitType === "FOLLOW_UP" ||
+        row.visitType === "SWITCHING";
+      if (!isNew && !isRepeat) fpUntyped += 1;
+      const ageMap = isNew ? fpNewAge : fpRepeatAge;
+      const methodMap = isNew ? fpNewMethod : fpRepeatMethod;
+      if (key) ageMap[key] += 1;
+      methodMap[method] += 1;
+    }
+
+    const ancFirstAge = emptyCountMap(ANC_AGE_KEYS);
+    const ancFourthAge = emptyCountMap(ANC_AGE_KEYS);
+    let ancFirstUnder16 = 0;
+    let ancFirstAtLeast16 = 0;
+    let ancFirstGaUnknown = 0;
+    const ancPatientIds = new Set<string>();
+    const fourthPatients = new Set<string>();
+
+    for (const visit of ancRows) {
+      ancPatientIds.add(visit.patientId);
+      const years = ageYearsAt(visit.patient.dateOfBirth, visit.visitDate);
+      const ageKey = ancAgeKey(years);
+      if (visit.visitNumber === 1) {
+        ancFirstAge[ageKey] += 1;
+        if (visit.gaWeeks == null) ancFirstGaUnknown += 1;
+        else if (visit.gaWeeks < 16) ancFirstUnder16 += 1;
+        else ancFirstAtLeast16 += 1;
       }
-      if (code === "MCH") ancFirstVisit += 1;
-      if (code === "PNC") pncVisits += 1;
+      if (visit.visitNumber >= 4) fourthPatients.add(visit.patientId);
+    }
+    for (const patientId of fourthPatients) {
+      const visit = ancRows.find(
+        (row) => row.patientId === patientId && row.visitNumber >= 4,
+      );
+      if (!visit) continue;
+      const years = ageYearsAt(visit.patient.dateOfBirth, visit.visitDate);
+      ancFourthAge[ancAgeKey(years)] += 1;
     }
 
     const labTests = emptyLabRows();
     const labIndex = new Map(labTests.map((row) => [row.test, row]));
+    const others = emptyOthersRow();
+    const otherParts = new Map<string, number>();
+    const persons = { M: new Set<string>(), F: new Set<string>() };
+    let malariaExamined = 0;
+    let malariaPfLab = 0;
+    let malariaPvLab = 0;
+    let malariaUnspecified = 0;
     let hivTestedGeneral = 0;
     let hivPositiveGeneral = 0;
     let hivTestedPregnant = 0;
@@ -425,44 +531,73 @@ export class ReportsService {
     let hepaTested = 0;
     let hepaReactive = 0;
 
+    const addOther = (name: string) => {
+      otherParts.set(name, (otherParts.get(name) ?? 0) + 1);
+      others.performed += 1;
+    };
+
     for (const result of labRows) {
       const test = result.item.labTest;
-      const rowName = matchHmisLabTest(test);
+      const patient = result.item.labOrder.encounter.patient;
+      const sex = sexHmis(patient.sex);
+      persons[sex].add(patient.id);
+      const service = result.item.labOrder.encounter.service?.code ?? "";
+      const pregnant =
+        ancPatientIds.has(patient.id) || service === "MCH" || service === "PNC";
       const positive = isQualitativePositive(result.value, result.flag);
-      if (rowName) {
-        const row = labIndex.get(rowName);
+
+      if (isHivLabTest(test)) {
+        hivTestedGeneral += 1;
+        if (positive) hivPositiveGeneral += 1;
+        if (pregnant) {
+          hivTestedPregnant += 1;
+          if (positive) hivPositivePregnant += 1;
+        }
+        continue;
+      }
+
+      const matched = matchHmisLabTest(test);
+      if (!matched) {
+        addOther(test.name.trim() || "Unlisted test");
+      } else if (matched.countOnly) {
+        const row = labIndex.get(matched.test);
+        if (row) row.performed += 1;
+        addOther(matched.test);
+      } else {
+        const row = labIndex.get(matched.test);
         if (row) {
+          row.performed += 1;
           if (positive) row.op_pos += 1;
           else row.op_neg += 1;
         }
       }
-      const code = test.code.toUpperCase();
-      const service = result.item.labOrder.encounter.service?.code ?? "";
-      const mch = service === "MCH" || service === "PNC";
-      if (code === "HIV" || rowName === "HIV test") {
-        hivTestedGeneral += 1;
-        if (positive) hivPositiveGeneral += 1;
-        if (mch) {
-          hivTestedPregnant += 1;
-          if (positive) hivPositivePregnant += 1;
-        }
+
+      if (matched?.test === "Blood Film" || matched?.test === "RDT test") {
+        malariaExamined += 1;
+        const species = malariaSpecies(result.value, result.flag);
+        if (species === "pf" || species === "both") malariaPfLab += 1;
+        if (species === "pv" || species === "both") malariaPvLab += 1;
+        if (species === "unspecified") malariaUnspecified += 1;
       }
-      if (code === "VDRL" || rowName === "Rpr(vdrl)test") {
+
+      if (pregnant && matched?.test === "Rpr(vdrl)test") {
         syphilisTested += 1;
         if (positive) syphilisReactive += 1;
       }
       if (
-        code === "HBSAG" ||
-        code === "HCV" ||
-        rowName === "Hepatitis b test" ||
-        rowName === "Hepatitis c test"
+        pregnant &&
+        (matched?.test === "Hepatitis b test" ||
+          matched?.test === "Hepatitis c test")
       ) {
         hepaTested += 1;
         if (positive) hepaReactive += 1;
       }
     }
 
+    labTests.push(others);
+
     const diseases = {
+      malaria: 0,
       malariaPF: 0,
       malariaPV: 0,
       meningitis: 0,
@@ -472,91 +607,174 @@ export class ReportsService {
       epidemicTyphus: 0,
       scabies: 0,
       samUnder5: 0,
+      hepaticVod: 0,
     };
-    const morbidityMap = new Map<
-      string,
-      Record<HmisAgeBand, { M: number; F: number }>
-    >();
+    const immediateCounts = new Map<string, number>(
+      immediateDiseaseLabels().map((label) => [label, 0]),
+    );
+    const morbidities = emptyMorbidities();
+    const morbidityIndex = new Map(morbidities.map((row) => [row.name, row]));
 
     for (const dx of diagnosisRows) {
       const patient = dx.consultation.encounter.patient;
       const at = dx.consultation.encounter.startedAt;
       const years = ageYearsAt(patient.dateOfBirth, at);
       const flags = classifySurveillance(dx.label, years);
-      for (const key of Object.keys(diseases) as (keyof typeof diseases)[]) {
-        if (flags[key]) diseases[key] += 1;
+      if (flags.malaria) diseases.malaria += 1;
+      if (flags.malariaPF) diseases.malariaPF += 1;
+      if (flags.malariaPV) diseases.malariaPV += 1;
+      if (flags.meningitis) diseases.meningitis += 1;
+      if (flags.dysentery) diseases.dysentery += 1;
+      if (flags.typhoid) diseases.typhoid += 1;
+      if (flags.relapsingFever) diseases.relapsingFever += 1;
+      if (flags.epidemicTyphus) diseases.epidemicTyphus += 1;
+      if (flags.scabies) diseases.scabies += 1;
+      if (flags.samUnder5) diseases.samUnder5 += 1;
+      if (flags.hepaticVod) diseases.hepaticVod += 1;
+
+      const immediate = matchImmediate(dx.label);
+      if (immediate) {
+        immediateCounts.set(immediate, (immediateCounts.get(immediate) ?? 0) + 1);
       }
-      const name = dx.label.trim() || "Unspecified";
-      if (!morbidityMap.has(name)) morbidityMap.set(name, emptyAgeGrid());
+
+      const name = matchNcod(dx.label);
+      const row = morbidityIndex.get(name);
+      if (!row) continue;
       const band = ageBand(years);
       const sex = sexHmis(patient.sex);
-      morbidityMap.get(name)![band][sex] += 1;
+      row.bands[band][sex] += 1;
+      row.total += 1;
     }
 
-    const topMorbidities = [...morbidityMap.entries()]
-      .map(([name, bands]) => {
-        let total = 0;
-        for (const band of HMIS_AGE_BANDS) total += bands[band].M + bands[band].F;
-        return { name, total, bands };
-      })
-      .sort((a, b) => b.total - a.total)
-      .slice(0, 45);
+    let skilledBirths = 0;
+    let caesarean = 0;
+    let stillbirths = 0;
+    let liveBirths = 0;
+    let lowBirthWeight = 0;
+    let weighed = 0;
+    for (const delivery of deliveries) {
+      skilledBirths += 1;
+      if (delivery.modeOfDelivery === "CS") caesarean += 1;
+      for (const baby of delivery.newborns) {
+        if (baby.status === "STILLBIRTH") {
+          stillbirths += 1;
+          continue;
+        }
+        liveBirths += 1;
+        if (baby.birthWeightGrams != null) {
+          weighed += 1;
+          if (baby.birthWeightGrams < 2500) lowBirthWeight += 1;
+        }
+      }
+    }
 
-    const fpTotal = Object.values(fpByAge).reduce((sum, n) => sum + n, 0);
+    const weekly = [
+      { indicator: "Total malaria (confirmed and clinical)", cases: diseases.malaria, deaths: null },
+      { indicator: "Malaria suspected fever cases examined (RDT or microscopy)", cases: malariaExamined, deaths: null },
+      { indicator: "Cases positive for malaria — Pf", cases: malariaPfLab, deaths: null },
+      { indicator: "Cases positive for malaria — Pv", cases: malariaPvLab, deaths: null },
+      { indicator: "Malaria positive, species not stated", cases: malariaUnspecified, deaths: null },
+      { indicator: "Meningitis", cases: diseases.meningitis, deaths: null },
+      { indicator: "Dysentery", cases: diseases.dysentery, deaths: null },
+      { indicator: "Typhoid fever", cases: diseases.typhoid, deaths: null },
+      { indicator: "Relapsing fever", cases: diseases.relapsingFever, deaths: null },
+      { indicator: "Epidemic typhus", cases: diseases.epidemicTyphus, deaths: null },
+      { indicator: "SAM / MUAC < 11 cm or bilateral edema in children under 5 (new)", cases: diseases.samUnder5, deaths: null },
+      { indicator: "Hepatic VOD", cases: diseases.hepaticVod, deaths: null },
+      { indicator: "Maternal death", cases: null, deaths: null },
+      { indicator: "Scabies", cases: diseases.scabies, deaths: null },
+      { indicator: "Other", cases: null, deaths: null },
+    ];
+
+    const immediate = immediateDiseaseLabels().map((label) => ({
+      indicator: label,
+      cases: label === "Perinatal and neonatal death" ? null : (immediateCounts.get(label) ?? 0),
+      deaths: null,
+    }));
+
+    const ancFirstVisit =
+      ancFirstUnder16 + ancFirstAtLeast16 + ancFirstGaUnknown;
+    const ancFourthVisit = Object.values(ancFourthAge).reduce((sum, n) => sum + n, 0);
 
     return {
       facility: facility?.name ?? "Hiwet Clinic",
       opd,
       ipd,
+      opdByAge,
+      labPersons: {
+        op: {
+          M: persons.M.size,
+          F: persons.F.size,
+          total: persons.M.size + persons.F.size,
+        },
+        ip: { M: 0, F: 0, total: 0 },
+      },
       labTests,
+      labOtherBreakdown: [...otherParts.entries()].map(([test, count]) => ({
+        test,
+        count,
+      })),
       diseases,
+      weekly,
+      immediate,
+      malaria: {
+        examined: malariaExamined,
+        pf: malariaPfLab,
+        pv: malariaPvLab,
+        unspecified: malariaUnspecified,
+      },
       hiv: {
         testedGeneral: hivTestedGeneral,
         positiveGeneral: hivPositiveGeneral,
         testedPregnant: hivTestedPregnant,
         positivePregnant: hivPositivePregnant,
-        artNew: 0,
+        artNew: null,
       },
-      topMorbidities,
-      ageGroups: [...HMIS_AGE_BANDS],
+      morbidities,
+      topMorbidities: morbidities.filter((row) => row.total > 0),
+      ageGroups: ["<1yr", "1-4yr", "5-14yr", "15-29yr", "30-64yr", ">=65yr"],
       familyPlanning: {
-        newAcceptors: { total: fpTotal, ...fpByAge },
-        methodNew: {
-          "Oral contraceptives": 0,
-          Injectables: 0,
-          Implants: 0,
-          IUD: 0,
-          Vasectomy: 0,
-          "Tubal ligation": 0,
-          Others: 0,
-        },
+        newByAge: fpNewAge,
+        repeatByAge: fpRepeatAge,
+        newByMethod: fpNewMethod,
+        repeatByMethod: fpRepeatMethod,
+        untypedVisit: fpUntyped,
       },
       anc: {
         firstVisit: ancFirstVisit,
-        fourthVisit: 0,
+        firstUnder16: ancFirstUnder16,
+        firstAtLeast16: ancFirstAtLeast16,
+        firstGaUnknown: ancFirstGaUnknown,
+        firstByAge: ancFirstAge,
+        fourthVisit: ancFourthVisit,
+        fourthByAge: ancFourthAge,
         syphilisTested,
         syphilisReactive,
-        syphilisTreated: 0,
+        syphilisTreated: null,
         hepaTested,
         hepaReactive,
+        hepaTreated: null,
         pncVisits,
       },
-      epi: {
-        BCG: 0,
-        Penta1: 0,
-        Penta3: 0,
-        PCV1: 0,
-        PCV3: 0,
-        Polio1: 0,
-        Polio3: 0,
-        Measles1: 0,
-        Measles2: 0,
+      delivery: {
+        skilledBirths,
+        caesarean,
+        stillbirths,
+        liveBirths,
+        lowBirthWeight,
+        weighed,
       },
+      notRecorded: NOT_RECORDED,
       notes: [
-        "OPD is clinic encounters in the period (this site has no inpatient ward).",
-        "Lab +/− uses verified results; numeric tests count as tested (−ve) unless flagged abnormal/critical or the value is positive/reactive.",
-        "Family planning methods, ANC visit number, EPI, ART, and deaths are not captured in PHOS yet.",
-      ],
+        "Outpatient is every non-cancelled visit in the period. Inpatient stays zero because this clinic has no ward.",
+        "Persons tested counts each patient once. The test table counts each verified result.",
+        "Hemoglobin, ESR, differential count, blood group, and any test not on the list are included under Others. They are not marked positive or negative.",
+        "HIV tests are reported under HIV testing, not on the laboratory activity rows.",
+        "A dash means the clinic system does not record that figure. A zero means none were found.",
+        fpUntyped > 0
+          ? `${fpUntyped} family planning visits have no visit type and are counted as repeat.`
+          : "Family planning new versus repeat uses the visit type on the family planning record.",
+      ].filter(Boolean),
     };
   }
 }
