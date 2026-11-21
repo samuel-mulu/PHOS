@@ -4,6 +4,8 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { AuditService } from "../audit/audit.service";
+import { codeFromName, uniqueCode } from "../common/utils/named-lookup";
+import { Prisma } from "../generated/prisma/client";
 import { PrismaService } from "../prisma/prisma.service";
 import {
   CreateExpenseCategoryDto,
@@ -69,21 +71,30 @@ export class ExpensesService {
   }
 
   async create(dto: CreateExpenseDto, actorId: string) {
-    const category = await this.prisma.expenseCategory.findFirst({
-      where: { id: dto.categoryId, active: true },
-    });
-    if (!category) throw new NotFoundException("Expense category not found");
+    const newName = dto.newCategoryName?.trim();
+    if (!newName && !dto.categoryId)
+      throw new BadRequestException("Choose a category or type the other expense name");
+
+    if (!newName) {
+      const category = await this.prisma.expenseCategory.findFirst({
+        where: { id: dto.categoryId, active: true },
+      });
+      if (!category) throw new NotFoundException("Expense category not found");
+    }
 
     const expenseDate = parseExpenseDate(dto.expenseDate);
 
     return this.prisma.$transaction(async (tx) => {
+      const categoryId = newName
+        ? await this.resolveOrCreateCategory(tx, newName, actorId)
+        : dto.categoryId!;
       const seq = await tx.$queryRaw<
         Array<{ nextval: bigint }>
       >`SELECT nextval('expense_number_seq')`;
       const expense = await tx.expense.create({
         data: {
           expenseNumber: `EXP-${new Date().getUTCFullYear()}-${seq[0].nextval.toString().padStart(6, "0")}`,
-          categoryId: dto.categoryId,
+          categoryId,
           amountCents: dto.amountCents,
           expenseDate,
           paymentMethod: dto.method,
@@ -263,6 +274,43 @@ export class ExpensesService {
       },
       rows,
     };
+  }
+
+  /** "Other" typed by staff: reuse a category with the same name or create one. */
+  private async resolveOrCreateCategory(
+    tx: Prisma.TransactionClient,
+    name: string,
+    actorId: string,
+  ): Promise<string> {
+    const existing = await tx.expenseCategory.findFirst({
+      where: { name: { equals: name, mode: "insensitive" } },
+    });
+    if (existing) {
+      if (!existing.active)
+        await tx.expenseCategory.update({
+          where: { id: existing.id },
+          data: { active: true },
+        });
+      return existing.id;
+    }
+
+    const code = await uniqueCode(codeFromName(name), async (c) =>
+      Boolean(await tx.expenseCategory.findUnique({ where: { code: c } })),
+    );
+    const created = await tx.expenseCategory.create({
+      data: { code, name, sortOrder: 90 },
+    });
+    await this.audit.create(
+      {
+        actorId,
+        action: "EXPENSE_CATEGORY_CREATED",
+        entityType: "ExpenseCategory",
+        entityId: created.id,
+        newValues: { code, name },
+      },
+      tx,
+    );
+    return created.id;
   }
 
   private async ensureCategory(id: string) {

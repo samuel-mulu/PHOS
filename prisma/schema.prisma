@@ -173,6 +173,11 @@ enum ExpenseStatus {
   VOIDED
 }
 
+enum OtherIncomeStatus {
+  RECORDED
+  VOIDED
+}
+
 enum PaymentStatus {
   COMPLETED
   PARTIALLY_REFUNDED
@@ -357,6 +362,8 @@ model User {
   issuedRefunds         Refund[]               @relation("RefundIssuer")
   recordedExpenses      Expense[]              @relation("ExpenseRecorder")
   voidedExpenses        Expense[]              @relation("ExpenseVoider")
+  recordedOtherIncomes  OtherIncome[]          @relation("OtherIncomeRecorder")
+  voidedOtherIncomes    OtherIncome[]          @relation("OtherIncomeVoider")
   cashSessions          CashSession[]
   notifications         Notification[]         @relation("NotificationRecipient")
   createdAppointments   Appointment[]          @relation("AppointmentCreator")
@@ -1100,6 +1107,45 @@ model Expense {
   @@index([expenseDate, status])
   @@index([categoryId])
   @@map("expenses")
+}
+
+model OtherIncomeSource {
+  id        String        @id @default(uuid()) @db.Uuid
+  code      String        @unique
+  name      String
+  sortOrder Int           @default(0) @map("sort_order")
+  active    Boolean       @default(true)
+  incomes   OtherIncome[]
+  createdAt DateTime      @default(now()) @map("created_at")
+  updatedAt DateTime      @updatedAt @map("updated_at")
+
+  @@map("other_income_sources")
+}
+
+model OtherIncome {
+  id               String            @id @default(uuid()) @db.Uuid
+  incomeNumber     String            @unique @map("income_number")
+  sourceId         String            @map("source_id") @db.Uuid
+  amountCents      Int               @map("amount_cents")
+  incomeDate       DateTime          @map("income_date") @db.Date
+  paymentMethod    PaymentMethod     @map("payment_method")
+  payer            String?
+  notes            String?
+  receiptReference String?           @map("receipt_reference")
+  status           OtherIncomeStatus @default(RECORDED)
+  recordedById     String            @map("recorded_by_id") @db.Uuid
+  voidedAt         DateTime?         @map("voided_at")
+  voidedById       String?           @map("voided_by_id") @db.Uuid
+  voidReason       String?           @map("void_reason")
+  source           OtherIncomeSource @relation(fields: [sourceId], references: [id])
+  recordedBy       User              @relation("OtherIncomeRecorder", fields: [recordedById], references: [id])
+  voidedBy         User?             @relation("OtherIncomeVoider", fields: [voidedById], references: [id])
+  createdAt        DateTime          @default(now()) @map("created_at")
+  updatedAt        DateTime          @updatedAt @map("updated_at")
+
+  @@index([incomeDate, status])
+  @@index([sourceId])
+  @@map("other_incomes")
 }
 
 model CashSession {

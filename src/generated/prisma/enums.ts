@@ -238,6 +238,14 @@ export const ExpenseStatus = {
 export type ExpenseStatus = (typeof ExpenseStatus)[keyof typeof ExpenseStatus]
 
 
+export const OtherIncomeStatus = {
+  RECORDED: 'RECORDED',
+  VOIDED: 'VOIDED'
+} as const
+
+export type OtherIncomeStatus = (typeof OtherIncomeStatus)[keyof typeof OtherIncomeStatus]
+
+
 export const PaymentStatus = {
   COMPLETED: 'COMPLETED',
   PARTIALLY_REFUNDED: 'PARTIALLY_REFUNDED',

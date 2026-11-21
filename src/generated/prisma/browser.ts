@@ -184,6 +184,16 @@ export type ExpenseCategory = Prisma.ExpenseCategoryModel
  */
 export type Expense = Prisma.ExpenseModel
 /**
+ * Model OtherIncomeSource
+ * 
+ */
+export type OtherIncomeSource = Prisma.OtherIncomeSourceModel
+/**
+ * Model OtherIncome
+ * 
+ */
+export type OtherIncome = Prisma.OtherIncomeModel
+/**
  * Model CashSession
  * 
  */

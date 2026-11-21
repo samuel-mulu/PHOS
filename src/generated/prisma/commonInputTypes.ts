@@ -772,6 +772,23 @@ export type EnumExpenseStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumExpenseStatusFilter<$PrismaModel>
 }
 
+export type EnumOtherIncomeStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.OtherIncomeStatus | Prisma.EnumOtherIncomeStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.OtherIncomeStatus[] | Prisma.ListEnumOtherIncomeStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.OtherIncomeStatus[] | Prisma.ListEnumOtherIncomeStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumOtherIncomeStatusFilter<$PrismaModel> | $Enums.OtherIncomeStatus
+}
+
+export type EnumOtherIncomeStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.OtherIncomeStatus | Prisma.EnumOtherIncomeStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.OtherIncomeStatus[] | Prisma.ListEnumOtherIncomeStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.OtherIncomeStatus[] | Prisma.ListEnumOtherIncomeStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumOtherIncomeStatusWithAggregatesFilter<$PrismaModel> | $Enums.OtherIncomeStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumOtherIncomeStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumOtherIncomeStatusFilter<$PrismaModel>
+}
+
 export type EnumCashSessionStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.CashSessionStatus | Prisma.EnumCashSessionStatusFieldRefInput<$PrismaModel>
   in?: $Enums.CashSessionStatus[] | Prisma.ListEnumCashSessionStatusFieldRefInput<$PrismaModel>
@@ -1884,6 +1901,23 @@ export type NestedEnumExpenseStatusWithAggregatesFilter<$PrismaModel = never> = 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumExpenseStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumExpenseStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumOtherIncomeStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.OtherIncomeStatus | Prisma.EnumOtherIncomeStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.OtherIncomeStatus[] | Prisma.ListEnumOtherIncomeStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.OtherIncomeStatus[] | Prisma.ListEnumOtherIncomeStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumOtherIncomeStatusFilter<$PrismaModel> | $Enums.OtherIncomeStatus
+}
+
+export type NestedEnumOtherIncomeStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.OtherIncomeStatus | Prisma.EnumOtherIncomeStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.OtherIncomeStatus[] | Prisma.ListEnumOtherIncomeStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.OtherIncomeStatus[] | Prisma.ListEnumOtherIncomeStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumOtherIncomeStatusWithAggregatesFilter<$PrismaModel> | $Enums.OtherIncomeStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumOtherIncomeStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumOtherIncomeStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumCashSessionStatusFilter<$PrismaModel = never> = {

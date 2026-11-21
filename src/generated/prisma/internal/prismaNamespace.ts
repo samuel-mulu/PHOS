@@ -430,6 +430,8 @@ export const ModelName = {
   Refund: 'Refund',
   ExpenseCategory: 'ExpenseCategory',
   Expense: 'Expense',
+  OtherIncomeSource: 'OtherIncomeSource',
+  OtherIncome: 'OtherIncome',
   CashSession: 'CashSession',
   Notification: 'Notification',
   ObstetricHistory: 'ObstetricHistory',
@@ -454,7 +456,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshSession" | "facility" | "department" | "service" | "patient" | "encounter" | "appointment" | "queueEntry" | "triage" | "consultation" | "diagnosis" | "auditLog" | "labTest" | "labOrder" | "clinicalMessage" | "labOrderItem" | "labResult" | "prescription" | "prescriptionItem" | "medicine" | "supplier" | "inventoryBatch" | "inventoryMovement" | "dispensing" | "dispensingItem" | "invoice" | "invoiceAdjustment" | "invoiceItem" | "payment" | "refund" | "expenseCategory" | "expense" | "cashSession" | "notification" | "obstetricHistory" | "ancVisit" | "laborAdmission" | "laborMonitoringEntry" | "deliverySummary" | "newbornRecord" | "familyPlanningRecord"
+    modelProps: "user" | "refreshSession" | "facility" | "department" | "service" | "patient" | "encounter" | "appointment" | "queueEntry" | "triage" | "consultation" | "diagnosis" | "auditLog" | "labTest" | "labOrder" | "clinicalMessage" | "labOrderItem" | "labResult" | "prescription" | "prescriptionItem" | "medicine" | "supplier" | "inventoryBatch" | "inventoryMovement" | "dispensing" | "dispensingItem" | "invoice" | "invoiceAdjustment" | "invoiceItem" | "payment" | "refund" | "expenseCategory" | "expense" | "otherIncomeSource" | "otherIncome" | "cashSession" | "notification" | "obstetricHistory" | "ancVisit" | "laborAdmission" | "laborMonitoringEntry" | "deliverySummary" | "newbornRecord" | "familyPlanningRecord"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2900,6 +2902,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    OtherIncomeSource: {
+      payload: Prisma.$OtherIncomeSourcePayload<ExtArgs>
+      fields: Prisma.OtherIncomeSourceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OtherIncomeSourceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomeSourcePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OtherIncomeSourceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomeSourcePayload>
+        }
+        findFirst: {
+          args: Prisma.OtherIncomeSourceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomeSourcePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OtherIncomeSourceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomeSourcePayload>
+        }
+        findMany: {
+          args: Prisma.OtherIncomeSourceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomeSourcePayload>[]
+        }
+        create: {
+          args: Prisma.OtherIncomeSourceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomeSourcePayload>
+        }
+        createMany: {
+          args: Prisma.OtherIncomeSourceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OtherIncomeSourceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomeSourcePayload>[]
+        }
+        delete: {
+          args: Prisma.OtherIncomeSourceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomeSourcePayload>
+        }
+        update: {
+          args: Prisma.OtherIncomeSourceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomeSourcePayload>
+        }
+        deleteMany: {
+          args: Prisma.OtherIncomeSourceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OtherIncomeSourceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OtherIncomeSourceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomeSourcePayload>[]
+        }
+        upsert: {
+          args: Prisma.OtherIncomeSourceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomeSourcePayload>
+        }
+        aggregate: {
+          args: Prisma.OtherIncomeSourceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOtherIncomeSource>
+        }
+        groupBy: {
+          args: Prisma.OtherIncomeSourceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OtherIncomeSourceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OtherIncomeSourceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OtherIncomeSourceCountAggregateOutputType> | number
+        }
+      }
+    }
+    OtherIncome: {
+      payload: Prisma.$OtherIncomePayload<ExtArgs>
+      fields: Prisma.OtherIncomeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OtherIncomeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OtherIncomeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomePayload>
+        }
+        findFirst: {
+          args: Prisma.OtherIncomeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OtherIncomeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomePayload>
+        }
+        findMany: {
+          args: Prisma.OtherIncomeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomePayload>[]
+        }
+        create: {
+          args: Prisma.OtherIncomeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomePayload>
+        }
+        createMany: {
+          args: Prisma.OtherIncomeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OtherIncomeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomePayload>[]
+        }
+        delete: {
+          args: Prisma.OtherIncomeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomePayload>
+        }
+        update: {
+          args: Prisma.OtherIncomeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomePayload>
+        }
+        deleteMany: {
+          args: Prisma.OtherIncomeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OtherIncomeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OtherIncomeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomePayload>[]
+        }
+        upsert: {
+          args: Prisma.OtherIncomeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OtherIncomePayload>
+        }
+        aggregate: {
+          args: Prisma.OtherIncomeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOtherIncome>
+        }
+        groupBy: {
+          args: Prisma.OtherIncomeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OtherIncomeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OtherIncomeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OtherIncomeCountAggregateOutputType> | number
+        }
+      }
+    }
     CashSession: {
       payload: Prisma.$CashSessionPayload<ExtArgs>
       fields: Prisma.CashSessionFieldRefs
@@ -4171,6 +4321,41 @@ export const ExpenseScalarFieldEnum = {
 export type ExpenseScalarFieldEnum = (typeof ExpenseScalarFieldEnum)[keyof typeof ExpenseScalarFieldEnum]
 
 
+export const OtherIncomeSourceScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name',
+  sortOrder: 'sortOrder',
+  active: 'active',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OtherIncomeSourceScalarFieldEnum = (typeof OtherIncomeSourceScalarFieldEnum)[keyof typeof OtherIncomeSourceScalarFieldEnum]
+
+
+export const OtherIncomeScalarFieldEnum = {
+  id: 'id',
+  incomeNumber: 'incomeNumber',
+  sourceId: 'sourceId',
+  amountCents: 'amountCents',
+  incomeDate: 'incomeDate',
+  paymentMethod: 'paymentMethod',
+  payer: 'payer',
+  notes: 'notes',
+  receiptReference: 'receiptReference',
+  status: 'status',
+  recordedById: 'recordedById',
+  voidedAt: 'voidedAt',
+  voidedById: 'voidedById',
+  voidReason: 'voidReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OtherIncomeScalarFieldEnum = (typeof OtherIncomeScalarFieldEnum)[keyof typeof OtherIncomeScalarFieldEnum]
+
+
 export const CashSessionScalarFieldEnum = {
   id: 'id',
   cashierId: 'cashierId',
@@ -4855,6 +5040,20 @@ export type ListEnumExpenseStatusFieldRefInput<$PrismaModel> = FieldRefInputType
 
 
 /**
+ * Reference to a field of type 'OtherIncomeStatus'
+ */
+export type EnumOtherIncomeStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OtherIncomeStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'OtherIncomeStatus[]'
+ */
+export type ListEnumOtherIncomeStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OtherIncomeStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'CashSessionStatus'
  */
 export type EnumCashSessionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CashSessionStatus'>
@@ -5359,6 +5558,8 @@ export type GlobalOmitConfig = {
   refund?: Prisma.RefundOmit
   expenseCategory?: Prisma.ExpenseCategoryOmit
   expense?: Prisma.ExpenseOmit
+  otherIncomeSource?: Prisma.OtherIncomeSourceOmit
+  otherIncome?: Prisma.OtherIncomeOmit
   cashSession?: Prisma.CashSessionOmit
   notification?: Prisma.NotificationOmit
   obstetricHistory?: Prisma.ObstetricHistoryOmit

@@ -313,8 +313,23 @@ async function main() {
     });
   }
 
+  const OTHER_INCOME_SOURCES = [
+    { code: "DONATION", name: "Donation", sortOrder: 10 },
+    { code: "GRANT", name: "Grant / NGO support", sortOrder: 20 },
+    { code: "RENT", name: "Rent / lease", sortOrder: 30 },
+    { code: "TRAINING", name: "Training / student fees", sortOrder: 40 },
+    { code: "OTHER", name: "Other", sortOrder: 99 },
+  ];
+  for (const src of OTHER_INCOME_SOURCES) {
+    await prisma.otherIncomeSource.upsert({
+      where: { code: src.code },
+      update: { name: src.name, sortOrder: src.sortOrder, active: true },
+      create: src,
+    });
+  }
+
   console.log(
-    `Seeded Hiwet Clinic. Services: ${CLINIC_SERVICES.length}. Lab tests: ${LAB_TESTS.length}. Expense categories: ${EXPENSE_CATEGORIES.length}. Admin: ${email} · Front desk: ${deskEmail}`,
+    `Seeded Hiwet Clinic. Services: ${CLINIC_SERVICES.length}. Lab tests: ${LAB_TESTS.length}. Expense categories: ${EXPENSE_CATEGORIES.length}. Income sources: ${OTHER_INCOME_SOURCES.length}. Admin: ${email} · Front desk: ${deskEmail}`,
   );
 }
 void main().finally(() => prisma.$disconnect());

@@ -11,8 +11,16 @@ import {
 import { PaymentMethod } from "../../generated/prisma/client";
 
 export class CreateExpenseDto {
+  /** Existing category. Omit when `newCategoryName` is given. */
+  @IsOptional()
   @IsUUID()
-  categoryId!: string;
+  categoryId?: string;
+
+  /** "Other" typed by staff: creates (or reuses) a category with this name. */
+  @IsOptional()
+  @IsString()
+  @MaxLength(120)
+  newCategoryName?: string;
 
   @IsInt()
   @Min(1)
